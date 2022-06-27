@@ -59,8 +59,4 @@ export class FluentIterator<A> {
   [Symbol.iterator](): Iterator<A> {
     return this.iter;
   }
-
-  iterator(): Iterator<A> {
-    return this.iter;
-  }
 }

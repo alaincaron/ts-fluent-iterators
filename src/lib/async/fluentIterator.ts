@@ -1,14 +1,14 @@
-gimport * as Iterators from './iterators';
+import * as Iterators from './iterators';
 
 export class FluentIterator<A> {
 
-  private iter: Iterator<A>;
+  private iter: AsyncIterator<A>;
 
-  constructor(iter: Iterator<A> | Iterable<A>) {
-    this.iter = Iterators.iterator(iter);
+  constructor(iter: AsyncIterator<A> | AsyncIterable<A>) {
+    this.iter = Iterators.asyncIterator(iter);
   }
 
-  collect(): A[] {
+  collect(): Promise<A[]> {
     return Iterators.collect(this.iter);
   }
 
@@ -20,7 +20,7 @@ export class FluentIterator<A> {
     return new FluentIterator(Iterators.map(this.iter, f));
   }
 
-  first(): A | undefined {
+  first(): Promise<A | undefined> {
     return Iterators.first(this.iter);
   }
 
@@ -32,20 +32,20 @@ export class FluentIterator<A> {
     return new FluentIterator(Iterators.skip(this.iter, n));
   }
 
-  find(predicate: (a: A) => boolean): A | undefined {
+  find(predicate: (a: A) => boolean): Promise<A | undefined> {
     return Iterators.find(this.iter, predicate);
   }
 
-  fold<B>(reducer: (b: B, a: A) => B, initialValue: B): B {
+  fold<B>(reducer: (b: B, a: A) => B, initialValue: B): Promise<B> {
     return Iterators.fold(this.iter, reducer, initialValue);
   }
 
-  reduce(reducer: (acc: A, a: A) => A, initialValue?: A): A | undefined {
+  reduce(reducer: (acc: A, a: A) => A, initialValue?: A): Promise<A | undefined> {
     return Iterators.reduce(this.iter, reducer, initialValue);
   }
 
-  zip<B>(other: Iterator<B> | Iterable<B>): FluentIterator<[A, B]> {
-    return new FluentIterator(Iterators.zip(this.iter, Iterators.iterator(other)));
+  zip<B>(other: AsyncIterator<B> | AsyncIterable<B>): FluentIterator<[A, B]> {
+    return new FluentIterator(Iterators.zip(this.iter, Iterators.asyncIterator(other)));
   }
 
   enumerate(): FluentIterator<[A, number]> {
@@ -56,11 +56,7 @@ export class FluentIterator<A> {
     return new FluentIterator(Iterators.tap(this.iter, f));
   }
 
-  [Symbol.iterator](): Iterator<A> {
-    return this.iter;
-  }
-
-  iterator(): Iterator<A> {
+  [Symbol.asyncIterator](): AsyncIterator<A> {
     return this.iter;
   }
 }
