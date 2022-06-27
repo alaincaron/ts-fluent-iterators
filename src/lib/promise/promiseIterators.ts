@@ -1,4 +1,5 @@
 import * as SyncIterators from "../sync/iterators";
+export { iterator, isIterable, take, skip } from "../sync/iterators";
 
 export function* map<A, B>(iter: Iterator<Promise<A>>, f: (a: A) => B | Promise<B>): Iterator<Promise<B>> {
   for (; ;) {

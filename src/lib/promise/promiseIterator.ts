@@ -1,4 +1,4 @@
-import * as Iterators from './iterators';
+import * as Iterators from './promiseIterators';
 import * as SyncIterators from "../sync/iterators";
 
 export class PromiseIterator<A> {
@@ -35,6 +35,14 @@ export class PromiseIterator<A> {
 
   zip<B>(other: Iterator<Promise<B>> | Iterable<Promise<B>>): PromiseIterator<[A, B]> {
     return new PromiseIterator(Iterators.zip(this.iter, SyncIterators.iterator(other)));
+  }
+
+  take(n: number): PromiseIterator<A> {
+    return new PromiseIterator(Iterators.take(this.iter, n));
+  }
+
+  skip(n: number): PromiseIterator<A> {
+    return new PromiseIterator(Iterators.skip(this.iter, n));
   }
 
   enumerate(): PromiseIterator<[A, number]> {
