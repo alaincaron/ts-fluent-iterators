@@ -1,3 +1,4 @@
+import * as Iterators from "../sync/iterators";
 
 export function asyncIterator<A>(iter: AsyncIterator<A> | AsyncIterable<A>): AsyncIterator<A> {
   if (isAsyncIterable(iter)) return (iter as any)[Symbol.asyncIterator]() as AsyncIterator<A>;

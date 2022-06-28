@@ -5,6 +5,7 @@ export * as Generators from "./lib/sync/generators";
 
 export * as AsyncIterators from "./lib/async/asyncIterators";
 export { AsyncFluentIterator } from "./lib/async/asyncFluentIterator";
+export * as AsyncGenerators from "./lib/async/asyncGenerators";
 
 export * as PromiseIterators from "./lib/promise/promiseIterators";
 export * as PromiseIterator from "./lib/promise/promiseIterator";
