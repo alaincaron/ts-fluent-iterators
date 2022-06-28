@@ -17,6 +17,12 @@ export function* flatmap<A, B>(iter: Iterator<Promise<A>>, f: (a: Promise<A>) =>
   }
 }
 
+export function first<A>(iter: Iterator<Promise<A>>): Promise<A | undefined> {
+  const item = iter.next();
+  if (item.done) return Promise.resolve(undefined);
+  return item.value;
+}
+
 export function* tap<A>(iter: Iterator<Promise<A>>, f: (a: A) => any): Iterator<Promise<A>> {
   for (; ;) {
     const item = iter.next();
@@ -77,4 +83,8 @@ export async function reduce<A>(iter: Iterator<Promise<A>>, reducer: (acc: A, a:
 
 export function collect<A>(iter: Iterator<Promise<A>>): Promise<A[]> {
   return Promise.all(SyncIterators.collect(iter));
+}
+
+export function allSettled<A>(iter: Iterator<Promise<A>>): Promise<PromiseSettledResult<A>[]> {
+  return Promise.allSettled(SyncIterators.collect(iter));
 }

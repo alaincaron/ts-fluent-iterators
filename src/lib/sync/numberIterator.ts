@@ -62,3 +62,7 @@ export class NumberIterator extends FluentIterator<number> {
     return Iterators.fold(this[Symbol.iterator](), avgReducer, { avg: 0, i: 0 }).avg;
   }
 }
+
+export function numberIterator(iter: Iterator<number> | Iterable<number>): NumberIterator {
+  return new NumberIterator(iter);
+}

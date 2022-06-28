@@ -17,8 +17,10 @@ export async function* map<A, B>(iter: AsyncIterator<A>, f: (a: A) => B): AsyncI
   }
 }
 
-export function first<A>(iter: AsyncIterator<A>): Promise<A | undefined> {
-  return iter.next().then(i => i.value);
+export async function first<A>(iter: AsyncIterator<A>): Promise<A | undefined> {
+  const item = await iter.next();
+  if (item.done) return undefined;
+  return item.value;
 }
 
 export async function* take<A>(iter: AsyncIterator<A>, n: number): AsyncIterator<A> {

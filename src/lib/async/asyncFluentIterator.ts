@@ -60,3 +60,7 @@ export class AsyncFluentIterator<A> {
     return this.iter;
   }
 }
+
+export function asyncFluentIterator<A>(iter: AsyncIterator<A> | AsyncIterable<A>): AsyncFluentIterator<A> {
+  return new AsyncFluentIterator(iter);
+}

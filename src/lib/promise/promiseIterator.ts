@@ -13,6 +13,10 @@ export class PromiseIterator<A> {
     return Iterators.collect(this.iter);
   }
 
+  allSettled(): Promise<PromiseSettledResult<A>[]> {
+    return Iterators.allSettled(this.iter);
+  }
+
   map<B>(f: (a: A) => B | Promise<B>): PromiseIterator<B> {
     return new PromiseIterator(Iterators.map(this.iter, f));
   }
@@ -23,6 +27,10 @@ export class PromiseIterator<A> {
 
   find(predicate: (a: A) => boolean): Promise<A | undefined> {
     return Iterators.find(this.iter, predicate);
+  }
+
+  first(): Promise<A | undefined> {
+    return Iterators.first(this.iter);
   }
 
   fold<B>(reducer: (b: B, a: A) => B | Promise<B>, initialValue: B): Promise<B> {
@@ -60,4 +68,8 @@ export class PromiseIterator<A> {
   iterator(): Iterator<Promise<A>> {
     return this.iter;
   }
+}
+
+export function promiseIterator<A>(iter: Iterator<Promise<A>> | Iterable<Promise<A>>): PromiseIterator<A> {
+  return new PromiseIterator(iter);
 }

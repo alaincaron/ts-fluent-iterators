@@ -60,3 +60,8 @@ export class FluentIterator<A> {
     return this.iter;
   }
 }
+
+
+export function fluentIterator<A>(iter: Iterator<A> | Iterable<A>): FluentIterator<A> {
+  return new FluentIterator<A>(iter);
+}
