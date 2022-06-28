@@ -88,3 +88,15 @@ export function collect<A>(iter: Iterator<Promise<A>>): Promise<A[]> {
 export function allSettled<A>(iter: Iterator<Promise<A>>): Promise<PromiseSettledResult<A>[]> {
   return Promise.allSettled(SyncIterators.collect(iter));
 }
+
+export function race<A>(iter: Iterator<Promise<A>>): Promise<A | undefined> {
+  const promises = SyncIterators.collect(iter);
+  if (!promises.length) return Promise.resolve(undefined);
+  return Promise.race(promises);
+}
+
+export function any<A>(iter: Iterator<Promise<A>>): Promise<A | undefined> {
+  const promises = SyncIterators.collect(iter);
+  if (!promises.length) return Promise.resolve(undefined);
+  return Promise.any(promises);
+}

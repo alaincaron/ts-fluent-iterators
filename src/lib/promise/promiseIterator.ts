@@ -17,6 +17,14 @@ export class PromiseIterator<A> {
     return Iterators.allSettled(this.iter);
   }
 
+  race(): Promise<A | undefined> {
+    return Iterators.race(this.iter);
+  }
+
+  any(): Promise<A | undefined> {
+    return Iterators.any(this.iter);
+  }
+
   map<B>(f: (a: A) => B | Promise<B>): PromiseIterator<B> {
     return new PromiseIterator(Iterators.map(this.iter, f));
   }
