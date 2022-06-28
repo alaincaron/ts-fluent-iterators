@@ -119,11 +119,3 @@ export function collect<A>(iter: Iterator<A>): A[] {
   }
   return result;
 }
-
-export function* range(start: number, end?: number, step: number = 1): Iterator<number> {
-  let value = start;
-  while (end == null || value < end) {
-    yield value;
-    value += step;
-  }
-}
