@@ -70,6 +70,10 @@ export function fold<A, B>(iter: Iterator<Promise<A>>, reducer: (b: B, a: A) => 
   return acc;
 }
 
+export async function forEach<A>(iter: Iterator<Promise<A>>, f: (a: A) => any): Promise<void> {
+  await collect(map(iter, f));
+}
+
 export async function reduce<A>(iter: Iterator<Promise<A>>, reducer: (acc: A, a: A) => A | Promise<A>, initialValue?: A): Promise<A | undefined> {
   if (initialValue == null) {
     const current = iter.next();

@@ -25,6 +25,10 @@ export class PromiseIterator<A> {
     return Iterators.any(this.iter);
   }
 
+  forEach(f: (a: A) => any): Promise<void> {
+    return Iterators.forEach(this.iter, f);
+  }
+
   map<B>(f: (a: A) => B | Promise<B>): PromiseIterator<B> {
     return new PromiseIterator(Iterators.map(this.iter, f));
   }

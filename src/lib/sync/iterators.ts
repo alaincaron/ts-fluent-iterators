@@ -110,6 +110,14 @@ export function reduce<A>(iter: Iterator<A>, reducer: (acc: A, a: A) => A, initi
   return fold(iter, reducer, initialValue);
 }
 
+export function forEach<A>(iter: Iterator<A>, f: (a: A) => any): void {
+  for (; ;) {
+    const item = iter.next();
+    if (item.done) break;
+    f(item.value);
+  }
+}
+
 export function collect<A>(iter: Iterator<A>): A[] {
   const result: A[] = [];
   for (; ;) {

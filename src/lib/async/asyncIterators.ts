@@ -112,6 +112,14 @@ export async function reduce<A>(iter: AsyncIterator<A>, reducer: (acc: A, a: A) 
   return fold(iter, reducer, initialValue);
 }
 
+export async function forEach<A>(iter: AsyncIterator<A>, f: (a: A) => any): Promise<void> {
+  for (; ;) {
+    const item = await iter.next();
+    if (item.done) break;
+    f(item.value);
+  }
+}
+
 export async function collect<A>(iter: AsyncIterator<A>): Promise<A[]> {
   const result: A[] = [];
   for (; ;) {

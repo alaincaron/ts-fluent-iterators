@@ -31,19 +31,19 @@ export class NumberIterator extends FluentIterator<number> {
   }
 
   filter(predicate: (a: number) => boolean): NumberIterator {
-    return new NumberIterator(Iterators.filter(this[Symbol.iterator](), predicate));
+    return numberIterator(Iterators.filter(this[Symbol.iterator](), predicate));
   }
 
   transform(f: (a: number) => number): NumberIterator {
-    return new NumberIterator(Iterators.map(this[Symbol.iterator](), f));
+    return numberIterator(Iterators.map(this[Symbol.iterator](), f));
   }
 
   take(n: number): NumberIterator {
-    return new NumberIterator(Iterators.take(this[Symbol.iterator](), n));
+    return numberIterator(Iterators.take(this[Symbol.iterator](), n));
   }
 
   skip(n: number): NumberIterator {
-    return new NumberIterator(Iterators.skip(this[Symbol.iterator](), n));
+    return numberIterator(Iterators.skip(this[Symbol.iterator](), n));
   }
 
   reduce(reducer: (acc: number, a: number) => number, initialValue?: number): number | undefined {
@@ -51,7 +51,7 @@ export class NumberIterator extends FluentIterator<number> {
   }
 
   tap(f: (a: number) => any): NumberIterator {
-    return new NumberIterator(Iterators.tap(this[Symbol.iterator](), f));
+    return numberIterator(Iterators.tap(this[Symbol.iterator](), f));
   }
 
   sum(): number {

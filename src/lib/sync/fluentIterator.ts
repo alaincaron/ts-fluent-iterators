@@ -56,11 +56,14 @@ export class FluentIterator<A> {
     return new FluentIterator(Iterators.tap(this.iter, f));
   }
 
+  forEach(f: (a: A) => any): void {
+    Iterators.forEach(this.iter, f);
+  }
+
   [Symbol.iterator](): Iterator<A> {
     return this.iter;
   }
 }
-
 
 export function fluentIterator<A>(iter: Iterator<A> | Iterable<A>): FluentIterator<A> {
   return new FluentIterator<A>(iter);

@@ -109,5 +109,14 @@ describe("FluentIterator", () => {
     });
   });
 
+  describe("forEach", () => {
+    it("should invokd function for all elements", () => {
+      let count = 0;
+      let f = (x: number) => { count += x; };
+      expect(fluentIterator(range(1, 5)).forEach(f)).to.be.undefined;
+      expect(count).equal(10);
+    });
+  });
+
 
 });

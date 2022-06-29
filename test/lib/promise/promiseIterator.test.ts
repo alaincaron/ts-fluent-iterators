@@ -153,5 +153,12 @@ describe("PromiseIterator", () => {
     });
   });
 
-
+  describe("forEach", () => {
+    it("should invoke function for all elements", async () => {
+      let count = 0;
+      let f = (x: number) => { count += x; };
+      await promiseIterator(range(1, 5)).forEach(f);
+      expect(count).equal(10);
+    });
+  });
 });

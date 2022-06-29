@@ -109,5 +109,12 @@ describe("AsyncFluentIterator", () => {
     });
   });
 
-
+  describe("forEach", () => {
+    it("should invoke function on all elements", async () => {
+      let count = 0;
+      let f = (x: number) => { count += x; };
+      await asyncFluentIterator(range(1, 5)).forEach(f);
+      expect(count).equal(10);
+    });
+  });
 });

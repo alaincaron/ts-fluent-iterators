@@ -56,6 +56,10 @@ export class AsyncFluentIterator<A> {
     return new AsyncFluentIterator(Iterators.tap(this.iter, f));
   }
 
+  forEach(f: (a: A) => any): Promise<void> {
+    return Iterators.forEach(this.iter, f);
+  }
+
   [Symbol.asyncIterator](): AsyncIterator<A> {
     return this.iter;
   }
