@@ -1,16 +1,16 @@
 import { range } from "../../../src/lib/promise/promiseGenerators"
 import { promiseIterator } from "../../../src/lib/promise/promiseIterator"
-
+import { toPromise } from "../../../src/lib/promise/promiseIterators";
 import { expect, assert } from "chai";
 
 describe("PromiseIterator", () => {
 
   describe("collect", () => {
     it("should collect all elements", async () => {
-      expect(await promiseIterator(range(1, 3)).collect()).to.deep.equal([1, 2]);
+      expect(await promiseIterator(toPromise([1, 2])).collect()).to.deep.equal([1, 2]);
     });
     it("should return empty array on empty iterator", async () => {
-      expect(await promiseIterator(range(0, 0)).collect()).to.deep.equal([]);
+      expect(await promiseIterator(range()).collect()).to.deep.equal([]);
     });
   });
 

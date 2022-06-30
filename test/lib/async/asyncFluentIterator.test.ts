@@ -10,13 +10,13 @@ describe("AsyncFluentIterator", () => {
     });
 
     it("should return empty array on empty iterator", async () => {
-      expect(await asyncFluentIterator(range(0, 0)).collect()).to.deep.equal([]);
+      expect(await asyncFluentIterator(range()).collect()).to.deep.equal([]);
     });
   });
 
   describe("map", () => {
     it("should apply function to all elements", async () => {
-      expect(await asyncFluentIterator(range(1, 3)).map(x => 2 * x).collect()).to.deep.equal([2, 4]);
+      expect(await asyncFluentIterator(toAsync([1, 2])).map(x => 2 * x).collect()).to.deep.equal([2, 4]);
     });
   });
 
@@ -26,7 +26,7 @@ describe("AsyncFluentIterator", () => {
     });
 
     it("should return undefined on empty iterator.", async () => {
-      expect(await asyncFluentIterator(range(0, 0)).first()).to.be.undefined;
+      expect(await asyncFluentIterator(range()).first()).to.be.undefined;
     });
   });
 
@@ -38,13 +38,13 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncFluentIterator(range(0, 100)).take(2).collect()).to.deep.equal([0, 1]);
     });
     it("should yield all elements if there are less elements than required", async () => {
-      expect(await asyncFluentIterator(range(0, 2)).take(1000).collect()).to.deep.equal([0, 1]);
+      expect(await asyncFluentIterator(toAsync([0, 1])).take(1000).collect()).to.deep.equal([0, 1]);
     });
   });
 
   describe("skip", () => {
     it("should skip the exact number of elements if skip equals he number of elements", async () => {
-      expect(await asyncFluentIterator(range(1, 3)).skip(2).collect()).deep.equal([]);
+      expect(await asyncFluentIterator(toAsync([1, 2])).skip(2).collect()).deep.equal([]);
     });
     it("should skip the exact number of elements if skip is less than the number of elements", async () => {
       expect(await asyncFluentIterator(range(1, 3)).skip(1).collect()).deep.equal([2]);

@@ -1,4 +1,3 @@
-import { Iterators } from "../..";
 import * as SyncIterators from "../sync/iterators";
 export { take, skip } from "../sync/iterators";
 
@@ -104,4 +103,8 @@ export function any<A>(iter: Iterable<Promise<A>>): Promise<A | undefined> {
   const promises = SyncIterators.collect(iter);
   if (!promises.length) return Promise.resolve(undefined);
   return Promise.any(promises);
+}
+
+export function* toPromise<A>(iter: Iterable<A>): Iterable<Promise<A>> {
+  yield* SyncIterators.map(iter, a => Promise.resolve(a));
 }
