@@ -36,6 +36,14 @@ export class FluentIterator<A> implements Iterable<A> {
     return Iterators.find(this, predicate);
   }
 
+  contains(predicate: (a: A) => boolean): boolean {
+    return Iterators.contains(this, predicate);
+  }
+
+  includes(target: A): boolean {
+    return Iterators.includes(this, target);
+  }
+
   fold<B>(reducer: (b: B, a: A) => B, initialValue: B): B {
     return Iterators.fold(this, reducer, initialValue);
   }

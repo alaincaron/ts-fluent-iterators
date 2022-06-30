@@ -32,8 +32,16 @@ export class AsyncFluentIterator<A> implements AsyncIterable<A> {
     return new AsyncFluentIterator(Iterators.skip(this, n));
   }
 
-  find(predicate: (a: A) => boolean): Promise<A | undefined> {
+  find(predicate: (a: A) => boolean | Promise<boolean>): Promise<A | undefined> {
     return Iterators.find(this, predicate);
+  }
+
+  contains(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+    return Iterators.contains(this, predicate);
+  }
+
+  includes(target: A | Promise<A>): Promise<boolean> {
+    return Iterators.includes(this, target);
   }
 
   fold<B>(reducer: (b: B, a: A) => B, initialValue: B): Promise<B> {

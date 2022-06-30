@@ -85,6 +85,24 @@ describe("SyncFluentIterator", () => {
     });
   });
 
+  describe("contains", () => {
+    it("should return true", () => {
+      expect(fluentIterator(range(1, 7)).contains(x => x % 3 === 0)).equal(true);
+    });
+    it("should return false", () => {
+      expect(fluentIterator(range(1, 5)).contains(x => x >= 5)).equal(false);
+    });
+  });
+
+  describe("includes", () => {
+    it("should return true", () => {
+      expect(fluentIterator(range(1, 7)).includes(3)).equal(true);
+    });
+    it("should return false", () => {
+      expect(fluentIterator(range(1, 5)).includes(6)).equal(false);
+    });
+  });
+
   describe("fold", () => {
     it("should add all elements to initial value", () => {
       expect(fluentIterator(range(1, 5)).fold((acc, x) => acc + x, 10)).equal(20);

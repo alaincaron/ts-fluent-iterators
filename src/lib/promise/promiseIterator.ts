@@ -41,6 +41,14 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
     return Iterators.find(this, predicate);
   }
 
+  contains(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+    return Iterators.contains(this, predicate);
+  }
+
+  includes(target: A | Promise<A>): Promise<boolean> {
+    return Iterators.includes(this, target);
+  }
+
   first(): Promise<A | undefined> {
     return Iterators.first(this);
   }

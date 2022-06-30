@@ -71,6 +71,14 @@ export function find<A>(iter: Iterable<A>, predicate: (a: A) => boolean): A | un
   }
 }
 
+export function contains<A>(iter: Iterable<A>, predicate: (a: A) => boolean): boolean {
+  return find(iter, predicate) !== undefined;
+}
+
+export function includes<A>(iter: Iterable<A>, target: A): boolean {
+  return find(iter, a => a === target) !== undefined;
+}
+
 export function fold<A, B>(iter: Iterable<A>, reducer: (b: B, a: A) => B, initialValue: B): B {
   let acc = initialValue;
   for (const a of iter) {

@@ -47,11 +47,19 @@ export function* enumerate<A>(iter: Iterable<Promise<A>>): Iterable<Promise<[A, 
   }
 }
 
-export async function find<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean): Promise<A | undefined> {
+export async function find<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean | Promise<boolean>): Promise<A | undefined> {
   for (const a of iter) {
     const value = await a;
-    if (predicate(value)) return value;
+    if (await predicate(value)) return value;
   }
+}
+
+export async function contains<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+  return await find(iter, predicate) !== undefined;
+}
+
+export async function includes<A>(iter: Iterable<Promise<A>>, target: A | Promise<A>): Promise<boolean> {
+  return await find(iter, async (a) => a === await target) !== undefined;
 }
 
 export function fold<A, B>(iter: Iterable<Promise<A>>, reducer: (b: B, a: A) => B | Promise<B>, initialValue: B | Promise<B>): Promise<B> {

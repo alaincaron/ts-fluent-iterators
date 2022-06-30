@@ -132,6 +132,36 @@ describe("PromiseIterator", () => {
     });
   });
 
+  describe("contains", () => {
+    it("should return true", async () => {
+      expect(await promiseIterator(range(1, 7)).contains(x => x % 3 === 0)).equal(true);
+    });
+    it("should return false", async () => {
+      expect(await promiseIterator(range(1, 5)).contains(x => x >= 5)).equal(false);
+    });
+    it("should return true with promise", async () => {
+      expect(await promiseIterator(range(1, 7)).contains(x => Promise.resolve(x % 3 === 0))).equal(true);
+    });
+    it("should return false with promise", async () => {
+      expect(await promiseIterator(range(1, 5)).contains(x => Promise.resolve(x >= 5))).equal(false);
+    });
+  });
+
+  describe("includes", () => {
+    it("should return true", async () => {
+      expect(await promiseIterator(range(1, 7)).includes(3)).equal(true);
+    });
+    it("should return false", async () => {
+      expect(await promiseIterator(range(1, 5)).includes(6)).equal(false);
+    });
+    it("should return true with promise", async () => {
+      expect(await promiseIterator(range(1, 7)).includes(Promise.resolve(3))).equal(true);
+    });
+    it("should return false with promise", async () => {
+      expect(await promiseIterator(range(1, 5)).includes(Promise.resolve(6))).equal(false);
+    });
+  });
+
   describe("fold", () => {
     it("should add all elements to initial value", async () => {
       expect(await promiseIterator(range(1, 5)).fold((acc, x) => acc + x, 10)).to.equal(20);
