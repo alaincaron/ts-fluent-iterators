@@ -194,4 +194,28 @@ describe("SyncFluentIterator", () => {
     });
   });
 
+  describe("all", () => {
+    it("should return true", () => {
+      expect(fluentIterator([1, 10, 2, 11]).all(x => x > 0)).equal(true);
+    });
+    it("should return true if empty", () => {
+      expect(fluentIterator(range()).all((x => x > 0))).equal(true);
+    });
+    it("should return false", () => {
+      expect(fluentIterator([1, 2, 3, -1]).all(x => x > 0)).equal(false);
+    });
+  });
+
+  describe("some", () => {
+    it("should return true", () => {
+      expect(fluentIterator([-1, 1]).some(x => x > 0)).equal(true);
+    });
+    it("should return false if empty", () => {
+      expect(fluentIterator(range()).some((x => x > 0))).equal(false);
+    });
+    it("should return false", () => {
+      expect(fluentIterator([-1, -2, -3]).some(x => x > 0)).equal(false);
+    });
+  });
+
 });

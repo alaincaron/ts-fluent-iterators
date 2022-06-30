@@ -207,7 +207,28 @@ describe("PromiseIterator", () => {
     });
   });
 
+  describe("all", () => {
+    it("should return true", async () => {
+      expect(await promiseIterator(range(1, 5)).all(x => x > 0)).equal(true);
+    });
+    it("should return true if empty", async () => {
+      expect(await promiseIterator(range()).all((x => x > 0))).equal(true);
+    });
+    it("should return false", async () => {
+      expect(await promiseIterator(range(4, -1, -1)).all(x => x > 0)).equal(false);
+    });
+  });
 
-
+  describe("some", () => {
+    it("should return true", async () => {
+      expect(await promiseIterator(range(-1, 2)).some(x => x > 0)).equal(true);
+    });
+    it("should return false if empty", async () => {
+      expect(await promiseIterator(range()).some((x => x > 0))).equal(false);
+    });
+    it("should return false", async () => {
+      expect(await promiseIterator(range(-5, 1)).some(x => x > 0)).equal(false);
+    });
+  });
 
 });

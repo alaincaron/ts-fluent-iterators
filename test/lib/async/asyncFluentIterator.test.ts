@@ -192,4 +192,29 @@ describe("AsyncFluentIterator", () => {
       }).collect()).to.deep.equal([]);
     });
   });
+
+  describe("all", () => {
+    it("should return true", async () => {
+      expect(await asyncFluentIterator(range(1, 5)).all(x => x > 0)).equal(true);
+    });
+    it("should return true if empty", async () => {
+      expect(await asyncFluentIterator(range()).all((x => x > 0))).equal(true);
+    });
+    it("should return false", async () => {
+      expect(await asyncFluentIterator(range(4, -1, -1)).all(x => x > 0)).equal(false);
+    });
+  });
+
+  describe("some", () => {
+    it("should return true", async () => {
+      expect(await asyncFluentIterator(range(-1, 2)).some(x => x > 0)).equal(true);
+    });
+    it("should return false if empty", async () => {
+      expect(await asyncFluentIterator(range()).some((x => x > 0))).equal(false);
+    });
+    it("should return false", async () => {
+      expect(await asyncFluentIterator(range(-5, 1)).some(x => x > 0)).equal(false);
+    });
+  });
+
 });

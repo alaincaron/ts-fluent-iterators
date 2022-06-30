@@ -139,6 +139,22 @@ export async function* skipWhile<A>(iter: AsyncIterable<A>, predicate: (a: A) =>
   }
 }
 
+export async function all<A>(iter: AsyncIterable<A>, predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+  for await (const a of iter) {
+    if (!await Promise.resolve(predicate(a))) return false;
+  }
+  return true;
+}
+
+export async function some<A>(iter: AsyncIterable<A>, predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+  for await (const a of iter) {
+    if (await Promise.resolve(predicate(a))) return true;
+  }
+  return false;
+}
+
+
+
 export async function collect<A>(iter: AsyncIterable<A>): Promise<A[]> {
   const result: A[] = [];
   for await (const a of iter) {

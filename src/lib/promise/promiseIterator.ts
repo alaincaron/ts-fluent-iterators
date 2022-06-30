@@ -85,6 +85,15 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
     return new PromiseIterator(SyncIterators.concat(this, ...iterables));
   }
 
+  all(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+    return Iterators.all(this, predicate);
+  }
+
+  some(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+    return Iterators.some(this, predicate);
+  }
+
+
   [Symbol.iterator](): Iterator<Promise<A>> {
     return this.iter[Symbol.iterator]();
   }

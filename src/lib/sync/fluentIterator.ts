@@ -80,6 +80,14 @@ export class FluentIterator<A> implements Iterable<A> {
     return new FluentIterator(Iterators.skipWhile(this, predicate));
   }
 
+  all(predicate: (a: A) => boolean): boolean {
+    return Iterators.all(this, predicate);
+  }
+
+  some(predicate: (a: A) => boolean): boolean {
+    return Iterators.some(this, predicate);
+  }
+
   [Symbol.iterator](): Iterator<A> {
     return this.iter[Symbol.iterator]();
   }

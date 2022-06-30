@@ -138,6 +138,20 @@ export function* skipWhile<A>(iter: Iterable<A>, predicate: (a: A) => boolean): 
   }
 }
 
+export function all<A>(iter: Iterable<A>, predicate: (a: A) => boolean): boolean {
+  for (const a of iter) {
+    if (!predicate(a)) return false;
+  }
+  return true;
+}
+
+export function some<A>(iter: Iterable<A>, predicate: (a: A) => boolean): boolean {
+  for (const a of iter) {
+    if (predicate(a)) return true;
+  }
+  return false;
+}
+
 export function collect<A>(iter: Iterable<A>): A[] {
   const result: A[] = [];
   for (const a of iter) {

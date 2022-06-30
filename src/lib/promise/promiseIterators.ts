@@ -85,6 +85,20 @@ export function reduce<A>(iter: Iterable<Promise<A>>, reducer: (acc: A, a: A) =>
   return acc!;
 }
 
+export async function all<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+  for (const promise of iter) {
+    if (!await predicate(await promise)) return false;
+  }
+  return true;
+}
+
+export async function some<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+  for (const promise of iter) {
+    if (await predicate(await promise)) return true;
+  }
+  return false;
+}
+
 export function collect<A>(iter: Iterable<Promise<A>>): Promise<A[]> {
   return Promise.all(SyncIterators.collect(iter));
 }

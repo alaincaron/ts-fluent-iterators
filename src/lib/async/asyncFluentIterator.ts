@@ -80,6 +80,14 @@ export class AsyncFluentIterator<A> implements AsyncIterable<A> {
     return new AsyncFluentIterator(Iterators.skipWhile(this, predicate));
   }
 
+  all(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+    return Iterators.all(this, predicate);
+  }
+
+  some(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+    return Iterators.some(this, predicate);
+  }
+
   [Symbol.asyncIterator](): AsyncIterator<A> {
     return this.iter[Symbol.asyncIterator]();
   }
