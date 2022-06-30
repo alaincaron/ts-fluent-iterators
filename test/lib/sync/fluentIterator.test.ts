@@ -2,7 +2,7 @@ import { range } from "../../../src/lib/sync/generators";
 import { fluentIterator } from "../../../src/lib/sync/fluentIterator";
 import { expect } from "chai";
 
-describe("FluentIterator", () => {
+describe("SyncFluentIterator", () => {
 
   describe("collect", () => {
 
@@ -17,7 +17,7 @@ describe("FluentIterator", () => {
 
   describe("map", () => {
     it("should apply function to all elements", () => {
-      expect(fluentIterator<number>([1, 2]).map(x => 2 * x).collect()).deep.equal([2, 4]);
+      expect(fluentIterator([1, 2]).map(x => 2 * x).collect()).deep.equal([2, 4]);
     });
   });
 
@@ -118,5 +118,80 @@ describe("FluentIterator", () => {
     });
   });
 
+  describe("append", () => {
+    it("should append multiple elements", () => {
+      expect(fluentIterator([1]).append([2, 3]).collect()).deep.equal([1, 2, 3]);
+    });
+
+    it("should append to empty iterator", () => {
+      expect(fluentIterator(range()).append([1, 2]).collect()).deep.equal([1, 2]);
+    });
+    it("should append an empty array", () => {
+      expect(fluentIterator([1, 2]).append([]).collect()).deep.equal([1, 2]);
+    });
+  });
+
+  describe("prepend", () => {
+    it("should prepend multiple elements", () => {
+      expect(fluentIterator([1]).prepend([2, 3]).collect()).deep.equal([2, 3, 1]);
+    });
+
+    it("should prepend to empty iterator", () => {
+      expect(fluentIterator(range()).prepend([1, 2]).collect()).deep.equal([1, 2]);
+    });
+    it("should prepend an empty array", () => {
+      expect(fluentIterator([1, 2]).prepend([]).collect()).deep.equal([1, 2]);
+    });
+  });
+
+  describe("concat", () => {
+    it("should concat multiple elements", () => {
+      expect(fluentIterator([1]).concat([2], [3]).collect()).deep.equal([1, 2, 3]);
+    });
+
+    it("should concat to empty iterator", () => {
+      expect(fluentIterator(range()).concat([1, 2]).collect()).deep.equal([1, 2]);
+    });
+    it("should concat an empty array", () => {
+      expect(fluentIterator([1, 2]).concat([]).collect()).deep.equal([1, 2]);
+    });
+    it("should concat argument-less", () => {
+      expect(fluentIterator([1, 2]).concat().collect()).deep.equal([1, 2]);
+    });
+  });
+
+  describe("takeWhile", () => {
+    it("take up to 5", () => {
+      expect(fluentIterator(range(1, 100)).takeWhile(x => x <= 2).collect()).deep.equal([1, 2]);
+    });
+    it("should return all elements", () => {
+      expect(fluentIterator([1, 2, 3]).takeWhile((_ => true)).collect()).deep.equal([1, 2, 3]);
+    });
+    it("should return no elements", () => {
+      expect(fluentIterator([1, 2, 3]).takeWhile((_ => false)).collect()).deep.equal([]);
+    });
+    it("should work on empty iterator", () => {
+      expect(fluentIterator(range()).takeWhile(x => {
+        throw new Error(`x = ${x}`);
+      }).collect()).deep.equal([]);
+    });
+  });
+
+  describe("skipWhile", () => {
+    it("should yield skip 2 elements", () => {
+      expect(fluentIterator([1, 10, 2, 11]).skipWhile(x => x != 10).collect()).deep.equal([10, 2, 11]);
+    });
+    it("should return no elements", () => {
+      expect(fluentIterator([1, 2, 3]).skipWhile((x => x > 0)).collect()).deep.equal([]);
+    });
+    it("should return all elements", () => {
+      expect(fluentIterator([1, 2, 3]).skipWhile((x => x % 2 === 0)).collect()).deep.equal([1, 2, 3]);
+    });
+    it("should work on empty iterator", () => {
+      expect(fluentIterator(range()).skipWhile(x => {
+        throw new Error(`x = ${x}`);
+      }).collect()).deep.equal([]);
+    });
+  });
 
 });

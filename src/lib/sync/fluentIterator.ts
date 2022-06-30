@@ -1,11 +1,11 @@
 import * as Iterators from './iterators';
 
-export class FluentIterator<A> {
+export class FluentIterator<A> implements Iterable<A> {
 
-  private iter: Iterator<A>;
+  private iter: Iterable<A>;
 
-  constructor(iter: Iterator<A> | Iterable<A>) {
-    this.iter = Iterators.iterator(iter);
+  constructor(iter: Iterable<A>) {
+    this.iter = iter;
   }
 
   collect(): A[] {
@@ -21,7 +21,7 @@ export class FluentIterator<A> {
   }
 
   first(): A | undefined {
-    return Iterators.first(this.iter);
+    return Iterators.first(this);
   }
 
   take(n: number): FluentIterator<A> {
@@ -33,38 +33,58 @@ export class FluentIterator<A> {
   }
 
   find(predicate: (a: A) => boolean): A | undefined {
-    return Iterators.find(this.iter, predicate);
+    return Iterators.find(this, predicate);
   }
 
   fold<B>(reducer: (b: B, a: A) => B, initialValue: B): B {
-    return Iterators.fold(this.iter, reducer, initialValue);
+    return Iterators.fold(this, reducer, initialValue);
   }
 
   reduce(reducer: (acc: A, a: A) => A, initialValue?: A): A | undefined {
-    return Iterators.reduce(this.iter, reducer, initialValue);
+    return Iterators.reduce(this, reducer, initialValue);
   }
 
-  zip<B>(other: Iterator<B> | Iterable<B>): FluentIterator<[A, B]> {
-    return new FluentIterator(Iterators.zip(this.iter, Iterators.iterator(other)));
+  zip<B>(other: Iterable<B>): FluentIterator<[A, B]> {
+    return new FluentIterator(Iterators.zip(this, other))
   }
 
   enumerate(): FluentIterator<[A, number]> {
-    return new FluentIterator(Iterators.enumerate(this.iter));
+    return new FluentIterator(Iterators.enumerate(this));
   }
 
   tap(f: (a: A) => any): FluentIterator<A> {
-    return new FluentIterator(Iterators.tap(this.iter, f));
+    return new FluentIterator(Iterators.tap(this, f));
   }
 
   forEach(f: (a: A) => any): void {
-    Iterators.forEach(this.iter, f);
+    Iterators.forEach(this, f);
+  }
+
+  append(items: Iterable<A>): FluentIterator<A> {
+    return new FluentIterator(Iterators.append(this, items));
+  }
+
+  prepend(items: Iterable<A>): FluentIterator<A> {
+    return new FluentIterator(Iterators.prepend(this, items));
+  }
+
+  concat(...iterables: Array<Iterable<A>>): FluentIterator<A> {
+    return new FluentIterator(Iterators.concat(this, ...iterables));
+  }
+
+  takeWhile(predicate: (a: A) => boolean): FluentIterator<A> {
+    return new FluentIterator(Iterators.takeWhile(this, predicate));
+  }
+
+  skipWhile(predicate: (a: A) => boolean): FluentIterator<A> {
+    return new FluentIterator(Iterators.skipWhile(this, predicate));
   }
 
   [Symbol.iterator](): Iterator<A> {
-    return this.iter;
+    return this.iter[Symbol.iterator]();
   }
 }
 
-export function fluentIterator<A>(iter: Iterator<A> | Iterable<A>): FluentIterator<A> {
-  return new FluentIterator<A>(iter);
+export function fluentIterator<A>(iter: Iterable<A>): FluentIterator<A> {
+  return new FluentIterator(iter);
 }
