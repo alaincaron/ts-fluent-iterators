@@ -285,4 +285,13 @@ describe("PromiseIterator", () => {
     });
   });
 
+  describe("count", () => {
+    it("should use predicate", async () => {
+      expect(await promiseIterator(range(1, 4)).count(x => x % 2 === 0)).equal(1);
+    });
+    it("should use default true predicate", async () => {
+      expect(await promiseIterator(range(1, 4)).count()).equal(3);
+    });
+  });
+
 });

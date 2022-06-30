@@ -104,6 +104,10 @@ export class FluentIterator<A> implements Iterable<A> {
     return Iterators.avg(Iterators.map(this, mapper));
   }
 
+  count(predicate?: (a: A) => boolean): number {
+    return Iterators.count(this, predicate);
+  }
+
   [Symbol.iterator](): Iterator<A> {
     return this.iter[Symbol.iterator]();
   }

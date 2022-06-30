@@ -176,6 +176,15 @@ export function avg(iter: Iterable<number>): number {
   return fold(iter, avgReducer, { avg: 0, i: 0 }).avg;
 }
 
+export function count<A>(iter: Iterable<A>, predicate?: (a: A) => boolean): number {
+  predicate ??= (_: A) => true;
+  let n = 0;
+  for (const a of iter) {
+    if (predicate(a)) ++n;
+  }
+  return n;
+}
+
 export function avgReducer(state: { avg: number, i: number }, value: number): { avg: number, i: number } {
   // Usong Knuth algorithm
   state.avg += (value - state.avg) / ++state.i;

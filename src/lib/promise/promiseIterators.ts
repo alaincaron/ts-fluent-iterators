@@ -135,6 +135,15 @@ export function avg(iter: Iterable<Promise<number>>): Promise<number> {
   return fold(iter, avgReducer, { avg: 0, i: 0 }).then(s => s.avg);
 }
 
+export async function count<A>(iter: Iterable<Promise<A>>, predicate?: (a: A) => boolean | Promise<boolean>): Promise<number> {
+  predicate ??= (_: A) => true;
+  let n = 0;
+  for (const a of iter) {
+    if (await predicate(await a)) ++n;
+  }
+  return n;
+}
+
 export function* toPromise<A>(iter: Iterable<A>): Iterable<Promise<A>> {
   yield* SyncIterators.map(iter, a => Promise.resolve(a));
 }

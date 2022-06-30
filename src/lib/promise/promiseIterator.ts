@@ -109,7 +109,9 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
     return Iterators.avg(Iterators.map(this, mapper));
   }
 
-
+  count(predicate?: (a: A) => boolean | Promise<boolean>): Promise<number> {
+    return Iterators.count(this, predicate);
+  }
 
   [Symbol.iterator](): Iterator<Promise<A>> {
     return this.iter[Symbol.iterator]();

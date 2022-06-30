@@ -260,4 +260,12 @@ describe("SyncFluentIterator", () => {
     });
   });
 
+  describe("count", () => {
+    it("should use predicate", () => {
+      expect(fluentIterator([1, 2, 3]).count(x => x % 2 === 0)).equal(1);
+    });
+    it("should use default true predicate", () => {
+      expect(fluentIterator([1, 2, 3]).count()).equal(3);
+    });
+  });
 });

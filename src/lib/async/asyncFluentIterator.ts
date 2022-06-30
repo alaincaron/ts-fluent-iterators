@@ -104,6 +104,10 @@ export class AsyncFluentIterator<A> implements AsyncIterable<A> {
     return Iterators.avg(Iterators.map(this, mapper));
   }
 
+  count(predicate?: (a: A) => boolean | Promise<boolean>): Promise<number> {
+    return Iterators.count(this, predicate);
+  }
+
   [Symbol.asyncIterator](): AsyncIterator<A> {
     return this.iter[Symbol.asyncIterator]();
   }
