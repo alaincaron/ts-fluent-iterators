@@ -160,8 +160,8 @@ export function collect<A>(iter: Iterable<A>): A[] {
   return result;
 }
 
-export function sum(iter: Iterable<number>, initialValue = 0): number {
-  return fold(iter, sumReducer, { sum: initialValue, correction: 0 }).sum;
+export function sum(iter: Iterable<number>): number {
+  return fold(iter, sumReducer, { sum: 0, correction: 0 }).sum;
 }
 
 export function avg(iter: Iterable<number>): number {

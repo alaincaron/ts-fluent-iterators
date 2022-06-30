@@ -1,5 +1,5 @@
 import * as SyncIterators from "../sync/iterators";
-export { take, skip } from "../sync/iterators";
+import { sumReducer, avgReducer } from "../sync/iterators";
 
 export function* map<A, B>(iter: Iterable<Promise<A>>, f: (a: A) => B | Promise<B>): Iterable<Promise<B>> {
   for (const a of iter) {
@@ -117,6 +117,14 @@ export function any<A>(iter: Iterable<Promise<A>>): Promise<A | undefined> {
   const promises = SyncIterators.collect(iter);
   if (!promises.length) return Promise.resolve(undefined);
   return Promise.any(promises);
+}
+
+export function sum(iter: Iterable<Promise<number>>): Promise<number> {
+  return fold(iter, sumReducer, { sum: 0, correction: 0 }).then(s => s.sum);
+}
+
+export function avg(iter: Iterable<Promise<number>>): Promise<number> {
+  return fold(iter, avgReducer, { avg: 0, i: 0 }).then(s => s.avg);
 }
 
 export function* toPromise<A>(iter: Iterable<A>): Iterable<Promise<A>> {

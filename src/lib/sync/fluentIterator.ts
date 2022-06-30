@@ -88,6 +88,14 @@ export class FluentIterator<A> implements Iterable<A> {
     return Iterators.some(this, predicate);
   }
 
+  sum(mapper: (a: A) => number = (a: A) => a as unknown as number): number {
+    return Iterators.sum(Iterators.map(this, mapper));
+  }
+
+  avg(mapper: (a: A) => number = (a: A) => a as unknown as number): number {
+    return Iterators.avg(Iterators.map(this, mapper));
+  }
+
   [Symbol.iterator](): Iterator<A> {
     return this.iter[Symbol.iterator]();
   }

@@ -217,4 +217,28 @@ describe("AsyncFluentIterator", () => {
     });
   });
 
+  describe("sum", () => {
+    it("should apply mapper", async () => {
+      expect(await asyncFluentIterator(toAsync(["foo", "bar", "foobar"])).sum(x => x.length)).equal(12);
+    });
+    it("should sum numbers", async () => {
+      expect(await asyncFluentIterator(toAsync([1, 2, 3])).sum()).equal(6);
+    });
+    it("should return 0 on empty iterators", async () => {
+      expect(await asyncFluentIterator(range()).sum()).equal(0);
+    });
+  });
+
+  describe("avg", () => {
+    it("should apply mapper", async () => {
+      expect(await asyncFluentIterator(toAsync(["foo", "bar", "foobar"])).avg(x => x.length)).equal(4);
+    });
+    it("should avg numbers", async () => {
+      expect(await asyncFluentIterator(toAsync([1, 2])).avg()).equal(1.5);
+    });
+    it("should return 0 on empty iterators", async () => {
+      expect(await asyncFluentIterator(range()).avg()).equal(0);
+    });
+  });
+
 });

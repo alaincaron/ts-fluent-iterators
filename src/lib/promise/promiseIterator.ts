@@ -58,11 +58,11 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
   }
 
   take(n: number): PromiseIterator<A> {
-    return new PromiseIterator(Iterators.take(this, n));
+    return new PromiseIterator(SyncIterators.take(this, n));
   }
 
   skip(n: number): PromiseIterator<A> {
-    return new PromiseIterator(Iterators.skip(this, n));
+    return new PromiseIterator(SyncIterators.skip(this, n));
   }
 
   enumerate(): PromiseIterator<[A, number]> {
@@ -92,6 +92,15 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
   some(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
     return Iterators.some(this, predicate);
   }
+
+  sum(mapper: (a: A) => number = (a: A) => a as unknown as number): Promise<number> {
+    return Iterators.sum(Iterators.map(this, mapper));
+  }
+
+  avg(mapper: (a: A) => number = (a: A) => a as unknown as number): Promise<number> {
+    return Iterators.avg(Iterators.map(this, mapper));
+  }
+
 
 
   [Symbol.iterator](): Iterator<Promise<A>> {

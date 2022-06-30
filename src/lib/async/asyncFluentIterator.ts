@@ -88,6 +88,14 @@ export class AsyncFluentIterator<A> implements AsyncIterable<A> {
     return Iterators.some(this, predicate);
   }
 
+  sum(mapper: (a: A) => number = (a: A) => a as unknown as number): Promise<number> {
+    return Iterators.sum(Iterators.map(this, mapper));
+  }
+
+  avg(mapper: (a: A) => number = (a: A) => a as unknown as number): Promise<number> {
+    return Iterators.avg(Iterators.map(this, mapper));
+  }
+
   [Symbol.asyncIterator](): AsyncIterator<A> {
     return this.iter[Symbol.asyncIterator]();
   }

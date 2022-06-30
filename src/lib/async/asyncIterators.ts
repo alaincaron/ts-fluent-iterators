@@ -1,3 +1,5 @@
+import { sumReducer, avgReducer } from "../sync/iterators";
+
 export async function* map<A, B>(iter: AsyncIterable<A>, f: (a: A) => B): AsyncIterable<B> {
   for await (const a of iter) {
     yield f(a);
@@ -161,6 +163,15 @@ export async function collect<A>(iter: AsyncIterable<A>): Promise<A[]> {
     result.push(a);
   }
   return result;
+}
+
+
+export function sum(iter: AsyncIterable<number>): Promise<number> {
+  return fold(iter, sumReducer, { sum: 0, correction: 0 }).then(s => s.sum);
+}
+
+export function avg(iter: AsyncIterable<number>): Promise<number> {
+  return fold(iter, avgReducer, { avg: 0, i: 0 }).then(s => s.avg);
 }
 
 export async function* toAsync<A>(iter: Iterable<A>): AsyncIterable<A> {
