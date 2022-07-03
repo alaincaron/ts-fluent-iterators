@@ -280,6 +280,12 @@ describe("PromiseIterator", () => {
     });
   });
 
+  describe("distinct", () => {
+    it("should eliminate duplicates", async () => {
+      expect(await promiseIterator(toPromise([1, 2, 5, 2, 1, 0])).distinct().collect()).deep.equal([1, 2, 5, 0]);
+    });
+  });
+
   describe("all", () => {
     it("should return true", async () => {
       expect(await promiseIterator(range(1, 5)).all(x => x > 0)).equal(true);

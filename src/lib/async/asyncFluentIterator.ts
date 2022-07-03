@@ -89,6 +89,10 @@ export class AsyncFluentIterator<A> implements AsyncIterable<A> {
     return new AsyncFluentIterator(Iterators.skipWhile(this, predicate));
   }
 
+  distinct(): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.distinct(this));
+  }
+
   all(predicate: EventualPredicate<A>): Promise<boolean> {
     return Iterators.all(this, predicate);
   }

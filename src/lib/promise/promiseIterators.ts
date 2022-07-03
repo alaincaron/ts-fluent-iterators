@@ -118,6 +118,16 @@ export async function* skipWhile<A>(iter: Iterable<Promise<A>>, predicate: Event
   }
 }
 
+export async function* distinct<A>(iter: Iterable<Promise<A>>): AsyncIterable<A> {
+  const seen = new Set<A>();
+  for (const a of iter) {
+    const v = await a;
+    if (seen.has(v)) continue;
+    seen.add(v);
+    yield v;
+  }
+}
+
 export async function all<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A>): Promise<boolean> {
   for (const promise of iter) {
     if (!await predicate(await promise)) return false;

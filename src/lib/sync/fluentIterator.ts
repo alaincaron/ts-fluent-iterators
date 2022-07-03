@@ -89,6 +89,10 @@ export class FluentIterator<A> implements Iterable<A> {
     return new FluentIterator(Iterators.skipWhile(this, predicate));
   }
 
+  distinct(): FluentIterator<A> {
+    return new FluentIterator(Iterators.distinct(this));
+  }
+
   all(predicate: Predicate<A>): boolean {
     return Iterators.all(this, predicate);
   }

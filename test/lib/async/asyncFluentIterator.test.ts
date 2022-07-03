@@ -226,6 +226,12 @@ describe("AsyncFluentIterator", () => {
     });
   });
 
+  describe("distinct", () => {
+    it("should eliminate duplicates", async () => {
+      expect(await asyncIterator(toAsync([1, 2, 5, 2, 1, 0])).distinct().collect()).deep.equal([1, 2, 5, 0]);
+    });
+  });
+
   describe("all", () => {
     it("should return true", async () => {
       expect(await asyncIterator(range(1, 5)).all(x => x > 0)).equal(true);

@@ -148,6 +148,15 @@ export function* skipWhile<A>(iter: Iterable<A>, predicate: Predicate<A>): Itera
   }
 }
 
+export function* distinct<A>(iter: Iterable<A>): Iterable<A> {
+  const seen = new Set<A>();
+  for (const a of iter) {
+    if (seen.has(a)) continue;
+    seen.add(a);
+    yield a;
+  }
+}
+
 export function all<A>(iter: Iterable<A>, predicate: Predicate<A>): boolean {
   for (const a of iter) {
     if (!predicate(a)) return false;

@@ -212,6 +212,12 @@ describe("SyncFluentIterator", () => {
     });
   });
 
+  describe("distinct", () => {
+    it("should eliminate duplicates", () => {
+      expect(iterator([1, 2, 5, 2, 1, 0]).distinct().collect()).deep.equal([1, 2, 5, 0]);
+    });
+  });
+
   describe("all", () => {
     it("should return true", () => {
       expect(iterator([1, 10, 2, 11]).all(x => x > 0)).equal(true);
