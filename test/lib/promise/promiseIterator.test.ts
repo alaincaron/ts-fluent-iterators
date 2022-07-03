@@ -111,6 +111,15 @@ describe("PromiseIterator", () => {
     });
   });
 
+  describe("filter", () => {
+    it("should filter odd elements", async () => {
+      expect(await promiseIterator(range(1, 3)).filter(x => x % 2 === 0).collect()).deep.equal([2]);
+    });
+    it("should filter odd elements with promise predicate", async () => {
+      expect(await promiseIterator(range(1, 3)).filter(x => Promise.resolve(x % 2 === 0)).collect()).deep.equal([2]);
+    });
+  });
+
   describe("zip", () => {
     it("should zip up to shortest iterator", async () => {
       expect(await promiseIterator(range(1, 4)).zip(promiseIterator(range(1, 3))).collect()).to.deep.equal([[1, 1], [2, 2]]);
@@ -234,6 +243,40 @@ describe("PromiseIterator", () => {
     });
     it("should concat argument-less", async () => {
       expect(await promiseIterator(range(1, 3)).concat().collect()).to.deep.equal([1, 2]);
+    });
+  });
+
+  describe("takeWhile", () => {
+    it("take up to 5", async () => {
+      expect(await promiseIterator(range(1, 100)).takeWhile(x => Promise.resolve(x <= 2)).collect()).to.deep.equal([1, 2]);
+    });
+    it("should return all elements", async () => {
+      expect(await promiseIterator(range(1, 4)).takeWhile((_ => true)).collect()).to.deep.equal([1, 2, 3]);
+    });
+    it("should return no elements", async () => {
+      expect(await promiseIterator(range(1, 4)).takeWhile((_ => false)).collect()).to.deep.equal([]);
+    });
+    it("should work on empty iterator", async () => {
+      expect(await promiseIterator(range()).takeWhile(x => {
+        throw new Error(`x = ${x}`);
+      }).collect()).to.deep.equal([]);
+    });
+  });
+
+  describe("skipWhile", () => {
+    it("should yield skip 2 elements", async () => {
+      expect(await promiseIterator(toPromise([1, 10, 2, 11])).skipWhile(x => Promise.resolve(x != 10)).collect()).to.deep.equal([10, 2, 11]);
+    });
+    it("should return no elements", async () => {
+      expect(await promiseIterator(range(1, 4)).skipWhile((x => Promise.resolve(x > 0))).collect()).to.deep.equal([]);
+    });
+    it("should return all elements", async () => {
+      expect(await promiseIterator(range(1, 4)).skipWhile((x => x % 2 === 0)).collect()).to.deep.equal([1, 2, 3]);
+    });
+    it("should work on empty iterator", async () => {
+      expect(await promiseIterator(range()).skipWhile(x => {
+        throw new Error(`x = ${x}`);
+      }).collect()).to.deep.equal([]);
     });
   });
 

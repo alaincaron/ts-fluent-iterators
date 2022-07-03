@@ -1,5 +1,8 @@
 import * as Iterators from './promiseIterators';
 import * as SyncIterators from "../sync/iterators";
+import { AsyncFluentIterator } from "../async/asyncFluentIterator";
+
+import { Eventually, EventualReducer, EventualMapper, EventualPredicate, asyncIdentity } from "../types";
 
 export class PromiseIterator<A> implements Iterable<Promise<A>> {
 
@@ -11,6 +14,10 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
 
   collect(): Promise<A[]> {
     return Iterators.collect(this);
+  }
+
+  filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.filter(this, predicate));
   }
 
   allSettled(): Promise<PromiseSettledResult<A>[]> {
@@ -25,27 +32,27 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
     return Iterators.any(this);
   }
 
-  forEach(f: (a: A) => any): Promise<void> {
-    return Iterators.forEach(this, f);
+  forEach(mapper: EventualMapper<A, any>): Promise<void> {
+    return Iterators.forEach(this, mapper);
   }
 
-  map<B>(f: (a: A) => B | Promise<B>): PromiseIterator<B> {
-    return new PromiseIterator(Iterators.map(this, f));
+  map<B>(mapper: EventualMapper<A, B>): PromiseIterator<B> {
+    return new PromiseIterator(Iterators.map(this, mapper));
   }
 
-  flatmap<B>(f: (a: Promise<A>) => B | Promise<B>): PromiseIterator<B> {
-    return new PromiseIterator(Iterators.flatmap(this, f));
+  flatmap<B>(mapper: EventualMapper<Promise<A>, B>): PromiseIterator<B> {
+    return new PromiseIterator(Iterators.flatmap(this, mapper));
   }
 
-  find(predicate: (a: A) => boolean): Promise<A | undefined> {
+  find(predicate: EventualPredicate<A>): Promise<A | undefined> {
     return Iterators.find(this, predicate);
   }
 
-  contains(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+  contains(predicate: EventualPredicate<A>): Promise<boolean> {
     return Iterators.contains(this, predicate);
   }
 
-  includes(target: A | Promise<A>): Promise<boolean> {
+  includes(target: Eventually<A>): Promise<boolean> {
     return Iterators.includes(this, target);
   }
 
@@ -53,15 +60,15 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
     return Iterators.first(this);
   }
 
-  fold<B>(reducer: (b: B, a: A) => B | Promise<B>, initialValue: B): Promise<B> {
+  fold<B>(reducer: EventualReducer<A, B>, initialValue: B): Promise<B> {
     return Iterators.fold(this, reducer, initialValue);
   }
 
-  reduce(reducer: (acc: A, a: A) => A | Promise<A>, initialValue?: A): Promise<A | undefined> {
+  reduce(reducer: EventualReducer<A, A>, initialValue?: Eventually<A>): Promise<A | undefined> {
     return Iterators.reduce(this, reducer, initialValue);
   }
 
-  zip<B>(other: Iterable<Promise<B>> | Iterable<Promise<B>>): PromiseIterator<[A, B]> {
+  zip<B>(other: Iterable<Promise<B>>): PromiseIterator<[A, B]> {
     return new PromiseIterator(Iterators.zip(this, other));
   }
 
@@ -77,8 +84,8 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
     return new PromiseIterator(Iterators.enumerate(this));
   }
 
-  tap(f: (a: A) => any): PromiseIterator<A> {
-    return new PromiseIterator(Iterators.tap(this, f));
+  tap(mapper: EventualMapper<A, any>): PromiseIterator<A> {
+    return new PromiseIterator(Iterators.tap(this, mapper));
   }
 
   append(promises: Iterable<Promise<A>>): PromiseIterator<A> {
@@ -93,23 +100,31 @@ export class PromiseIterator<A> implements Iterable<Promise<A>> {
     return new PromiseIterator(SyncIterators.concat(this, ...iterables));
   }
 
-  all(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+  takeWhile(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.takeWhile(this, predicate));
+  }
+
+  skipWhile(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.skipWhile(this, predicate));
+  }
+
+  all(predicate: EventualPredicate<A>): Promise<boolean> {
     return Iterators.all(this, predicate);
   }
 
-  some(predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+  some(predicate: EventualPredicate<A>): Promise<boolean> {
     return Iterators.some(this, predicate);
   }
 
-  sum(mapper: (a: A) => number = (a: A) => a as unknown as number): Promise<number> {
+  sum(mapper: EventualMapper<A, number> = asyncIdentity as EventualMapper<A, number>): Promise<number> {
     return Iterators.sum(Iterators.map(this, mapper));
   }
 
-  avg(mapper: (a: A) => number = (a: A) => a as unknown as number): Promise<number> {
+  avg(mapper: EventualMapper<A, number> = asyncIdentity as EventualMapper<A, number>): Promise<number> {
     return Iterators.avg(Iterators.map(this, mapper));
   }
 
-  count(predicate?: (a: A) => boolean | Promise<boolean>): Promise<number> {
+  count(predicate?: EventualPredicate<A>): Promise<number> {
     return Iterators.count(this, predicate);
   }
 

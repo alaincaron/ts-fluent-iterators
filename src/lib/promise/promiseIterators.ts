@@ -1,15 +1,16 @@
 import * as SyncIterators from "../sync/iterators";
 import { sumReducer, avgReducer } from "../sync/iterators";
+import { EventualMapper, EventualPredicate, EventualReducer, Eventually } from "../types";
 
-export function* map<A, B>(iter: Iterable<Promise<A>>, f: (a: A) => B | Promise<B>): Iterable<Promise<B>> {
+export function* map<A, B>(iter: Iterable<Promise<A>>, mapper: EventualMapper<A, B>): Iterable<Promise<B>> {
   for (const a of iter) {
-    yield a.then(a => f(a));
+    yield a.then(a => mapper(a));
   }
 }
 
-export function* flatmap<A, B>(iter: Iterable<Promise<A>>, f: (a: Promise<A>) => B | Promise<B>): Iterable<Promise<B>> {
+export function* flatmap<A, B>(iter: Iterable<Promise<A>>, mapper: EventualMapper<Promise<A>, B>): Iterable<Promise<B>> {
   for (const a of iter) {
-    yield a.then(a => f(Promise.resolve(a)));
+    yield a.then(a => mapper(Promise.resolve(a)));
   }
 }
 
@@ -20,12 +21,16 @@ export function first<A>(iter: Iterable<Promise<A>>): Promise<A | undefined> {
   return Promise.resolve(undefined);
 }
 
-export function* tap<A>(iter: Iterable<Promise<A>>, f: (a: A) => any): Iterable<Promise<A>> {
+export async function* filter<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A>): AsyncIterable<A> {
   for (const a of iter) {
-    yield a.then(a => {
-      f(a);
-      return a;
-    });
+    const v = await a;
+    if (await predicate(v)) yield v;
+  }
+}
+
+export function* tap<A>(iter: Iterable<Promise<A>>, mapper: EventualMapper<A, any>): Iterable<Promise<A>> {
+  for (const a of iter) {
+    yield a.then(a => Promise.resolve(mapper(a)).then(_ => a));
   }
 }
 
@@ -47,22 +52,22 @@ export function* enumerate<A>(iter: Iterable<Promise<A>>): Iterable<Promise<[A, 
   }
 }
 
-export async function find<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean | Promise<boolean>): Promise<A | undefined> {
+export async function find<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A>): Promise<A | undefined> {
   for (const a of iter) {
     const value = await a;
     if (await predicate(value)) return value;
   }
 }
 
-export async function contains<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+export async function contains<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A>): Promise<boolean> {
   return await find(iter, predicate) !== undefined;
 }
 
-export async function includes<A>(iter: Iterable<Promise<A>>, target: A | Promise<A>): Promise<boolean> {
+export async function includes<A>(iter: Iterable<Promise<A>>, target: Eventually<A>): Promise<boolean> {
   return await find(iter, async (a) => a === await target) !== undefined;
 }
 
-export function fold<A, B>(iter: Iterable<Promise<A>>, reducer: (b: B, a: A) => B | Promise<B>, initialValue: B | Promise<B>): Promise<B> {
+export function fold<A, B>(iter: Iterable<Promise<A>>, reducer: EventualReducer<A, B>, initialValue: Eventually<B>): Promise<B> {
   let acc = Promise.resolve(initialValue);
   for (const a of iter) {
     acc = acc.then((async (b) => reducer(b, await a)));
@@ -70,13 +75,13 @@ export function fold<A, B>(iter: Iterable<Promise<A>>, reducer: (b: B, a: A) => 
   return acc;
 }
 
-export async function forEach<A>(iter: Iterable<Promise<A>>, f: (a: A) => any): Promise<void> {
-  for (const x of map(iter, f)) {
+export async function forEach<A>(iter: Iterable<Promise<A>>, mapper: (a: A) => any): Promise<void> {
+  for (const x of map(iter, mapper)) {
     await x;
   }
 }
 
-export function reduce<A>(iter: Iterable<Promise<A>>, reducer: (acc: A, a: A) => A | Promise<A>, initialValue?: A | Promise<A>): Promise<A | undefined> {
+export function reduce<A>(iter: Iterable<Promise<A>>, reducer: EventualReducer<A, A>, initialValue?: Eventually<A>): Promise<A | undefined> {
   let acc: Promise<A> | undefined = undefined;
 
   for (const a of iter) {
@@ -93,14 +98,34 @@ export function reduce<A>(iter: Iterable<Promise<A>>, reducer: (acc: A, a: A) =>
   return acc!;
 }
 
-export async function all<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+export async function* takeWhile<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A>): AsyncIterable<A> {
+  for (const a of iter) {
+    const v = await a;
+    if (!await predicate(v)) break;
+    yield v;
+  }
+}
+
+export async function* skipWhile<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A>): AsyncIterable<A> {
+  let skip = true;
+  for (const a of iter) {
+    const v = await a;
+    if (skip) {
+      skip = await predicate(v);
+    }
+    if (skip) continue;
+    yield v;
+  }
+}
+
+export async function all<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A>): Promise<boolean> {
   for (const promise of iter) {
     if (!await predicate(await promise)) return false;
   }
   return true;
 }
 
-export async function some<A>(iter: Iterable<Promise<A>>, predicate: (a: A) => boolean | Promise<boolean>): Promise<boolean> {
+export async function some<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A>): Promise<boolean> {
   for (const promise of iter) {
     if (await predicate(await promise)) return true;
   }
@@ -135,7 +160,7 @@ export function avg(iter: Iterable<Promise<number>>): Promise<number> {
   return fold(iter, avgReducer, { avg: 0, i: 0 }).then(s => s.avg);
 }
 
-export async function count<A>(iter: Iterable<Promise<A>>, predicate?: (a: A) => boolean | Promise<boolean>): Promise<number> {
+export async function count<A>(iter: Iterable<Promise<A>>, predicate?: EventualPredicate<A>): Promise<number> {
   predicate ??= (_: A) => true;
   let n = 0;
   for (const a of iter) {

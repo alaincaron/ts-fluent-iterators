@@ -1,6 +1,8 @@
-export function* map<A, B>(iter: Iterable<A>, f: (a: A) => B): Iterable<B> {
+import { Mapper, Predicate, Reducer } from "../types";
+
+export function* map<A, B>(iter: Iterable<A>, mapper: Mapper<A, B>): Iterable<B> {
   for (const a of iter) {
-    yield f(a);
+    yield mapper(a);
   }
 }
 
@@ -18,9 +20,9 @@ export function* take<A>(iter: Iterable<A>, n: number): Iterable<A> {
   }
 }
 
-export function* tap<A>(iter: Iterable<A>, f: (a: A) => any): Iterable<A> {
+export function* tap<A>(iter: Iterable<A>, mapper: Mapper<A, any>): Iterable<A> {
   for (const a of iter) {
-    f(a);
+    mapper(a);
     yield a;
   }
 }
@@ -41,7 +43,7 @@ export function* skip<A>(iter: Iterable<A>, n: number): Iterable<A> {
   }
 }
 
-export function* filter<A>(iter: Iterable<A>, predicate: (a: A) => boolean): Iterable<A> {
+export function* filter<A>(iter: Iterable<A>, predicate: Predicate<A>): Iterable<A> {
   for (const a of iter) {
     if (predicate(a)) yield a;
   }
@@ -65,13 +67,13 @@ export function* enumerate<A>(iter: Iterable<A>): Iterable<[A, number]> {
   }
 }
 
-export function find<A>(iter: Iterable<A>, predicate: (a: A) => boolean): A | undefined {
+export function find<A>(iter: Iterable<A>, predicate: Predicate<A>): A | undefined {
   for (const a of iter) {
     if (predicate(a)) return a;
   }
 }
 
-export function contains<A>(iter: Iterable<A>, predicate: (a: A) => boolean): boolean {
+export function contains<A>(iter: Iterable<A>, predicate: Predicate<A>): boolean {
   return find(iter, predicate) !== undefined;
 }
 
@@ -79,7 +81,7 @@ export function includes<A>(iter: Iterable<A>, target: A): boolean {
   return find(iter, a => a === target) !== undefined;
 }
 
-export function fold<A, B>(iter: Iterable<A>, reducer: (b: B, a: A) => B, initialValue: B): B {
+export function fold<A, B>(iter: Iterable<A>, reducer: Reducer<A, B>, initialValue: B): B {
   let acc = initialValue;
   for (const a of iter) {
     acc = reducer(acc, a);
@@ -87,7 +89,7 @@ export function fold<A, B>(iter: Iterable<A>, reducer: (b: B, a: A) => B, initia
   return acc;
 }
 
-export function reduce<A>(iter: Iterable<A>, reducer: (acc: A, a: A) => A, initialValue?: A): A | undefined {
+export function reduce<A>(iter: Iterable<A>, reducer: Reducer<A, A>, initialValue?: A): A | undefined {
   const iterator = iter[Symbol.iterator]();
   let acc = initialValue;
   if (acc == null) {
@@ -106,9 +108,9 @@ export function reduce<A>(iter: Iterable<A>, reducer: (acc: A, a: A) => A, initi
   return acc;
 }
 
-export function forEach<A>(iter: Iterable<A>, f: (a: A) => any): void {
+export function forEach<A>(iter: Iterable<A>, mapper: Mapper<A, any>): void {
   for (const a of iter) {
-    f(a);
+    mapper(a);
   }
 }
 
@@ -128,14 +130,14 @@ export function* concat<A>(...iters: Iterable<A>[]): Iterable<A> {
   }
 }
 
-export function* takeWhile<A>(iter: Iterable<A>, predicate: (a: A) => boolean): Iterable<A> {
+export function* takeWhile<A>(iter: Iterable<A>, predicate: Predicate<A>): Iterable<A> {
   for (const a of iter) {
     if (!predicate(a)) break;
     yield a;
   }
 }
 
-export function* skipWhile<A>(iter: Iterable<A>, predicate: (a: A) => boolean): Iterable<A> {
+export function* skipWhile<A>(iter: Iterable<A>, predicate: Predicate<A>): Iterable<A> {
   let skip = true;
   for (const a of iter) {
     if (skip) {
@@ -146,14 +148,14 @@ export function* skipWhile<A>(iter: Iterable<A>, predicate: (a: A) => boolean): 
   }
 }
 
-export function all<A>(iter: Iterable<A>, predicate: (a: A) => boolean): boolean {
+export function all<A>(iter: Iterable<A>, predicate: Predicate<A>): boolean {
   for (const a of iter) {
     if (!predicate(a)) return false;
   }
   return true;
 }
 
-export function some<A>(iter: Iterable<A>, predicate: (a: A) => boolean): boolean {
+export function some<A>(iter: Iterable<A>, predicate: Predicate<A>): boolean {
   for (const a of iter) {
     if (predicate(a)) return true;
   }
@@ -176,7 +178,7 @@ export function avg(iter: Iterable<number>): number {
   return fold(iter, avgReducer, { avg: 0, i: 0 }).avg;
 }
 
-export function count<A>(iter: Iterable<A>, predicate?: (a: A) => boolean): number {
+export function count<A>(iter: Iterable<A>, predicate?: Predicate<A>): number {
   predicate ??= (_: A) => true;
   let n = 0;
   for (const a of iter) {

@@ -1,4 +1,5 @@
 import * as Iterators from './iterators';
+import { Mapper, Predicate, Reducer, identity } from "../types";
 
 export class FluentIterator<A> implements Iterable<A> {
 
@@ -12,12 +13,12 @@ export class FluentIterator<A> implements Iterable<A> {
     return Iterators.collect(this.iter);
   }
 
-  filter(predicate: (a: A) => boolean): FluentIterator<A> {
+  filter(predicate: Predicate<A>): FluentIterator<A> {
     return new FluentIterator(Iterators.filter(this.iter, predicate));
   }
 
-  map<B>(f: (a: A) => B): FluentIterator<B> {
-    return new FluentIterator(Iterators.map(this.iter, f));
+  map<B>(mapper: Mapper<A, B>): FluentIterator<B> {
+    return new FluentIterator(Iterators.map(this.iter, mapper));
   }
 
   first(): A | undefined {
@@ -32,11 +33,11 @@ export class FluentIterator<A> implements Iterable<A> {
     return new FluentIterator(Iterators.skip(this.iter, n));
   }
 
-  find(predicate: (a: A) => boolean): A | undefined {
+  find(predicate: Predicate<A>): A | undefined {
     return Iterators.find(this, predicate);
   }
 
-  contains(predicate: (a: A) => boolean): boolean {
+  contains(predicate: Predicate<A>): boolean {
     return Iterators.contains(this, predicate);
   }
 
@@ -44,11 +45,11 @@ export class FluentIterator<A> implements Iterable<A> {
     return Iterators.includes(this, target);
   }
 
-  fold<B>(reducer: (b: B, a: A) => B, initialValue: B): B {
+  fold<B>(reducer: Reducer<A, B>, initialValue: B): B {
     return Iterators.fold(this, reducer, initialValue);
   }
 
-  reduce(reducer: (acc: A, a: A) => A, initialValue?: A): A | undefined {
+  reduce(reducer: Reducer<A, A>, initialValue?: A): A | undefined {
     return Iterators.reduce(this, reducer, initialValue);
   }
 
@@ -60,12 +61,12 @@ export class FluentIterator<A> implements Iterable<A> {
     return new FluentIterator(Iterators.enumerate(this));
   }
 
-  tap(f: (a: A) => any): FluentIterator<A> {
-    return new FluentIterator(Iterators.tap(this, f));
+  tap(mapper: Mapper<A, any>): FluentIterator<A> {
+    return new FluentIterator(Iterators.tap(this, mapper));
   }
 
-  forEach(f: (a: A) => any): void {
-    Iterators.forEach(this, f);
+  forEach(mapper: Mapper<A, any>): void {
+    Iterators.forEach(this, mapper);
   }
 
   append(items: Iterable<A>): FluentIterator<A> {
@@ -80,31 +81,31 @@ export class FluentIterator<A> implements Iterable<A> {
     return new FluentIterator(Iterators.concat(this, ...iterables));
   }
 
-  takeWhile(predicate: (a: A) => boolean): FluentIterator<A> {
+  takeWhile(predicate: Predicate<A>): FluentIterator<A> {
     return new FluentIterator(Iterators.takeWhile(this, predicate));
   }
 
-  skipWhile(predicate: (a: A) => boolean): FluentIterator<A> {
+  skipWhile(predicate: Predicate<A>): FluentIterator<A> {
     return new FluentIterator(Iterators.skipWhile(this, predicate));
   }
 
-  all(predicate: (a: A) => boolean): boolean {
+  all(predicate: Predicate<A>): boolean {
     return Iterators.all(this, predicate);
   }
 
-  some(predicate: (a: A) => boolean): boolean {
+  some(predicate: Predicate<A>): boolean {
     return Iterators.some(this, predicate);
   }
 
-  sum(mapper: (a: A) => number = (a: A) => a as unknown as number): number {
+  sum(mapper: Mapper<A, number> = identity as Mapper<A, number>): number {
     return Iterators.sum(Iterators.map(this, mapper));
   }
 
-  avg(mapper: (a: A) => number = (a: A) => a as unknown as number): number {
+  avg(mapper: Mapper<A, number> = identity as Mapper<A, number>): number {
     return Iterators.avg(Iterators.map(this, mapper));
   }
 
-  count(predicate?: (a: A) => boolean): number {
+  count(predicate?: Predicate<A>): number {
     return Iterators.count(this, predicate);
   }
 
@@ -113,6 +114,6 @@ export class FluentIterator<A> implements Iterable<A> {
   }
 }
 
-export function fluentIterator<A>(iter: Iterable<A>): FluentIterator<A> {
+export function iterator<A>(iter: Iterable<A>): FluentIterator<A> {
   return new FluentIterator(iter);
 }
