@@ -1,7 +1,7 @@
 import { range } from "../../../src/lib/async/asyncGenerators"
 import { asyncIterator } from "../../../src/lib/async/asyncFluentIterator"
 import { toAsync } from "../../../src/lib/async/asyncIterators";
-import { defaultComparator } from "../../../src/lib/functions";
+import { defaultComparator, lengthComparator } from "../../../src/lib/functions";
 import { expect } from "chai";
 
 describe("AsyncFluentIterator", () => {
@@ -337,6 +337,40 @@ describe("AsyncFluentIterator", () => {
     });
     it('should return empty string', async () => {
       expect(await asyncIterator(toAsync([])).join()).equal('');
+    });
+  });
+
+  describe("collectSorted", () => {
+    it("should sort according to default comparator", async () => {
+      expect(await asyncIterator(toAsync([2, 5, 4, 3, 1])).collectSorted()).deep.equal([1, 2, 3, 4, 5]);
+    });
+    it("should sort in increasing order of string lengths", async () => {
+      expect(await asyncIterator(toAsync(["foo", "bar", "foobar", "x", "xy"])).collectSorted(lengthComparator)).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
+    });
+  });
+
+  describe("sort", () => {
+    it("should sort according to default comparator", async () => {
+      expect(await asyncIterator(toAsync([2, 5, 4, 3, 1])).sort().collect()).deep.equal([1, 2, 3, 4, 5]);
+    });
+    it("should sort in increasing order of string lengths", async () => {
+      expect(await asyncIterator(toAsync(["foo", "bar", "foobar", "x", "xy"])).sort(lengthComparator).collect()).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
+    });
+  });
+
+  describe("collectToMap", () => {
+    it("should group numbers according to their last bit", async () => {
+      const actual = await asyncIterator(toAsync([2, 5, 4, 3, 1])).collectToMap(x => x % 2);
+      const expected = new Map().set(0, [2, 4]).set(1, [5, 3, 1]);
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe("partition", () => {
+    it("should group numbers according to their last bit", async () => {
+      const actual = await asyncIterator(toAsync([2, 5, 4, 3, 1])).partition(x => x % 2).collect();
+      const expected = [[0, [2, 4]], [1, [5, 3, 1]]];
+      expect(actual).deep.equal(expected);
     });
   });
 

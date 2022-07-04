@@ -130,6 +130,22 @@ export class AsyncFluentIterator<A> implements AsyncIterable<A> {
     return Iterators.join(this, separator);
   }
 
+  collectSorted(comparator?: Comparator<A>): Promise<A[]> {
+    return Iterators.collectSorted(this, comparator);
+  }
+
+  sort(comparator?: Comparator<A>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.sort(this, comparator));
+  }
+
+  collectToMap<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
+    return Iterators.collectToMap(this, mapper);
+  }
+
+  partition<K>(mapper: EventualMapper<A, K>): AsyncFluentIterator<[K, A[]]> {
+    return new AsyncFluentIterator(Iterators.partition(this, mapper));
+  }
+
   [Symbol.asyncIterator](): AsyncIterator<A> {
     return this.iter[Symbol.asyncIterator]();
   }

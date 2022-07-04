@@ -130,6 +130,22 @@ export class FluentIterator<A> implements Iterable<A> {
     return Iterators.join(this, separator);
   }
 
+  collectSorted(comparator?: Comparator<A>): A[] {
+    return Iterators.collectSorted(this, comparator);
+  }
+
+  sort(comparator?: Comparator<A>): FluentIterator<A> {
+    return new FluentIterator(Iterators.sort(this, comparator));
+  }
+
+  collectToMap<K>(mapper: Mapper<A, K>): Map<K, A[]> {
+    return Iterators.collectToMap(this, mapper);
+  }
+
+  partition<K>(mapper: Mapper<A, K>): FluentIterator<[K, A[]]> {
+    return new FluentIterator(Iterators.partition(this, mapper));
+  }
+
   [Symbol.iterator](): Iterator<A> {
     return this.iter[Symbol.iterator]();
   }

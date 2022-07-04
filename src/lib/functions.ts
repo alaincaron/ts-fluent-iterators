@@ -10,3 +10,5 @@ export const defaultComparator = <A>(a1: A, a2: A) => {
   if (a1 > a2) return 1;
   return 0;
 }
+
+export const lengthComparator = (a: { length: number }, b: { length: number }) => defaultComparator(a.length, b.length);

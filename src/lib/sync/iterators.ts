@@ -1,5 +1,6 @@
 import { Comparator, Mapper, Predicate, Reducer } from "../types";
 import { alwaysTrue, defaultComparator } from "../functions";
+import { sortAndDeduplicateDiagnostics } from "typescript";
 
 export function* map<A, B>(iter: Iterable<A>, mapper: Mapper<A, B>): Iterable<B> {
   for (const a of iter) {
@@ -220,6 +221,32 @@ export function join<A>(iter: Iterable<A>, separator: string = ','): string {
     state.first = false;
     return state;
   }, { first: true, acc: '' }).acc;
+}
+
+export function collectSorted<A>(iter: Iterable<A>, comparator: Comparator<A> = defaultComparator): A[] {
+  return collect(iter).sort(comparator);
+}
+
+export function* sort<A>(iter: Iterable<A>, comparator?: Comparator<A>): Iterable<A> {
+  yield* collectSorted(iter, comparator);
+}
+
+export function collectToMap<A, K>(iter: Iterable<A>, mapper: Mapper<A, K>): Map<K, A[]> {
+  const result = new Map<K, A[]>();
+  for (const a of iter) {
+    const k = mapper(a);
+    let arr = result.get(k);
+    if (!arr) {
+      arr = [];
+      result.set(k, arr);
+    }
+    arr.push(a);
+  }
+  return result;
+}
+
+export function* partition<A, K>(iter: Iterable<A>, mapper: Mapper<A, K>): Iterable<[K, A[]]> {
+  yield* collectToMap(iter, mapper).entries();
 }
 
 export function avgReducer(state: { avg: number, i: number }, value: number): { avg: number, i: number } {

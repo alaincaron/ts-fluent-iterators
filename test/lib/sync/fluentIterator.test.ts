@@ -1,6 +1,6 @@
 import { range } from "../../../src/lib/sync/generators";
 import { iterator } from "../../../src/lib/sync/fluentIterator";
-import { defaultComparator } from "../../../src/lib/functions";
+import { defaultComparator, lengthComparator } from "../../../src/lib/functions";
 
 import { expect } from "chai";
 
@@ -270,10 +270,7 @@ describe("SyncFluentIterator", () => {
 
   describe("min", () => {
     it("should return the shortest string", () => {
-      expect(
-        iterator(["foo", "bar", "x", "foobar"])
-          .min((a, b) => defaultComparator(a.length, b.length)))
-        .equal("x");
+      expect(iterator(["foo", "bar", "x", "foobar"]).min(lengthComparator)).equal("x");
     });
     it("should return lexicographically smallest string", () => {
       expect(iterator(["foo", "bar", "x", "foobar"]).min()).equal("bar");
@@ -326,4 +323,39 @@ describe("SyncFluentIterator", () => {
       expect(iterator([]).join()).equal('');
     });
   });
+
+  describe("collectSorted", () => {
+    it("should sort according to default comparator", () => {
+      expect(iterator([2, 5, 4, 3, 1]).collectSorted()).deep.equal([1, 2, 3, 4, 5]);
+    });
+    it("should sort in increasing order of string lengths", () => {
+      expect(iterator(["foo", "bar", "foobar", "x", "xy"]).collectSorted(lengthComparator)).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
+    });
+  });
+
+  describe("sort", () => {
+    it("should sort according to default comparator", () => {
+      expect(iterator([2, 5, 4, 3, 1]).sort().collect()).deep.equal([1, 2, 3, 4, 5]);
+    });
+    it("should sort in increasing order of string lengths", () => {
+      expect(iterator(["foo", "bar", "foobar", "x", "xy"]).sort(lengthComparator).collect()).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
+    });
+  });
+
+  describe("collectToMap", () => {
+    it("should group numbers according to their last bit", () => {
+      const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2);
+      const expected = new Map().set(0, [2, 4]).set(1, [5, 3, 1]);
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe("partition", () => {
+    it("should group numbers according to their last bit", () => {
+      const actual = iterator([2, 5, 4, 3, 1]).partition(x => x % 2).collect();
+      const expected = [[0, [2, 4]], [1, [5, 3, 1]]];
+      expect(actual).deep.equal(expected);
+    });
+  });
+
 });

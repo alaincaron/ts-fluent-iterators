@@ -207,6 +207,34 @@ export function join<A>(iter: Iterable<Promise<A>>, separator: string = ','): Pr
   }, { first: true, acc: '' }).then(state => state.acc);
 }
 
+export function collectSorted<A>(iter: Iterable<Promise<A>>, comparator: Comparator<A> = defaultComparator): Promise<A[]> {
+  return collect(iter).then(arr => arr.sort(comparator));
+}
+
+export async function* sort<A>(iter: Iterable<Promise<A>>, comparator?: Comparator<A>): AsyncIterable<A> {
+  const result = await collectSorted(iter, comparator);
+  yield* result;
+}
+
+export async function collectToMap<A, K>(iter: Iterable<Promise<A>>, mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
+  const result = new Map<K, A[]>();
+  for (const a of iter) {
+    const value = await a;
+    const k = await mapper(value);
+    let arr = result.get(k);
+    if (!arr) {
+      arr = [];
+      result.set(k, arr);
+    }
+    arr.push(value);
+  }
+  return result;
+}
+
+export async function* partition<A, K>(iter: Iterable<Promise<A>>, mapper: EventualMapper<A, K>): AsyncIterable<[K, A[]]> {
+  yield* (await collectToMap(iter, mapper)).entries();
+}
+
 export function* toPromise<A>(iter: Iterable<A>): Iterable<Promise<A>> {
   yield* SyncIterators.map(iter, a => Promise.resolve(a));
 }
