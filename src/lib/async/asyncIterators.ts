@@ -1,5 +1,6 @@
 import { sumReducer, avgReducer } from "../sync/iterators";
-import { EventualMapper, EventualPredicate, Eventually, Reducer, alwaysTrue } from "../types";
+import { EventualMapper, EventualPredicate, Eventually, Reducer, Comparator } from "../types";
+import { alwaysTrue, defaultComparator } from "../functions";
 
 export async function* map<A, B>(iter: AsyncIterable<A>, mapper: EventualMapper<A, B>): AsyncIterable<B> {
   for await (const a of iter) {
@@ -173,8 +174,6 @@ export async function some<A>(iter: AsyncIterable<A>, predicate: EventualPredica
   return false;
 }
 
-
-
 export async function collect<A>(iter: AsyncIterable<A>): Promise<A[]> {
   const result: A[] = [];
   for await (const a of iter) {
@@ -182,7 +181,6 @@ export async function collect<A>(iter: AsyncIterable<A>): Promise<A[]> {
   }
   return result;
 }
-
 
 export function sum(iter: AsyncIterable<number>): Promise<number> {
   return fold(iter, sumReducer, { sum: 0, correction: 0 }).then(s => s.sum);
@@ -200,6 +198,33 @@ export async function count<A>(iter: AsyncIterable<A>, predicate?: EventualPredi
   }
   return n;
 }
+
+export function min<A>(iter: AsyncIterable<A>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
+  const reducer = (acc: A, a: A) => comparator(acc, a) <= 0 ? acc : a;
+  return reduce(iter, reducer);
+}
+
+export function max<A>(iter: AsyncIterable<A>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
+  const reducer = (acc: A, a: A) => comparator(acc, a) >= 0 ? acc : a;
+  return reduce(iter, reducer);
+}
+
+export async function last<A>(iter: AsyncIterable<A>, predicate: EventualPredicate<A> = alwaysTrue): Promise<A | undefined> {
+  let result: A | undefined;
+  for await (const a of iter) {
+    if (await predicate(a)) result = a;
+  }
+  return result;
+}
+
+export function join<A>(iter: AsyncIterable<A>, separator: string = ','): Promise<string> {
+  return fold(iter, (state, a) => {
+    state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
+    state.first = false;
+    return state;
+  }, { first: true, acc: '' }).then(state => state.acc);
+}
+
 
 export async function* toAsync<A>(iter: Iterable<A>): AsyncIterable<A> {
   yield* iter;

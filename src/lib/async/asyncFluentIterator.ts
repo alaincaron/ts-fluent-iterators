@@ -1,5 +1,6 @@
 import * as Iterators from './asyncIterators';
-import { EventualMapper, EventualPredicate, Eventually, Reducer, identity, Mapper } from "../types";
+import { EventualMapper, EventualPredicate, Eventually, Reducer, Mapper, Comparator } from "../types";
+import { identity } from "../functions";
 
 export class AsyncFluentIterator<A> implements AsyncIterable<A> {
 
@@ -111,6 +112,22 @@ export class AsyncFluentIterator<A> implements AsyncIterable<A> {
 
   count(predicate?: EventualPredicate<A>): Promise<number> {
     return Iterators.count(this, predicate);
+  }
+
+  min(comparator?: Comparator<A>): Promise<A | undefined> {
+    return Iterators.min(this, comparator);
+  }
+
+  max(comparator?: Comparator<A>): Promise<A | undefined> {
+    return Iterators.max(this, comparator);
+  }
+
+  last(predicate?: EventualPredicate<A>): Promise<A | undefined> {
+    return Iterators.last(this, predicate);
+  }
+
+  join(separator?: string): Promise<string> {
+    return Iterators.join(this, separator);
   }
 
   [Symbol.asyncIterator](): AsyncIterator<A> {

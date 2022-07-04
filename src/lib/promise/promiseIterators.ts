@@ -1,6 +1,7 @@
 import * as SyncIterators from "../sync/iterators";
 import { sumReducer, avgReducer } from "../sync/iterators";
-import { EventualMapper, EventualPredicate, EventualReducer, Eventually } from "../types";
+import { EventualMapper, EventualPredicate, EventualReducer, Eventually, Comparator } from "../types";
+import { defaultComparator, alwaysTrue } from "../functions";
 
 export function* map<A, B>(iter: Iterable<Promise<A>>, mapper: EventualMapper<A, B>): Iterable<Promise<B>> {
   for (const a of iter) {
@@ -177,6 +178,33 @@ export async function count<A>(iter: Iterable<Promise<A>>, predicate?: EventualP
     if (await predicate(await a)) ++n;
   }
   return n;
+}
+
+export function min<A>(iter: Iterable<Promise<A>>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
+  const reducer = (acc: A, a: A) => comparator(acc, a) <= 0 ? acc : a;
+  return reduce(iter, reducer);
+}
+
+export function max<A>(iter: Iterable<Promise<A>>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
+  const reducer = (acc: A, a: A) => comparator(acc, a) >= 0 ? acc : a;
+  return reduce(iter, reducer);
+}
+
+export async function last<A>(iter: Iterable<Promise<A>>, predicate: EventualPredicate<A> = alwaysTrue): Promise<A | undefined> {
+  let result: A | undefined;
+  for (const a of iter) {
+    const value = await a;
+    if (await predicate(value)) result = value;
+  }
+  return result;
+}
+
+export function join<A>(iter: Iterable<Promise<A>>, separator: string = ','): Promise<string> {
+  return fold(iter, (state, a) => {
+    state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
+    state.first = false;
+    return state;
+  }, { first: true, acc: '' }).then(state => state.acc);
 }
 
 export function* toPromise<A>(iter: Iterable<A>): Iterable<Promise<A>> {

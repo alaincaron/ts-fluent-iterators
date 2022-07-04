@@ -9,3 +9,6 @@ export * as AsyncGenerators from "./lib/async/asyncGenerators";
 export * as PromiseIterators from "./lib/promise/promiseIterators";
 export { promiseIterator, PromiseIterator } from "./lib/promise/promiseIterator";
 export * as PromiseGenerators from "./lib/promise/promiseGenerators";
+
+export * as Types from "./lib/types";
+export * as Functions from "./lib/functions";

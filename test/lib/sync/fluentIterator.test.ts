@@ -1,5 +1,7 @@
 import { range } from "../../../src/lib/sync/generators";
 import { iterator } from "../../../src/lib/sync/fluentIterator";
+import { defaultComparator } from "../../../src/lib/functions";
+
 import { expect } from "chai";
 
 describe("SyncFluentIterator", () => {
@@ -266,12 +268,62 @@ describe("SyncFluentIterator", () => {
     });
   });
 
+  describe("min", () => {
+    it("should return the shortest string", () => {
+      expect(
+        iterator(["foo", "bar", "x", "foobar"])
+          .min((a, b) => defaultComparator(a.length, b.length)))
+        .equal("x");
+    });
+    it("should return lexicographically smallest string", () => {
+      expect(iterator(["foo", "bar", "x", "foobar"]).min()).equal("bar");
+    });
+  });
+
+  describe("max", () => {
+    it("should return the longest string", () => {
+      expect(
+        iterator(["foo", "bar", "x", "foobar"])
+          .max((a, b) => defaultComparator(a.length, b.length)))
+        .equal("foobar");
+    });
+    it("should return lexicographically largest string", () => {
+      expect(iterator(["foo", "bar", "x", "foobar"]).max()).equal("x");
+    });
+  });
+
+  describe("last", () => {
+    it("should return the last string", () => {
+      expect(
+        iterator(["foo", "bar", "x", "foobar"]).last())
+        .equal("foobar");
+    });
+    it("should return the last string of length 3", () => {
+      expect(iterator(["foo", "bar", "x", "foobar"]).last(s => s.length === 3)).equal("bar");
+    });
+    it("should return undefined", () => {
+      expect(iterator(["foo", "bar", "x", "foobar"]).last(s => s.length > 10)).to.be.undefined;
+    });
+  });
+
   describe("count", () => {
     it("should use predicate", () => {
       expect(iterator([1, 2, 3]).count(x => x % 2 === 0)).equal(1);
     });
     it("should use default true predicate", () => {
       expect(iterator([1, 2, 3]).count()).equal(3);
+    });
+  });
+
+  describe("join", () => {
+    it("should use separator", () => {
+      expect(iterator([1, 2, 3]).join('-')).equal('1-2-3');
+    });
+    it("should use default separator", () => {
+      expect(iterator([1, 2, 3]).join()).equal('1,2,3');
+    });
+    it('should return empty string', () => {
+      expect(iterator([]).join()).equal('');
     });
   });
 });

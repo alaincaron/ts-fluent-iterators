@@ -1,5 +1,6 @@
 import * as Iterators from './iterators';
-import { Mapper, Predicate, Reducer, identity } from "../types";
+import { Comparator, Mapper, Predicate, Reducer } from "../types";
+import { identity } from "../functions";
 
 export class FluentIterator<A> implements Iterable<A> {
 
@@ -111,6 +112,22 @@ export class FluentIterator<A> implements Iterable<A> {
 
   count(predicate?: Predicate<A>): number {
     return Iterators.count(this, predicate);
+  }
+
+  min(comparator?: Comparator<A>): A | undefined {
+    return Iterators.min(this, comparator);
+  }
+
+  max(comparator?: Comparator<A>): A | undefined {
+    return Iterators.max(this, comparator);
+  }
+
+  last(predicate?: Predicate<A>): A | undefined {
+    return Iterators.last(this, predicate);
+  }
+
+  join(separator?: string): string {
+    return Iterators.join(this, separator);
   }
 
   [Symbol.iterator](): Iterator<A> {

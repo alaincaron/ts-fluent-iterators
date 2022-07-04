@@ -1,6 +1,7 @@
 import { range } from "../../../src/lib/promise/promiseGenerators"
 import { promiseIterator } from "../../../src/lib/promise/promiseIterator"
 import { toPromise } from "../../../src/lib/promise/promiseIterators";
+import { defaultComparator } from "../../../src/lib/functions";
 import { expect, assert } from "chai";
 
 describe("PromiseIterator", () => {
@@ -334,12 +335,62 @@ describe("PromiseIterator", () => {
     });
   });
 
+  describe("min", () => {
+    it("should return the shortest string", async () => {
+      expect(
+        await promiseIterator(toPromise(["foo", "bar", "x", "foobar"]))
+          .min((a, b) => defaultComparator(a.length, b.length)))
+        .equal("x");
+    });
+    it("should return lexicographically smallest string", async () => {
+      expect(await promiseIterator(toPromise(["foo", "bar", "x", "foobar"])).min()).equal("bar");
+    });
+  });
+
+  describe("max", () => {
+    it("should return the longest string", async () => {
+      expect(
+        await promiseIterator(toPromise(["foo", "bar", "x", "foobar"]))
+          .max((a, b) => defaultComparator(a.length, b.length)))
+        .equal("foobar");
+    });
+    it("should return lexicographically largest string", async () => {
+      expect(await promiseIterator(toPromise(["foo", "bar", "x", "foobar"])).max()).equal("x");
+    });
+  });
+
+  describe("last", () => {
+    it("should return the last string", async () => {
+      expect(
+        await promiseIterator(toPromise(["foo", "bar", "x", "foobar"])).last())
+        .equal("foobar");
+    });
+    it("should return the last string of length 3", async () => {
+      expect(await promiseIterator(toPromise(["foo", "bar", "x", "foobar"])).last(s => s.length === 3)).equal("bar");
+    });
+    it("should return undefined", async () => {
+      expect(await promiseIterator(toPromise(["foo", "bar", "x", "foobar"])).last(s => s.length > 10)).to.be.undefined;
+    });
+  });
+
   describe("count", () => {
     it("should use predicate", async () => {
       expect(await promiseIterator(range(1, 4)).count(x => x % 2 === 0)).equal(1);
     });
     it("should use default true predicate", async () => {
       expect(await promiseIterator(range(1, 4)).count()).equal(3);
+    });
+  });
+
+  describe("join", () => {
+    it("should use separator", async () => {
+      expect(await promiseIterator(toPromise([1, 2, 3])).join('-')).equal('1-2-3');
+    });
+    it("should use default separator", async () => {
+      expect(await promiseIterator(toPromise([1, 2, 3])).join()).equal('1,2,3');
+    });
+    it('should return empty string', async () => {
+      expect(await promiseIterator(toPromise([])).join()).equal('');
     });
   });
 

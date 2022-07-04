@@ -1,4 +1,5 @@
-import { Mapper, Predicate, Reducer } from "../types";
+import { Comparator, Mapper, Predicate, Reducer } from "../types";
+import { alwaysTrue, defaultComparator } from "../functions";
 
 export function* map<A, B>(iter: Iterable<A>, mapper: Mapper<A, B>): Iterable<B> {
   for (const a of iter) {
@@ -187,13 +188,38 @@ export function avg(iter: Iterable<number>): number {
   return fold(iter, avgReducer, { avg: 0, i: 0 }).avg;
 }
 
-export function count<A>(iter: Iterable<A>, predicate?: Predicate<A>): number {
-  predicate ??= (_: A) => true;
+export function count<A>(iter: Iterable<A>, predicate: Predicate<A> = alwaysTrue): number {
   let n = 0;
   for (const a of iter) {
     if (predicate(a)) ++n;
   }
   return n;
+}
+
+export function min<A>(iter: Iterable<A>, comparator: Comparator<A> = defaultComparator): A | undefined {
+  const reducer = (acc: A, a: A) => comparator(acc, a) <= 0 ? acc : a;
+  return reduce(iter, reducer);
+}
+
+export function max<A>(iter: Iterable<A>, comparator: Comparator<A> = defaultComparator): A | undefined {
+  const reducer = (acc: A, a: A) => comparator(acc, a) >= 0 ? acc : a;
+  return reduce(iter, reducer);
+}
+
+export function last<A>(iter: Iterable<A>, predicate: Predicate<A> = alwaysTrue): A | undefined {
+  let result: A | undefined;
+  for (const a of iter) {
+    if (predicate(a)) result = a;
+  }
+  return result;
+}
+
+export function join<A>(iter: Iterable<A>, separator: string = ','): string {
+  return fold(iter, (state, a) => {
+    state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
+    state.first = false;
+    return state;
+  }, { first: true, acc: '' }).acc;
 }
 
 export function avgReducer(state: { avg: number, i: number }, value: number): { avg: number, i: number } {
