@@ -1,4 +1,4 @@
-export function* range(start?: number, end?: number, step: number = 1): Iterable<number> {
+export function* range(start?: number, end?: number, step: number = 1): Iterator<number> {
   if (start === undefined) return;
   if (step === 0) {
     throw new Error(`Invalid value for step: ${step}`);

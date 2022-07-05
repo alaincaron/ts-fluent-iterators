@@ -5,7 +5,7 @@ export const alwaysFalse = <A>(_: A) => false;
 export const asyncAlwaysTrue = <A>(_: A) => Promise.resolve(true);
 export const asyncAlwaysFalse = <A>(_: A) => Promise.resolve(false);
 
-export const defaultComparator = <A>(a1: A, a2: A) => {
+export function defaultComparator<A>(a1: A, a2: A) {
   if (a1 < a2) return -1;
   if (a1 > a2) return 1;
   return 0;

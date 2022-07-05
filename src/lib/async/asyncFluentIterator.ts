@@ -1,156 +1,160 @@
 import * as Iterators from './asyncIterators';
-import { EventualMapper, EventualPredicate, Eventually, Reducer, Mapper, Comparator } from "../types";
+import { EventualMapper, EventualPredicate, Eventually, Comparator, EventualReducer, EventualIterable, EventualIterator } from "../types";
 import { identity } from "../functions";
 
-export class AsyncFluentIterator<A> implements AsyncIterable<A> {
+export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A> {
 
-  private iter: AsyncIterable<A>;
+  private iter: AsyncIterator<A>;
 
-  constructor(iter: AsyncIterable<A>) {
+  constructor(iter: AsyncIterator<A>) {
     this.iter = iter;
   }
 
   collect(): Promise<A[]> {
-    return Iterators.collect(this);
+    return Iterators.collect(this.iter);
   }
 
   filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.filter(this, predicate));
+    return new AsyncFluentIterator(Iterators.filter(this.iter, predicate));
   }
 
   map<B>(mapper: EventualMapper<A, B>): AsyncFluentIterator<B> {
-    return new AsyncFluentIterator(Iterators.map(this, mapper));
+    return new AsyncFluentIterator(Iterators.map(this.iter, mapper));
   }
 
-  first(): Promise<A | undefined> {
-    return Iterators.first(this);
+  first(predicate?: EventualPredicate<A>): Promise<A | undefined> {
+    return Iterators.first(this.iter, predicate);
   }
 
   take(n: number): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.take(this, n));
+    return new AsyncFluentIterator(Iterators.take(this.iter, n));
   }
 
   skip(n: number): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.skip(this, n));
+    return new AsyncFluentIterator(Iterators.skip(this.iter, n));
   }
 
   find(predicate: EventualPredicate<A>): Promise<A | undefined> {
-    return Iterators.find(this, predicate);
+    return Iterators.find(this.iter, predicate);
   }
 
   contains(predicate: EventualPredicate<A>): Promise<boolean> {
-    return Iterators.contains(this, predicate);
+    return Iterators.contains(this.iter, predicate);
   }
 
   includes(target: Eventually<A>): Promise<boolean> {
-    return Iterators.includes(this, target);
+    return Iterators.includes(this.iter, target);
   }
 
-  fold<B>(reducer: Reducer<A, B>, initialValue: B): Promise<B> {
-    return Iterators.fold(this, reducer, initialValue);
+  fold<B>(reducer: EventualReducer<A, B>, initialValue: B): Promise<B> {
+    return Iterators.fold(this.iter, reducer, initialValue);
   }
 
-  reduce(reducer: Reducer<A, A>, initialValue?: A): Promise<A | undefined> {
-    return Iterators.reduce(this, reducer, initialValue);
+  reduce(reducer: EventualReducer<A, A>, initialValue?: A): Promise<A | undefined> {
+    return Iterators.reduce(this.iter, reducer, initialValue);
   }
 
-  zip<B>(other: AsyncIterable<B>): AsyncFluentIterator<[A, B]> {
-    return new AsyncFluentIterator(Iterators.zip(this, other));
+  zip<B>(other: AsyncIterator<B>): AsyncFluentIterator<[A, B]> {
+    return new AsyncFluentIterator(Iterators.zip(this.iter, other));
   }
 
   enumerate(): AsyncFluentIterator<[A, number]> {
-    return new AsyncFluentIterator(Iterators.enumerate(this));
+    return new AsyncFluentIterator(Iterators.enumerate(this.iter));
   }
 
   tap(mapper: EventualMapper<A, any>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.tap(this, mapper));
+    return new AsyncFluentIterator(Iterators.tap(this.iter, mapper));
   }
 
   forEach(mapper: EventualMapper<A, any>): Promise<void> {
-    return Iterators.forEach(this, mapper);
+    return Iterators.forEach(this.iter, mapper);
   }
 
-  append(items: AsyncIterable<A> | Iterable<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.append(this, items));
+  append(items: EventualIterator<A> | EventualIterable<A>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.append(this.iter, Iterators.toEventualIterator(items)));
   }
 
-  prepend(items: AsyncIterable<A> | Iterable<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.prepend(this, items));
+  prepend(items: EventualIterator<A> | EventualIterable<A>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.prepend(this.iter, Iterators.toEventualIterator(items)));
   }
 
-  concat(...iterables: Array<Iterable<A> | AsyncIterable<A>>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.concat(this, ...iterables));
+  concat(...iterables: Array<EventualIterable<A> | EventualIterator<A>>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.concat(this.iter, ...iterables.map(Iterators.toEventualIterator)));
   }
 
   takeWhile(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.takeWhile(this, predicate));
+    return new AsyncFluentIterator(Iterators.takeWhile(this.iter, predicate));
   }
 
   skipWhile(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.skipWhile(this, predicate));
+    return new AsyncFluentIterator(Iterators.skipWhile(this.iter, predicate));
   }
 
   distinct(): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.distinct(this));
+    return new AsyncFluentIterator(Iterators.distinct(this.iter));
   }
 
   all(predicate: EventualPredicate<A>): Promise<boolean> {
-    return Iterators.all(this, predicate);
+    return Iterators.all(this.iter, predicate);
   }
 
   some(predicate: EventualPredicate<A>): Promise<boolean> {
-    return Iterators.some(this, predicate);
+    return Iterators.some(this.iter, predicate);
   }
 
-  sum(mapper: Mapper<A, number> = identity as Mapper<A, number>): Promise<number> {
-    return Iterators.sum(Iterators.map(this, mapper));
+  sum(mapper: EventualMapper<A, number> = identity as EventualMapper<A, number>): Promise<number> {
+    return Iterators.sum(Iterators.map(this.iter, mapper));
   }
 
-  avg(mapper: Mapper<A, number> = identity as Mapper<A, number>): Promise<number> {
-    return Iterators.avg(Iterators.map(this, mapper));
+  avg(mapper: EventualMapper<A, number> = identity as EventualMapper<A, number>): Promise<number> {
+    return Iterators.avg(Iterators.map(this.iter, mapper));
   }
 
   count(predicate?: EventualPredicate<A>): Promise<number> {
-    return Iterators.count(this, predicate);
+    return Iterators.count(this.iter, predicate);
   }
 
   min(comparator?: Comparator<A>): Promise<A | undefined> {
-    return Iterators.min(this, comparator);
+    return Iterators.min(this.iter, comparator);
   }
 
   max(comparator?: Comparator<A>): Promise<A | undefined> {
-    return Iterators.max(this, comparator);
+    return Iterators.max(this.iter, comparator);
   }
 
   last(predicate?: EventualPredicate<A>): Promise<A | undefined> {
-    return Iterators.last(this, predicate);
+    return Iterators.last(this.iter, predicate);
   }
 
   join(separator?: string): Promise<string> {
-    return Iterators.join(this, separator);
+    return Iterators.join(this.iter, separator);
   }
 
   collectSorted(comparator?: Comparator<A>): Promise<A[]> {
-    return Iterators.collectSorted(this, comparator);
+    return Iterators.collectSorted(this.iter, comparator);
   }
 
   sort(comparator?: Comparator<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.sort(this, comparator));
+    return new AsyncFluentIterator(Iterators.sort(this.iter, comparator));
   }
 
   collectToMap<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-    return Iterators.collectToMap(this, mapper);
+    return Iterators.collectToMap(this.iter, mapper);
   }
 
   partition<K>(mapper: EventualMapper<A, K>): AsyncFluentIterator<[K, A[]]> {
-    return new AsyncFluentIterator(Iterators.partition(this, mapper));
+    return new AsyncFluentIterator(Iterators.partition(this.iter, mapper));
   }
 
   [Symbol.asyncIterator](): AsyncIterator<A> {
-    return this.iter[Symbol.asyncIterator]();
+    return this.iter;
+  }
+
+  next(): Promise<IteratorResult<A>> {
+    return this.iter.next();
   }
 }
 
-export function asyncIterator<A>(iter: AsyncIterable<A>): AsyncFluentIterator<A> {
-  return new AsyncFluentIterator(iter);
+export function asyncIterator<A>(iter: AsyncIterator<A> | AsyncIterable<A>): AsyncFluentIterator<A> {
+  return new AsyncFluentIterator(Iterators.toAsyncIterator(iter));
 }
