@@ -3,7 +3,7 @@ import * as SyncIterators from "../sync/iterators";
 import { AsyncFluentIterator } from "../async/asyncFluentIterator";
 
 import { Eventually, EventualReducer, EventualMapper, EventualPredicate, Comparator } from "../types";
-import { asyncIdentity } from "../functions";
+import { asyncIdentity, identity } from "../functions";
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
 
@@ -45,10 +45,6 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return new PromiseIterator(Iterators.flatmap(this.iter, mapper));
   }
 
-  find(predicate: EventualPredicate<A>): Promise<A | undefined> {
-    return Iterators.find(this.iter, predicate);
-  }
-
   contains(predicate: EventualPredicate<A>): Promise<boolean> {
     return Iterators.contains(this.iter, predicate);
   }
@@ -57,8 +53,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.includes(this.iter, target);
   }
 
-  first(): Promise<A | undefined> {
-    return Iterators.first(this.iter);
+  first(predicate?: EventualPredicate<A>): Promise<A | undefined> {
+    return Iterators.first(this.iter, predicate);
   }
 
   fold<B>(reducer: EventualReducer<A, B>, initialValue: B): Promise<B> {
@@ -121,16 +117,18 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.some(this.iter, predicate);
   }
 
-  sum(mapper: EventualMapper<A, number> = asyncIdentity as EventualMapper<A, number>): Promise<number> {
+  sum(mapper?: EventualMapper<A, number>): Promise<number> {
+    mapper ??= identity as EventualMapper<A, number>;
     return Iterators.sum(Iterators.map(this.iter, mapper));
   }
 
-  avg(mapper: EventualMapper<A, number> = asyncIdentity as EventualMapper<A, number>): Promise<number> {
+  avg(mapper?: EventualMapper<A, number>): Promise<number> {
+    mapper ??= identity as EventualMapper<A, number>;
     return Iterators.avg(Iterators.map(this.iter, mapper));
   }
 
   count(predicate?: EventualPredicate<A>): Promise<number> {
-    return Iterators.count(this.iter, predicate);
+    return Iterators.count(this.iter, predicate); d
   }
 
   min(comparator?: Comparator<A>): Promise<A | undefined> {

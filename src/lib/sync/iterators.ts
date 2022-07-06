@@ -84,20 +84,12 @@ export function* enumerate<A>(iter: Iterator<A>): Iterator<[A, number]> {
   }
 }
 
-export function find<A>(iter: Iterator<A>, predicate: Predicate<A>): A | undefined {
-  for (; ;) {
-    const item = iter.next();
-    if (item.done) return undefined;
-    if (predicate(item.value)) return item.value;
-  }
-}
-
 export function contains<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean {
-  return find(iter, predicate) !== undefined;
+  return first(iter, predicate) !== undefined;
 }
 
 export function includes<A>(iter: Iterator<A>, target: A): boolean {
-  return find(iter, a => a === target) !== undefined;
+  return first(iter, a => a === target) !== undefined;
 }
 
 export function fold<A, B>(iter: Iterator<A>, reducer: Reducer<A, B>, initialValue: B): B {

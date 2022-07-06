@@ -62,21 +62,12 @@ export function* enumerate<A>(iter: Iterator<Promise<A>>): Iterator<Promise<[A, 
   }
 }
 
-export async function find<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A>): Promise<A | undefined> {
-  for (; ;) {
-    const item = iter.next();
-    if (item.done) return undefined;
-    const value = await item.value;
-    if (await predicate(value)) return value;
-  }
-}
-
 export async function contains<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A>): Promise<boolean> {
-  return await find(iter, predicate) !== undefined;
+  return await first(iter, predicate) !== undefined;
 }
 
 export async function includes<A>(iter: Iterator<Promise<A>>, target: Eventually<A>): Promise<boolean> {
-  return await find(iter, async (a) => a === await target) !== undefined;
+  return await first(iter, async (a) => a === await target) !== undefined;
 }
 
 export async function fold<A, B>(iter: Iterator<Promise<A>>, reducer: EventualReducer<A, B>, initialValue: Eventually<B>): Promise<B> {

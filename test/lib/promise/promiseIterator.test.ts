@@ -49,6 +49,12 @@ describe("PromiseIterator", () => {
     it("should return undefined on empty iterator", async () => {
       expect(await promiseIterator([]).any()).to.be.undefined
     });
+    it("should return matching element if exists", async () => {
+      expect(await promiseIterator(range(1, 7)).first(x => x % 3 === 0)).to.equal(3);
+    });
+    it("should return if no matching element", async () => {
+      expect(await promiseIterator(range(1, 5)).first(x => x >= 5)).to.be.undefined;
+    });
   });
 
   describe("race", () => {
@@ -130,15 +136,6 @@ describe("PromiseIterator", () => {
   describe("enumerate", () => {
     it("should enumerate all elements", async () => {
       expect(await promiseIterator(range(1, 3)).enumerate().collect()).to.deep.equal([[1, 0], [2, 1]]);
-    });
-  });
-
-  describe("find", () => {
-    it("should return matching element if exists", async () => {
-      expect(await promiseIterator(range(1, 7)).find(x => x % 3 === 0)).to.equal(3);
-    });
-    it("should return if no matching element", async () => {
-      expect(await promiseIterator(range(1, 5)).find(x => x >= 5)).to.be.undefined;
     });
   });
 

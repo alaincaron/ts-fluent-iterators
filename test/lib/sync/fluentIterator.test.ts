@@ -31,6 +31,12 @@ describe("SyncFluentIterator", () => {
     it("should return undefined on empty iterator.", () => {
       expect(iterator([]).first()).to.be.undefined;
     });
+    it("should return matching element if exists", () => {
+      expect(iterator(range(1, 7)).first(x => x % 3 === 0)).equal(3);
+    });
+    it("should return if no matching element", () => {
+      expect(iterator(range(1, 5)).first(x => x >= 5)).to.be.undefined;
+    });
   });
 
   describe("take", () => {
@@ -75,15 +81,6 @@ describe("SyncFluentIterator", () => {
   describe("enumerate", () => {
     it("should enumerate all elements", () => {
       expect(iterator(["a", "b"]).enumerate().collect()).deep.equal([["a", 0], ["b", 1]]);
-    });
-  });
-
-  describe("find", () => {
-    it("should return matching element if exists", () => {
-      expect(iterator(range(1, 7)).find(x => x % 3 === 0)).equal(3);
-    });
-    it("should return if no matching element", () => {
-      expect(iterator(range(1, 5)).find(x => x >= 5)).to.be.undefined;
     });
   });
 

@@ -15,3 +15,15 @@
 * [EventualIterator](types/eventual_iterator.md)
 * [EventIterable](types/eventual_iterable.md)
 
+
+## Fluent Iterators
+
+* [Class FluentIterator](iterators/fluent_iterator.md)
+* [Class AsyncFluentIterator](iterators/async_fluent_iterator.md)
+* [Class PromiseIterator](iterators/promise_iterator.md)
+
+## Factory methods
+
+* [iterator](factories/iterator.md)
+* [asyncIterator](factories/async_iterator.md)
+* [promiseIterator](factories/promise_iterator.md)

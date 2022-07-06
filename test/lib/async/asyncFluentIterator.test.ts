@@ -1,13 +1,12 @@
 import { range } from "../../../src/lib/async/asyncGenerators"
 import { asyncIterator } from "../../../src/lib/async/asyncFluentIterator"
-import { toAsync } from "../../../src/lib/async/asyncIterators";
 import { defaultComparator, lengthComparator } from "../../../src/lib/functions";
 import { expect } from "chai";
 
 describe("AsyncFluentIterator", () => {
   describe("collect", () => {
     it("should collect all elements", async () => {
-      expect(await asyncIterator(toAsync([1, 2])).collect()).deep.equal([1, 2]);
+      expect(await asyncIterator([1, 2]).collect()).deep.equal([1, 2]);
     });
 
     it("should return empty array on empty iterator", async () => {
@@ -17,7 +16,7 @@ describe("AsyncFluentIterator", () => {
 
   describe("map", () => {
     it("should apply function to all elements", async () => {
-      expect(await asyncIterator(toAsync([1, 2])).map(x => 2 * x).collect()).to.deep.equal([2, 4]);
+      expect(await asyncIterator([1, 2]).map(x => 2 * x).collect()).to.deep.equal([2, 4]);
     });
   });
 
@@ -29,6 +28,13 @@ describe("AsyncFluentIterator", () => {
     it("should return undefined on empty iterator.", async () => {
       expect(await asyncIterator(range()).first()).to.be.undefined;
     });
+    it("should return matching element if exists", async () => {
+      expect(await asyncIterator(range(1, 7)).first(x => x % 3 === 0)).equal(3);
+    });
+    it("should return if no matching element", async () => {
+      expect(await asyncIterator(range(1, 5)).first(x => x >= 5)).to.be.undefined;
+    });
+
   });
 
   describe("take", () => {
@@ -39,13 +45,13 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator(range(0, 100)).take(2).collect()).to.deep.equal([0, 1]);
     });
     it("should yield all elements if there are less elements than required", async () => {
-      expect(await asyncIterator(toAsync([0, 1])).take(1000).collect()).to.deep.equal([0, 1]);
+      expect(await asyncIterator([0, 1]).take(1000).collect()).to.deep.equal([0, 1]);
     });
   });
 
   describe("skip", () => {
     it("should skip the exact number of elements if skip equals he number of elements", async () => {
-      expect(await asyncIterator(toAsync([1, 2])).skip(2).collect()).deep.equal([]);
+      expect(await asyncIterator([1, 2]).skip(2).collect()).deep.equal([]);
     });
     it("should skip the exact number of elements if skip is less than the number of elements", async () => {
       expect(await asyncIterator(range(1, 3)).skip(1).collect()).deep.equal([2]);
@@ -76,15 +82,6 @@ describe("AsyncFluentIterator", () => {
   describe("enumerate", () => {
     it("should enumerate all elements", async () => {
       expect(await asyncIterator(range(1, 3)).enumerate().collect()).deep.equal([[1, 0], [2, 1]]);
-    });
-  });
-
-  describe("find", () => {
-    it("should return matching element if exists", async () => {
-      expect(await asyncIterator(range(1, 7)).find(x => x % 3 === 0)).equal(3);
-    });
-    it("should return if no matching element", async () => {
-      expect(await asyncIterator(range(1, 5)).find(x => x >= 5)).to.be.undefined;
     });
   });
 
@@ -212,7 +209,7 @@ describe("AsyncFluentIterator", () => {
 
   describe("skipWhile", () => {
     it("should yield skip 2 elements", async () => {
-      expect(await asyncIterator(toAsync([1, 10, 2, 11])).skipWhile(x => x != 10).collect()).to.deep.equal([10, 2, 11]);
+      expect(await asyncIterator([1, 10, 2, 11]).skipWhile(x => x != 10).collect()).to.deep.equal([10, 2, 11]);
     });
     it("should return no elements", async () => {
       expect(await asyncIterator(range(1, 4)).skipWhile((x => x > 0)).collect()).to.deep.equal([]);
@@ -229,7 +226,7 @@ describe("AsyncFluentIterator", () => {
 
   describe("distinct", () => {
     it("should eliminate duplicates", async () => {
-      expect(await asyncIterator(toAsync([1, 2, 5, 2, 1, 0])).distinct().collect()).deep.equal([1, 2, 5, 0]);
+      expect(await asyncIterator([1, 2, 5, 2, 1, 0]).distinct().collect()).deep.equal([1, 2, 5, 0]);
     });
   });
 
@@ -259,10 +256,10 @@ describe("AsyncFluentIterator", () => {
 
   describe("sum", () => {
     it("should apply mapper", async () => {
-      expect(await asyncIterator(toAsync(["foo", "bar", "foobar"])).sum(x => x.length)).equal(12);
+      expect(await asyncIterator(["foo", "bar", "foobar"]).sum(x => x.length)).equal(12);
     });
     it("should sum numbers", async () => {
-      expect(await asyncIterator(toAsync([1, 2, 3])).sum()).equal(6);
+      expect(await asyncIterator([1, 2, 3]).sum()).equal(6);
     });
     it("should return 0 on empty iterators", async () => {
       expect(await asyncIterator(range()).sum()).equal(0);
@@ -271,10 +268,10 @@ describe("AsyncFluentIterator", () => {
 
   describe("avg", () => {
     it("should apply mapper", async () => {
-      expect(await asyncIterator(toAsync(["foo", "bar", "foobar"])).avg(x => x.length)).equal(4);
+      expect(await asyncIterator(["foo", "bar", "foobar"]).avg(x => x.length)).equal(4);
     });
     it("should avg numbers", async () => {
-      expect(await asyncIterator(toAsync([1, 2])).avg()).equal(1.5);
+      expect(await asyncIterator([1, 2]).avg()).equal(1.5);
     });
     it("should return 0 on empty iterators", async () => {
       expect(await asyncIterator(range()).avg()).equal(0);
@@ -284,38 +281,38 @@ describe("AsyncFluentIterator", () => {
   describe("min", () => {
     it("should return the shortest string", async () => {
       expect(
-        await asyncIterator(toAsync(["foo", "bar", "x", "foobar"]))
+        await asyncIterator(["foo", "bar", "x", "foobar"])
           .min((a, b) => defaultComparator(a.length, b.length)))
         .equal("x");
     });
     it("should return lexicographically smallest string", async () => {
-      expect(await asyncIterator(toAsync(["foo", "bar", "x", "foobar"])).min()).equal("bar");
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).min()).equal("bar");
     });
   });
 
   describe("max", () => {
     it("should return the longest string", async () => {
       expect(
-        await asyncIterator(toAsync(["foo", "bar", "x", "foobar"]))
+        await asyncIterator(["foo", "bar", "x", "foobar"])
           .max((a, b) => defaultComparator(a.length, b.length)))
         .equal("foobar");
     });
     it("should return lexicographically largest string", async () => {
-      expect(await asyncIterator(toAsync(["foo", "bar", "x", "foobar"])).max()).equal("x");
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).max()).equal("x");
     });
   });
 
   describe("last", () => {
     it("should return the last string", async () => {
       expect(
-        await asyncIterator(toAsync(["foo", "bar", "x", "foobar"])).last())
+        await asyncIterator(["foo", "bar", "x", "foobar"]).last())
         .equal("foobar");
     });
     it("should return the last string of length 3", async () => {
-      expect(await asyncIterator(toAsync(["foo", "bar", "x", "foobar"])).last(s => s.length === 3)).equal("bar");
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).last(s => s.length === 3)).equal("bar");
     });
     it("should return undefined", async () => {
-      expect(await asyncIterator(toAsync(["foo", "bar", "x", "foobar"])).last(s => s.length > 10)).to.be.undefined;
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).last(s => s.length > 10)).to.be.undefined;
     });
   });
 
@@ -330,37 +327,37 @@ describe("AsyncFluentIterator", () => {
 
   describe("join", () => {
     it("should use separator", async () => {
-      expect(await asyncIterator(toAsync([1, 2, 3])).join('-')).equal('1-2-3');
+      expect(await asyncIterator([1, 2, 3]).join('-')).equal('1-2-3');
     });
     it("should use default separator", async () => {
-      expect(await asyncIterator(toAsync([1, 2, 3])).join()).equal('1,2,3');
+      expect(await asyncIterator([1, 2, 3]).join()).equal('1,2,3');
     });
     it('should return empty string', async () => {
-      expect(await asyncIterator(toAsync([])).join()).equal('');
+      expect(await asyncIterator([]).join()).equal('');
     });
   });
 
   describe("collectSorted", () => {
     it("should sort according to default comparator", async () => {
-      expect(await asyncIterator(toAsync([2, 5, 4, 3, 1])).collectSorted()).deep.equal([1, 2, 3, 4, 5]);
+      expect(await asyncIterator([2, 5, 4, 3, 1]).collectSorted()).deep.equal([1, 2, 3, 4, 5]);
     });
     it("should sort in increasing order of string lengths", async () => {
-      expect(await asyncIterator(toAsync(["foo", "bar", "foobar", "x", "xy"])).collectSorted(lengthComparator)).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
+      expect(await asyncIterator(["foo", "bar", "foobar", "x", "xy"]).collectSorted(lengthComparator)).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
     });
   });
 
   describe("sort", () => {
     it("should sort according to default comparator", async () => {
-      expect(await asyncIterator(toAsync([2, 5, 4, 3, 1])).sort().collect()).deep.equal([1, 2, 3, 4, 5]);
+      expect(await asyncIterator([2, 5, 4, 3, 1]).sort().collect()).deep.equal([1, 2, 3, 4, 5]);
     });
     it("should sort in increasing order of string lengths", async () => {
-      expect(await asyncIterator(toAsync(["foo", "bar", "foobar", "x", "xy"])).sort(lengthComparator).collect()).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
+      expect(await asyncIterator(["foo", "bar", "foobar", "x", "xy"]).sort(lengthComparator).collect()).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
     });
   });
 
   describe("collectToMap", () => {
     it("should group numbers according to their last bit", async () => {
-      const actual = await asyncIterator(toAsync([2, 5, 4, 3, 1])).collectToMap(x => x % 2);
+      const actual = await asyncIterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2);
       const expected = new Map().set(0, [2, 4]).set(1, [5, 3, 1]);
       expect(actual).deep.equal(expected);
     });
@@ -368,7 +365,7 @@ describe("AsyncFluentIterator", () => {
 
   describe("partition", () => {
     it("should group numbers according to their last bit", async () => {
-      const actual = await asyncIterator(toAsync([2, 5, 4, 3, 1])).partition(x => x % 2).collect();
+      const actual = await asyncIterator([2, 5, 4, 3, 1]).partition(x => x % 2).collect();
       const expected = [[0, [2, 4]], [1, [5, 3, 1]]];
       expect(actual).deep.equal(expected);
     });

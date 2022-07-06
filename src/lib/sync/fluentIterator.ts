@@ -22,8 +22,8 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.map(this.iter, mapper));
   }
 
-  first(): A | undefined {
-    return Iterators.first(this.iter);
+  first(predicate?: Predicate<A>): A | undefined {
+    return Iterators.first(this.iter, predicate);
   }
 
   take(n: number): FluentIterator<A> {
@@ -32,10 +32,6 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
   skip(n: number): FluentIterator<A> {
     return new FluentIterator(Iterators.skip(this.iter, n));
-  }
-
-  find(predicate: Predicate<A>): A | undefined {
-    return Iterators.find(this.iter, predicate);
   }
 
   contains(predicate: Predicate<A>): boolean {
@@ -102,11 +98,13 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return Iterators.some(this.iter, predicate);
   }
 
-  sum(mapper: Mapper<A, number> = identity as Mapper<A, number>): number {
+  sum(mapper?: Mapper<A, number>): number {
+    mapper ??= identity as Mapper<A, number>;
     return Iterators.sum(Iterators.map(this.iter, mapper));
   }
 
-  avg(mapper: Mapper<A, number> = identity as Mapper<A, number>): number {
+  avg(mapper?: Mapper<A, number>): number {
+    mapper ??= identity as Mapper<A, number>;
     return Iterators.avg(Iterators.map(this.iter, mapper));
   }
 

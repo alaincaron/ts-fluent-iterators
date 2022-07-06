@@ -34,10 +34,6 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return new AsyncFluentIterator(Iterators.skip(this.iter, n));
   }
 
-  find(predicate: EventualPredicate<A>): Promise<A | undefined> {
-    return Iterators.find(this.iter, predicate);
-  }
-
   contains(predicate: EventualPredicate<A>): Promise<boolean> {
     return Iterators.contains(this.iter, predicate);
   }
@@ -102,11 +98,13 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return Iterators.some(this.iter, predicate);
   }
 
-  sum(mapper: EventualMapper<A, number> = identity as EventualMapper<A, number>): Promise<number> {
+  sum(mapper?: EventualMapper<A, number>): Promise<number> {
+    mapper ??= identity as EventualMapper<A, number>;
     return Iterators.sum(Iterators.map(this.iter, mapper));
   }
 
-  avg(mapper: EventualMapper<A, number> = identity as EventualMapper<A, number>): Promise<number> {
+  avg(mapper?: EventualMapper<A, number>): Promise<number> {
+    mapper ??= identity as EventualMapper<A, number>;
     return Iterators.avg(Iterators.map(this.iter, mapper));
   }
 
@@ -155,6 +153,6 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 }
 
-export function asyncIterator<A>(iter: AsyncIterator<A> | AsyncIterable<A>): AsyncFluentIterator<A> {
+export function asyncIterator<A>(iter: AsyncIterator<A> | EventualIterable<A>): AsyncFluentIterator<A> {
   return new AsyncFluentIterator(Iterators.toAsyncIterator(iter));
 }

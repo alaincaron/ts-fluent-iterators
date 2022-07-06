@@ -2,13 +2,16 @@ import { sumReducer, avgReducer, toIterator } from "../sync/iterators";
 import { EventualMapper, EventualPredicate, Eventually, Comparator, EventualReducer, EventualIterator, EventualIterable } from "../types";
 import { alwaysTrue, defaultComparator } from "../functions";
 
-export function toAsyncIterator<A>(iter: AsyncIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
+export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
   const x: any = iter;
   if (typeof (x?.next) === "function") {
     return x as AsyncIterator<A>;
   }
   if (typeof x?.[Symbol.asyncIterator] === "function") {
     return (x as AsyncIterable<A>)[Symbol.asyncIterator]();
+  }
+  if (typeof x?.[Symbol.iterator] === "function") {
+    return toAsync((x as Iterable<A>)[Symbol.iterator]());
   }
   throw new Error(`Invalid non-iterable object: ${iter}`);
 }
@@ -99,20 +102,12 @@ export async function* enumerate<A>(iter: AsyncIterator<A>): AsyncIterator<[A, n
   }
 }
 
-export async function find<A>(iter: AsyncIterator<A>, predicate: EventualPredicate<A>): Promise<A | undefined> {
-  for (; ;) {
-    const item = await iter.next();
-    if (item.done) return undefined;
-    if (await predicate(item.value)) return item.value;
-  }
-}
-
 export async function contains<A>(iter: AsyncIterator<A>, predicate: EventualPredicate<A>): Promise<boolean> {
-  return await find(iter, predicate) !== undefined;
+  return await first(iter, predicate) !== undefined;
 }
 
 export async function includes<A>(iter: AsyncIterator<A>, target: Eventually<A>): Promise<boolean> {
-  return await find(iter, async (a) => a === await target) !== undefined;
+  return await first(iter, async (a) => a === await target) !== undefined;
 }
 
 export async function fold<A, B>(iter: AsyncIterator<A>, reducer: EventualReducer<A, B>, initialValue: B): Promise<B> {
