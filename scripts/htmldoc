@@ -6,6 +6,6 @@ mkdir htmldoc
 pandoc --standalone README.md -o htmldoc/README.md.html
 find docs -name \*.md -exec pandoc --standalone {} -o {}.html \;
 
-rsync -rv --include '*/' --include '*.md.html' --exclude '*' --prune-empty-dirs --remove-source-files docs/ htmldoc/
+rsync -rv --include '*/' --include '*.md.html' --exclude '*' --prune-empty-dirs --remove-source-files docs htmldoc/
 
 fgres ".md" ".md.html" htmldoc/**/*.md.html

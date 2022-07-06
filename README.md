@@ -1,3 +1,5 @@
+# Typescript Fluent Iterators
+
 Provides [fluent api](https://en.wikipedia.org/wiki/Fluent_interface)
 operations on iterators, async iterators and promise iterators.
 
@@ -95,7 +97,7 @@ console.log(`The fifth fibonacci number is ${fibonacciIterator.take(5).last()}`)
 
 ## Usage
 
-Click here for the [Full API Reference](./docs/README.md).
+Click here for the [Full API Reference](docs/index.md).
 
 ## License
 
