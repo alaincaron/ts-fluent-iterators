@@ -128,14 +128,20 @@ describe("PromiseIterator", () => {
   });
 
   describe("zip", () => {
-    it("should zip up to shortest iterator", async () => {
+    it("should zip up to shortest iterator with PromiseIterator", async () => {
       expect(await promiseIterator(range(1, 4)).zip(promiseIterator(range(1, 3))).collect()).to.deep.equal([[1, 1], [2, 2]]);
+    });
+    it("should zip up to shortest iterator with Iterable", async () => {
+      expect(await promiseIterator(range(1, 4)).zip(toPromise([1, 2])).collect()).to.deep.equal([[1, 1], [2, 2]]);
     });
   });
 
   describe("enumerate", () => {
     it("should enumerate all elements", async () => {
       expect(await promiseIterator(range(1, 3)).enumerate().collect()).to.deep.equal([[1, 0], [2, 1]]);
+    });
+    it("should enumerate all elements with start value", async () => {
+      expect(await promiseIterator(range(1, 3)).enumerate(10).collect()).to.deep.equal([[1, 10], [2, 11]]);
     });
   });
 

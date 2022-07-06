@@ -75,8 +75,8 @@ export function* zip<A, B>(iter1: Iterator<A>, iter2: Iterator<B>): Iterator<[A,
   }
 }
 
-export function* enumerate<A>(iter: Iterator<A>): Iterator<[A, number]> {
-  let i = 0;
+export function* enumerate<A>(iter: Iterator<A>, start = 0): Iterator<[A, number]> {
+  let i = start;
   for (; ;) {
     const item = iter.next();
     if (item.done) break;

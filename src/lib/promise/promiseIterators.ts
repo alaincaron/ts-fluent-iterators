@@ -53,8 +53,8 @@ export function* zip<A, B>(iter1: Iterator<Promise<A>>, iter2: Iterator<Promise<
   }
 }
 
-export function* enumerate<A>(iter: Iterator<Promise<A>>): Iterator<Promise<[A, number]>> {
-  let i = 0;
+export function* enumerate<A>(iter: Iterator<Promise<A>>, start = 0): Iterator<Promise<[A, number]>> {
+  let i = start;
   for (; ;) {
     const item = iter.next();
     if (item.done) break;

@@ -50,12 +50,12 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return Iterators.reduce(this.iter, reducer, initialValue);
   }
 
-  zip<B>(other: Iterator<B>): FluentIterator<[A, B]> {
-    return new FluentIterator(Iterators.zip(this.iter, other))
+  zip<B>(other: Iterator<B> | Iterable<B>): FluentIterator<[A, B]> {
+    return new FluentIterator(Iterators.zip(this.iter, Iterators.toIterator(other)))
   }
 
-  enumerate(): FluentIterator<[A, number]> {
-    return new FluentIterator(Iterators.enumerate(this.iter));
+  enumerate(start = 0): FluentIterator<[A, number]> {
+    return new FluentIterator(Iterators.enumerate(this.iter, start));
   }
 
   tap(mapper: Mapper<A, any>): FluentIterator<A> {

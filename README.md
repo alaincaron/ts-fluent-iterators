@@ -9,56 +9,54 @@ The library provides the common transformation, filtering and
 aggregation operations on iterators, async iterators and promise iterators. Supported operations include:
 
 - Item-by-item transformations:
-  - map,
-  - enumerate
+  - [map](docs/iterators/fluent_iterator.md#map)
+  - [enumerate](docs/iterators/fluent_iterator.md#enumerate)
 
 - Group transformations like
-  - partition
-  - sort
+  - [partition](docs/iterators/fluent_iterator.md#partition)
+  - [sort](docs/iterators/fluent_iterator.md#sort)
 
 - Extending operations like
-  - append
-  - prepend
-  - concat
+  - [append](docs/iterators/fluent_iterator.md#append)
+  - [prepend](docs/iterators/fluent_iterator.md#prepend)
+  - [concat](docs/iterators/fluent_iterator.md#concat)
 
 - Narrowing operations like
-  - filter
-  - take
-  - skip
-  - distinct
-  - first
-  - last
+  - [filter](docs/iterators/fluent_iterator.md#filter)
+  - [take](docs/iterators/fluent_iterator.md#take)
+  - [skip](docs/iterators/fluent_iterator.md#skip)
+  - [distinct](docs/iterators/fluent_iterator.md#distinct)
+  - [first](docs/iterators/fluent_iterator.md#first)
+  - [last](docs/iterators/fluent_iterator.md#last)
 
 - Aggregating operations:
-  - collect
-  - collectSorted
-  - collectToMap
-  - fold
-  - reduce
-  - join
-
-- Numeric aggregating operations:
-  - count
-  - max
-  - min
-  - sum
-  - avg
+  - [collect](docs/iterators/fluent_iterator.md#collect)
+  - [collectSorted](docs/iterators/fluent_iterator.md#collectsorted)
+  - [collectToMap](docs/iterators/fluent_iterator.md#collecttomap)
+  - [fold](docs/iterators/fluent_iterator.md#fold)
+  - [reduce](docs/iterators/fluent_iterator.md#reduce)
+  - [join](docs/iterators/fluent_iterator.md#join)
+  - [count](docs/iterators/fluent_iterator.md#count)
+  - [max](docs/iterators/fluent_iterator.md#max)
+  - [min](docs/iterators/fluent_iterator.md#min)
+  - [sum](docs/iterators/fluent_iterator.md#sum)
+  - [avg](docs/iterators/fluent_iterator.md#avg)
 
 - Logical aggregating operations:
-  - all
-  - some
-  - contains
-  - includes
+  - [all](docs/iterators/fluent_iterator.md#all)
+  - [some](docs/iterators/fluent_iterator.md#some)
+  - [contains](docs/iterators/fluent_iterator.md#contains)
+  - [includes](docs/iterators/fluent_iterator.md#includes)
 
 - Execution operations:
-  - tap
-  - forEach
+  - [tap](docs/iterators/fluent_iterator.md#tap)
+  - [forEach](docs/iterators/fluent_iterator.md#foreach)
 
 - Promise specific operations:
-  - flatMap
-  - allSettled
-  - race
-  - any
+  - [flatMap](docs/iterators/promise_iterator.md#flatmap)
+  - [allSettled](docs/iterators/promise_iterator.md#allsettled)
+  - [race](docs/iterators/promise_iterator.md#race)
+  - [any](docs/iterators/promise_iterator.md#any)
 
 ## Quick start guide
 

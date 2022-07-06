@@ -50,12 +50,12 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return Iterators.reduce(this.iter, reducer, initialValue);
   }
 
-  zip<B>(other: AsyncIterator<B>): AsyncFluentIterator<[A, B]> {
-    return new AsyncFluentIterator(Iterators.zip(this.iter, other));
+  zip<B>(other: AsyncIterator<B> | AsyncIterable<B>): AsyncFluentIterator<[A, B]> {
+    return new AsyncFluentIterator(Iterators.zip(this.iter, Iterators.toAsyncIterator(other)));
   }
 
-  enumerate(): AsyncFluentIterator<[A, number]> {
-    return new AsyncFluentIterator(Iterators.enumerate(this.iter));
+  enumerate(start = 0): AsyncFluentIterator<[A, number]> {
+    return new AsyncFluentIterator(Iterators.enumerate(this.iter, start));
   }
 
   tap(mapper: EventualMapper<A, any>): AsyncFluentIterator<A> {

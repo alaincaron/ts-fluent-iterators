@@ -3,7 +3,7 @@ import * as SyncIterators from "../sync/iterators";
 import { AsyncFluentIterator } from "../async/asyncFluentIterator";
 
 import { Eventually, EventualReducer, EventualMapper, EventualPredicate, Comparator } from "../types";
-import { asyncIdentity, identity } from "../functions";
+import { identity } from "../functions";
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
 
@@ -65,8 +65,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.reduce(this.iter, reducer, initialValue);
   }
 
-  zip<B>(other: Iterator<Promise<B>>): PromiseIterator<[A, B]> {
-    return new PromiseIterator(Iterators.zip(this.iter, other));
+  zip<B>(other: Iterator<Promise<B>> | Iterable<Promise<B>>): PromiseIterator<[A, B]> {
+    return new PromiseIterator(Iterators.zip(this.iter, SyncIterators.toIterator(other)));
   }
 
   take(n: number): PromiseIterator<A> {
@@ -77,8 +77,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return new PromiseIterator(SyncIterators.skip(this.iter, n));
   }
 
-  enumerate(): PromiseIterator<[A, number]> {
-    return new PromiseIterator(Iterators.enumerate(this.iter));
+  enumerate(start = 0): PromiseIterator<[A, number]> {
+    return new PromiseIterator(Iterators.enumerate(this.iter, start));
   }
 
   tap(mapper: EventualMapper<A, any>): PromiseIterator<A> {
@@ -128,7 +128,7 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
   }
 
   count(predicate?: EventualPredicate<A>): Promise<number> {
-    return Iterators.count(this.iter, predicate); d
+    return Iterators.count(this.iter, predicate);
   }
 
   min(comparator?: Comparator<A>): Promise<A | undefined> {

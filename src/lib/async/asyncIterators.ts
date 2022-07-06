@@ -93,8 +93,8 @@ export async function* zip<A, B>(iter1: AsyncIterator<A>, iter2: AsyncIterator<B
   }
 }
 
-export async function* enumerate<A>(iter: AsyncIterator<A>): AsyncIterator<[A, number]> {
-  let i = 0;
+export async function* enumerate<A>(iter: AsyncIterator<A>, start = 0): AsyncIterator<[A, number]> {
+  let i = start;
   for (; ;) {
     const item = await iter.next();
     if (item.done) break;

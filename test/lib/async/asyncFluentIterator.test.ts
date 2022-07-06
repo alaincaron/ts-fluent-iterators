@@ -1,6 +1,7 @@
 import { range } from "../../../src/lib/async/asyncGenerators"
 import { asyncIterator } from "../../../src/lib/async/asyncFluentIterator"
 import { defaultComparator, lengthComparator } from "../../../src/lib/functions";
+import { toAsync } from "../../../src/lib/async/asyncIterators";
 import { expect } from "chai";
 
 describe("AsyncFluentIterator", () => {
@@ -74,14 +75,20 @@ describe("AsyncFluentIterator", () => {
   });
 
   describe("zip", () => {
-    it("should zip up to shortest iterator", async () => {
+    it("should zip up to shortest iterator with AsyncFluentIterator", async () => {
       expect(await asyncIterator(range(1, 4)).zip(asyncIterator(range(1, 3))).collect()).deep.equal([[1, 1], [2, 2]]);
+    });
+    it("should zip up to shortest iterator with iterable", async () => {
+      expect(await asyncIterator(range(1, 4)).zip(toAsync([1, 2])).collect()).deep.equal([[1, 1], [2, 2]]);
     });
   });
 
   describe("enumerate", () => {
     it("should enumerate all elements", async () => {
       expect(await asyncIterator(range(1, 3)).enumerate().collect()).deep.equal([[1, 0], [2, 1]]);
+    });
+    it("should enumerate all elements with start value", async () => {
+      expect(await asyncIterator(range(1, 3)).enumerate(10).collect()).deep.equal([[1, 10], [2, 11]]);
     });
   });
 

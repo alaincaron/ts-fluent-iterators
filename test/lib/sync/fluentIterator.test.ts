@@ -73,14 +73,20 @@ describe("SyncFluentIterator", () => {
   });
 
   describe("zip", () => {
-    it("should zip up to shortest iterator", () => {
+    it("should zip up to shortest iterator with a FluentIterator", () => {
       expect(iterator([1, 2, 3]).zip(iterator(["a", "b"])).collect()).deep.equal([[1, "a"], [2, "b"]]);
+    });
+    it("should zip up to shortest iterator with an array", () => {
+      expect(iterator([1, 2, 3]).zip(["a", "b"]).collect()).deep.equal([[1, "a"], [2, "b"]]);
     });
   });
 
   describe("enumerate", () => {
-    it("should enumerate all elements", () => {
+    it("should enumerate all elements starting at 0", () => {
       expect(iterator(["a", "b"]).enumerate().collect()).deep.equal([["a", 0], ["b", 1]]);
+    });
+    it("should enumerate all elements with start value", () => {
+      expect(iterator(["a", "b"]).enumerate(10).collect()).deep.equal([["a", 10], ["b", 11]]);
     });
   });
 
