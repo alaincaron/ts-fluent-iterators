@@ -7,7 +7,7 @@ value of type  [`Eventually<boolean>`](eventually.md).
   
 Definition:
 ```typescript
-type EventualPredicate<A,B> = (a: A) => Eventually<boolean>
+type EventualPredicate<A,B> = (a: A) => Eventually<boolean>;
 ```
 
 Example:

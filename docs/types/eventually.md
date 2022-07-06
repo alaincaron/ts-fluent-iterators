@@ -6,11 +6,11 @@ Represents a value of type `A` or `Promise<A>`.
   
 Definition:
 ```typescript
-type Eventually<A> = A | Promise<A>
+type Eventually<A> = A | Promise<A>;
 ```
 
 Example:
 ```typescript
-const value: Eventually<number> = Promise.resolve(5)
+const value: Eventually<number> = Promise.resolve(5);
 ```
 

@@ -11,6 +11,7 @@
 * [EventualPredicate](types/eventual_predicate.md)
 * [Reducer](types/reducer.md)
 * [EventualReducer](types/eventual_reducer.md)
+* [Comparator](types/comparator.md)
 * [EventualIterator](types/eventual_iterator.md)
 * [EventIterable](types/eventual_iterable.md)
 

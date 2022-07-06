@@ -7,7 +7,7 @@ value of type  [`Eventually<B>`](eventually.md).
   
 Definition:
 ```typescript
-type EventualMapper<A,B> = (a: A) => Eventually<B>
+type EventualMapper<A,B> = (a: A) => Eventually<B>;
 ```
 
 Example:

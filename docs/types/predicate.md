@@ -7,7 +7,7 @@ value of type  `boolean`.
   
 Definition:
 ```typescript
-type Predicate<A> = (a: A) => boolean
+type Predicate<A> = (a: A) => boolean;
 ```
 
 Example:

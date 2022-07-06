@@ -7,7 +7,7 @@ value of type  `B`.
   
 Definition:
 ```typescript
-type Mapper<A,B> = (a: A) => B
+type Mapper<A,B> = (a: A) => B;
 ```
 
 Example:
