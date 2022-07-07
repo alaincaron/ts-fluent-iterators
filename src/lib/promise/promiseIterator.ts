@@ -147,10 +147,6 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.join(this.iter, separator);
   }
 
-  collectSorted(comparator?: Comparator<A>): Promise<A[]> {
-    return Iterators.collectSorted(this.iter, comparator);
-  }
-
   sort(comparator?: Comparator<A>): AsyncFluentIterator<A> {
     return new AsyncFluentIterator(Iterators.sort(this.iter, comparator));
   }

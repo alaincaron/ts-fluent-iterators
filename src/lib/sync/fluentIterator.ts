@@ -128,10 +128,6 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return Iterators.join(this.iter, separator);
   }
 
-  collectSorted(comparator?: Comparator<A>): A[] {
-    return Iterators.collectSorted(this.iter, comparator);
-  }
-
   sort(comparator?: Comparator<A>): FluentIterator<A> {
     return new FluentIterator(Iterators.sort(this.iter, comparator));
   }

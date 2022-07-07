@@ -6,7 +6,43 @@ operations on iterators, async iterators and promise iterators.
 ## Description
 
 The library provides the common transformation, filtering and
-aggregation operations on iterators, async iterators and promise iterators. Supported operations include:
+aggregation operations on iterators, async iterators and promise iterators. 
+
+## Quick start guide
+
+Install from [Node Package Manager](https://www.npmjs.com/): `npm i ts-fluent-iterators`
+
+Add the following code to your index file (ts example):
+
+```typescript
+import { iterator } from 'ts-fluent-iterators;
+
+const numbers = [3, 1, 8, 6, 9, 2];
+const iter = iterator(numbers);
+
+console.log(`The largest even number is: ${iter.filter(n => n % 2 === 0).max()}`);
+
+function* fibonacci(): Iterable<number> {
+  let x = 0;
+  let y = 1;
+
+  yield x;
+  yield y;
+
+  while (true) {
+    const z = y;
+    y = x + y;
+    x = z;
+    yield y;
+  }
+}
+
+const fibonacciIterator = iterator(fibonacci());
+
+console.log(`The fifth fibonacci number is ${fibonacciIterator.take(5).last()}`);
+```
+
+## Operations supported
 
 - Item-by-item transformations:
   - [map](docs/iterators/fluent_iterator.md#map)
@@ -24,14 +60,15 @@ aggregation operations on iterators, async iterators and promise iterators. Supp
 - Narrowing operations like
   - [filter](docs/iterators/fluent_iterator.md#filter)
   - [take](docs/iterators/fluent_iterator.md#take)
+  - [takeWhile](docs/iterators/fluent_iterator.md#takewhile)
   - [skip](docs/iterators/fluent_iterator.md#skip)
+  - [skipWhile](docs/iterators/fluent_iterator.md#skipwhile)
   - [distinct](docs/iterators/fluent_iterator.md#distinct)
   - [first](docs/iterators/fluent_iterator.md#first)
   - [last](docs/iterators/fluent_iterator.md#last)
 
 - Aggregating operations:
   - [collect](docs/iterators/fluent_iterator.md#collect)
-  - [collectSorted](docs/iterators/fluent_iterator.md#collectsorted)
   - [collectToMap](docs/iterators/fluent_iterator.md#collecttomap)
   - [fold](docs/iterators/fluent_iterator.md#fold)
   - [reduce](docs/iterators/fluent_iterator.md#reduce)
@@ -57,41 +94,6 @@ aggregation operations on iterators, async iterators and promise iterators. Supp
   - [allSettled](docs/iterators/promise_iterator.md#allsettled)
   - [race](docs/iterators/promise_iterator.md#race)
   - [any](docs/iterators/promise_iterator.md#any)
-
-## Quick start guide
-
-Install from [Node Package Manager](https://www.npmjs.com/): `npm i ts-fluent-iterators`
-
-Add the following code to your index file (ts example):
-
-```typescript
-import { iterator } from 'ts-fluent-iterators;
-
-const numbers = [3, 1, 8, 6, 9, 2];
-const iter = iterator(numbers);
-
-console.log(`The largest even number is: ${iter.filter(n => n % 2 === 0).max()}`);
-
-
-function* fibonacci(): Iterable<number> {
-  let x = 0;
-  let y = 1;
-
-  yield x;
-  yield y;
-
-  while (true) {
-    const z = y;
-    y = x + y;
-    x = z;
-    yield y;
-  }
-}
-
-const fibonacciIterator = iterator(fibonacci());
-
-console.log(`The fifth fibonacci number is ${fibonacciIterator.take(5).last()}`);
-```
 
 ## Usage
 

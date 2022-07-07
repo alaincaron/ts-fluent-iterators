@@ -263,69 +263,270 @@ iterator("foo", "bar").(["baz", "foobar"], ["xyz"], []).collect();
 ```typescript
 takeWhile(predicate: Predicate<A>): FluentIterator<A>;
 ```
+Returns a new [`FluentIterator<A>`](fluent_iterator.md) that will
+yield all elements of this [`FluentIterator<A>`](fluent_iterator.md)
+until the [`predicate`](../types/predicate.md) returns `false`.
+
+##### Example
+```typescript
+iterator([1,1,2,3,5]).takeWhile(x => x % 2 === 1)
+// yields 1,1
+```
+
 ## skipWhile
 ```typescript
 skipWhile(predicate: Predicate<A>): FluentIterator<A>;
 ```
+Returns a new [`FluentIterator<A>`](fluent_iterator.md) that will
+ignore all elements of this [`FluentIterator<A>`](fluent_iterator.md)
+until the [`predicate`](../types/predicate.md) returns `false`.  It
+will then yield the subsequent elements.
+
+##### Example
+```typescript
+iterator([1,1,2,3,5]).skipWhile(x => x % 2 === 1)
+yields 2, 3, 5
+```
+
 ## distinct
 ```typescript
 distinct(): FluentIterator<A>;
+```
+Returns a new [`FluentIterator`](fluent_iterator.md) that returns only
+distinct elements of this [`FluentIterator`](fluent_iterator.md)
+
+##### Example
+```typescript
+iterator([1,1,2,3,4,2,3]).distinct()
+// will yield 1,2,3,4
 ```
 ## all
 ```typescript
 all(predicate: Predicate<A>): boolean;
 ```
+Returns `true` if the [`predicate`](../types/predicate.md) returns
+`true` for all elements yielded by this
+[`FluentIterator`](fluent_iterator.md), false otherwise.  
+This is a terminal operation
+
+##### Example
+```typescript
+iterator([]).all((_: unkown) => false); // returns true
+iterator([1,2]).all(x => x < 3); // returns true
+iterator([1,2]).all(x => x % 2 === 0); // returns false
+```
+
 ## some
 ```typescript
 some(predicate: Predicate<A>): boolean;
 ```
+Returns `true` if the [`predicate`](../types/predicate.md) returns
+`true` for at least one element yielded by this
+[`FluentIterator`](fluent_iterator.md), false otherwise.  
+This is a terminal operation.
+
+##### Example
+```typescript
+iterator([]).some((_: unkown) => true); // returns false
+iterator([1,2]).some(x => x > 1); // returns true
+iterator([1,2]).some(x => x > 3); // returns false
+```
+
 ## sum
 ```typescript
 sum(mapper?: Mapper<A, number>): number;
 ```
+Returns the sum of the elements of the [`FluentIterator`](fluent_iterator.md)
+after applying the [`mapper`](../types/mapper.md). 
+If no [`mapper`](../types/mapper.md) is specified, the elements must
+be `number`. If the elements are not `number`, then the
+[`mapper`](../types/mapper.md) is applied to transform then into
+`number`.  
+
+This is a terminal operation.
+
+##### Example
+```typescript
+iterator(["foo", "bar", "foobar"]).sum(x => x.length); // returns 12
+iterator([1,2,3]).sum(); // returns 6
+```
+
 ## avg
 ```typescript
 avg(mapper?: Mapper<A, number>): number;
+```
+Returns the average of the elements of the [`FluentIterator`](fluent_iterator.md)
+after applying the [`mapper`](../types/mapper.md). 
+If no [`mapper`](../types/mapper.md) is specified, the elements must
+be `number`. If the elements are not `number`, then the
+[`mapper`](../types/mapper.md) is applied to transform then into
+`number`.  
+
+This is a terminal operation.
+
+##### Example
+```typescript
+iterator(["foo", "bar", "foobar"]).avg(x => x.length); // returns 4
+iterator([1,2,3]).avg(); // returns 2
 ```
 ## count
 ```typescript
 count(predicate?: Predicate<A>): number;
 ```
+Counts the elements of the [`FluentIterator`](fluent_iterator.md)
+for which the [`predicate`](../types/predicate.md) returns `true`.
+If no [`predicate`](../types/predicate.md) is specified, it counts the
+total number of elements.  
+
+This is a terminal operation.
+
+##### Example
+```typescript
+iterator(["foo", "bar", "foobar"]).count(x => x.length > 3); // returns 1
+iterator(["foo", "bar", "foobar"]).count(); // returns 3
+```
+
 ## min
 ```typescript
 min(comparator?: Comparator<A>): A | undefined;
 ```
+
+Returns the smallest element of the
+[`FluentIterator`](fluent_iterator.md) according to the specified
+[`Comparator`](../types/comparator.md).
+If no [`Comparator`](../types/comparator.md) is specified, the natural
+ordering is used and the type `A` must support the operators "`<`" and
+"`>`".  
+
+This is a terminal operation.
+
+##### Example
+```typescript
+iterator(["b", 'c", "a"]).min(); // returns "a";
+iterator(["apple", "banana", "kiwi"]).
+   min((a,b) => a.length - b.length); // returns "kiwi"
+```
+
 ## max
 ```typescript
 max(comparator?: Comparator<A>): A | undefined;
 ```
+
+Returns the largest element of the
+[`FluentIterator`](fluent_iterator.md) according to the specified
+[`Comparator`](../types/comparator.md).
+If no [`Comparator`](../types/comparator.md) is specified, the natural
+ordering is used and the type `A` must support the operators "`<`" and
+"`>`".  
+
+This is a terminal operation.
+
+##### Example
+```typescript
+iterator(["b", 'c", "a"]).max(); // returns "c";
+iterator(["apple", "banana", "kiwi"]).
+   min((a,b) => a.length - b.length); // returns "banana"
+```
+
 ## join
 ```typescript
 join(separator?: string): string;
 ```
-## collectSorted
+
+Joins the elements of the [`FluentIterator`](fluent_iterator.md) into
+a string using the `separator` as delimieter between the elements. The
+default value for the seperator is `','`.  
+The elements are converted into a `string` using the `toString`
+method.  
+
+This is a terminal operation.
+
+##### Example
 ```typescript
-collectSorted(comparator?: Comparator<A>): A;
+iterator([1,2,3]).join(); returns "1,2,3"
+iterator([1,2,3]).join(', '); returns "1, 2, 3"
 ```
+
 ## sort
 ```typescript
 sort(comparator?: Comparator<A>): FluentIterator<A>;
 ```
+
+This returns a new [`FluentIterator`](fluent_iterator.md) where
+elements are sorted according to the
+[`comparator`](../types/comparator.md).  
+
+Note that even though this returns a
+[`FluentIterator`](fluent_iterator.md), all elements have to be
+collected, sorted and yielded again. Therefore, it should be used with
+care depending on the size of the
+[`FluentIterator`](fluent_iterator.md).  
+
+This operation is really equivalent to
+```typescript
+ const sortedIterator =
+ iterator(unsortedIterator.collect().sort(comparable));
+ ```
+
 ## collectToMap
 ```typescript
-collectToMap<K>(mapper: Mapper<A, K>): Map<K, A>;
+collectToMap<K>(mapper: Mapper<A, K>): Map<K, A[]>;
 ```
+
+Returns a `Map` where keys are the result of applying the
+[`mapper`](../types/mapper.md) to the elements of the
+[`FluentIterator`](fluent_iterator.md) and the values is an `Array` of
+the elements that are mapped to the same key.  
+
+This is a terminal operation.
+
+### Example
+partition even and odd numbers from a
+[`FluentIterator`](fluent_iterator.md).
+```typescript
+iterator([1,2,3,4,5]).collectToMap(x => x % 2);
+```
+
 ## partition
 ```typescript
-partition<K>(mapper: Mapper<A, K>): FluentIterator<[K, A]>;
+partition<K>(mapper: Mapper<A, K>): FluentIterator<[K, A[]]>;
 ```
+
+Returns a new [`FluentIterator`](fluent_iterator.md) consiting of keys
+and their associated values through the [`mapper`](../types/mapper.md)  
+
+Note that even though this returns a
+[`FluentIterator`](fluent_iterator.md), all elements have to be
+collected, mapped and yielded again. Therefore, it should be used with
+care depending on the size of the
+[`FluentIterator`](fluent_iterator.md).  
+
+
+This operation is really equivalent to
+```typescript
+ const mappedIterator =
+ iterator(unMappedIterator.collectToMap().entries());
+ ```
+ 
+##### Example
+```typescript
+iterator([1,2,3,4,5]).partition(x => x % 2);
+// yields [0, [2, 4]], [1, [1, 3, 5]]
+```
+ 
 ## [Symbol.iterator]
 ```typescript
 [Symbol.iterator](): Iterator<A>;
 ```
+Used to make the [`FluentIterator`](fluent_iterator.md) being seen as
+an `Iterable<A>`.  This allows them to be used in APIs expecting an
+`Iterable<A>`
+
 ## next
 ```typescript
 next(): IteratorResult<A>;
 ```
-
+Used to make the [`FluentIterator`](fluent_iterator.md) being seen as
+an `Iterator<A>`.  This allows them to be used in APIs expecting an
+`Iterator<A>`
 

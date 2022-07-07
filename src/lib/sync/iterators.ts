@@ -261,12 +261,8 @@ export function join<A>(iter: Iterator<A>, separator: string = ','): string {
   }, { first: true, acc: '' }).acc;
 }
 
-export function collectSorted<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultComparator): A[] {
-  return collect(iter).sort(comparator);
-}
-
 export function* sort<A>(iter: Iterator<A>, comparator?: Comparator<A>): Iterator<A> {
-  yield* collectSorted(iter, comparator);
+  yield* collect(iter).sort(comparator);
 }
 
 export function collectToMap<A, K>(iter: Iterator<A>, mapper: Mapper<A, K>): Map<K, A[]> {

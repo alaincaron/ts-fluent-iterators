@@ -174,10 +174,6 @@ max(comparator?: Comparator<A>): A | undefined;
 ```typescript
 join(separator?: string): string;
 ```
-## collectSorted
-```typescript
-collectSorted(comparator?: Comparator<A>): A;
-```
 ## sort
 ```typescript
 sort(comparator?: Comparator<A>): FluentIterator<A>;

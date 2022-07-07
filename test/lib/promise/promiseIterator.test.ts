@@ -397,15 +397,6 @@ describe("PromiseIterator", () => {
     });
   });
 
-  describe("collectSorted", () => {
-    it("should sort according to default comparator", async () => {
-      expect(await promiseIterator(toPromise([2, 5, 4, 3, 1])).collectSorted()).deep.equal([1, 2, 3, 4, 5]);
-    });
-    it("should sort in increasing order of string lengths", async () => {
-      expect(await promiseIterator(toPromise(["foo", "bar", "foobar", "x", "xy"])).collectSorted(lengthComparator)).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
-    });
-  });
-
   describe("sort", () => {
     it("should sort according to default comparator", async () => {
       expect(await promiseIterator(toPromise([2, 5, 4, 3, 1])).sort().collect()).deep.equal([1, 2, 3, 4, 5]);
