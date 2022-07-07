@@ -219,16 +219,45 @@ The results of invoking the [`mapper`](../types/mapper.md) are ignored.
 
 ## append
 ```typescript
-append(items: Iterator<A> | Iterable<A>): FluentIterator<A>;
+append(other: Iterator<A> | Iterable<A>): FluentIterator<A>;
 ```
+Returns a new [`FluentIterator<A>`](fluent_iterator.md) that consists
+of elements of this <`FluentIterable<A>`followed by elements of the
+`other` iterable object.
+
+##### Example
+```typescript
+iterator("foo", "bar").append(["baz", "foobar"]).collect();
+// returns [ "foo", "bar", "baz", "foobar"]
+```
+
 ## prepend
 ```typescript
 prepend(items: Iterator<A> | Iterable<A>): FluentIterator<A>;
+```
+Returns a new [`FluentIterator<A>`](fluent_iterator.md) that consists
+of elements of the `other` iterable object followed by elemants of
+this <`FluentIterable<A>`.
+
+##### Example
+```typescript
+iterator("foo", "bar").prepend(["baz", "foobar"]).collect();
+// returns [ "baz", "foobar", "foo", "bar"]
+
 ```
 ## concat
 ```typescript
 concat(...iterables: Array<Iterator<A> | Iterable<A>>):
 FluentIterator<A>;
+```
+Returns a new [`FluentIterator<A>`](fluent_iterator.md) that consists
+of elements of this <`FluentIterable<A>`followed by elements of all of
+the `iterables` object.
+
+##### Example
+```typescript
+iterator("foo", "bar").(["baz", "foobar"], ["xyz"], []).collect();
+// returns [ "foo", "bar", "baz", "foobar", "xyz' ]
 ```
 ## takeWhile
 ```typescript
