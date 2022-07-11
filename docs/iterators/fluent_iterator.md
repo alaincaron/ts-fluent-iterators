@@ -1,5 +1,5 @@
 [ts-fluent-iterators - v1,0,0](../../README.md) › [API](../index.md) ›
-[Fluent Iterators](../index.md#Fluent Iterators) › [Class FluentIterator](fluent_iterator.md)
+[Fluent Iterators](../index.md#fluent iterators) › [Class FluentIterator](fluent_iterator.md)
 
 # Class: FluentIterator <**A**>
 
@@ -88,7 +88,7 @@ false otherwise.
 
 ##  includes
 ```typescript
-  includes(target: A): boolean;
+includes(target: A): boolean;
 ```
 Returns `true` if this [`FluentIterator`](fluent_iterator.md)
 contains an element equal (`===`) to the `target`, false otherwise.
@@ -151,15 +151,15 @@ const sum: number = iterator.reduce(
 ```typescript
 zip<B>(other: Iterator<B> | Iterable<B>): FluentIterator<[A, B]>;
 ```
-Creates a new [`FluentIterator<[A,B]>`](fluent_iterator.md) that yields pairs of elements
+Creates a new [`FluentIterator`](fluent_iterator.md) that yields pairs of elements
 yielded by each Iterators which are navigated in parallel.
 The length of the new [`FluentIterator`](fluent_iterator.md) is equal to the length the shortest
 iterator.
 
 ##### Example
 ```typescript
-const iterator = iterator([1,2,3]);
-const zipped = iterator.zip(["a","b"]);
+const iter = iterator([1,2,3]);
+const zipped = iter.zip(["a","b"]);
 // zipped will yield [1,"a"], [2,"b"]
 ```
 
@@ -167,7 +167,7 @@ const zipped = iterator.zip(["a","b"]);
 ```typescript
 enumerate(start = 0): FluentIterator<[A, number]>;
 ```
-Creates a new [`FluentIterator<[A,B]>`](fluent_iterator.md) that yields pairs of elements
+Creates a new [`FluentIterator`](fluent_iterator.md) that yields pairs of elements
 consisting of the elements yielded by the
 [`FluentIterator`](fluent_iterator.md) and their index in the
 [`FluentIterator`](fluent_iterator.md).
@@ -175,8 +175,8 @@ The starting index is given by the parameter `start` which defaults to 0.
 
 ##### Example
 ```typescript
-const iterator = iterator(["a", "b", "c"]);
-const enumerated = iterator.enumerate(10);
+const iter = iterator(["a", "b", "c"]);
+const enumerated = iter.enumerate(10);
 // enumerated will yield ["a", 10], ["b", 11], ["c", 12]
 ```
 
@@ -184,8 +184,8 @@ const enumerated = iterator.enumerate(10);
 ```typescript
 tap(mapper: Mapper<A, any>): FluentIterator<A>;
 ```
-Creates a new [`FluentIterator<[A]>`](fluent_iterator.md) that
-yields the same elements as this [`FluentIterator<[A]>`](fluent_iterator.md)
+Creates a new [`FluentIterator<A>`](fluent_iterator.md) that
+yields the same elements as this [`FluentIterator<A>`](fluent_iterator.md)
 and executes the [`mapper`](../types/mapper.md) on each element.  
 
 This can be useful to see intermediate steps of complex
@@ -197,7 +197,7 @@ The results of invoking the [`mapper`](../types/mapper.md) are ignored.
 ```typescript
 iterator([1,2,3]).
 tap(x => console.log(`before filter: ${x}`).
-filter(x => x % 2 ===0).
+filter(x => x % 2 === 0).
 tap(x => console.log(`after filter: ${x}`).
 collect(); // returns [2]
 
@@ -237,7 +237,7 @@ prepend(items: Iterator<A> | Iterable<A>): FluentIterator<A>;
 ```
 Returns a new [`FluentIterator<A>`](fluent_iterator.md) that consists
 of elements of the `other` iterable object followed by elemants of
-this <`FluentIterable<A>`.
+this [`FluentIterable<A>`](fluent_iterable.md).
 
 ##### Example
 ```typescript
@@ -251,7 +251,7 @@ concat(...iterables: Array<Iterator<A> | Iterable<A>>):
 FluentIterator<A>;
 ```
 Returns a new [`FluentIterator<A>`](fluent_iterator.md) that consists
-of elements of this <`FluentIterable<A>`followed by elements of all of
+of elements of this [`FluentIterable<A>`](fluent_iterator.md) followed by elements of all of
 the `iterables` object.
 
 ##### Example

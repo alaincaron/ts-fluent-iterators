@@ -29,7 +29,7 @@ function* fibonacci(): Iterable<number> {
   yield x;
   yield y;
 
-  while (true) {
+  for (;;) {
     const z = y;
     y = x + y;
     x = z;
