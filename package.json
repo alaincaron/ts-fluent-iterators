@@ -40,5 +40,10 @@
   },
   "dependencies": {
     "typescript": "^4.7.4"
+  },
+  "types": "./dist/index.d.ts",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
   }
 }
