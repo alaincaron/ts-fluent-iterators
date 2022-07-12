@@ -12,34 +12,14 @@ aggregation operations on iterators, async iterators and promise iterators.
 
 Install from [Node Package Manager](https://www.npmjs.com/): `npm i ts-fluent-iterators`
 
-Add the following code to your index file (ts example):
+Add the following code to your index file: 
 
 ```typescript
-import { iterator } from 'ts-fluent-iterators;
+import { iterator, Generators } from 'ts-fluent-iterators';
 
-const numbers = [3, 1, 8, 6, 9, 2];
-const iter = iterator(numbers);
+const iter = iterator(Generators.range());
 
-console.log(`The largest even number is: ${iter.filter(n => n % 2 === 0).max()}`);
-
-function* fibonacci(): Iterable<number> {
-  let x = 0;
-  let y = 1;
-
-  yield x;
-  yield y;
-
-  for (;;) {
-    const z = y;
-    y = x + y;
-    x = z;
-    yield y;
-  }
-}
-
-const fibonacciIterator = iterator(fibonacci());
-
-console.log(`The fifth fibonacci number is ${fibonacciIterator.take(5).last()}`);
+console.log(`The first five even numbers are: ${iter.filter(n => n % 2 === 0).take(5).collect()}`);
 ```
 
 ## Operations supported

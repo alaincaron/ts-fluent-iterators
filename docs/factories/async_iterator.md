@@ -1,7 +1,7 @@
 [ts-fluent-iterators - v1,0,0](../../README.md) › [API](../index.md) ›
 [Factory methods](../index.md#factories) › [asyncIterator](async_iterator.md)
 
-# asyncIterator factory method
+# asyncIterator factory function
 ```typescript
 function asyncIterator<A>(
    iter: AsyncIterator<A> | EventualIterable<A>

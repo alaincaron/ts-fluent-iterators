@@ -22,8 +22,19 @@
 * [Class AsyncFluentIterator](iterators/async_fluent_iterator.md)
 * [Class PromiseIterator](iterators/promise_iterator.md)
 
-## Factory methods
+## Factory functions
+
+There are helper functions to simplify creation of
+[FluentIterator](iterators/fluent_iterator.md), [AsyncFluentIterator](iterators/async_fluent_iterator.md)
+and [PromiseIterator](iterators/promise_iterator.md) objects.
+
 
 * [iterator](factories/iterator.md)
 * [asyncIterator](factories/async_iterator.md)
 * [promiseIterator](factories/promise_iterator.md)
+
+## Generators
+
+* [range](generators/range.md)
+* [repeatedly](generators/repeatedly.md)
+* [iterate](generators/iterate.md)

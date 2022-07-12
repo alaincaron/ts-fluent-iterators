@@ -1,4 +1,4 @@
-import { range } from "../../../src/lib/sync/generators";
+import { iterate, range, repeatedly } from "../../../src/lib/sync/generators";
 import { collect } from "../../../src/lib/sync/iterators";
 import { expect } from "chai";
 
@@ -19,6 +19,20 @@ describe("Generators", () => {
 
     it("should yield in decreasing order if negative step", () => {
       expect(collect(range(5, 0))).deep.equal([5, 4, 3, 2, 1]);
+    });
+  });
+
+  describe("repeatedly", () => {
+    it("should yield the exact number of items", () => {
+      let i = 1;
+      expect(collect(repeatedly(() => i++, 5))).deep.equal([1, 2, 3, 4, 5]);
+      expect(i).equal(6);
+    });
+  });
+
+  describe("iterate", () => {
+    it("should yield powers of 2", () => {
+      expect(collect(iterate((x: number) => 2 * x, 1, 5))).deep.equal([1, 2, 4, 8, 16]);
     });
   });
 });

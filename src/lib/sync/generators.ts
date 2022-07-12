@@ -35,18 +35,18 @@ export function* repeatedly<T>(f: () => T, n?: number): Iterator<T> {
   }
 }
 
-export function* applyFunction<T>(f: (t: T) => T, seed: T): Iterator<T> {
-  for (; ;) {
+export function* iterate<T>(f: (t: T) => T, seed: T, n?: number): Iterator<T> {
+  if (n == null) {
     yield seed;
-    seed = f(seed);
+    for (; ;) {
+      seed = f(seed);
+      yield seed;
+    }
   }
-}
-
-export function* sequence<T>(f: (x: number) => T, start?: number, end?: number, step?: number): Iterator<T> {
-  const r = range(start, end, step);
-  for (; ;) {
-    const item = r.next();
-    if (item.done) break;
-    yield f(item.value);
+  if (n <= 0) return;
+  yield seed;
+  for (let i = 1; i < n; ++i) {
+    seed = f(seed);
+    yield seed;
   }
 }

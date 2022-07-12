@@ -5,18 +5,10 @@ export function range(start?: number, end?: number, step?: number): AsyncIterato
   return AsyncIterators.toAsync(SyncGenerators.range(start, end, step));
 }
 
-export async function* applyFunction<T>(f: (t: T) => T, seed: T): AsyncIterator<T> {
-  for (; ;) {
-    yield seed;
-    seed = f(seed);
-  }
+export function repeatedly<T>(f: () => T, n?: number): AsyncIterator<T> {
+  return AsyncIterators.toAsync(SyncGenerators.repeatedly(f, n));
 }
 
-export async function* sequence<T>(f: (x: number) => T, start?: number, end?: number, step?: number): AsyncIterator<T> {
-  const r = range(start, end, step);
-  for (; ;) {
-    const item = await r.next();
-    if (item.done) break;
-    yield f(item.value);
-  }
+export function iterate<T>(f: (t: T) => T, seed: T, n?: number): AsyncIterator<T> {
+  return AsyncIterators.toAsync(SyncGenerators.iterate(f, seed, n));
 }

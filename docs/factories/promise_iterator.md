@@ -1,7 +1,7 @@
 [ts-fluent-iterators - v1,0,0](../../README.md) › [API](../index.md) ›
 [Factory methods](../index.md#factories) › [promiseIterator](promise_iterator.md)
 
-# promiseIterator factory method
+# promiseIterator factory function
 ```typescript
 function promiseIterator<A>(
    iter: Iterator<Promise<A>> | Iterable<Promise<A>>

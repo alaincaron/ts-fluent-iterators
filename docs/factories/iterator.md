@@ -1,7 +1,7 @@
 [ts-fluent-iterators - v1,0,0](../../README.md) › [API](../index.md) ›
 [Factory methods](../index.md#factories) › [iterator](iterator.md)
 
-# iterator factory method
+# iterator factory function
 ```typescript
 function iterator<A>(
    iter: Iterable<A> | Iterator<A>
