@@ -11,7 +11,7 @@ describe("AsyncFluentIterator", () => {
     });
 
     it("should return empty array on empty iterator", async () => {
-      expect(await asyncIterator(range()).collect()).to.deep.equal([]);
+      expect(await asyncIterator([]).collect()).to.deep.equal([]);
     });
   });
 
@@ -27,7 +27,7 @@ describe("AsyncFluentIterator", () => {
     });
 
     it("should return undefined on empty iterator.", async () => {
-      expect(await asyncIterator(range()).first()).to.be.undefined;
+      expect(await asyncIterator([]).first()).to.be.undefined;
     });
     it("should return matching element if exists", async () => {
       expect(await asyncIterator(range(1, 7)).first(x => x % 3 === 0)).equal(3);
@@ -187,7 +187,7 @@ describe("AsyncFluentIterator", () => {
     });
 
     it("should concat to empty iterator", async () => {
-      expect(await asyncIterator(range()).concat([1, 2]).collect()).to.deep.equal([1, 2]);
+      expect(await asyncIterator(range(0, 0)).concat([1, 2]).collect()).to.deep.equal([1, 2]);
     });
     it("should concat an empty array", async () => {
       expect(await asyncIterator(range(1, 3)).concat([]).collect()).to.deep.equal([1, 2]);
@@ -208,7 +208,7 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator(range(1, 4)).takeWhile((_ => false)).collect()).to.deep.equal([]);
     });
     it("should work on empty iterator", async () => {
-      expect(await asyncIterator(range()).takeWhile(x => {
+      expect(await asyncIterator([]).takeWhile(x => {
         throw new Error(`x = ${x}`);
       }).collect()).to.deep.equal([]);
     });
@@ -225,7 +225,7 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator(range(1, 4)).skipWhile((x => x % 2 === 0)).collect()).to.deep.equal([1, 2, 3]);
     });
     it("should work on empty iterator", async () => {
-      expect(await asyncIterator(range()).skipWhile(x => {
+      expect(await asyncIterator([]).skipWhile(x => {
         throw new Error(`x = ${x}`);
       }).collect()).to.deep.equal([]);
     });
@@ -242,10 +242,10 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator(range(1, 5)).all(x => x > 0)).equal(true);
     });
     it("should return true if empty", async () => {
-      expect(await asyncIterator(range()).all((x => x > 0))).equal(true);
+      expect(await asyncIterator([]).all((x => x > 0))).equal(true);
     });
     it("should return false", async () => {
-      expect(await asyncIterator(range(4, -1, -1)).all(x => x > 0)).equal(false);
+      expect(await asyncIterator(range(4, -1)).all(x => x > 0)).equal(false);
     });
   });
 
@@ -254,7 +254,7 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator(range(-1, 2)).some(x => x > 0)).equal(true);
     });
     it("should return false if empty", async () => {
-      expect(await asyncIterator(range()).some((x => x > 0))).equal(false);
+      expect(await asyncIterator([]).some((x => x > 0))).equal(false);
     });
     it("should return false", async () => {
       expect(await asyncIterator(range(-5, 1)).some(x => x > 0)).equal(false);
@@ -269,7 +269,7 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator([1, 2, 3]).sum()).equal(6);
     });
     it("should return 0 on empty iterators", async () => {
-      expect(await asyncIterator(range()).sum()).equal(0);
+      expect(await asyncIterator([]).sum()).equal(0);
     });
   });
 
@@ -281,7 +281,7 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator([1, 2]).avg()).equal(1.5);
     });
     it("should return 0 on empty iterators", async () => {
-      expect(await asyncIterator(range()).avg()).equal(0);
+      expect(await asyncIterator([]).avg()).equal(0);
     });
   });
 

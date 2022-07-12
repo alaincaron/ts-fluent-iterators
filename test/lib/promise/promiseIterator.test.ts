@@ -11,7 +11,7 @@ describe("PromiseIterator", () => {
       expect(await promiseIterator(toPromise([1, 2])).collect()).to.deep.equal([1, 2]);
     });
     it("should return empty array on empty iterator", async () => {
-      expect(await promiseIterator(range()).collect()).to.deep.equal([]);
+      expect(await promiseIterator([]).collect()).to.deep.equal([]);
     });
   });
 
@@ -214,7 +214,7 @@ describe("PromiseIterator", () => {
     });
 
     it("should append to empty iterator", async () => {
-      expect(await promiseIterator(range()).append(range(1, 3)).collect()).to.deep.equal([1, 2]);
+      expect(await promiseIterator([]).append(range(1, 3)).collect()).to.deep.equal([1, 2]);
     });
     it("should append an empty array", async () => {
       expect(await promiseIterator(range(1, 3)).append([]).collect()).to.deep.equal([1, 2]);
@@ -227,7 +227,7 @@ describe("PromiseIterator", () => {
     });
 
     it("should prepend to empty iterator", async () => {
-      expect(await promiseIterator(range()).prepend(range(1, 3)).collect()).to.deep.equal([1, 2]);
+      expect(await promiseIterator([]).prepend(range(1, 3)).collect()).to.deep.equal([1, 2]);
     });
     it("should prepend an empty array", async () => {
       expect(await promiseIterator(range(1, 3)).prepend([]).collect()).to.deep.equal([1, 2]);
@@ -240,7 +240,7 @@ describe("PromiseIterator", () => {
     });
 
     it("should concat to empty iterator", async () => {
-      expect(await promiseIterator(range()).concat(range(1, 3)).collect()).to.deep.equal([1, 2]);
+      expect(await promiseIterator([]).concat(range(1, 3)).collect()).to.deep.equal([1, 2]);
     });
     it("should concat an empty array", async () => {
       expect(await promiseIterator(range(1, 3)).concat([]).collect()).to.deep.equal([1, 2]);
@@ -261,7 +261,7 @@ describe("PromiseIterator", () => {
       expect(await promiseIterator(range(1, 4)).takeWhile((_ => false)).collect()).to.deep.equal([]);
     });
     it("should work on empty iterator", async () => {
-      expect(await promiseIterator(range()).takeWhile(x => {
+      expect(await promiseIterator([]).takeWhile(x => {
         throw new Error(`x = ${x}`);
       }).collect()).to.deep.equal([]);
     });
@@ -278,7 +278,7 @@ describe("PromiseIterator", () => {
       expect(await promiseIterator(range(1, 4)).skipWhile((x => x % 2 === 0)).collect()).to.deep.equal([1, 2, 3]);
     });
     it("should work on empty iterator", async () => {
-      expect(await promiseIterator(range()).skipWhile(x => {
+      expect(await promiseIterator([]).skipWhile(x => {
         throw new Error(`x = ${x}`);
       }).collect()).to.deep.equal([]);
     });
@@ -295,10 +295,10 @@ describe("PromiseIterator", () => {
       expect(await promiseIterator(range(1, 5)).all(x => x > 0)).equal(true);
     });
     it("should return true if empty", async () => {
-      expect(await promiseIterator(range()).all((x => x > 0))).equal(true);
+      expect(await promiseIterator(range(0, 0)).all((x => x > 0))).equal(true);
     });
     it("should return false", async () => {
-      expect(await promiseIterator(range(4, -1, -1)).all(x => x > 0)).equal(false);
+      expect(await promiseIterator(range(4, -1)).all(x => x > 0)).equal(false);
     });
   });
 
@@ -307,7 +307,7 @@ describe("PromiseIterator", () => {
       expect(await promiseIterator(range(-1, 2)).some(x => x > 0)).equal(true);
     });
     it("should return false if empty", async () => {
-      expect(await promiseIterator(range()).some((x => x > 0))).equal(false);
+      expect(await promiseIterator(range(0, 0)).some((x => x > 0))).equal(false);
     });
     it("should return false", async () => {
       expect(await promiseIterator(range(-5, 1)).some(x => x > 0)).equal(false);
@@ -322,7 +322,7 @@ describe("PromiseIterator", () => {
       expect(await promiseIterator(toPromise([1, 2, 3])).sum()).equal(6);
     });
     it("should return 0 on empty iterators", async () => {
-      expect(await promiseIterator(range()).sum()).equal(0);
+      expect(await promiseIterator([]).sum()).equal(0);
     });
   });
 
@@ -334,7 +334,7 @@ describe("PromiseIterator", () => {
       expect(await promiseIterator(toPromise([1, 2])).avg()).equal(1.5);
     });
     it("should return 0 on empty iterators", async () => {
-      expect(await promiseIterator(range()).avg()).equal(0);
+      expect(await promiseIterator([]).avg()).equal(0);
     });
   });
 

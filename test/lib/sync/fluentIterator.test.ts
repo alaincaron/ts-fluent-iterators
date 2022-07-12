@@ -147,7 +147,7 @@ describe("SyncFluentIterator", () => {
     });
 
     it("should append to empty iterator", () => {
-      expect(iterator(range()).append([1, 2]).collect()).deep.equal([1, 2]);
+      expect(iterator(range(0, 0)).append([1, 2]).collect()).deep.equal([1, 2]);
     });
     it("should append an empty array", () => {
       expect(iterator([1, 2]).append([]).collect()).deep.equal([1, 2]);
@@ -160,7 +160,7 @@ describe("SyncFluentIterator", () => {
     });
 
     it("should prepend to empty iterator", () => {
-      expect(iterator(range()).prepend([1, 2]).collect()).deep.equal([1, 2]);
+      expect(iterator(range(0, 0)).prepend([1, 2]).collect()).deep.equal([1, 2]);
     });
     it("should prepend an empty array", () => {
       expect(iterator([1, 2]).prepend([]).collect()).deep.equal([1, 2]);
@@ -173,7 +173,7 @@ describe("SyncFluentIterator", () => {
     });
 
     it("should concat to empty iterator", () => {
-      expect(iterator(range()).concat([1, 2]).collect()).deep.equal([1, 2]);
+      expect(iterator(range(0, 0)).concat([1, 2]).collect()).deep.equal([1, 2]);
     });
     it("should concat an empty array", () => {
       expect(iterator([1, 2]).concat([]).collect()).deep.equal([1, 2]);
@@ -194,7 +194,7 @@ describe("SyncFluentIterator", () => {
       expect(iterator([1, 2, 3]).takeWhile((_ => false)).collect()).deep.equal([]);
     });
     it("should work on empty iterator", () => {
-      expect(iterator(range()).takeWhile(x => {
+      expect(iterator([]).takeWhile(x => {
         throw new Error(`x = ${x}`);
       }).collect()).deep.equal([]);
     });
@@ -211,7 +211,7 @@ describe("SyncFluentIterator", () => {
       expect(iterator([1, 2, 3]).skipWhile((x => x % 2 === 0)).collect()).deep.equal([1, 2, 3]);
     });
     it("should work on empty iterator", () => {
-      expect(iterator(range()).skipWhile(x => {
+      expect(iterator([]).skipWhile(x => {
         throw new Error(`x = ${x}`);
       }).collect()).deep.equal([]);
     });
@@ -228,7 +228,7 @@ describe("SyncFluentIterator", () => {
       expect(iterator([1, 10, 2, 11]).all(x => x > 0)).equal(true);
     });
     it("should return true if empty", () => {
-      expect(iterator(range()).all((x => x > 0))).equal(true);
+      expect(iterator([]).all((x => x > 0))).equal(true);
     });
     it("should return false", () => {
       expect(iterator([1, 2, 3, -1]).all(x => x > 0)).equal(false);
@@ -240,7 +240,7 @@ describe("SyncFluentIterator", () => {
       expect(iterator([-1, 1]).some(x => x > 0)).equal(true);
     });
     it("should return false if empty", () => {
-      expect(iterator(range()).some((x => x > 0))).equal(false);
+      expect(iterator([]).some((x => x > 0))).equal(false);
     });
     it("should return false", () => {
       expect(iterator([-1, -2, -3]).some(x => x > 0)).equal(false);
@@ -255,7 +255,7 @@ describe("SyncFluentIterator", () => {
       expect(iterator([1, 2, 3]).sum()).equal(6);
     });
     it("should return 0 on empty iterators", () => {
-      expect(iterator(range()).sum()).equal(0);
+      expect(iterator([]).sum()).equal(0);
     });
   });
 
@@ -267,7 +267,7 @@ describe("SyncFluentIterator", () => {
       expect(iterator([1, 2]).avg()).equal(1.5);
     });
     it("should return 0 on empty iterators", () => {
-      expect(iterator(range()).avg()).equal(0);
+      expect(iterator([]).avg()).equal(0);
     });
   });
 

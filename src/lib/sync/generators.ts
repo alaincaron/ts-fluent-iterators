@@ -1,9 +1,10 @@
-export function* range(start?: number, end?: number, step: number = 1): Iterator<number> {
-  if (start === undefined) return;
+export function* range(start?: number, end?: number, step?: number): Iterator<number> {
   if (step === 0) {
     throw new Error(`Invalid value for step: ${step}`);
   }
+  start ??= 0;
   let value = start!;
+  step ??= end == null || start < end ? 1 : -1;
   if (end == null) {
     for (; ;) {
       yield value;

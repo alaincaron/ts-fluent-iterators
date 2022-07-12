@@ -18,7 +18,7 @@ describe("PromiseGenerators", () => {
     });
 
     it("should yield in decreasing order if negative step", async () => {
-      expect(await collect(range(5, 0, -1))).to.deep.equal([5, 4, 3, 2, 1]);
+      expect(await collect(range(5, 0))).to.deep.equal([5, 4, 3, 2, 1]);
     });
   });
 });
