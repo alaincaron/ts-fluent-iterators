@@ -1,6 +1,6 @@
-[ts-fluent-iterators - v1,0,0](../README.md) › [API](index.md) 
+[ts-fluent-iterators - v1.1.1](../README.md) › [API](index.md) 
 
-# ts-fluent-iterators API - v1.0.0
+# ts-fluent-iterators API - v1.1.1
 
 ## Types
 

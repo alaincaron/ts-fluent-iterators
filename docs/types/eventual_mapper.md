@@ -1,4 +1,4 @@
-[ts-fluent-iterators - v1,0,0](../../README.md) › [API](../index.md) › [types](../index.md#Types) › [EventualMapper](eventual_mapper.md)
+[ts-fluent-iterators - v1.1.1](../../README.md) › [API](../index.md) › [types](../index.md#Types) › [EventualMapper](eventual_mapper.md)
 
 # Type: EventualMapper <**A**,**B**>
 

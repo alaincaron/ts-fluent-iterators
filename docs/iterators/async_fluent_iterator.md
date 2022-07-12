@@ -1,4 +1,4 @@
-[ts-fluent-iterators - v1,0,0](../../README.md) › [API](../index.md) ›
+[ts-fluent-iterators - v1.1.1](../../README.md) › [API](../index.md) ›
 [Fluent Iterators](../index.md#fluent iterators) › [Class AsyncFluentIterator](async_fluent_iterator.md)
 
 # Class: AsyncFluentIterator <**A**>
