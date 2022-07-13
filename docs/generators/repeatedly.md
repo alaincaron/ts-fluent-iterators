@@ -6,7 +6,7 @@
 function* repeatedly<T>(
    f: () => T,
    n?: number, 
-): Iterator<nT>
+): Iterator<T>
 ```
 
 Creates a new `Iterator<T>` by invoking function `f` repeatedly.

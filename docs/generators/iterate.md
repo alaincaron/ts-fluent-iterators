@@ -7,7 +7,7 @@ function* iterate<T>(
    f: (t: T) => T,
    seed: T,
    n?: number, 
-): Iterator<nT>
+): Iterator<T>
 ```
 
 Creates a new `Iterator<T>` of the results of successively invoking
