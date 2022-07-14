@@ -3,7 +3,7 @@
 
 # Class: PromiseIterator <**A**>
 
-Represents an async fluent iterator yielding values of type `A`  
+Represents a sync fluent iterator yielding values of type `Promise<A>`
   
 Definition:
 ```typescript
@@ -248,7 +248,7 @@ prepend(items: Iterator<A> | Iterable<A>): PromiseIterator<A>;
 ```
 Returns a new [`PromiseIterator<A>`](promise_iterator.md) that consists
 of elements of the `other` iterable object followed by elemants of
-this [`AsyncFluentIterable<A>`](promise_iterable.md).
+this [`PRomiseIterator<A>`](promise_iterator.md).
 
 ##### Example
 ```typescript
@@ -262,7 +262,7 @@ concat(...iterables: Array<Iterator<A> | Iterable<A>>):
 PromiseIterator<A>;
 ```
 Returns a new [`PromiseIterator<A>`](promise_iterator.md) that consists
-of elements of this [`FluentIterable<A>`](promise_iterator.md) followed by elements of all of
+of elements of this [`PromiseIterator<A>`](promise_iterator.md) followed by elements of all of
 the `iterables` object.
 
 ##### Example

@@ -13,7 +13,7 @@
 * [EventualReducer](types/eventual_reducer.md)
 * [Comparator](types/comparator.md)
 * [EventualIterator](types/eventual_iterator.md)
-* [EventIterable](types/eventual_iterable.md)
+* [EventualIterable](types/eventual_iterable.md)
 
 
 ## Fluent Iterators
