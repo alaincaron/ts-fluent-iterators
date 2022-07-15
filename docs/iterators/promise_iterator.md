@@ -14,7 +14,7 @@ class PromiseIterator<A> implements
 
 ## constructor
 ```typescript
-constructor(iter: terator<Promise<A>>);
+constructor(iter: Iterator<Promise<A>>);
 ```
 Constructs a new [`PromiseIterator<A>`](promise_iterator.md) wrapping an
 `Iterator<Promis<A>>`.  
