@@ -42,5 +42,6 @@
   "directories": {
     "doc": "docs",
     "test": "test"
-  }
+  },
+  files: [ "dist" ]
 }
