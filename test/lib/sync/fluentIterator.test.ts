@@ -1,6 +1,6 @@
 import { range } from "../../../src/lib/sync/generators";
 import { iterator } from "../../../src/lib/sync/fluentIterator";
-import { defaultComparator, lengthComparator } from "../../../src/lib/functions";
+import { lengthComparator } from "../../../src/lib/functions";
 
 import { expect } from "chai";
 
@@ -283,12 +283,20 @@ describe("SyncFluentIterator", () => {
   describe("max", () => {
     it("should return the longest string", () => {
       expect(
-        iterator(["foo", "bar", "x", "foobar"])
-          .max((a, b) => defaultComparator(a.length, b.length)))
-        .equal("foobar");
+        iterator(["foo", "bar", "x", "foobar"]).max(lengthComparator)).equal("foobar");
     });
     it("should return lexicographically largest string", () => {
       expect(iterator(["foo", "bar", "x", "foobar"]).max()).equal("x");
+    });
+  });
+
+  describe("minmax", () => {
+    it("should return the longest and shortest strings", () => {
+      expect(
+        iterator(["foo", "bar", "x", "foobar"]).minmax(lengthComparator)).deep.equal({ min: "x", max: "foobar" });
+    });
+    it("should return lexicographically smallest and largest strings", () => {
+      expect(iterator(["foo", "bar", "x", "foobar"]).minmax()).deep.equal({ min: "bar", max: "x" });
     });
   });
 
@@ -348,6 +356,19 @@ describe("SyncFluentIterator", () => {
     it("should group numbers according to their last bit", () => {
       const actual = iterator([2, 5, 4, 3, 1]).partition(x => x % 2).collect();
       const expected = [[0, [2, 4]], [1, [5, 3, 1]]];
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe("tally", () => {
+    it("should count event and odd numbers", () => {
+      const actual = iterator([2, 5, 4, 3, 1]).tally(x => x % 2);
+      const expected = new Map().set(0, 2).set(1, 3);
+      expect(actual).deep.equal(expected);
+    });
+    it("should count all words", () => {
+      const actual = iterator(["foo", "bar", "foobar", "foo"]).tally();
+      const expected = new Map().set("foo", 2).set("bar", 1).set("foobar", 1);
       expect(actual).deep.equal(expected);
     });
   });

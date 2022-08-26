@@ -309,6 +309,16 @@ describe("AsyncFluentIterator", () => {
     });
   });
 
+  describe("minmax", () => {
+    it("should return the longest and shortest strings", async () => {
+      expect(
+        await asyncIterator(["foo", "bar", "x", "foobar"]).minmax(lengthComparator)).deep.equal({ min: "x", max: "foobar" });
+    });
+    it("should return lexicographically smallest and largest strings", async () => {
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).minmax()).deep.equal({ min: "bar", max: "x" });
+    });
+  });
+
   describe("last", () => {
     it("should return the last string", async () => {
       expect(
@@ -369,4 +379,16 @@ describe("AsyncFluentIterator", () => {
     });
   });
 
+  describe("tally", () => {
+    it("should count event and odd numbers", async () => {
+      const actual = await asyncIterator([2, 5, 4, 3, 1]).tally(x => x % 2);
+      const expected = new Map().set(0, 2).set(1, 3);
+      expect(actual).deep.equal(expected);
+    });
+    it("should count all words", async () => {
+      const actual = await asyncIterator(["foo", "bar", "foobar", "foo"]).tally();
+      const expected = new Map().set("foo", 2).set("bar", 1).set("foobar", 1);
+      expect(actual).deep.equal(expected);
+    });
+  });
 });

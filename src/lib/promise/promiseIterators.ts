@@ -1,7 +1,6 @@
 import * as SyncIterators from "../sync/iterators";
-import { sumReducer, avgReducer } from "../sync/iterators";
-import { EventualMapper, EventualPredicate, EventualReducer, Eventually, Comparator } from "../types";
-import { defaultComparator, alwaysTrue } from "../functions";
+import { EventualMapper, EventualPredicate, EventualReducer, Eventually, Comparator, MinMax } from "../types";
+import { defaultComparator, alwaysTrue, sumReducer, avgReducer, minMaxReducer, identity } from "../functions";
 
 export function* map<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, B>): Iterator<Promise<B>> {
   for (; ;) {
@@ -178,7 +177,7 @@ export function sum(iter: Iterator<Promise<number>>): Promise<number> {
 }
 
 export function avg(iter: Iterator<Promise<number>>): Promise<number> {
-  return fold(iter, avgReducer, { avg: 0, i: 0 }).then(s => s.avg);
+  return fold(iter, avgReducer, { avg: 0, n: 0 }).then(s => s.avg);
 }
 
 export async function count<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A> = alwaysTrue): Promise<number> {
@@ -198,6 +197,13 @@ export function min<A>(iter: Iterator<Promise<A>>, comparator: Comparator<A> = d
 export function max<A>(iter: Iterator<Promise<A>>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
   const reducer = (acc: A, a: A) => comparator(acc, a) >= 0 ? acc : a;
   return reduce(iter, reducer);
+}
+
+export async function minmax<A>(iter: Iterator<Promise<A>>, comparator: Comparator<A> = defaultComparator): Promise<MinMax<A>> {
+  const item = iter.next();
+  if (item.done) return {};
+  const v = await item.value;
+  return fold(iter, minMaxReducer(comparator), { min: v, max: v });
 }
 
 export async function last<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A> = alwaysTrue): Promise<A | undefined> {
@@ -240,6 +246,18 @@ export async function collectToMap<A, K>(iter: Iterator<Promise<A>>, mapper: Eve
 
 export async function* partition<A, K>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, K>): AsyncIterator<[K, A[]]> {
   yield* (await collectToMap(iter, mapper)).entries();
+}
+
+export async function tally<A, K>(iter: Iterator<Promise<A>>, mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
+  mapper ??= identity as EventualMapper<A, K>;
+  const map = new Map<K, number>();
+  for (; ;) {
+    const item = iter.next();
+    if (item.done) return map;
+    const k = await mapper(await item.value);
+    const v = map.get(k);
+    map.set(k, (v ?? 0) + 1);
+  }
 }
 
 export function toPromise<A>(iter: Iterator<A> | Iterable<A>): Iterator<Promise<A>> {

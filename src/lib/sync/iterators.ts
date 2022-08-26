@@ -1,5 +1,5 @@
-import { Comparator, Mapper, Predicate, Reducer } from "../types";
-import { alwaysTrue, defaultComparator } from "../functions";
+import { Comparator, Mapper, Predicate, Reducer, MinMax } from "../types";
+import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from "../functions";
 
 export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
   const x: any = iter;
@@ -63,6 +63,15 @@ export function* filter<A>(iter: Iterator<A>, predicate: Predicate<A>): Iterator
     const item = iter.next();
     if (item.done) break;
     if (predicate(item.value)) yield item.value;
+  }
+}
+
+export function* filter_map<A, B>(iter: Iterator<A>, mapper: Mapper<A, B>): Iterator<B> {
+  for (; ;) {
+    const item = iter.next();
+    if (item.done) break;
+    const value = mapper(item.value);
+    if (value != null) yield value;
   }
 }
 
@@ -222,7 +231,7 @@ export function sum(iter: Iterator<number>): number {
 }
 
 export function avg(iter: Iterator<number>): number {
-  return fold(iter, avgReducer, { avg: 0, i: 0 }).avg;
+  return fold(iter, avgReducer, { avg: 0, n: 0 }).avg;
 }
 
 export function count<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): number {
@@ -242,6 +251,12 @@ export function min<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultCom
 export function max<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultComparator): A | undefined {
   const reducer = (acc: A, a: A) => comparator(acc, a) >= 0 ? acc : a;
   return reduce(iter, reducer);
+}
+
+export function minmax<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultComparator): MinMax<A> {
+  const item = iter.next();
+  if (item.done) return {};
+  return fold(iter, minMaxReducer(comparator), { min: item.value, max: item.value });
 }
 
 export function last<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): A | undefined {
@@ -284,17 +299,15 @@ export function* partition<A, K>(iter: Iterator<A>, mapper: Mapper<A, K>): Itera
   yield* collectToMap(iter, mapper).entries();
 }
 
-export function avgReducer(state: { avg: number, i: number }, value: number): { avg: number, i: number } {
-  // Usong Knuth algorithm
-  state.avg += (value - state.avg) / ++state.i;
-  return state;
-}
 
-export function sumReducer(state: { sum: number, correction: number }, value: number): { sum: number, correction: number } {
-  // Based on Kahan Summation Algorithm to prevent loss of accuracy
-  const y = value - state.correction;
-  const t = state.sum + y;
-  state.correction = (t - state.sum) - y;
-  state.sum = t;
-  return state;
+export function tally<A, K>(iter: Iterator<A>, mapper?: Mapper<A, K>): Map<K, number> {
+  mapper ??= identity as Mapper<A, K>;
+  const map = new Map<K, number>();
+  for (; ;) {
+    const item = iter.next();
+    if (item.done) return map;
+    const k = mapper(item.value);
+    const v = map.get(k);
+    map.set(k, (v ?? 0) + 1);
+  }
 }

@@ -1,5 +1,5 @@
 import * as Iterators from './iterators';
-import { Comparator, Mapper, Predicate, Reducer } from "../types";
+import { Comparator, Mapper, Predicate, Reducer, MinMax } from "../types";
 import { identity } from "../functions";
 
 export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
@@ -120,6 +120,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return Iterators.max(this.iter, comparator);
   }
 
+  minmax(comparator?: Comparator<A>): MinMax<A> {
+    return Iterators.minmax(this.iter, comparator);
+  }
+
   last(predicate?: Predicate<A>): A | undefined {
     return Iterators.last(this.iter, predicate);
   }
@@ -138,6 +142,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
   partition<K>(mapper: Mapper<A, K>): FluentIterator<[K, A[]]> {
     return new FluentIterator(Iterators.partition(this.iter, mapper));
+  }
+
+  tally<K>(mapper?: Mapper<A, K>): Map<K, number> {
+    return Iterators.tally(this.iter, mapper);
   }
 
   [Symbol.iterator](): Iterator<A> {

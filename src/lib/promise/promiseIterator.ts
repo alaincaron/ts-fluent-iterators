@@ -2,7 +2,7 @@ import * as Iterators from './promiseIterators';
 import * as SyncIterators from "../sync/iterators";
 import { AsyncFluentIterator } from "../async/asyncFluentIterator";
 
-import { Eventually, EventualReducer, EventualMapper, EventualPredicate, Comparator } from "../types";
+import { Eventually, EventualReducer, EventualMapper, EventualPredicate, Comparator, MinMax } from "../types";
 import { identity } from "../functions";
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
@@ -139,6 +139,10 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.max(this.iter, comparator);
   }
 
+  minmax(comparator?: Comparator<A>): Promise<MinMax<A>> {
+    return Iterators.minmax(this.iter, comparator);
+  }
+
   last(predicate?: EventualPredicate<A>): Promise<A | undefined> {
     return Iterators.last(this.iter, predicate);
   }
@@ -157,6 +161,10 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
 
   partition<K>(mapper: EventualMapper<A, K>): AsyncFluentIterator<[K, A[]]> {
     return new AsyncFluentIterator(Iterators.partition(this.iter, mapper));
+  }
+
+  tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
+    return Iterators.tally(this.iter, mapper);
   }
 
   [Symbol.iterator](): Iterator<Promise<A>> {

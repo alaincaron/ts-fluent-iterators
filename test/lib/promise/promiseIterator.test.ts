@@ -362,6 +362,15 @@ describe("PromiseIterator", () => {
     });
   });
 
+  describe("minmax", () => {
+    it("should return the longest and shortest strings", async () => {
+      expect(await promiseIterator(toPromise(["foo", "bar", "x", "foobar"])).minmax(lengthComparator)).deep.equal({ min: "x", max: "foobar" });
+    });
+    it("should return lexicographically smallest and largest strings", async () => {
+      expect(await promiseIterator(toPromise(["foo", "bar", "x", "foobar"])).minmax()).deep.equal({ min: "bar", max: "x" });
+    });
+  });
+
   describe("last", () => {
     it("should return the last string", async () => {
       expect(
@@ -418,6 +427,19 @@ describe("PromiseIterator", () => {
     it("should group numbers according to their last bit", async () => {
       const actual = await promiseIterator(toPromise([2, 5, 4, 3, 1])).partition(x => x % 2).collect();
       const expected = [[0, [2, 4]], [1, [5, 3, 1]]];
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe("tally", () => {
+    it("should count event and odd numbers", async () => {
+      const actual = await promiseIterator(toPromise([2, 5, 4, 3, 1])).tally(x => x % 2);
+      const expected = new Map().set(0, 2).set(1, 3);
+      expect(actual).deep.equal(expected);
+    });
+    it("should count all words", async () => {
+      const actual = await promiseIterator(toPromise(["foo", "bar", "foobar", "foo"])).tally();
+      const expected = new Map().set("foo", 2).set("bar", 1).set("foobar", 1);
       expect(actual).deep.equal(expected);
     });
   });

@@ -8,3 +8,18 @@ export type EventualReducer<A, B> = (acc: B, a: A) => Eventually<B>;
 export type Comparator<A> = (a1: A, a2: A) => number;
 export type EventualIterator<A> = Iterator<A> | AsyncIterator<A>;
 export type EventualIterable<A> = Iterable<A> | AsyncIterable<A>;
+
+export interface MinMax<A> {
+  min?: A;
+  max?: A;
+}
+
+export interface AvgState {
+  avg: number;
+  n: number;
+}
+
+export interface SumState {
+  sum: number;
+  correction: number;
+}
