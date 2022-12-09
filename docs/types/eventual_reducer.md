@@ -1,4 +1,4 @@
-[ts-fluent-iterators - v1.1.1](../../README.md) › [API](../index.md) › [types](../index.md#Types) › [EventualReducer](eventual_reducer.md)
+[ts-fluent-iterators](../../README.md) › [API](../index.md) › [types](../index.md#Types) › [EventualReducer](eventual_reducer.md)
 
 # Type: EventualReducer <**A**,**B**>
 

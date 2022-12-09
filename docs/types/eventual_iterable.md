@@ -1,4 +1,4 @@
-[ts-fluent-iterators - v1.1.1](../../README.md) › [API](../index.md) › [types](../index.md#Types) › [EventualIterable](eventual_iterable.md)
+[ts-fluent-iterators](../../README.md) › [API](../index.md) › [types](../index.md#Types) › [EventualIterable](eventual_iterable.md)
 
 # Type: EventualIterable <**A**>
 

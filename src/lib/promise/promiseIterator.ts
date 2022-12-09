@@ -1,6 +1,7 @@
 import * as Iterators from './promiseIterators';
 import * as SyncIterators from "../sync/iterators";
 import { AsyncFluentIterator } from "../async/asyncFluentIterator";
+import { FluentIterator } from '../sync/fluentIterator';
 
 import { Eventually, EventualReducer, EventualMapper, EventualPredicate, Comparator, MinMax } from "../types";
 import { identity } from "../functions";
@@ -105,8 +106,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return new AsyncFluentIterator(Iterators.skipWhile(this.iter, predicate));
   }
 
-  distinct(): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.distinct(this.iter));
+  distinct<B>(mapper?: EventualMapper<A, B>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.distinct(this.iter, mapper));
   }
 
   all(predicate: EventualPredicate<A>): Promise<boolean> {
@@ -165,6 +166,10 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
 
   tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
     return Iterators.tally(this.iter, mapper);
+  }
+
+  chunk(chunk_size: number): FluentIterator<Promise<A>[]> {
+    return new FluentIterator(SyncIterators.chunk(this.iter, chunk_size));
   }
 
   [Symbol.iterator](): Iterator<Promise<A>> {

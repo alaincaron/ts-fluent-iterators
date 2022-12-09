@@ -86,8 +86,8 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return new AsyncFluentIterator(Iterators.skipWhile(this.iter, predicate));
   }
 
-  distinct(): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.distinct(this.iter));
+  distinct<B>(mapper?: EventualMapper<A, B>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.distinct(this.iter, mapper));
   }
 
   all(predicate: EventualPredicate<A>): Promise<boolean> {
@@ -146,6 +146,10 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
 
   tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
     return Iterators.tally(this.iter, mapper);
+  }
+
+  chunk(chunk_size: number): AsyncFluentIterator<A[]> {
+    return new AsyncFluentIterator(Iterators.chunk(this.iter, chunk_size));
   }
 
   [Symbol.asyncIterator](): AsyncIterator<A> {

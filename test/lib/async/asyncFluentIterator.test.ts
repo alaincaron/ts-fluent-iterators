@@ -235,6 +235,9 @@ describe("AsyncFluentIterator", () => {
     it("should eliminate duplicates", async () => {
       expect(await asyncIterator([1, 2, 5, 2, 1, 0]).distinct().collect()).deep.equal([1, 2, 5, 0]);
     });
+    it("should only yield one odd and one even number", async () => {
+      expect(await asyncIterator([1, 2, 5, 2, 1, 0]).distinct(x => x % 2).collect()).deep.equal([1, 2]);
+    });
   });
 
   describe("all", () => {
@@ -388,6 +391,14 @@ describe("AsyncFluentIterator", () => {
     it("should count all words", async () => {
       const actual = await asyncIterator(["foo", "bar", "foobar", "foo"]).tally();
       const expected = new Map().set("foo", 2).set("bar", 1).set("foobar", 1);
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe("chunk", () => {
+    it("should split iterator based on chunk size", async () => {
+      const actual = await asyncIterator([2, 5, 4, 3, 1]).chunk(2).collect();
+      const expected = [[2, 5], [4, 3], [1]];
       expect(actual).deep.equal(expected);
     });
   });

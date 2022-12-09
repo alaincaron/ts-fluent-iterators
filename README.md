@@ -29,6 +29,7 @@ console.log(`The first five even numbers are: ${iter.filter(n => n % 2 === 0).ta
   - [enumerate](docs/iterators/fluent_iterator.md#enumerate)
 
 - Group transformations like
+  - [chunk](docs/iterators/fluent_iterator.md#chunk)
   - [partition](docs/iterators/fluent_iterator.md#partition)
   - [sort](docs/iterators/fluent_iterator.md#sort)
 

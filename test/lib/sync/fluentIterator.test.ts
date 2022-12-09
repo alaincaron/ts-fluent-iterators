@@ -221,6 +221,9 @@ describe("SyncFluentIterator", () => {
     it("should eliminate duplicates", () => {
       expect(iterator([1, 2, 5, 2, 1, 0]).distinct().collect()).deep.equal([1, 2, 5, 0]);
     });
+    it("should only yield one odd and one even number", () => {
+      expect(iterator([1, 2, 5, 2, 1, 0]).distinct(x => x % 2).collect()).deep.equal([1, 2]);
+    });
   });
 
   describe("all", () => {
@@ -356,6 +359,14 @@ describe("SyncFluentIterator", () => {
     it("should group numbers according to their last bit", () => {
       const actual = iterator([2, 5, 4, 3, 1]).partition(x => x % 2).collect();
       const expected = [[0, [2, 4]], [1, [5, 3, 1]]];
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe("chunk", () => {
+    it("should split iterator based on chunk size", () => {
+      const actual = iterator([2, 5, 4, 3, 1]).chunk(2).collect();
+      const expected = [[2, 5], [4, 3], [1]];
       expect(actual).deep.equal(expected);
     });
   });

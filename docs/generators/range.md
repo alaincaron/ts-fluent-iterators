@@ -1,4 +1,4 @@
-[ts-fluent-iterators - v1.1.1](../../README.md) › [API](../index.md) ›
+[ts-fluent-iterators](../../README.md) › [API](../index.md) ›
 [Generators](../index.md#generators) › [range](range.md)
 
 # range generator

@@ -86,8 +86,8 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.skipWhile(this.iter, predicate));
   }
 
-  distinct(): FluentIterator<A> {
-    return new FluentIterator(Iterators.distinct(this.iter));
+  distinct<B>(mapper?: Mapper<A, B>): FluentIterator<A> {
+    return new FluentIterator(Iterators.distinct(this.iter, mapper));
   }
 
   all(predicate: Predicate<A>): boolean {
@@ -146,6 +146,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
   tally<K>(mapper?: Mapper<A, K>): Map<K, number> {
     return Iterators.tally(this.iter, mapper);
+  }
+
+  chunk(chunk_size: number): FluentIterator<A[]> {
+    return new FluentIterator(Iterators.chunk(this.iter, chunk_size));
   }
 
   [Symbol.iterator](): Iterator<A> {

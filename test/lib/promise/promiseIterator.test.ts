@@ -288,6 +288,9 @@ describe("PromiseIterator", () => {
     it("should eliminate duplicates", async () => {
       expect(await promiseIterator(toPromise([1, 2, 5, 2, 1, 0])).distinct().collect()).deep.equal([1, 2, 5, 0]);
     });
+    it("should only yield one odd and one even number", async () => {
+      expect(await promiseIterator(toPromise([1, 2, 5, 2, 1, 0])).distinct(x => x % 2).collect()).deep.equal([1, 2]);
+    });
   });
 
   describe("all", () => {
@@ -440,6 +443,14 @@ describe("PromiseIterator", () => {
     it("should count all words", async () => {
       const actual = await promiseIterator(toPromise(["foo", "bar", "foobar", "foo"])).tally();
       const expected = new Map().set("foo", 2).set("bar", 1).set("foobar", 1);
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe("chunk", () => {
+    it("should split iterator based on chunk size", async () => {
+      const actual = await Promise.all(promiseIterator(toPromise([2, 5, 4, 3, 1])).chunk(2).map(x => Promise.all(x)).collect());
+      const expected = [[2, 5], [4, 3], [1]];
       expect(actual).deep.equal(expected);
     });
   });

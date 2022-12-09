@@ -124,14 +124,16 @@ export async function* skipWhile<A>(iter: Iterator<Promise<A>>, predicate: Event
   }
 }
 
-export async function* distinct<A>(iter: Iterator<Promise<A>>): AsyncIterator<A> {
-  const seen = new Set<A>();
+export async function* distinct<A, B>(iter: Iterator<Promise<A>>, mapper?: EventualMapper<A, B>): AsyncIterator<A> {
+  mapper ??= identity as EventualMapper<A, B>;
+  const seen = new Set<B>();
   for (; ;) {
     const item = iter.next();
     if (item.done) break;
     const value = await item.value;
-    if (seen.has(value)) continue;
-    seen.add(value);
+    const mappedValue = await mapper(value);
+    if (seen.has(mappedValue)) continue;
+    seen.add(mappedValue);
     yield value;
   }
 }

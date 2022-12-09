@@ -1,4 +1,4 @@
-[ts-fluent-iterators - v1.1.1](../../README.md) › [API](../index.md) ›
+[ts-fluent-iterators](../../README.md) › [API](../index.md) ›
 [Fluent Iterators](../index.md#fluent iterators) › [Class FluentIterator](fluent_iterator.md)
 
 # Class: FluentIterator <**A**>
@@ -290,16 +290,17 @@ yields 2, 3, 5
 
 ## distinct
 ```typescript
-distinct(): FluentIterator<A>;
+distinct<B>(mapper?: Mapper<A,B>): FluentIterator<A>;
 ```
 Returns a new [`FluentIterator`](fluent_iterator.md) that returns only
-distinct elements of this [`FluentIterator`](fluent_iterator.md)
+elements of this [`FluentIterator`] (fluent_iterator.md) mapping to distinct values.
 
 ##### Example
 ```typescript
-iterator([1,1,2,3,4,2,3]).distinct()
-// will yield 1,2,3,4
+iterator([1,1,2,3,4,2,3]).distinct();  // will yield 1,2,3,4
+iterator([1,1,2,3,4,2,3]).distinct(x => x % 2);  // will yield 1,2
 ```
+
 ## all
 ```typescript
 all(predicate: Predicate<A>): boolean;
@@ -512,6 +513,22 @@ This operation is really equivalent to
 ```typescript
 iterator([1,2,3,4,5]).partition(x => x % 2);
 // yields [0, [2, 4]], [1, [1, 3, 5]]
+```
+ 
+## chunk
+```typescript
+chunk(chunk_size: number): FluentIterator<A[]>
+```
+
+Returns a new [`FluentIterator`](fluent_iterator.md) consiting of
+chunks (arrays) of at most `chunk_size` elements.
+The last chunk may contain less than `chunk_size` elements but is
+never empty.
+
+##### Example
+```typescript
+iterator([1,2,3,4,5]).chunk(2)
+// yields [ [1, 2], [3, 4], [5]]
 ```
  
 ## [Symbol.iterator]

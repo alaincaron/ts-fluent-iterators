@@ -1,4 +1,4 @@
-[ts-fluent-iterators - v1.1.1](../../README.md) › [API](../index.md) ›
+[ts-fluent-iterators](../../README.md) › [API](../index.md) ›
 [Fluent Iterators](../index.md#fluent iterators) › [Class AsyncFluentIterator](async_fluent_iterator.md)
 
 # Class: AsyncFluentIterator <**A**>
@@ -300,16 +300,17 @@ await asyncIterator([1,1,2,3,5]).skipWhile(x => x % 2 === 1).collect();
 
 ## distinct
 ```typescript
-distinct(): AsyncFluentIterator<A>;
+distinct<B>(mapper?: EventualMapper<A,B>): AsyncFluentIterator<A>;
 ```
 Returns a new [`AsyncFluentIterator`](async_fluent_iterator.md) that returns only
-distinct elements of this [`AsyncFluentIterator`](async_fluent_iterator.md)
+elements of this [`AsyncFluentIterator`] (async_fluent_iterator.md) mapping to distinct values.
 
 ##### Example
 ```typescript
-await asyncIterator([1,1,2,3,4,2,3]).distinct().collect();
-// returns [1, 2, 3, 4]
+await asyncIterator([1,1,2,3,4,2,3]).distinct().collect(); // returns [1, 2, 3, 4]
+await asyncIterator([1,1,2,3,4,2,3]).distinct(x => x % 2);  // returns [1, 2]
 ```
+
 ## all
 ```typescript
 all(predicate: EventualPredicate<A>): boolean;
@@ -522,6 +523,22 @@ This operation is really equivalent to
 ```typescript
 iterator([1,2,3,4,5]).partition(x => x % 2);
 // yields [0, [2, 4]], [1, [1, 3, 5]]
+```
+ 
+## chunk
+```typescript
+chunk(chunk_size: number): AsyncFluentIterator<A[]>
+```
+
+Returns a new [`AsyncFluentIterator`](async_fluent_iterator.md) consiting of
+chunks (arrays) of at most `chunk_size` elements.
+The last chunk may contain less than `chunk_size` elements but is
+never empty.
+
+##### Example
+```typescript
+await asyncIterator([1,2,3,4,5]).chunk(2).collect()
+// returns [ [1, 2], [3, 4], [5]]
 ```
  
 ## [Symbol.iterator]

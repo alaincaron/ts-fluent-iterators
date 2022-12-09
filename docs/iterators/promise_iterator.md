@@ -1,4 +1,4 @@
-[ts-fluent-iterators - v1.1.1](../../README.md) › [API](../index.md) ›
+[ts-fluent-iterators](../../README.md) › [API](../index.md) ›
 [Fluent Iterators](../index.md#fluent iterators) › [Class PromiseIterator](promise_iterator.md)
 
 # Class: PromiseIterator <**A**>
@@ -302,16 +302,17 @@ await promiseIterator(toPromise[1,1,2,3,5])).skipWhile(x => x % 2 === 1).collect
 
 ## distinct
 ```typescript
-distinct(): AsyncFluentIterator<A>;
+distinct<B>(mapper?: EventualMapper<A,B>): AsyncFluentIterator<A>;
 ```
 Returns a new [`AsyncFluentIterator`](async_fluent_iterator.md) that returns only
-distinct elements of this [`PromiseIterator`](promise_iterator.md)
+elements of this [`PromiseIterator`] (async_fluent_iterator.md) mapping to distinct values.
 
 ##### Example
 ```typescript
-await promiseIterator(toPromise([1,1,2,3,4,2,3])).distinct().collect();
-// returns [1, 2, 3, 4]
+await promiseIterator(toPromise([1,1,2,3,4,2,3])).distinct().collect(); // returns [1, 2, 3, 4]
+await asyncIterator(toPromise([1,1,2,3,4,2,3])).distinct(x => x % 2);  // returns [1, 2]
 ```
+
 ## all
 ```typescript
 all(predicate: EventualPredicate<A>): Promise<boolean>;
@@ -524,6 +525,22 @@ This operation is really equivalent to
 ```typescript
 promiseIterator([1,2,3,4,5]).partition(x => x % 2);
 // yields Promise.resolve([0, [2, 4]]), Promise.rewolve([1, [1, 3, 5]])
+```
+ 
+## chunk
+```typescript
+chunk(chunk_size: number): FluentIterator<Promise<A>[]>
+```
+
+Returns a new [`AsyncFluentIterator`](async_fluent_iterator.md) consiting of
+chunks (arrays) of at most `chunk_size` elements.
+The last chunk may contain less than `chunk_size` elements but is
+never empty.
+
+##### Example
+```typescript
+await Promise.all(promiseIterator(toPromise([1,2,3,4,5])).chunk(2).map(x => Promise.all(x)).collect());
+// returns [ [1, 2], [3, 4], [5]]
 ```
  
 ## [Symbol.iterator]

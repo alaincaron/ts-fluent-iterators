@@ -199,13 +199,15 @@ export async function* skipWhile<A>(iter: AsyncIterator<A>, predicate: EventualP
   }
 }
 
-export async function* distinct<A>(iter: AsyncIterator<A>): AsyncIterator<A> {
-  const seen = new Set<A>();
+export async function* distinct<A, B>(iter: AsyncIterator<A>, mapper?: EventualMapper<A, B>): AsyncIterator<A> {
+  mapper ??= asyncIdentity as EventualMapper<A, B>;
+  const seen = new Set<B>();
   for (; ;) {
     const item = await iter.next();
-    if (item.done) break;
-    if (seen.has(item.value)) continue;
-    seen.add(item.value);
+    if (item.done) break
+    const value = await mapper(item.value);
+    if (seen.has(value)) continue;
+    seen.add(value);
     yield item.value;
   }
 }
@@ -277,12 +279,13 @@ export async function last<A>(iter: AsyncIterator<A>, predicate: EventualPredica
   }
 }
 
-export function join<A>(iter: AsyncIterator<A>, separator: string = ','): Promise<string> {
-  return fold(iter, (state, a) => {
+export async function join<A>(iter: AsyncIterator<A>, separator: string = ','): Promise<string> {
+  const state = await fold(iter, (state, a) => {
     state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
     state.first = false;
     return state;
-  }, { first: true, acc: '' }).then(state => state.acc);
+  }, { first: true, acc: '' });
+  return state.acc;
 }
 
 export async function* sort<A>(iter: AsyncIterator<A>, comparator?: Comparator<A>): AsyncIterator<A> {
@@ -317,6 +320,22 @@ export async function tally<A, K>(iter: AsyncIterator<A>, mapper?: EventualMappe
     const k = await mapper(item.value);
     const v = map.get(k);
     map.set(k, (v ?? 0) + 1);
+  }
+}
+
+export async function* chunk<A>(iter: AsyncIterator<A>, chunk_size: number): AsyncIterator<A[]> {
+  if (!Number.isSafeInteger(chunk_size) || chunk_size < 0) throw new Error(`Invalid chunk_size integer number: ${chunk_size}`);
+  let values: A[] = [];
+  for (; ;) {
+    const item = await iter.next();
+    if (item.done) {
+      if (values.length > 0) yield values;
+      break;
+    }
+    if (values.push(item.value) >= chunk_size) {
+      yield values;
+      values = [];
+    }
   }
 }
 

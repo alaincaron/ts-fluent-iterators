@@ -190,13 +190,15 @@ export function* skipWhile<A>(iter: Iterator<A>, predicate: Predicate<A>): Itera
   }
 }
 
-export function* distinct<A>(iter: Iterator<A>): Iterator<A> {
-  const seen = new Set<A>();
+export function* distinct<A, B>(iter: Iterator<A>, mapper?: Mapper<A, B>): Iterator<A> {
+  mapper ??= identity as Mapper<A, B>;
+  const seen = new Set<B>();
   for (; ;) {
     const item = iter.next();
     if (item.done) break;
-    if (seen.has(item.value)) continue;
-    seen.add(item.value);
+    const value = mapper(item.value);
+    if (seen.has(value)) continue;
+    seen.add(value);
     yield item.value;
   }
 }
@@ -309,5 +311,21 @@ export function tally<A, K>(iter: Iterator<A>, mapper?: Mapper<A, K>): Map<K, nu
     const k = mapper(item.value);
     const v = map.get(k);
     map.set(k, (v ?? 0) + 1);
+  }
+}
+
+export function* chunk<A>(iter: Iterator<A>, chunk_size: number): Iterator<A[]> {
+  if (!Number.isSafeInteger(chunk_size) || chunk_size < 0) throw new Error(`Invalid chunk_size integer number: ${chunk_size}`);
+  let values: A[] = [];
+  for (; ;) {
+    const item = iter.next();
+    if (item.done) {
+      if (values.length > 0) yield values;
+      break;
+    }
+    if (values.push(item.value) >= chunk_size) {
+      yield values;
+      values = [];
+    }
   }
 }
