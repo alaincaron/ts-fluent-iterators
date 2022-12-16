@@ -9,7 +9,7 @@ describe("SyncFluentIterator", () => {
   describe("collect", () => {
 
     it("should collect all elements", () => {
-      expect([1, 2].fluentIterator().collect()).to.deep.equal([1, 2]);
+      expect([1, 2].iterator().collect()).to.deep.equal([1, 2]);
     });
 
     it("should return empty array on empty iterator", () => {

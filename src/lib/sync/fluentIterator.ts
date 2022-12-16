@@ -168,8 +168,28 @@ export function iterator<A>(iter: Iterable<A> | Iterator<A>): FluentIterator<A> 
 
 declare global {
   interface Array<T> {
-    fluentIterator(): FluentIterator<T>;
+    iterator(): FluentIterator<T>;
   }
+  interface String {
+    iterator(): FluentIterator<String>;
+  }
+  interface Set<T> {
+    iterator(): FluentIterator<T>;
+  }
+  interface Map<K, V> {
+    iterator(): FluentIterator<[K, V]>;
+    valueIterator(): FluentIterator<V>;
+    keyIterator(): FluentIterator<K>;
+  }
+
 }
 
-Array.prototype.fluentIterator = function <T>(this) { return new FluentIterator<T>(this[Symbol.iterator]()); }
+Array.prototype.iterator = function <T>(this: Array<T>) { return new FluentIterator<T>(this[Symbol.iterator]()); };
+
+String.prototype.iterator = function() { return new FluentIterator<String>(this[Symbol.iterator]()); }
+
+Set.prototype.iterator = function <T>(this: Set<T>) { return new FluentIterator<T>(this[Symbol.iterator]()); }
+
+Map.prototype.iterator = function <K, V>(this: Map<K, V>) { return new FluentIterator<[K, V]>(this.entries()[Symbol.iterator]()); }
+Map.prototype.valueIterator = function <K, V>(this: Map<K, V>) { return new FluentIterator<V>(this.values()[Symbol.iterator]()); }
+Map.prototype.keyIterator = function <K, V>(this: Map<K, V>) { return new FluentIterator<K>(this.keys()[Symbol.iterator]()); }
