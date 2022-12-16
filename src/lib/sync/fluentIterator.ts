@@ -1,6 +1,7 @@
 import * as Iterators from './iterators';
 import { Comparator, Mapper, Predicate, Reducer, MinMax } from "../types";
 import { identity } from "../functions";
+import { Collector } from "../collectors";
 
 export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
@@ -10,8 +11,16 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     this.iter = iter;
   }
 
+  collectTo<B>(collector: Collector<A, B>): B {
+    return Iterators.collectTo(this.iter, collector);
+  }
+
   collect(): A[] {
     return Iterators.collect(this.iter);
+  }
+
+  collectToSet(): Set<A> {
+    return Iterators.collectToSet(this.iter);
   }
 
   filter(predicate: Predicate<A>): FluentIterator<A> {
@@ -132,24 +141,16 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return Iterators.join(this.iter, separator);
   }
 
-  sort(comparator?: Comparator<A>): FluentIterator<A> {
-    return new FluentIterator(Iterators.sort(this.iter, comparator));
-  }
-
-  collectToMap<K>(mapper: Mapper<A, K>): Map<K, A[]> {
-    return Iterators.collectToMap(this.iter, mapper);
-  }
-
-  partition<K>(mapper: Mapper<A, K>): FluentIterator<[K, A[]]> {
-    return new FluentIterator(Iterators.partition(this.iter, mapper));
+  groupBy<K>(mapper: Mapper<A, K>): Map<K, A[]> {
+    return Iterators.groupBy(this.iter, mapper);
   }
 
   tally<K>(mapper?: Mapper<A, K>): Map<K, number> {
     return Iterators.tally(this.iter, mapper);
   }
 
-  chunk(chunk_size: number): FluentIterator<A[]> {
-    return new FluentIterator(Iterators.chunk(this.iter, chunk_size));
+  partition(size: number): FluentIterator<A[]> {
+    return new FluentIterator(Iterators.partition(this.iter, size));
   }
 
   [Symbol.iterator](): Iterator<A> {
@@ -164,3 +165,11 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 export function iterator<A>(iter: Iterable<A> | Iterator<A>): FluentIterator<A> {
   return new FluentIterator(Iterators.toIterator(iter));
 }
+
+declare global {
+  interface Array<T> {
+    fluentIterator(): FluentIterator<T>;
+  }
+}
+
+Array.prototype.fluentIterator = function <T>(this) { return new FluentIterator<T>(this[Symbol.iterator]()); }

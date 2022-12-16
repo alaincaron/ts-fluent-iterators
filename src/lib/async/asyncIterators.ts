@@ -1,6 +1,7 @@
 import { toIterator } from "../sync/iterators";
 import { EventualMapper, EventualPredicate, Eventually, Comparator, EventualReducer, EventualIterator, EventualIterable, MinMax } from "../types";
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, asyncIdentity } from "../functions";
+import { Collector, ArrayCollector, EventualMultiMapCollector, SetCollector } from "../collectors";
 
 export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
   const x: any = iter;
@@ -121,16 +122,12 @@ export async function fold<A, B>(iter: AsyncIterator<A>, reducer: EventualReduce
 
 export async function reduce<A>(iter: AsyncIterator<A>, reducer: EventualReducer<A, A>, initialValue?: A): Promise<A | undefined> {
   let acc = initialValue;
-  if (acc == null) {
-    acc = await first(iter);
-    if (acc == null) return undefined;
-  }
-
-  for (; ;) {
+  if (acc === undefined) {
     const item = await iter.next();
-    if (item.done) return acc;
-    acc = await reducer(acc, item.value);
+    if (item.done) return undefined;
+    acc = item.value;
   }
+  return fold(iter, reducer, acc);
 }
 
 export async function forEach<A>(iter: AsyncIterator<A>, mapper: EventualMapper<A, any>): Promise<void> {
@@ -228,13 +225,20 @@ export async function some<A>(iter: AsyncIterator<A>, predicate: EventualPredica
   }
 }
 
-export async function collect<A>(iter: AsyncIterator<A>): Promise<A[]> {
-  const result: A[] = [];
+export async function collectTo<A, B>(iter: AsyncIterator<A>, collector: Collector<A, Eventually<B>>): Promise<B> {
   for (; ;) {
     const item = await iter.next();
-    if (item.done) return result;
-    result.push(item.value);
+    if (item.done) return collector.result;
+    collector.collect(await item.value);
   }
+}
+
+export function collect<A>(iter: AsyncIterator<A>): Promise<A[]> {
+  return collectTo(iter, new ArrayCollector());
+}
+
+export async function collectToSet<A>(iter: AsyncIterator<A>): Promise<Set<A>> {
+  return collectTo(iter, new SetCollector());
 }
 
 export function sum(iter: AsyncIterator<number>): Promise<number> {
@@ -288,27 +292,8 @@ export async function join<A>(iter: AsyncIterator<A>, separator: string = ','): 
   return state.acc;
 }
 
-export async function* sort<A>(iter: AsyncIterator<A>, comparator?: Comparator<A>): AsyncIterator<A> {
-  yield* (await collect(iter)).sort(comparator);
-}
-
-export async function collectToMap<A, K>(iter: AsyncIterator<A>, mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-  const result = new Map<K, A[]>();
-  for (; ;) {
-    const item = await iter.next();
-    if (item.done) return result;
-    const k = await mapper(item.value);
-    let arr = result.get(k);
-    if (!arr) {
-      arr = [];
-      result.set(k, arr);
-    }
-    arr.push(item.value);
-  }
-}
-
-export async function* partition<A, K>(iter: AsyncIterator<A>, mapper: EventualMapper<A, K>): AsyncIterator<[K, A[]]> {
-  yield* (await collectToMap(iter, mapper)).entries();
+export async function groupBy<A, K>(iter: AsyncIterator<A>, mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
+  return collectTo(iter, new EventualMultiMapCollector(mapper));
 }
 
 export async function tally<A, K>(iter: AsyncIterator<A>, mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
@@ -323,8 +308,8 @@ export async function tally<A, K>(iter: AsyncIterator<A>, mapper?: EventualMappe
   }
 }
 
-export async function* chunk<A>(iter: AsyncIterator<A>, chunk_size: number): AsyncIterator<A[]> {
-  if (!Number.isSafeInteger(chunk_size) || chunk_size < 0) throw new Error(`Invalid chunk_size integer number: ${chunk_size}`);
+export async function* partition<A>(iter: AsyncIterator<A>, size: number): AsyncIterator<A[]> {
+  if (!Number.isSafeInteger(size) || size < 0) throw new Error(`Invalid size integer number: ${size}`);
   let values: A[] = [];
   for (; ;) {
     const item = await iter.next();
@@ -332,7 +317,7 @@ export async function* chunk<A>(iter: AsyncIterator<A>, chunk_size: number): Asy
       if (values.length > 0) yield values;
       break;
     }
-    if (values.push(item.value) >= chunk_size) {
+    if (values.push(item.value) >= size) {
       yield values;
       values = [];
     }

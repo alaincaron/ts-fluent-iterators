@@ -5,6 +5,7 @@ import { FluentIterator } from '../sync/fluentIterator';
 
 import { Eventually, EventualReducer, EventualMapper, EventualPredicate, Comparator, MinMax } from "../types";
 import { identity } from "../functions";
+import { EventualCollector } from "../collectors";
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
 
@@ -14,8 +15,16 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     this.iter = iter;
   }
 
+  collectTo<B>(collector: EventualCollector<A, B>): Promise<B> {
+    return Iterators.collectTo(this.iter, collector);
+  }
+
   collect(): Promise<A[]> {
     return Iterators.collect(this.iter);
+  }
+
+  collectToSet(): Promise<Set<A>> {
+    return Iterators.collectToSet(this.iter);
   }
 
   filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
@@ -152,24 +161,16 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.join(this.iter, separator);
   }
 
-  sort(comparator?: Comparator<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.sort(this.iter, comparator));
-  }
-
-  collectToMap<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-    return Iterators.collectToMap(this.iter, mapper);
-  }
-
-  partition<K>(mapper: EventualMapper<A, K>): AsyncFluentIterator<[K, A[]]> {
-    return new AsyncFluentIterator(Iterators.partition(this.iter, mapper));
+  groupBy<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
+    return Iterators.groupBy(this.iter, mapper);
   }
 
   tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
     return Iterators.tally(this.iter, mapper);
   }
 
-  chunk(chunk_size: number): FluentIterator<Promise<A>[]> {
-    return new FluentIterator(SyncIterators.chunk(this.iter, chunk_size));
+  partition(size: number): FluentIterator<Promise<A>[]> {
+    return new FluentIterator(SyncIterators.partition(this.iter, size));
   }
 
   [Symbol.iterator](): Iterator<Promise<A>> {

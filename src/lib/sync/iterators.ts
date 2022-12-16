@@ -1,5 +1,6 @@
 import { Comparator, Mapper, Predicate, Reducer, MinMax } from "../types";
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from "../functions";
+import { Collector, ArrayCollector, MultiMapCollector, SetCollector } from "../collectors";
 
 export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
   const x: any = iter;
@@ -112,16 +113,12 @@ export function fold<A, B>(iter: Iterator<A>, reducer: Reducer<A, B>, initialVal
 
 export function reduce<A>(iter: Iterator<A>, reducer: Reducer<A, A>, initialValue?: A): A | undefined {
   let acc = initialValue;
-  if (acc == null) {
-    acc = first(iter);
-    if (acc == null) return undefined;
-  }
-
-  for (; ;) {
+  if (acc === undefined) {
     const item = iter.next();
-    if (item.done) return acc;
-    acc = reducer(acc, item.value);
+    if (item.done) return undefined;
+    acc = item.value;
   }
+  return fold(iter, reducer, acc);
 }
 
 export function forEach<A>(iter: Iterator<A>, mapper: Mapper<A, any>): void {
@@ -219,13 +216,20 @@ export function some<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean {
   }
 }
 
-export function collect<A>(iter: Iterator<A>): A[] {
-  const result: A[] = [];
+export function collectTo<A, B>(iter: Iterator<A>, collector: Collector<A, B>): B {
   for (; ;) {
     const item = iter.next();
-    if (item.done) return result;
-    result.push(item.value);
+    if (item.done) return collector.result;
+    collector.collect(item.value);
   }
+}
+
+export function collect<A>(iter: Iterator<A>): A[] {
+  return collectTo(iter, new ArrayCollector());
+}
+
+export function collectToSet<A>(iter: Iterator<A>): Set<A> {
+  return collectTo(iter, new SetCollector());
 }
 
 export function sum(iter: Iterator<number>): number {
@@ -278,29 +282,9 @@ export function join<A>(iter: Iterator<A>, separator: string = ','): string {
   }, { first: true, acc: '' }).acc;
 }
 
-export function* sort<A>(iter: Iterator<A>, comparator?: Comparator<A>): Iterator<A> {
-  yield* collect(iter).sort(comparator);
+export function groupBy<A, K>(iter: Iterator<A>, mapper: Mapper<A, K>): Map<K, A[]> {
+  return collectTo(iter, new MultiMapCollector(mapper));
 }
-
-export function collectToMap<A, K>(iter: Iterator<A>, mapper: Mapper<A, K>): Map<K, A[]> {
-  const result = new Map<K, A[]>();
-  for (; ;) {
-    const item = iter.next();
-    if (item.done) return result;
-    const k = mapper(item.value);
-    let arr = result.get(k);
-    if (!arr) {
-      arr = [];
-      result.set(k, arr);
-    }
-    arr.push(item.value);
-  }
-}
-
-export function* partition<A, K>(iter: Iterator<A>, mapper: Mapper<A, K>): Iterator<[K, A[]]> {
-  yield* collectToMap(iter, mapper).entries();
-}
-
 
 export function tally<A, K>(iter: Iterator<A>, mapper?: Mapper<A, K>): Map<K, number> {
   mapper ??= identity as Mapper<A, K>;
@@ -314,8 +298,8 @@ export function tally<A, K>(iter: Iterator<A>, mapper?: Mapper<A, K>): Map<K, nu
   }
 }
 
-export function* chunk<A>(iter: Iterator<A>, chunk_size: number): Iterator<A[]> {
-  if (!Number.isSafeInteger(chunk_size) || chunk_size < 0) throw new Error(`Invalid chunk_size integer number: ${chunk_size}`);
+export function* partition<A>(iter: Iterator<A>, size: number): Iterator<A[]> {
+  if (!Number.isSafeInteger(size) || size < 0) throw new Error(`Invalid size integer number: ${size}`);
   let values: A[] = [];
   for (; ;) {
     const item = iter.next();
@@ -323,7 +307,7 @@ export function* chunk<A>(iter: Iterator<A>, chunk_size: number): Iterator<A[]> 
       if (values.length > 0) yield values;
       break;
     }
-    if (values.push(item.value) >= chunk_size) {
+    if (values.push(item.value) >= size) {
       yield values;
       values = [];
     }

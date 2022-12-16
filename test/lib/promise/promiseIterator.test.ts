@@ -409,27 +409,18 @@ describe("PromiseIterator", () => {
     });
   });
 
-  describe("sort", () => {
-    it("should sort according to default comparator", async () => {
-      expect(await promiseIterator(toPromise([2, 5, 4, 3, 1])).sort().collect()).deep.equal([1, 2, 3, 4, 5]);
-    });
-    it("should sort in increasing order of string lengths", async () => {
-      expect(await promiseIterator(toPromise(["foo", "bar", "foobar", "x", "xy"])).sort(lengthComparator).collect()).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
-    });
-  });
-
-  describe("collectToMap", () => {
+  describe("groupBy", () => {
     it("should group numbers according to their last bit", async () => {
-      const actual = await promiseIterator(toPromise([2, 5, 4, 3, 1])).collectToMap(x => x % 2);
+      const actual = await promiseIterator(toPromise([2, 5, 4, 3, 1])).groupBy(x => x % 2);
       const expected = new Map().set(0, [2, 4]).set(1, [5, 3, 1]);
       expect(actual).deep.equal(expected);
     });
   });
 
-  describe("partition", () => {
-    it("should group numbers according to their last bit", async () => {
-      const actual = await promiseIterator(toPromise([2, 5, 4, 3, 1])).partition(x => x % 2).collect();
-      const expected = [[0, [2, 4]], [1, [5, 3, 1]]];
+  describe("collectToSet", () => {
+    it("should return set of numbers", async () => {
+      const actual = await promiseIterator(toPromise([2, 5, 4, 2, 5])).collectToSet();
+      const expected = new Set([2, 4, 5]);
       expect(actual).deep.equal(expected);
     });
   });
@@ -447,9 +438,9 @@ describe("PromiseIterator", () => {
     });
   });
 
-  describe("chunk", () => {
-    it("should split iterator based on chunk size", async () => {
-      const actual = await Promise.all(promiseIterator(toPromise([2, 5, 4, 3, 1])).chunk(2).map(x => Promise.all(x)).collect());
+  describe("partition", () => {
+    it("should split iterator based on partition size", async () => {
+      const actual = await Promise.all(promiseIterator(toPromise([2, 5, 4, 3, 1])).partition(2).map(x => Promise.all(x)).collect());
       const expected = [[2, 5], [4, 3], [1]];
       expect(actual).deep.equal(expected);
     });

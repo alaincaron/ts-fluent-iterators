@@ -1,6 +1,7 @@
 import * as SyncIterators from "../sync/iterators";
 import { EventualMapper, EventualPredicate, EventualReducer, Eventually, Comparator, MinMax } from "../types";
 import { defaultComparator, alwaysTrue, sumReducer, avgReducer, minMaxReducer, identity } from "../functions";
+import { Collector, ArrayCollector, EventualMultiMapCollector, SetCollector } from "../collectors";
 
 export function* map<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, B>): Iterator<Promise<B>> {
   for (; ;) {
@@ -80,16 +81,12 @@ export async function fold<A, B>(iter: Iterator<Promise<A>>, reducer: EventualRe
 
 export async function reduce<A>(iter: Iterator<Promise<A>>, reducer: EventualReducer<A, A>, initialValue?: Eventually<A>): Promise<A | undefined> {
   let acc = initialValue;
-  if (acc == null) {
-    acc = await first(iter);
-    if (acc == null) return undefined;
-  }
-
-  for (; ;) {
+  if (acc === undefined) {
     const item = iter.next();
-    if (item.done) return acc;
-    acc = await reducer(await acc, await item.value);
+    if (item.done) return undefined;
+    acc = await item.value;
   }
+  return fold(iter, reducer, acc);
 }
 
 export async function forEach<A>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, any>): Promise<void> {
@@ -154,8 +151,20 @@ export async function some<A>(iter: Iterator<Promise<A>>, predicate: EventualPre
   }
 }
 
+export async function collectTo<A, B>(iter: Iterator<Promise<A>>, collector: Collector<A, Eventually<B>>): Promise<B> {
+  for (; ;) {
+    const item = iter.next();
+    if (item.done) return collector.result;
+    collector.collect(await item.value);
+  }
+}
+
 export function collect<A>(iter: Iterator<Promise<A>>): Promise<A[]> {
-  return Promise.all(SyncIterators.collect(iter));
+  return collectTo(iter, new ArrayCollector());
+}
+
+export function collectToSet<A>(iter: Iterator<Promise<A>>): Promise<Set<A>> {
+  return collectTo(iter, new SetCollector());
 }
 
 export function allSettled<A>(iter: Iterator<Promise<A>>): Promise<PromiseSettledResult<A>[]> {
@@ -226,28 +235,8 @@ export function join<A>(iter: Iterator<Promise<A>>, separator: string = ','): Pr
   }, { first: true, acc: '' }).then(state => state.acc);
 }
 
-export async function* sort<A>(iter: Iterator<Promise<A>>, comparator?: Comparator<A>): AsyncIterator<A> {
-  yield* (await collect(iter)).sort(comparator);
-}
-
-export async function collectToMap<A, K>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-  const result = new Map<K, A[]>();
-  for (; ;) {
-    const item = iter.next();
-    if (item.done) return result;
-    const value = await item.value;
-    const k = await mapper(value);
-    let arr = result.get(k);
-    if (!arr) {
-      arr = [];
-      result.set(k, arr);
-    }
-    arr.push(value);
-  }
-}
-
-export async function* partition<A, K>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, K>): AsyncIterator<[K, A[]]> {
-  yield* (await collectToMap(iter, mapper)).entries();
+export async function groupBy<A, K>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
+  return collectTo(iter, new EventualMultiMapCollector(mapper));
 }
 
 export async function tally<A, K>(iter: Iterator<Promise<A>>, mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {

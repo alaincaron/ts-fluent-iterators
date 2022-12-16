@@ -9,7 +9,7 @@ describe("SyncFluentIterator", () => {
   describe("collect", () => {
 
     it("should collect all elements", () => {
-      expect(iterator([1, 2]).collect()).to.deep.equal([1, 2]);
+      expect([1, 2].fluentIterator().collect()).to.deep.equal([1, 2]);
     });
 
     it("should return empty array on empty iterator", () => {
@@ -338,34 +338,25 @@ describe("SyncFluentIterator", () => {
     });
   });
 
-  describe("sort", () => {
-    it("should sort according to default comparator", () => {
-      expect(iterator([2, 5, 4, 3, 1]).sort().collect()).deep.equal([1, 2, 3, 4, 5]);
-    });
-    it("should sort in increasing order of string lengths", () => {
-      expect(iterator(["foo", "bar", "foobar", "x", "xy"]).sort(lengthComparator).collect()).deep.equal(["x", "xy", "foo", "bar", "foobar"]);
-    });
-  });
-
-  describe("collectToMap", () => {
+  describe("groupBy", () => {
     it("should group numbers according to their last bit", () => {
-      const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2);
+      const actual = iterator([2, 5, 4, 3, 1]).groupBy(x => x % 2);
       const expected = new Map().set(0, [2, 4]).set(1, [5, 3, 1]);
       expect(actual).deep.equal(expected);
     });
   });
 
-  describe("partition", () => {
-    it("should group numbers according to their last bit", () => {
-      const actual = iterator([2, 5, 4, 3, 1]).partition(x => x % 2).collect();
-      const expected = [[0, [2, 4]], [1, [5, 3, 1]]];
+  describe("collectToSet", () => {
+    it("should return set of numbers", () => {
+      const actual = iterator([2, 5, 4, 2, 5]).collectToSet();
+      const expected = new Set([2, 4, 5]);
       expect(actual).deep.equal(expected);
     });
   });
 
-  describe("chunk", () => {
-    it("should split iterator based on chunk size", () => {
-      const actual = iterator([2, 5, 4, 3, 1]).chunk(2).collect();
+  describe("partition", () => {
+    it("should split iterator based on partition size", () => {
+      const actual = iterator([2, 5, 4, 3, 1]).partition(2).collect();
       const expected = [[2, 5], [4, 3], [1]];
       expect(actual).deep.equal(expected);
     });

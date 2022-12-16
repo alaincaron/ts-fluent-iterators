@@ -1,6 +1,7 @@
 import * as Iterators from './asyncIterators';
 import { EventualMapper, EventualPredicate, Eventually, Comparator, EventualReducer, EventualIterable, EventualIterator, MinMax } from "../types";
 import { identity } from "../functions";
+import { EventualCollector } from "../collectors";
 
 export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A> {
 
@@ -10,8 +11,16 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     this.iter = iter;
   }
 
+  collectTo<B>(collector: EventualCollector<A, B>): Promise<B> {
+    return Iterators.collectTo(this.iter, collector);
+  }
+
   collect(): Promise<A[]> {
     return Iterators.collect(this.iter);
+  }
+
+  collectToSet(): Promise<Set<A>> {
+    return Iterators.collectToSet(this.iter);
   }
 
   filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
@@ -132,24 +141,16 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return Iterators.join(this.iter, separator);
   }
 
-  sort(comparator?: Comparator<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.sort(this.iter, comparator));
-  }
-
-  collectToMap<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-    return Iterators.collectToMap(this.iter, mapper);
-  }
-
-  partition<K>(mapper: EventualMapper<A, K>): AsyncFluentIterator<[K, A[]]> {
-    return new AsyncFluentIterator(Iterators.partition(this.iter, mapper));
+  groupBy<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
+    return Iterators.groupBy(this.iter, mapper);
   }
 
   tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
     return Iterators.tally(this.iter, mapper);
   }
 
-  chunk(chunk_size: number): AsyncFluentIterator<A[]> {
-    return new AsyncFluentIterator(Iterators.chunk(this.iter, chunk_size));
+  partition(size: number): AsyncFluentIterator<A[]> {
+    return new AsyncFluentIterator(Iterators.partition(this.iter, size));
   }
 
   [Symbol.asyncIterator](): AsyncIterator<A> {

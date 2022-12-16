@@ -460,27 +460,6 @@ await promiseIterator([1,2,3]).join(); returns "1,2,3"
 await promiseIterator([1,2,3]).join(', '); returns "1, 2, 3"
 ```
 
-## sort
-```typescript
-sort(comparator?: Comparator<A>): AsyncFluentIterator<A>;
-```
-
-This returns a new [`AsyncFluentIterator`](asyn_fluent_iterator.md) where
-elements are sorted according to the
-[`comparator`](../types/comparator.md).  
-
-Note that even though this returns a
-[`AsyncFluentIterator`](async_fluent_iterator.md), all elements have to be
-collected, sorted and yielded again. Therefore, it should be used with
-care depending on the size of the
-[`PromiseIterator`](promise_iterator.md).  
-
-This operation is really equivalent to
-```typescript
- const sortedIterator =
- promiseIterator(await (unsortedIterator.collect()).sort(comparable));
- ```
-
 ## collectToMap
 ```typescript
 collectToMap<K>(mapper: Mapper<A, K>): Promise<Map<K, A[]>>;
@@ -500,33 +479,6 @@ partition even and odd numbers from a
 await promiseIterator(toPromise([1,2,3,4,5])).collectToMap(x => x % 2);
 ```
 
-## partition
-```typescript
-partition<K>(mapper: Mapper<A, K>): PromiseIterator<[K, A[]]>;
-```
-
-Returns a new [`PromiseIterator`](promise_iterator.md) consiting of keys
-and their associated values through the [`mapper`](../types/mapper.md)  
-
-Note that even though this returns a
-[`PromiseIterator`](promise_iterator.md), all elements have to be
-collected, mapped and yielded again. Therefore, it should be used with
-care depending on the size of the
-[`PromiseIterator`](promise_iterator.md).  
-
-
-This operation is really equivalent to
-```typescript
- const mappedIterator =
- promiseIterator(toPromise(await unMappedIterator.collectToMap()).entries());
- ```
- 
-##### Example
-```typescript
-promiseIterator([1,2,3,4,5]).partition(x => x % 2);
-// yields Promise.resolve([0, [2, 4]]), Promise.rewolve([1, [1, 3, 5]])
-```
- 
 ## chunk
 ```typescript
 chunk(chunk_size: number): FluentIterator<Promise<A>[]>
