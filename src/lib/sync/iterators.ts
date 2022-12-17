@@ -1,6 +1,6 @@
 import { Comparator, Mapper, Predicate, Reducer, MinMax } from "../types";
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from "../functions";
-import { Collector, ArrayCollector, MultiMapCollector, SetCollector } from "../collectors";
+import { Collector, ArrayCollector, GroupByCollector, SetCollector } from "../collectors";
 
 export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
   const x: any = iter;
@@ -283,7 +283,7 @@ export function join<A>(iter: Iterator<A>, separator: string = ','): string {
 }
 
 export function groupBy<A, K>(iter: Iterator<A>, mapper: Mapper<A, K>): Map<K, A[]> {
-  return collectTo(iter, new MultiMapCollector(mapper));
+  return collectTo(iter, new GroupByCollector(mapper));
 }
 
 export function tally<A, K>(iter: Iterator<A>, mapper?: Mapper<A, K>): Map<K, number> {

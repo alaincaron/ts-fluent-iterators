@@ -36,7 +36,7 @@ export class SetCollector<A> implements Collector<A, Set<A>> {
   }
 }
 
-export class MultiMapCollector<A, K> implements Collector<A, Map<K, A[]>> {
+export class GroupByCollector<A, K> implements Collector<A, Map<K, A[]>> {
   private readonly map: Map<K, A[]> = new Map();
   private mapper: Mapper<A, K>;
 
@@ -59,7 +59,7 @@ export class MultiMapCollector<A, K> implements Collector<A, Map<K, A[]>> {
   }
 }
 
-export class EventualMultiMapCollector<A, K> implements EventualCollector<A, Map<K, A[]>> {
+export class EventualGroupByCollector<A, K> implements EventualCollector<A, Map<K, A[]>> {
   private readonly map: Map<K, A[]> = new Map();
   private mapper: EventualMapper<A, K>;
 

@@ -1,7 +1,7 @@
 import { toIterator } from "../sync/iterators";
 import { EventualMapper, EventualPredicate, Eventually, Comparator, EventualReducer, EventualIterator, EventualIterable, MinMax } from "../types";
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, asyncIdentity } from "../functions";
-import { Collector, ArrayCollector, EventualMultiMapCollector, SetCollector } from "../collectors";
+import { Collector, ArrayCollector, EventualGroupByCollector, SetCollector } from "../collectors";
 
 export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
   const x: any = iter;
@@ -293,7 +293,7 @@ export async function join<A>(iter: AsyncIterator<A>, separator: string = ','): 
 }
 
 export async function groupBy<A, K>(iter: AsyncIterator<A>, mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-  return collectTo(iter, new EventualMultiMapCollector(mapper));
+  return collectTo(iter, new EventualGroupByCollector(mapper));
 }
 
 export async function tally<A, K>(iter: AsyncIterator<A>, mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
