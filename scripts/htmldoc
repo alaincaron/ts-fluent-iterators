@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 rm -rf htmldoc
 mkdir htmldoc
@@ -8,4 +8,4 @@ find docs -name \*.md -exec pandoc --standalone {} -o {}.html \;
 
 rsync -rv --include '*/' --include '*.md.html' --exclude '*' --prune-empty-dirs --remove-source-files docs htmldoc/
 
-fgres ".md" ".md.html" htmldoc/**/*.md.html
+find htmldoc -name \*.md.html -exec sed -i.bak 's/\.md/.md.html/' {} \;
