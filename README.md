@@ -29,7 +29,7 @@ console.log(`The first five even numbers are: ${iter.filter(n => n % 2 === 0).ta
   - [enumerate](docs/iterators/fluent_iterator.md#enumerate)
 
 - Group transformations like
-  - [chunk](docs/iterators/fluent_iterator.md#chunk)
+  - [partition](docs/iterators/fluent_iterator.md#partition)
   - [tally](docs/iterators/fluent_iterator.md#tally)
 
 - Extending operations like
@@ -49,9 +49,9 @@ console.log(`The first five even numbers are: ${iter.filter(n => n % 2 === 0).ta
 
 - Aggregating operations:
   - [collect](docs/iterators/fluent_iterator.md#collect)
-  - [collectToMap](docs/iterators/fluent_iterator.md#collecttomap)
-  - [collectToSet][docs/iterators/fluent_iterator.md#collecttoset)
-  - [collectTo][docs/iterators/fluent_iterator.md#collectto)
+  - [groupBy](docs/iterators/fluent_iterator.md#groupby)
+  - [collectToSet](docs/iterators/fluent_iterator.md#collecttoset)
+  - [collectTo](docs/iterators/fluent_iterator.md#collectto)
   - [fold](docs/iterators/fluent_iterator.md#fold)
   - [reduce](docs/iterators/fluent_iterator.md#reduce)
   - [join](docs/iterators/fluent_iterator.md#join)

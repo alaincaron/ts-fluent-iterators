@@ -448,9 +448,9 @@ iterator([1,2,3]).join(); returns "1,2,3"
 iterator([1,2,3]).join(', '); returns "1, 2, 3"
 ```
 
-## collectToMap
+## groupBy
 ```typescript
-collectToMap<K>(mapper: Mapper<A, K>): Map<K, A[]>;
+groupBy<K>(mapper: Mapper<A, K>): Map<K, A[]>;
 ```
 
 Returns a `Map` where keys are the result of applying the
@@ -464,25 +464,55 @@ This is a terminal operation.
 partition even and odd numbers from a
 [`FluentIterator`](fluent_iterator.md).
 ```typescript
-iterator([1,2,3,4,5]).collectToMap(x => x % 2);
+iterator([1,2,3,4,5]).groupBy(x => x % 2);
 ```
 
-## chunk
+## collectToSet
 ```typescript
-chunk(chunk_size: number): FluentIterator<A[]>
+collectToSet(): Set<A>
+```
+Returns a `Set` consisting of entries in the
+[`FluentIterator`](fluent_iterator.md)
+  
+This is a terminal operation.
+
+### Example
+```typescript
+iterator([1,2,1]]).collectToSet(); // new Set().add(1).add(2)
+```
+
+## collectTo
+```typescript
+collectTo(collector: Collector<A,B>): B
+```
+
+Returns an object of type `B` by applying the `collect` method of the [`collector`](../types/collector.md)
+on all objects in the [`FluentIterator`](fluent_iterator.md) and then
+returning the result of the `value` method of the [`collector`](../types/collector.md)
+  
+This is an terminal operation.
+
+### Example
+```typescript
+iterator([1,2]).collectTo(new ArrayCollector()); // returns [1,2];
+```
+
+## partition
+```typescript
+partition(size: number): FluentIterator<A[]>
 ```
 
 Returns a new [`FluentIterator`](fluent_iterator.md) consiting of
-chunks (arrays) of at most `chunk_size` elements.
-The last chunk may contain less than `chunk_size` elements but is
+partitions (arrays) of at most `size` elements.
+The last partition may contain less than `size` elements but is
 never empty.
 
-##### Example
+#### Example
 ```typescript
-iterator([1,2,3,4,5]).chunk(2)
-// yields [ [1, 2], [3, 4], [5]]
+iterator([1,2,3,4,5]).partition(2)
+// yields [ [1, 2], [3, 4], [5] ]
 ```
- 
+
 ## [Symbol.iterator]
 ```typescript
 [Symbol.iterator](): Iterator<A>;

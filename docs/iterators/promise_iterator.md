@@ -460,9 +460,9 @@ await promiseIterator([1,2,3]).join(); returns "1,2,3"
 await promiseIterator([1,2,3]).join(', '); returns "1, 2, 3"
 ```
 
-## collectToMap
+## groupBy
 ```typescript
-collectToMap<K>(mapper: Mapper<A, K>): Promise<Map<K, A[]>>;
+groupByp<K>(mapper: Mapper<A, K>): Promise<Map<K, A[]>>;
 ```
 
 Returns a `Map` where keys are the result of applying the
@@ -476,22 +476,22 @@ This is a terminal operation.
 partition even and odd numbers from a
 [`PromiseIterator`](promise_iterator.md).
 ```typescript
-await promiseIterator(toPromise([1,2,3,4,5])).collectToMap(x => x % 2);
+await promiseIterator(toPromise([1,2,3,4,5])).groupBy(x => x % 2);
 ```
 
-## chunk
+## partition
 ```typescript
-chunk(chunk_size: number): FluentIterator<Promise<A>[]>
+partition(size: number): FluentIterator<Promise<A>[]>
 ```
 
 Returns a new [`AsyncFluentIterator`](async_fluent_iterator.md) consiting of
-chunks (arrays) of at most `chunk_size` elements.
-The last chunk may contain less than `chunk_size` elements but is
+partitions (arrays) of at most `size` elements.
+The last partition may contain less than `size` elements but is
 never empty.
 
 ##### Example
 ```typescript
-await Promise.all(promiseIterator(toPromise([1,2,3,4,5])).chunk(2).map(x => Promise.all(x)).collect());
+await Promise.all(promiseIterator(toPromise([1,2,3,4,5])).partition(2).map(x => Promise.all(x)).collect());
 // returns [ [1, 2], [3, 4], [5]]
 ```
  
