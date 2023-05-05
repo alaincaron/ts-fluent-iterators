@@ -1,10 +1,10 @@
-import { Comparator, Mapper, Predicate, Reducer, MinMax } from "../types";
+import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from "../types";
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from "../functions";
-import { Collector, ArrayCollector, GroupByCollector, SetCollector } from "../collectors";
+import { Collector, ArrayCollector, GroupByCollector, SetCollector, MapCollector, ObjectCollector } from "../collectors";
 
 export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
   const x: any = iter;
-  if (typeof (x?.next) === "function") {
+  if (typeof x?.next === "function") {
     return x as Iterator<A>;
   }
   if (typeof x?.[Symbol.iterator] === "function") {
@@ -12,6 +12,8 @@ export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
   }
   throw new Error(`Invalid non-iterable object: ${iter}`);
 }
+
+export function* empty<A = never>(): Iterator<A> { }
 
 export function* map<A, B>(iter: Iterator<A>, mapper: Mapper<A, B>): Iterator<B> {
   for (; ;) {
@@ -99,7 +101,7 @@ export function contains<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean
 }
 
 export function includes<A>(iter: Iterator<A>, target: A): boolean {
-  return first(iter, a => a === target) !== undefined;
+  return first(iter, (a) => a === target) !== undefined;
 }
 
 export function fold<A, B>(iter: Iterator<A>, reducer: Reducer<A, B>, initialValue: B): B {
@@ -232,6 +234,22 @@ export function collectToSet<A>(iter: Iterator<A>): Set<A> {
   return collectTo(iter, new SetCollector());
 }
 
+export function collectToMap<A, K, V>(
+  iter: Iterator<A>,
+  mapper: Mapper<A, [K, V]>,
+  collisionHandler?: CollisionHandler<K, V>
+): Map<K, V> {
+  return collectTo(iter, new MapCollector(mapper, collisionHandler));
+}
+
+export function collectToObject<A, V>(
+  iter: Iterator<A>,
+  mapper: Mapper<A, [string, V]>,
+  collisionHandler?: CollisionHandler<string, V>
+): Record<string, V> {
+  return collectTo(iter, new ObjectCollector(mapper, collisionHandler));
+}
+
 export function sum(iter: Iterator<number>): number {
   return fold(iter, sumReducer, { sum: 0, correction: 0 }).sum;
 }
@@ -250,12 +268,12 @@ export function count<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue
 }
 
 export function min<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultComparator): A | undefined {
-  const reducer = (acc: A, a: A) => comparator(acc, a) <= 0 ? acc : a;
+  const reducer = (acc: A, a: A) => (comparator(acc, a) <= 0 ? acc : a);
   return reduce(iter, reducer);
 }
 
 export function max<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultComparator): A | undefined {
-  const reducer = (acc: A, a: A) => comparator(acc, a) >= 0 ? acc : a;
+  const reducer = (acc: A, a: A) => (comparator(acc, a) >= 0 ? acc : a);
   return reduce(iter, reducer);
 }
 
@@ -274,12 +292,16 @@ export function last<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue)
   }
 }
 
-export function join<A>(iter: Iterator<A>, separator: string = ','): string {
-  return fold(iter, (state, a) => {
-    state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
-    state.first = false;
-    return state;
-  }, { first: true, acc: '' }).acc;
+export function join<A>(iter: Iterator<A>, separator: string = ","): string {
+  return fold(
+    iter,
+    (state, a) => {
+      state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
+      state.first = false;
+      return state;
+    },
+    { first: true, acc: "" }
+  ).acc;
 }
 
 export function groupBy<A, K>(iter: Iterator<A>, mapper: Mapper<A, K>): Map<K, A[]> {

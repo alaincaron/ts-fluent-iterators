@@ -1,14 +1,21 @@
-import * as Iterators from './iterators';
-import { Comparator, Mapper, Predicate, Reducer, MinMax } from "../types";
+import * as Iterators from "./iterators";
+import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from "../types";
 import { identity } from "../functions";
 import { Collector } from "../collectors";
 
 export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
-
   private iter: Iterator<A>;
 
   constructor(iter: Iterator<A>) {
     this.iter = iter;
+  }
+
+  static empty<A = never>(): FluentIterator<A> {
+    return new FluentIterator(Iterators.empty());
+  }
+
+  static from<A>(iter: Iterable<A> | Iterator<A>): FluentIterator<A> {
+    return new FluentIterator(Iterators.toIterator(iter));
   }
 
   collectTo<B>(collector: Collector<A, B>): B {
@@ -21,6 +28,14 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
   collectToSet(): Set<A> {
     return Iterators.collectToSet(this.iter);
+  }
+
+  collectToMap<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Map<K, V> {
+    return Iterators.collectToMap(this.iter, mapper, collisionHandler);
+  }
+
+  collectToObject<V>(mapper: Mapper<A, [string, V]>, collisionHandler?: CollisionHandler<string, V>): Record<string, V> {
+    return Iterators.collectToObject(this.iter, mapper, collisionHandler);
   }
 
   filter(predicate: Predicate<A>): FluentIterator<A> {
@@ -60,7 +75,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   zip<B>(other: Iterator<B> | Iterable<B>): FluentIterator<[A, B]> {
-    return new FluentIterator(Iterators.zip(this.iter, Iterators.toIterator(other)))
+    return new FluentIterator(Iterators.zip(this.iter, Iterators.toIterator(other)));
   }
 
   enumerate(start = 0): FluentIterator<[A, number]> {
@@ -163,7 +178,11 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 }
 
 export function iterator<A>(iter: Iterable<A> | Iterator<A>): FluentIterator<A> {
-  return new FluentIterator(Iterators.toIterator(iter));
+  return FluentIterator.from(Iterators.toIterator(iter));
+}
+
+export function emptyIterator<A = never>() {
+  return FluentIterator.empty<A>();
 }
 
 declare global {
@@ -181,15 +200,26 @@ declare global {
     valueIterator(): FluentIterator<V>;
     keyIterator(): FluentIterator<K>;
   }
-
 }
 
-Array.prototype.iterator = function <T>(this: Array<T>) { return new FluentIterator<T>(this[Symbol.iterator]()); };
+Array.prototype.iterator = function <T>(this: Array<T>) {
+  return new FluentIterator<T>(this[Symbol.iterator]());
+};
 
-String.prototype.iterator = function() { return new FluentIterator<String>(this[Symbol.iterator]()); }
+String.prototype.iterator = function() {
+  return new FluentIterator<String>(this[Symbol.iterator]());
+};
 
-Set.prototype.iterator = function <T>(this: Set<T>) { return new FluentIterator<T>(this[Symbol.iterator]()); }
+Set.prototype.iterator = function <T>(this: Set<T>) {
+  return new FluentIterator<T>(this[Symbol.iterator]());
+};
 
-Map.prototype.iterator = function <K, V>(this: Map<K, V>) { return new FluentIterator<[K, V]>(this.entries()[Symbol.iterator]()); }
-Map.prototype.valueIterator = function <K, V>(this: Map<K, V>) { return new FluentIterator<V>(this.values()[Symbol.iterator]()); }
-Map.prototype.keyIterator = function <K, V>(this: Map<K, V>) { return new FluentIterator<K>(this.keys()[Symbol.iterator]()); }
+Map.prototype.iterator = function <K, V>(this: Map<K, V>) {
+  return new FluentIterator<[K, V]>(this.entries()[Symbol.iterator]());
+};
+Map.prototype.valueIterator = function <K, V>(this: Map<K, V>) {
+  return new FluentIterator<V>(this.values()[Symbol.iterator]());
+};
+Map.prototype.keyIterator = function <K, V>(this: Map<K, V>) {
+  return new FluentIterator<K>(this.keys()[Symbol.iterator]());
+};
