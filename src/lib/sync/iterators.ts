@@ -1,6 +1,14 @@
 import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from "../types";
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from "../functions";
-import { Collector, ArrayCollector, GroupByCollector, SetCollector, MapCollector, ObjectCollector } from "../collectors";
+import {
+  Collector,
+  ArrayCollector,
+  GroupByCollector,
+  SetCollector,
+  MapCollector,
+  ObjectCollector,
+  TallyCollector,
+} from "../collectors";
 
 export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
   const x: any = iter;
@@ -66,15 +74,6 @@ export function* filter<A>(iter: Iterator<A>, predicate: Predicate<A>): Iterator
     const item = iter.next();
     if (item.done) break;
     if (predicate(item.value)) yield item.value;
-  }
-}
-
-export function* filter_map<A, B>(iter: Iterator<A>, mapper: Mapper<A, B>): Iterator<B> {
-  for (; ;) {
-    const item = iter.next();
-    if (item.done) break;
-    const value = mapper(item.value);
-    if (value != null) yield value;
   }
 }
 
@@ -309,15 +308,7 @@ export function groupBy<A, K>(iter: Iterator<A>, mapper: Mapper<A, K>): Map<K, A
 }
 
 export function tally<A, K>(iter: Iterator<A>, mapper?: Mapper<A, K>): Map<K, number> {
-  mapper ??= identity as Mapper<A, K>;
-  const map = new Map<K, number>();
-  for (; ;) {
-    const item = iter.next();
-    if (item.done) return map;
-    const k = mapper(item.value);
-    const v = map.get(k);
-    map.set(k, (v ?? 0) + 1);
-  }
+  return collectTo(iter, new TallyCollector(mapper));
 }
 
 export function* partition<A>(iter: Iterator<A>, size: number): Iterator<A[]> {

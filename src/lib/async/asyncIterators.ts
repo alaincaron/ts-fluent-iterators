@@ -1,11 +1,30 @@
 import { toIterator } from "../sync/iterators";
-import { EventualMapper, EventualPredicate, Eventually, Comparator, EventualReducer, EventualIterator, EventualIterable, MinMax } from "../types";
+import {
+  Mapper,
+  EventualMapper,
+  EventualPredicate,
+  Eventually,
+  Comparator,
+  EventualReducer,
+  EventualIterator,
+  EventualIterable,
+  MinMax,
+  CollisionHandler,
+} from "../types";
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, asyncIdentity } from "../functions";
-import { Collector, ArrayCollector, EventualGroupByCollector, SetCollector } from "../collectors";
+import {
+  Collector,
+  ArrayCollector,
+  GroupByCollector,
+  SetCollector,
+  TallyCollector,
+  MapCollector,
+  ObjectCollector,
+} from "../collectors";
 
 export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
   const x: any = iter;
-  if (typeof (x?.next) === "function") {
+  if (typeof x?.next === "function") {
     return x as AsyncIterator<A>;
   }
   if (typeof x?.[Symbol.asyncIterator] === "function") {
@@ -30,6 +49,8 @@ export function toEventualIterator<A>(iter: EventualIterator<A> | EventualIterab
   }
   throw new Error(`Invalid non-iterable object: ${iter}`);
 }
+
+export async function* empty<A = never>(): AsyncIterator<A> { }
 
 export async function* map<A, B>(iter: AsyncIterator<A>, mapper: EventualMapper<A, B>): AsyncIterator<B> {
   for (; ;) {
@@ -104,11 +125,11 @@ export async function* enumerate<A>(iter: AsyncIterator<A>, start = 0): AsyncIte
 }
 
 export async function contains<A>(iter: AsyncIterator<A>, predicate: EventualPredicate<A>): Promise<boolean> {
-  return await first(iter, predicate) !== undefined;
+  return (await first(iter, predicate)) !== undefined;
 }
 
 export async function includes<A>(iter: AsyncIterator<A>, target: Eventually<A>): Promise<boolean> {
-  return await first(iter, async (a) => a === await target) !== undefined;
+  return (await first(iter, async (a) => a === (await target))) !== undefined;
 }
 
 export async function fold<A, B>(iter: AsyncIterator<A>, reducer: EventualReducer<A, B>, initialValue: B): Promise<B> {
@@ -178,7 +199,7 @@ export async function* takeWhile<A>(iter: AsyncIterator<A>, predicate: EventualP
   for (; ;) {
     const item = await iter.next();
     if (item.done) break;
-    if (!await predicate(item.value)) break;
+    if (!(await predicate(item.value))) break;
     yield item.value;
   }
 }
@@ -201,7 +222,7 @@ export async function* distinct<A, B>(iter: AsyncIterator<A>, mapper?: EventualM
   const seen = new Set<B>();
   for (; ;) {
     const item = await iter.next();
-    if (item.done) break
+    if (item.done) break;
     const value = await mapper(item.value);
     if (seen.has(value)) continue;
     seen.add(value);
@@ -213,7 +234,7 @@ export async function all<A>(iter: AsyncIterator<A>, predicate: EventualPredicat
   for (; ;) {
     const item = await iter.next();
     if (item.done) return true;
-    if (!await predicate(item.value)) return false;
+    if (!(await predicate(item.value))) return false;
   }
 }
 
@@ -241,12 +262,28 @@ export async function collectToSet<A>(iter: AsyncIterator<A>): Promise<Set<A>> {
   return collectTo(iter, new SetCollector());
 }
 
+export function collectToMap<A, K, V>(
+  iter: AsyncIterator<A>,
+  mapper: Mapper<A, [K, V]>,
+  collisionHandler?: CollisionHandler<K, V>
+): Promise<Map<K, V>> {
+  return collectTo(iter, new MapCollector(mapper, collisionHandler));
+}
+
+export function collectToObject<A, V>(
+  iter: AsyncIterator<A>,
+  mapper: Mapper<A, [string, V]>,
+  collisionHandler?: CollisionHandler<string, V>
+): Promise<Record<string, V>> {
+  return collectTo(iter, new ObjectCollector(mapper, collisionHandler));
+}
+
 export function sum(iter: AsyncIterator<number>): Promise<number> {
-  return fold(iter, sumReducer, { sum: 0, correction: 0 }).then(s => s.sum);
+  return fold(iter, sumReducer, { sum: 0, correction: 0 }).then((s) => s.sum);
 }
 
 export function avg(iter: AsyncIterator<number>): Promise<number> {
-  return fold(iter, avgReducer, { avg: 0, n: 0 }).then(s => s.avg);
+  return fold(iter, avgReducer, { avg: 0, n: 0 }).then((s) => s.avg);
 }
 
 export async function count<A>(iter: AsyncIterator<A>, predicate: EventualPredicate<A> = alwaysTrue): Promise<number> {
@@ -259,12 +296,12 @@ export async function count<A>(iter: AsyncIterator<A>, predicate: EventualPredic
 }
 
 export function min<A>(iter: AsyncIterator<A>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
-  const reducer = (acc: A, a: A) => comparator(acc, a) <= 0 ? acc : a;
+  const reducer = (acc: A, a: A) => (comparator(acc, a) <= 0 ? acc : a);
   return reduce(iter, reducer);
 }
 
 export function max<A>(iter: AsyncIterator<A>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
-  const reducer = (acc: A, a: A) => comparator(acc, a) >= 0 ? acc : a;
+  const reducer = (acc: A, a: A) => (comparator(acc, a) >= 0 ? acc : a);
   return reduce(iter, reducer);
 }
 
@@ -283,29 +320,25 @@ export async function last<A>(iter: AsyncIterator<A>, predicate: EventualPredica
   }
 }
 
-export async function join<A>(iter: AsyncIterator<A>, separator: string = ','): Promise<string> {
-  const state = await fold(iter, (state, a) => {
-    state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
-    state.first = false;
-    return state;
-  }, { first: true, acc: '' });
+export async function join<A>(iter: AsyncIterator<A>, separator: string = ","): Promise<string> {
+  const state = await fold(
+    iter,
+    (state, a) => {
+      state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
+      state.first = false;
+      return state;
+    },
+    { first: true, acc: "" }
+  );
   return state.acc;
 }
 
-export async function groupBy<A, K>(iter: AsyncIterator<A>, mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-  return collectTo(iter, new EventualGroupByCollector(mapper));
+export async function groupBy<A, K>(iter: AsyncIterator<A>, mapper: Mapper<A, K>): Promise<Map<K, A[]>> {
+  return collectTo(iter, new GroupByCollector(mapper));
 }
 
-export async function tally<A, K>(iter: AsyncIterator<A>, mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
-  mapper ??= asyncIdentity as EventualMapper<A, K>;
-  const map = new Map<K, number>();
-  for (; ;) {
-    const item = await iter.next();
-    if (item.done) return map;
-    const k = await mapper(item.value);
-    const v = map.get(k);
-    map.set(k, (v ?? 0) + 1);
-  }
+export async function tally<A, K>(iter: AsyncIterator<A>, mapper?: Mapper<A, K>): Promise<Map<K, number>> {
+  return collectTo(iter, new TallyCollector(mapper));
 }
 
 export async function* partition<A>(iter: AsyncIterator<A>, size: number): AsyncIterator<A[]> {

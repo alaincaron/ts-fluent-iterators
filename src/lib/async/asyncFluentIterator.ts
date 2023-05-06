@@ -1,17 +1,35 @@
-import * as Iterators from './asyncIterators';
-import { EventualMapper, EventualPredicate, Eventually, Comparator, EventualReducer, EventualIterable, EventualIterator, MinMax } from "../types";
+import * as Iterators from "./asyncIterators";
+import {
+  Mapper,
+  EventualMapper,
+  EventualPredicate,
+  Eventually,
+  Comparator,
+  EventualReducer,
+  EventualIterable,
+  EventualIterator,
+  MinMax,
+  CollisionHandler,
+} from "../types";
 import { identity } from "../functions";
-import { EventualCollector } from "../collectors";
+import { Collector } from "../collectors";
 
 export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A> {
-
   private iter: AsyncIterator<A>;
 
   constructor(iter: AsyncIterator<A>) {
     this.iter = iter;
   }
 
-  collectTo<B>(collector: EventualCollector<A, B>): Promise<B> {
+  static empty<A = never>(): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.empty());
+  }
+
+  static from<A>(iter: AsyncIterator<A> | EventualIterable<A>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.toAsyncIterator(iter));
+  }
+
+  collectTo<B>(collector: Collector<A, B>): Promise<B> {
     return Iterators.collectTo(this.iter, collector);
   }
 
@@ -21,6 +39,14 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
 
   collectToSet(): Promise<Set<A>> {
     return Iterators.collectToSet(this.iter);
+  }
+
+  collectToMap<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Promise<Map<K, V>> {
+    return Iterators.collectToMap(this.iter, mapper, collisionHandler);
+  }
+
+  collectToObject<V>(mapper: Mapper<A, [string, V]>, collisionHandler?: CollisionHandler<string, V>): Promise<Record<string, V>> {
+    return Iterators.collectToObject(this.iter, mapper, collisionHandler);
   }
 
   filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
@@ -141,11 +167,11 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return Iterators.join(this.iter, separator);
   }
 
-  groupBy<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
+  groupBy<K>(mapper: Mapper<A, K>): Promise<Map<K, A[]>> {
     return Iterators.groupBy(this.iter, mapper);
   }
 
-  tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
+  tally<K>(mapper?: Mapper<A, K>): Promise<Map<K, number>> {
     return Iterators.tally(this.iter, mapper);
   }
 
@@ -163,5 +189,5 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
 }
 
 export function asyncIterator<A>(iter: AsyncIterator<A> | EventualIterable<A>): AsyncFluentIterator<A> {
-  return new AsyncFluentIterator(Iterators.toAsyncIterator(iter));
+  return AsyncFluentIterator.from(iter);
 }

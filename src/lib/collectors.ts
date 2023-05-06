@@ -1,14 +1,9 @@
-import { handleCollisionOverwrite } from "./functions";
+import { handleCollisionOverwrite, identity } from "./functions";
 import { emptyIterator, FluentIterator } from "./sync/fluentIterator";
 import { Mapper, EventualMapper, CollisionHandler } from "./types";
 
 export interface Collector<A, B> {
   collect(a: A): void;
-  get result(): B;
-}
-
-export interface EventualCollector<A, B> {
-  collect(a: A): Promise<void>;
   get result(): B;
 }
 
@@ -119,25 +114,21 @@ export class FlattenCollector<A> implements Collector<Iterable<A> | Iterator<A>,
   }
 }
 
-export class EventualGroupByCollector<A, K> implements EventualCollector<A, Map<K, A[]>> {
-  private readonly map: Map<K, A[]> = new Map();
-  private mapper: EventualMapper<A, K>;
+export class TallyCollector<A, K> implements Collector<A, Map<K, number>> {
+  private readonly map: Map<K, number> = new Map();
+  private readonly mapper: Mapper<A, K>;
 
-  constructor(mapper: EventualMapper<A, K>) {
-    this.mapper = mapper;
+  constructor(mapper?: Mapper<A, K>) {
+    this.mapper = mapper ?? (identity as Mapper<A, K>);
   }
 
-  get result(): Map<K, A[]> {
+  get result(): Map<K, number> {
     return this.map;
   }
 
-  async collect(a: A) {
-    const k = await this.mapper(a);
-    let arr = this.map.get(k);
-    if (!arr) {
-      arr = [];
-      this.map.set(k, arr);
-    }
-    arr.push(a);
+  collect(a: A) {
+    const k = this.mapper(a);
+    const v = this.map.get(k);
+    this.map.set(k, (v ?? 0) + 1);
   }
 }
