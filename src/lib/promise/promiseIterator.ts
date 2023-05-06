@@ -1,7 +1,7 @@
 import * as Iterators from "./promiseIterators";
 import * as SyncIterators from "../sync/iterators";
-import { AsyncFluentIterator } from "../async/asyncFluentIterator";
-import { FluentIterator } from "../sync/fluentIterator";
+import { AsyncFluentIterator } from "../async";
+import { FluentIterator } from "../sync";
 
 import {
   Mapper,

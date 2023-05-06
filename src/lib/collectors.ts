@@ -1,6 +1,6 @@
 import { handleCollisionOverwrite, identity } from "./functions";
-import { emptyIterator, FluentIterator } from "./sync/fluentIterator";
-import { Mapper, EventualMapper, CollisionHandler } from "./types";
+import { emptyIterator, FluentIterator } from "./sync";
+import { Mapper, CollisionHandler } from "./types";
 
 export interface Collector<A, B> {
   collect(a: A): void;

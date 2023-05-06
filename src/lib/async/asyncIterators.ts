@@ -1,4 +1,4 @@
-import { toIterator } from "../sync/iterators";
+import { toIterator } from "../sync";
 import {
   Mapper,
   EventualMapper,

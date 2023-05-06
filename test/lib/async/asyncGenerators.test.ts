@@ -1,9 +1,7 @@
-import { range, repeatedly, iterate } from "../../../src/lib/async/asyncGenerators";
-import { collect } from "../../../src/lib/async/asyncIterators";
+import { range, repeatedly, iterate, collect } from "../../../src/lib/async";
 import { expect } from "chai";
 
 describe("AsyncGenerators", () => {
-
   describe("range", () => {
     it("should yield all elements in the range", async () => {
       expect(await collect(range(1, 5))).deep.equal([1, 2, 3, 4]);
@@ -35,5 +33,4 @@ describe("AsyncGenerators", () => {
       expect(await collect(iterate((x: number) => 2 * x, 1, 5))).deep.equal([1, 2, 4, 8, 16]);
     });
   });
-
 });

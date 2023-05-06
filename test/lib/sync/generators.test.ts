@@ -1,9 +1,7 @@
-import { iterate, range, repeatedly } from "../../../src/lib/sync/generators";
-import { collect } from "../../../src/lib/sync/iterators";
+import { iterate, range, repeatedly, collect } from "../../../src/lib/sync";
 import { expect } from "chai";
 
 describe("Generators", () => {
-
   describe("range", () => {
     it("should yield all elements in the range", () => {
       expect(collect(range(1, 5))).deep.equal([1, 2, 3, 4]);

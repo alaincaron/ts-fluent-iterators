@@ -1,9 +1,7 @@
-import { range, repeatedly, iterate } from "../../../src/lib/promise/promiseGenerators";
-import { collect } from "../../../src/lib/promise/promiseIterators";
+import { range, repeatedly, iterate, collect } from "../../../src/lib/promise";
 import { expect } from "chai";
 
 describe("PromiseGenerators", () => {
-
   describe("range", () => {
     it("should yield all elements in the range", async () => {
       expect(await collect(range(1, 5))).to.deep.equal([1, 2, 3, 4]);

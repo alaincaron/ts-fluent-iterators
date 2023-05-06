@@ -1,9 +1,7 @@
-import { range } from "../../../src/lib/sync/generators";
-import { iterator, emptyIterator as empty } from "../../../src/lib/sync/fluentIterator";
+import { range, iterator, emptyIterator as empty } from "../../../src/lib/sync";
 import { handleCollisionIgnore, lengthComparator } from "../../../src/lib/functions";
-
-import { expect } from "chai";
 import { FlattenCollector } from "../../../src/lib/collectors";
+import { expect } from "chai";
 
 describe("SyncFluentIterator", () => {
   describe("collect", () => {

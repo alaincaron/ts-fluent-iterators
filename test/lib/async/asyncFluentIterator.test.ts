@@ -1,7 +1,5 @@
-import { range } from "../../../src/lib/async/asyncGenerators"
-import { asyncIterator } from "../../../src/lib/async/asyncFluentIterator"
+import { range, asyncIterator, toAsync } from "../../../src/lib/async";
 import { defaultComparator, lengthComparator } from "../../../src/lib/functions";
-import { toAsync } from "../../../src/lib/async/asyncIterators";
 import { expect } from "chai";
 
 describe("AsyncFluentIterator", () => {
@@ -17,7 +15,11 @@ describe("AsyncFluentIterator", () => {
 
   describe("map", () => {
     it("should apply function to all elements", async () => {
-      expect(await asyncIterator([1, 2]).map(x => 2 * x).collect()).to.deep.equal([2, 4]);
+      expect(
+        await asyncIterator([1, 2])
+          .map((x) => 2 * x)
+          .collect()
+      ).to.deep.equal([2, 4]);
     });
   });
 
@@ -30,12 +32,11 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator([]).first()).to.be.undefined;
     });
     it("should return matching element if exists", async () => {
-      expect(await asyncIterator(range(1, 7)).first(x => x % 3 === 0)).equal(3);
+      expect(await asyncIterator(range(1, 7)).first((x) => x % 3 === 0)).equal(3);
     });
     it("should return if no matching element", async () => {
-      expect(await asyncIterator(range(1, 5)).first(x => x >= 5)).to.be.undefined;
+      expect(await asyncIterator(range(1, 5)).first((x) => x >= 5)).to.be.undefined;
     });
-
   });
 
   describe("take", () => {
@@ -67,43 +68,71 @@ describe("AsyncFluentIterator", () => {
 
   describe("filter", () => {
     it("should filter odd elements", async () => {
-      expect(await asyncIterator(range(1, 3)).filter(x => x % 2 === 0).collect()).deep.equal([2]);
+      expect(
+        await asyncIterator(range(1, 3))
+          .filter((x) => x % 2 === 0)
+          .collect()
+      ).deep.equal([2]);
     });
     it("should filter odd elements with promise predicate", async () => {
-      expect(await asyncIterator(range(1, 3)).filter(x => Promise.resolve(x % 2 === 0)).collect()).deep.equal([2]);
+      expect(
+        await asyncIterator(range(1, 3))
+          .filter((x) => Promise.resolve(x % 2 === 0))
+          .collect()
+      ).deep.equal([2]);
     });
   });
 
   describe("zip", () => {
     it("should zip up to shortest iterator with AsyncFluentIterator", async () => {
-      expect(await asyncIterator(range(1, 4)).zip(asyncIterator(range(1, 3))).collect()).deep.equal([[1, 1], [2, 2]]);
+      expect(
+        await asyncIterator(range(1, 4))
+          .zip(asyncIterator(range(1, 3)))
+          .collect()
+      ).deep.equal([
+        [1, 1],
+        [2, 2],
+      ]);
     });
     it("should zip up to shortest iterator with iterable", async () => {
-      expect(await asyncIterator(range(1, 4)).zip(toAsync([1, 2])).collect()).deep.equal([[1, 1], [2, 2]]);
+      expect(
+        await asyncIterator(range(1, 4))
+          .zip(toAsync([1, 2]))
+          .collect()
+      ).deep.equal([
+        [1, 1],
+        [2, 2],
+      ]);
     });
   });
 
   describe("enumerate", () => {
     it("should enumerate all elements", async () => {
-      expect(await asyncIterator(range(1, 3)).enumerate().collect()).deep.equal([[1, 0], [2, 1]]);
+      expect(await asyncIterator(range(1, 3)).enumerate().collect()).deep.equal([
+        [1, 0],
+        [2, 1],
+      ]);
     });
     it("should enumerate all elements with start value", async () => {
-      expect(await asyncIterator(range(1, 3)).enumerate(10).collect()).deep.equal([[1, 10], [2, 11]]);
+      expect(await asyncIterator(range(1, 3)).enumerate(10).collect()).deep.equal([
+        [1, 10],
+        [2, 11],
+      ]);
     });
   });
 
   describe("contains", () => {
     it("should return true", async () => {
-      expect(await asyncIterator(range(1, 7)).contains(x => x % 3 === 0)).equal(true);
+      expect(await asyncIterator(range(1, 7)).contains((x) => x % 3 === 0)).equal(true);
     });
     it("should return false", async () => {
-      expect(await asyncIterator(range(1, 5)).contains(x => x >= 5)).equal(false);
+      expect(await asyncIterator(range(1, 5)).contains((x) => x >= 5)).equal(false);
     });
     it("should return true with promise", async () => {
-      expect(await asyncIterator(range(1, 7)).contains(x => Promise.resolve(x % 3 === 0))).equal(true);
+      expect(await asyncIterator(range(1, 7)).contains((x) => Promise.resolve(x % 3 === 0))).equal(true);
     });
     it("should return false with promise", async () => {
-      expect(await asyncIterator(range(1, 5)).contains(x => Promise.resolve(x >= 5))).equal(false);
+      expect(await asyncIterator(range(1, 5)).contains((x) => Promise.resolve(x >= 5))).equal(false);
     });
   });
 
@@ -140,7 +169,9 @@ describe("AsyncFluentIterator", () => {
   describe("tap", () => {
     it("should tap all elements", async () => {
       let count = 0;
-      let f = (x: number) => { count += x; };
+      let f = (x: number) => {
+        count += x;
+      };
       expect(await asyncIterator(range(1, 5)).tap(f).collect()).deep.equal([1, 2, 3, 4]);
       expect(count).equal(10);
     });
@@ -149,7 +180,9 @@ describe("AsyncFluentIterator", () => {
   describe("forEach", () => {
     it("should invoke function on all elements", async () => {
       let count = 0;
-      let f = (x: number) => { count += x; };
+      let f = (x: number) => {
+        count += x;
+      };
       await asyncIterator(range(1, 5)).forEach(f);
       expect(count).equal(10);
     });
@@ -199,35 +232,67 @@ describe("AsyncFluentIterator", () => {
 
   describe("takeWhile", () => {
     it("take up to 5", async () => {
-      expect(await asyncIterator(range(1, 100)).takeWhile(x => x <= 2).collect()).to.deep.equal([1, 2]);
+      expect(
+        await asyncIterator(range(1, 100))
+          .takeWhile((x) => x <= 2)
+          .collect()
+      ).to.deep.equal([1, 2]);
     });
     it("should return all elements", async () => {
-      expect(await asyncIterator(range(1, 4)).takeWhile((_ => Promise.resolve(true))).collect()).to.deep.equal([1, 2, 3]);
+      expect(
+        await asyncIterator(range(1, 4))
+          .takeWhile((_) => Promise.resolve(true))
+          .collect()
+      ).to.deep.equal([1, 2, 3]);
     });
     it("should return no elements", async () => {
-      expect(await asyncIterator(range(1, 4)).takeWhile((_ => false)).collect()).to.deep.equal([]);
+      expect(
+        await asyncIterator(range(1, 4))
+          .takeWhile((_) => false)
+          .collect()
+      ).to.deep.equal([]);
     });
     it("should work on empty iterator", async () => {
-      expect(await asyncIterator([]).takeWhile(x => {
-        throw new Error(`x = ${x}`);
-      }).collect()).to.deep.equal([]);
+      expect(
+        await asyncIterator([])
+          .takeWhile((x) => {
+            throw new Error(`x = ${x}`);
+          })
+          .collect()
+      ).to.deep.equal([]);
     });
   });
 
   describe("skipWhile", () => {
     it("should yield skip 2 elements", async () => {
-      expect(await asyncIterator([1, 10, 2, 11]).skipWhile(x => x != 10).collect()).to.deep.equal([10, 2, 11]);
+      expect(
+        await asyncIterator([1, 10, 2, 11])
+          .skipWhile((x) => x != 10)
+          .collect()
+      ).to.deep.equal([10, 2, 11]);
     });
     it("should return no elements", async () => {
-      expect(await asyncIterator(range(1, 4)).skipWhile((x => x > 0)).collect()).to.deep.equal([]);
+      expect(
+        await asyncIterator(range(1, 4))
+          .skipWhile((x) => x > 0)
+          .collect()
+      ).to.deep.equal([]);
     });
     it("should return all elements", async () => {
-      expect(await asyncIterator(range(1, 4)).skipWhile((x => x % 2 === 0)).collect()).to.deep.equal([1, 2, 3]);
+      expect(
+        await asyncIterator(range(1, 4))
+          .skipWhile((x) => x % 2 === 0)
+          .collect()
+      ).to.deep.equal([1, 2, 3]);
     });
     it("should work on empty iterator", async () => {
-      expect(await asyncIterator([]).skipWhile(x => {
-        throw new Error(`x = ${x}`);
-      }).collect()).to.deep.equal([]);
+      expect(
+        await asyncIterator([])
+          .skipWhile((x) => {
+            throw new Error(`x = ${x}`);
+          })
+          .collect()
+      ).to.deep.equal([]);
     });
   });
 
@@ -236,37 +301,41 @@ describe("AsyncFluentIterator", () => {
       expect(await asyncIterator([1, 2, 5, 2, 1, 0]).distinct().collect()).deep.equal([1, 2, 5, 0]);
     });
     it("should only yield one odd and one even number", async () => {
-      expect(await asyncIterator([1, 2, 5, 2, 1, 0]).distinct(x => x % 2).collect()).deep.equal([1, 2]);
+      expect(
+        await asyncIterator([1, 2, 5, 2, 1, 0])
+          .distinct((x) => x % 2)
+          .collect()
+      ).deep.equal([1, 2]);
     });
   });
 
   describe("all", () => {
     it("should return true", async () => {
-      expect(await asyncIterator(range(1, 5)).all(x => x > 0)).equal(true);
+      expect(await asyncIterator(range(1, 5)).all((x) => x > 0)).equal(true);
     });
     it("should return true if empty", async () => {
-      expect(await asyncIterator([]).all((x => x > 0))).equal(true);
+      expect(await asyncIterator([]).all((x) => x > 0)).equal(true);
     });
     it("should return false", async () => {
-      expect(await asyncIterator(range(4, -1)).all(x => x > 0)).equal(false);
+      expect(await asyncIterator(range(4, -1)).all((x) => x > 0)).equal(false);
     });
   });
 
   describe("some", () => {
     it("should return true", async () => {
-      expect(await asyncIterator(range(-1, 2)).some(x => x > 0)).equal(true);
+      expect(await asyncIterator(range(-1, 2)).some((x) => x > 0)).equal(true);
     });
     it("should return false if empty", async () => {
-      expect(await asyncIterator([]).some((x => x > 0))).equal(false);
+      expect(await asyncIterator([]).some((x) => x > 0)).equal(false);
     });
     it("should return false", async () => {
-      expect(await asyncIterator(range(-5, 1)).some(x => x > 0)).equal(false);
+      expect(await asyncIterator(range(-5, 1)).some((x) => x > 0)).equal(false);
     });
   });
 
   describe("sum", () => {
     it("should apply mapper", async () => {
-      expect(await asyncIterator(["foo", "bar", "foobar"]).sum(x => x.length)).equal(12);
+      expect(await asyncIterator(["foo", "bar", "foobar"]).sum((x) => x.length)).equal(12);
     });
     it("should sum numbers", async () => {
       expect(await asyncIterator([1, 2, 3]).sum()).equal(6);
@@ -278,7 +347,7 @@ describe("AsyncFluentIterator", () => {
 
   describe("avg", () => {
     it("should apply mapper", async () => {
-      expect(await asyncIterator(["foo", "bar", "foobar"]).avg(x => x.length)).equal(4);
+      expect(await asyncIterator(["foo", "bar", "foobar"]).avg((x) => x.length)).equal(4);
     });
     it("should avg numbers", async () => {
       expect(await asyncIterator([1, 2]).avg()).equal(1.5);
@@ -290,10 +359,7 @@ describe("AsyncFluentIterator", () => {
 
   describe("min", () => {
     it("should return the shortest string", async () => {
-      expect(
-        await asyncIterator(["foo", "bar", "x", "foobar"])
-          .min((a, b) => defaultComparator(a.length, b.length)))
-        .equal("x");
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).min((a, b) => defaultComparator(a.length, b.length))).equal("x");
     });
     it("should return lexicographically smallest string", async () => {
       expect(await asyncIterator(["foo", "bar", "x", "foobar"]).min()).equal("bar");
@@ -302,10 +368,9 @@ describe("AsyncFluentIterator", () => {
 
   describe("max", () => {
     it("should return the longest string", async () => {
-      expect(
-        await asyncIterator(["foo", "bar", "x", "foobar"])
-          .max((a, b) => defaultComparator(a.length, b.length)))
-        .equal("foobar");
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).max((a, b) => defaultComparator(a.length, b.length))).equal(
+        "foobar"
+      );
     });
     it("should return lexicographically largest string", async () => {
       expect(await asyncIterator(["foo", "bar", "x", "foobar"]).max()).equal("x");
@@ -314,8 +379,7 @@ describe("AsyncFluentIterator", () => {
 
   describe("minmax", () => {
     it("should return the longest and shortest strings", async () => {
-      expect(
-        await asyncIterator(["foo", "bar", "x", "foobar"]).minmax(lengthComparator)).deep.equal({ min: "x", max: "foobar" });
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).minmax(lengthComparator)).deep.equal({ min: "x", max: "foobar" });
     });
     it("should return lexicographically smallest and largest strings", async () => {
       expect(await asyncIterator(["foo", "bar", "x", "foobar"]).minmax()).deep.equal({ min: "bar", max: "x" });
@@ -324,21 +388,19 @@ describe("AsyncFluentIterator", () => {
 
   describe("last", () => {
     it("should return the last string", async () => {
-      expect(
-        await asyncIterator(["foo", "bar", "x", "foobar"]).last())
-        .equal("foobar");
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).last()).equal("foobar");
     });
     it("should return the last string of length 3", async () => {
-      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).last(s => s.length === 3)).equal("bar");
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).last((s) => s.length === 3)).equal("bar");
     });
     it("should return undefined", async () => {
-      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).last(s => s.length > 10)).to.be.undefined;
+      expect(await asyncIterator(["foo", "bar", "x", "foobar"]).last((s) => s.length > 10)).to.be.undefined;
     });
   });
 
   describe("count", () => {
     it("should use predicate", async () => {
-      expect(await asyncIterator(range(1, 4)).count(x => x % 2 === 0)).equal(1);
+      expect(await asyncIterator(range(1, 4)).count((x) => x % 2 === 0)).equal(1);
     });
     it("should use default true predicate", async () => {
       expect(await asyncIterator(range(1, 4)).count()).equal(3);
@@ -347,19 +409,19 @@ describe("AsyncFluentIterator", () => {
 
   describe("join", () => {
     it("should use separator", async () => {
-      expect(await asyncIterator([1, 2, 3]).join('-')).equal('1-2-3');
+      expect(await asyncIterator([1, 2, 3]).join("-")).equal("1-2-3");
     });
     it("should use default separator", async () => {
-      expect(await asyncIterator([1, 2, 3]).join()).equal('1,2,3');
+      expect(await asyncIterator([1, 2, 3]).join()).equal("1,2,3");
     });
-    it('should return empty string', async () => {
-      expect(await asyncIterator([]).join()).equal('');
+    it("should return empty string", async () => {
+      expect(await asyncIterator([]).join()).equal("");
     });
   });
 
   describe("groupBy", () => {
     it("should group numbers according to their last bit", async () => {
-      const actual = await asyncIterator([2, 5, 4, 3, 1]).groupBy(x => x % 2);
+      const actual = await asyncIterator([2, 5, 4, 3, 1]).groupBy((x) => x % 2);
       const expected = new Map().set(0, [2, 4]).set(1, [5, 3, 1]);
       expect(actual).deep.equal(expected);
     });
@@ -375,7 +437,7 @@ describe("AsyncFluentIterator", () => {
 
   describe("tally", () => {
     it("should count event and odd numbers", async () => {
-      const actual = await asyncIterator([2, 5, 4, 3, 1]).tally(x => x % 2);
+      const actual = await asyncIterator([2, 5, 4, 3, 1]).tally((x) => x % 2);
       const expected = new Map().set(0, 2).set(1, 3);
       expect(actual).deep.equal(expected);
     });

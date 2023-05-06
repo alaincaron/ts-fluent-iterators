@@ -2,10 +2,8 @@ import * as Iterators from "./iterators";
 import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from "../types";
 import { identity } from "../functions";
 import { Collector } from "../collectors";
-import { PromiseIterator } from "../promise/promiseIterator";
-import { toPromise } from "../promise/promiseIterators";
-import { AsyncFluentIterator } from "../async/asyncFluentIterator";
-import { toAsync } from "../async/asyncIterators";
+import { PromiseIterator, toPromise } from "../promise";
+import { AsyncFluentIterator, toAsync } from "../async";
 
 export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   private iter: Iterator<A>;
