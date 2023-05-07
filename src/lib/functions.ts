@@ -1,4 +1,4 @@
-import { AvgState, MinMax, SumState, Comparator, Reducer } from "./types";
+import { AvgState, MinMax, SumState, Comparator, Reducer } from './types';
 
 export const identity = <A>(a: A) => a;
 export const asyncIdentity = <A>(a: A) => Promise.resolve(a);

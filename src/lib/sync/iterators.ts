@@ -1,5 +1,5 @@
-import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from "../types";
-import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from "../functions";
+import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from '../types';
+import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from '../functions';
 import {
   Collector,
   ArrayCollector,
@@ -8,23 +8,23 @@ import {
   MapCollector,
   ObjectCollector,
   TallyCollector,
-} from "../collectors";
+} from '../collectors';
 
 export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
   const x: any = iter;
-  if (typeof x?.next === "function") {
+  if (typeof x?.next === 'function') {
     return x as Iterator<A>;
   }
-  if (typeof x?.[Symbol.iterator] === "function") {
+  if (typeof x?.[Symbol.iterator] === 'function') {
     return (x as Iterable<A>)[Symbol.iterator]();
   }
   throw new Error(`Invalid non-iterable object: ${iter}`);
 }
 
-export function* empty<A = never>(): Iterator<A> { }
+export function* empty<A = never>(): Iterator<A> {}
 
 export function* map<A, B>(iter: Iterator<A>, mapper: Mapper<A, B>): Iterator<B> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     yield mapper(item.value);
@@ -32,7 +32,7 @@ export function* map<A, B>(iter: Iterator<A>, mapper: Mapper<A, B>): Iterator<B>
 }
 
 export function first<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): A | undefined {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return undefined;
     if (predicate(item.value)) return item.value;
@@ -48,7 +48,7 @@ export function* take<A>(iter: Iterator<A>, n: number): Iterator<A> {
 }
 
 export function* tap<A>(iter: Iterator<A>, mapper: Mapper<A, any>): Iterator<A> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     mapper(item.value);
@@ -62,7 +62,7 @@ export function* skip<A>(iter: Iterator<A>, n: number): Iterator<A> {
     if (item.done) break;
   }
 
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     yield item.value;
@@ -70,7 +70,7 @@ export function* skip<A>(iter: Iterator<A>, n: number): Iterator<A> {
 }
 
 export function* filter<A>(iter: Iterator<A>, predicate: Predicate<A>): Iterator<A> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     if (predicate(item.value)) yield item.value;
@@ -78,7 +78,7 @@ export function* filter<A>(iter: Iterator<A>, predicate: Predicate<A>): Iterator
 }
 
 export function* zip<A, B>(iter1: Iterator<A>, iter2: Iterator<B>): Iterator<[A, B]> {
-  for (; ;) {
+  for (;;) {
     const item1 = iter1.next();
     const item2 = iter2.next();
     if (item1.done || item2.done) break;
@@ -88,7 +88,7 @@ export function* zip<A, B>(iter1: Iterator<A>, iter2: Iterator<B>): Iterator<[A,
 
 export function* enumerate<A>(iter: Iterator<A>, start = 0): Iterator<[A, number]> {
   let i = start;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     yield [item.value, i++];
@@ -100,12 +100,12 @@ export function contains<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean
 }
 
 export function includes<A>(iter: Iterator<A>, target: A): boolean {
-  return first(iter, (a) => a === target) !== undefined;
+  return first(iter, a => a === target) !== undefined;
 }
 
 export function fold<A, B>(iter: Iterator<A>, reducer: Reducer<A, B>, initialValue: B): B {
   let acc = initialValue;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return acc;
     acc = reducer(acc, item.value);
@@ -123,7 +123,7 @@ export function reduce<A>(iter: Iterator<A>, reducer: Reducer<A, A>, initialValu
 }
 
 export function forEach<A>(iter: Iterator<A>, mapper: Mapper<A, any>): void {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     mapper(item.value);
@@ -131,12 +131,12 @@ export function forEach<A>(iter: Iterator<A>, mapper: Mapper<A, any>): void {
 }
 
 export function* append<A>(iter: Iterator<A>, other: Iterator<A>): Iterator<A> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     yield item.value;
   }
-  for (; ;) {
+  for (;;) {
     const item = other.next();
     if (item.done) break;
     yield item.value;
@@ -144,12 +144,12 @@ export function* append<A>(iter: Iterator<A>, other: Iterator<A>): Iterator<A> {
 }
 
 export function* prepend<A>(iter: Iterator<A>, other: Iterator<A>): Iterator<A> {
-  for (; ;) {
+  for (;;) {
     const item = other.next();
     if (item.done) break;
     yield item.value;
   }
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     yield item.value;
@@ -158,7 +158,7 @@ export function* prepend<A>(iter: Iterator<A>, other: Iterator<A>): Iterator<A> 
 
 export function* concat<A>(...iters: Iterator<A>[]): Iterator<A> {
   for (const iter of iters) {
-    for (; ;) {
+    for (;;) {
       const item = iter.next();
       if (item.done) break;
       yield item.value;
@@ -167,7 +167,7 @@ export function* concat<A>(...iters: Iterator<A>[]): Iterator<A> {
 }
 
 export function* takeWhile<A>(iter: Iterator<A>, predicate: Predicate<A>): Iterator<A> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     if (!predicate(item.value)) break;
@@ -177,7 +177,7 @@ export function* takeWhile<A>(iter: Iterator<A>, predicate: Predicate<A>): Itera
 
 export function* skipWhile<A>(iter: Iterator<A>, predicate: Predicate<A>): Iterator<A> {
   let skip = true;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     if (skip) {
@@ -191,7 +191,7 @@ export function* skipWhile<A>(iter: Iterator<A>, predicate: Predicate<A>): Itera
 export function* distinct<A, B>(iter: Iterator<A>, mapper?: Mapper<A, B>): Iterator<A> {
   mapper ??= identity as Mapper<A, B>;
   const seen = new Set<B>();
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     const value = mapper(item.value);
@@ -202,7 +202,7 @@ export function* distinct<A, B>(iter: Iterator<A>, mapper?: Mapper<A, B>): Itera
 }
 
 export function all<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return true;
     if (!predicate(item.value)) return false;
@@ -210,7 +210,7 @@ export function all<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean {
 }
 
 export function some<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return false;
     if (predicate(item.value)) return true;
@@ -218,7 +218,7 @@ export function some<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean {
 }
 
 export function collectTo<A, B>(iter: Iterator<A>, collector: Collector<A, B>): B {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return collector.result;
     collector.collect(item.value);
@@ -236,7 +236,7 @@ export function collectToSet<A>(iter: Iterator<A>): Set<A> {
 export function collectToMap<A, K, V>(
   iter: Iterator<A>,
   mapper: Mapper<A, [K, V]>,
-  collisionHandler?: CollisionHandler<K, V>
+  collisionHandler?: CollisionHandler<K, V>,
 ): Map<K, V> {
   return collectTo(iter, new MapCollector(mapper, collisionHandler));
 }
@@ -244,7 +244,7 @@ export function collectToMap<A, K, V>(
 export function collectToObject<A, V>(
   iter: Iterator<A>,
   mapper: Mapper<A, [string, V]>,
-  collisionHandler?: CollisionHandler<string, V>
+  collisionHandler?: CollisionHandler<string, V>,
 ): Record<string, V> {
   return collectTo(iter, new ObjectCollector(mapper, collisionHandler));
 }
@@ -259,7 +259,7 @@ export function avg(iter: Iterator<number>): number {
 
 export function count<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): number {
   let n = 0;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return n;
     if (predicate(item.value)) ++n;
@@ -284,14 +284,14 @@ export function minmax<A>(iter: Iterator<A>, comparator: Comparator<A> = default
 
 export function last<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): A | undefined {
   let result: A | undefined;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return result;
     if (predicate(item.value)) result = item.value;
   }
 }
 
-export function join<A>(iter: Iterator<A>, separator: string = ","): string {
+export function join<A>(iter: Iterator<A>, separator: string = ','): string {
   return fold(
     iter,
     (state, a) => {
@@ -299,7 +299,7 @@ export function join<A>(iter: Iterator<A>, separator: string = ","): string {
       state.first = false;
       return state;
     },
-    { first: true, acc: "" }
+    { first: true, acc: '' },
   ).acc;
 }
 
@@ -314,7 +314,7 @@ export function tally<A, K>(iter: Iterator<A>, mapper?: Mapper<A, K>): Map<K, nu
 export function* partition<A>(iter: Iterator<A>, size: number): Iterator<A[]> {
   if (!Number.isSafeInteger(size) || size < 0) throw new Error(`Invalid size integer number: ${size}`);
   let values: A[] = [];
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) {
       if (values.length > 0) yield values;

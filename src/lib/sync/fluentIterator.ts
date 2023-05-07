@@ -1,9 +1,9 @@
-import * as Iterators from "./iterators";
-import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from "../types";
-import { identity } from "../functions";
-import { Collector } from "../collectors";
-import { PromiseIterator, toPromise } from "../promise";
-import { AsyncFluentIterator, toAsync } from "../async";
+import * as Iterators from './iterators';
+import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from '../types';
+import { identity } from '../functions';
+import { Collector } from '../collectors';
+import { PromiseIterator, toPromise } from '../promise';
+import { AsyncFluentIterator, toAsync } from '../async';
 
 export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   private iter: Iterator<A>;
@@ -216,7 +216,7 @@ Array.prototype.iterator = function <T>(this: Array<T>) {
   return new FluentIterator<T>(this[Symbol.iterator]());
 };
 
-String.prototype.iterator = function() {
+String.prototype.iterator = function () {
   return new FluentIterator<String>(this[Symbol.iterator]());
 };
 

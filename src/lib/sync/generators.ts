@@ -6,7 +6,7 @@ export function* range(start?: number, end?: number, step?: number): Iterator<nu
   let value = start!;
   step ??= end == null || start < end ? 1 : -1;
   if (end == null) {
-    for (; ;) {
+    for (;;) {
       yield value;
       value += step;
     }
@@ -25,7 +25,7 @@ export function* range(start?: number, end?: number, step?: number): Iterator<nu
 
 export function* repeatedly<T>(f: () => T, n?: number): Iterator<T> {
   if (n == null) {
-    for (; ;) {
+    for (;;) {
       yield f();
     }
   }
@@ -38,7 +38,7 @@ export function* repeatedly<T>(f: () => T, n?: number): Iterator<T> {
 export function* iterate<T>(f: (t: T) => T, seed: T, n?: number): Iterator<T> {
   if (n == null) {
     yield seed;
-    for (; ;) {
+    for (;;) {
       seed = f(seed);
       yield seed;
     }

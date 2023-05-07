@@ -1,7 +1,7 @@
-import * as Iterators from "./promiseIterators";
-import * as SyncIterators from "../sync/iterators";
-import { AsyncFluentIterator } from "../async";
-import { FluentIterator } from "../sync";
+import * as Iterators from './promiseIterators';
+import * as SyncIterators from '../sync/iterators';
+import { AsyncFluentIterator } from '../async';
+import { FluentIterator } from '../sync';
 
 import {
   Mapper,
@@ -12,9 +12,9 @@ import {
   Comparator,
   MinMax,
   CollisionHandler,
-} from "../types";
-import { identity } from "../functions";
-import { Collector } from "../collectors";
+} from '../types';
+import { identity } from '../functions';
+import { Collector } from '../collectors';
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
   private iter: Iterator<Promise<A>>;

@@ -1,4 +1,4 @@
-import * as Iterators from "./asyncIterators";
+import * as Iterators from './asyncIterators';
 import {
   Mapper,
   EventualMapper,
@@ -10,9 +10,9 @@ import {
   EventualIterator,
   MinMax,
   CollisionHandler,
-} from "../types";
-import { identity } from "../functions";
-import { Collector } from "../collectors";
+} from '../types';
+import { identity } from '../functions';
+import { Collector } from '../collectors';
 
 export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A> {
   private iter: AsyncIterator<A>;

@@ -1,5 +1,5 @@
-import * as SyncGenerators from "../sync";
-import * as AsyncIterators from "./asyncIterators";
+import * as SyncGenerators from '../sync';
+import * as AsyncIterators from './asyncIterators';
 
 export function range(start?: number, end?: number, step?: number): AsyncIterator<number> {
   return AsyncIterators.toAsync(SyncGenerators.range(start, end, step));
