@@ -1,4 +1,4 @@
-import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from '../types';
+import { Comparator, Mapper, Predicate, Reducer, MinMax } from '../types';
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from '../functions';
 import { Collector } from '../collectors';
 
