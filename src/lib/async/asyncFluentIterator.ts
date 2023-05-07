@@ -12,7 +12,15 @@ import {
   CollisionHandler,
 } from '../types';
 import { identity } from '../functions';
-import { Collector } from '../collectors';
+import {
+  ArrayCollector,
+  Collector,
+  GroupByCollector,
+  MapCollector,
+  ObjectCollector,
+  SetCollector,
+  TallyCollector,
+} from '../collectors';
 
 export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A> {
   private iter: AsyncIterator<A>;
@@ -34,19 +42,19 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   collect(): Promise<A[]> {
-    return Iterators.collect(this.iter);
+    return this.collectTo(new ArrayCollector());
   }
 
   collectToSet(): Promise<Set<A>> {
-    return Iterators.collectToSet(this.iter);
+    return this.collectTo(new SetCollector());
   }
 
   collectToMap<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Promise<Map<K, V>> {
-    return Iterators.collectToMap(this.iter, mapper, collisionHandler);
+    return this.collectTo(new MapCollector(mapper, collisionHandler));
   }
 
   collectToObject<V>(mapper: Mapper<A, [string, V]>, collisionHandler?: CollisionHandler<string, V>): Promise<Record<string, V>> {
-    return Iterators.collectToObject(this.iter, mapper, collisionHandler);
+    return this.collectTo(new ObjectCollector(mapper, collisionHandler));
   }
 
   filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
@@ -168,11 +176,11 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   groupBy<K>(mapper: Mapper<A, K>): Promise<Map<K, A[]>> {
-    return Iterators.groupBy(this.iter, mapper);
+    return this.collectTo(new GroupByCollector(mapper));
   }
 
   tally<K>(mapper?: Mapper<A, K>): Promise<Map<K, number>> {
-    return Iterators.tally(this.iter, mapper);
+    return this.collectTo(new TallyCollector(mapper));
   }
 
   partition(size: number): AsyncFluentIterator<A[]> {
@@ -186,6 +194,10 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   next(): Promise<IteratorResult<A>> {
     return this.iter.next();
   }
+}
+
+export function emptyAsyncIterator<A = never>(): AsyncFluentIterator<A> {
+  return AsyncFluentIterator.empty();
 }
 
 export function asyncIterator<A>(iter: AsyncIterator<A> | EventualIterable<A>): AsyncFluentIterator<A> {

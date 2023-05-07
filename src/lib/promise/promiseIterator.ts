@@ -14,7 +14,15 @@ import {
   CollisionHandler,
 } from '../types';
 import { identity } from '../functions';
-import { Collector } from '../collectors';
+import {
+  ArrayCollector,
+  Collector,
+  GroupByCollector,
+  MapCollector,
+  ObjectCollector,
+  SetCollector,
+  TallyCollector,
+} from '../collectors';
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
   private iter: Iterator<Promise<A>>;
@@ -36,19 +44,19 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
   }
 
   collect(): Promise<A[]> {
-    return Iterators.collect(this.iter);
+    return this.collectTo(new ArrayCollector());
   }
 
   collectToSet(): Promise<Set<A>> {
-    return Iterators.collectToSet(this.iter);
+    return this.collectTo(new SetCollector());
   }
 
   collectToMap<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Promise<Map<K, V>> {
-    return Iterators.collectToMap(this.iter, mapper, collisionHandler);
+    return this.collectTo(new MapCollector(mapper, collisionHandler));
   }
 
   collectToObject<V>(mapper: Mapper<A, [string, V]>, collisionHandler?: CollisionHandler<string, V>): Promise<Record<string, V>> {
-    return Iterators.collectToObject(this.iter, mapper, collisionHandler);
+    return this.collectTo(new ObjectCollector(mapper, collisionHandler));
   }
 
   filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
@@ -186,11 +194,11 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
   }
 
   groupBy<K>(mapper: Mapper<A, K>): Promise<Map<K, A[]>> {
-    return Iterators.groupBy(this.iter, mapper);
+    return this.collectTo(new GroupByCollector(mapper));
   }
 
   tally<K>(mapper?: Mapper<A, K>): Promise<Map<K, number>> {
-    return Iterators.tally(this.iter, mapper);
+    return this.collectTo(new TallyCollector(mapper));
   }
 
   partition(size: number): FluentIterator<Promise<A>[]> {
@@ -204,6 +212,10 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
   next(): IteratorResult<Promise<A>> {
     return this.iter.next();
   }
+}
+
+export function emptyPromiseIterator<A = never>(): PromiseIterator<A> {
+  return PromiseIterator.empty();
 }
 
 export function promiseIterator<A>(iter: Iterator<Promise<A>> | Iterable<Promise<A>>): PromiseIterator<A> {

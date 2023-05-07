@@ -1,7 +1,15 @@
 import * as Iterators from './iterators';
 import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from '../types';
 import { identity } from '../functions';
-import { Collector } from '../collectors';
+import {
+  ArrayCollector,
+  Collector,
+  SetCollector,
+  MapCollector,
+  ObjectCollector,
+  GroupByCollector,
+  TallyCollector,
+} from '../collectors';
 import { PromiseIterator, toPromise } from '../promise';
 import { AsyncFluentIterator, toAsync } from '../async';
 
@@ -25,19 +33,19 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   collect(): A[] {
-    return Iterators.collect(this.iter);
+    return this.collectTo(new ArrayCollector());
   }
 
   collectToSet(): Set<A> {
-    return Iterators.collectToSet(this.iter);
+    return this.collectTo(new SetCollector());
   }
 
   collectToMap<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Map<K, V> {
-    return Iterators.collectToMap(this.iter, mapper, collisionHandler);
+    return this.collectTo(new MapCollector(mapper, collisionHandler));
   }
 
   collectToObject<V>(mapper: Mapper<A, [string, V]>, collisionHandler?: CollisionHandler<string, V>): Record<string, V> {
-    return Iterators.collectToObject(this.iter, mapper, collisionHandler);
+    return this.collectTo(new ObjectCollector(mapper, collisionHandler));
   }
 
   filter(predicate: Predicate<A>): FluentIterator<A> {
@@ -159,11 +167,11 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   groupBy<K>(mapper: Mapper<A, K>): Map<K, A[]> {
-    return Iterators.groupBy(this.iter, mapper);
+    return this.collectTo(new GroupByCollector(mapper));
   }
 
   tally<K>(mapper?: Mapper<A, K>): Map<K, number> {
-    return Iterators.tally(this.iter, mapper);
+    return this.collectTo(new TallyCollector(mapper));
   }
 
   partition(size: number): FluentIterator<A[]> {
@@ -216,7 +224,7 @@ Array.prototype.iterator = function <T>(this: Array<T>) {
   return new FluentIterator<T>(this[Symbol.iterator]());
 };
 
-String.prototype.iterator = function () {
+String.prototype.iterator = function() {
   return new FluentIterator<String>(this[Symbol.iterator]());
 };
 
