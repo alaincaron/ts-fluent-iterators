@@ -1,10 +1,39 @@
 import { handleCollisionOverwrite, identity } from './functions';
 import { emptyIterator, FluentIterator } from './sync';
-import { Mapper, CollisionHandler } from './types';
+import { Mapper, CollisionHandler, Reducer } from './types';
 
 export interface Collector<A, B> {
   collect(a: A): void;
   get result(): B;
+}
+
+export class CollectorFromFolder<A, B> implements Collector<A, B> {
+  constructor(private reducer: Reducer<A, B>, private state: B) {}
+  collect(a: A): void {
+    this.state = this.reducer(this.state, a);
+  }
+
+  get result(): B {
+    return this.state;
+  }
+}
+
+export class CollectorFromReducer<A> implements Collector<A, A | undefined> {
+  private first = true;
+
+  constructor(private reducer: Reducer<A, A>, private state?: A) {}
+  collect(a: A): void {
+    if (this.first) {
+      this.state = a;
+      this.first = false;
+    } else {
+      this.state = this.reducer(this.state!, a);
+    }
+  }
+
+  get result(): A | undefined {
+    return this.state;
+  }
 }
 
 export class ArrayCollector<A> implements Collector<A, A[]> {
