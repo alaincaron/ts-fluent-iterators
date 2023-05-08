@@ -2,20 +2,20 @@
 
 # Type: Collector <**A**,**B**>
 
-Represents a object accepting arguments of type `A` and collecting them 
-value into a value of type  `B`.  
-  
+Represents a object accepting arguments of type `A` and collecting them
+value into a value of type `B`.
+
 Definition:
+
 ```typescript
 interface Collector<A, B> {
   collect(a: A): void;
-  get result(): B
+  get result(): B;
 }
-
-
 ```
 
 Example:
+
 ```typescript
 class ArrayCollector<A> implements Collector<A, A[]> {
   private readonly acc: A[] = [];
@@ -29,4 +29,3 @@ class ArrayCollector<A> implements Collector<A, A[]> {
   }
 }
 ```
-

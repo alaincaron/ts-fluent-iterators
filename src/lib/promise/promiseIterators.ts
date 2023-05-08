@@ -4,7 +4,7 @@ import { defaultComparator, alwaysTrue, sumReducer, avgReducer, minMaxReducer, i
 import { Collector, ArrayCollector } from '../collectors';
 
 export function* map<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, B>): Iterator<Promise<B>> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     yield item.value.then(a => mapper(a));
@@ -12,7 +12,7 @@ export function* map<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A,
 }
 
 export function* flatmap<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<Promise<A>, B>): Iterator<Promise<B>> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return Promise.resolve(undefined);
     yield item.value.then(a => mapper(Promise.resolve(a)));
@@ -20,7 +20,7 @@ export function* flatmap<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMappe
 }
 
 export async function first<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A> = alwaysTrue): Promise<A | undefined> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return undefined;
     if (await predicate(await item.value)) return item.value;
@@ -28,7 +28,7 @@ export async function first<A>(iter: Iterator<Promise<A>>, predicate: EventualPr
 }
 
 export async function* filter<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A>): AsyncIterator<A> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     const value = await item.value;
@@ -37,7 +37,7 @@ export async function* filter<A>(iter: Iterator<Promise<A>>, predicate: Eventual
 }
 
 export function* tap<A>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, any>): Iterator<Promise<A>> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     yield item.value.then(a => mapper(a)).then((_: any) => item.value);
@@ -45,7 +45,7 @@ export function* tap<A>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, an
 }
 
 export function* zip<A, B>(iter1: Iterator<Promise<A>>, iter2: Iterator<Promise<B>>): Iterator<Promise<[A, B]>> {
-  for (; ;) {
+  for (;;) {
     const item1 = iter1.next();
     const item2 = iter2.next();
     if (item1.done || item2.done) break;
@@ -55,7 +55,7 @@ export function* zip<A, B>(iter1: Iterator<Promise<A>>, iter2: Iterator<Promise<
 
 export function* enumerate<A>(iter: Iterator<Promise<A>>, start = 0): Iterator<Promise<[A, number]>> {
   let i = start;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     yield Promise.all([item.value, i++]);
@@ -76,7 +76,7 @@ export async function fold<A, B>(
   initialValue: Eventually<B>,
 ): Promise<B> {
   let acc = await initialValue;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return acc;
     acc = await reducer(acc, await item.value);
@@ -98,7 +98,7 @@ export async function reduce<A>(
 }
 
 export async function forEach<A>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, any>): Promise<void> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     await mapper(await item.value);
@@ -106,7 +106,7 @@ export async function forEach<A>(iter: Iterator<Promise<A>>, mapper: EventualMap
 }
 
 export async function* takeWhile<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A>): AsyncIterator<A> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     const value = await item.value;
@@ -117,7 +117,7 @@ export async function* takeWhile<A>(iter: Iterator<Promise<A>>, predicate: Event
 
 export async function* skipWhile<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A>): AsyncIterator<A> {
   let skip = true;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     const value = await item.value;
@@ -132,7 +132,7 @@ export async function* skipWhile<A>(iter: Iterator<Promise<A>>, predicate: Event
 export async function* distinct<A, B>(iter: Iterator<Promise<A>>, mapper?: EventualMapper<A, B>): AsyncIterator<A> {
   mapper ??= identity as EventualMapper<A, B>;
   const seen = new Set<B>();
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) break;
     const value = await item.value;
@@ -144,7 +144,7 @@ export async function* distinct<A, B>(iter: Iterator<Promise<A>>, mapper?: Event
 }
 
 export async function all<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A>): Promise<boolean> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return true;
     if (!(await predicate(await item.value))) return false;
@@ -152,7 +152,7 @@ export async function all<A>(iter: Iterator<Promise<A>>, predicate: EventualPred
 }
 
 export async function some<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A>): Promise<boolean> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return false;
     if (await predicate(await item.value)) return true;
@@ -160,7 +160,7 @@ export async function some<A>(iter: Iterator<Promise<A>>, predicate: EventualPre
 }
 
 export async function collectTo<A, B>(iter: Iterator<Promise<A>>, collector: Collector<A, Eventually<B>>): Promise<B> {
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return collector.result;
     collector.collect(await item.value);
@@ -194,7 +194,7 @@ export function avg(iter: Iterator<Promise<number>>): Promise<number> {
 
 export async function count<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A> = alwaysTrue): Promise<number> {
   let n = 0;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return n;
     if (await predicate(await item.value)) ++n;
@@ -220,7 +220,7 @@ export async function minmax<A>(iter: Iterator<Promise<A>>, comparator: Comparat
 
 export async function last<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A> = alwaysTrue): Promise<A | undefined> {
   let result: A | undefined;
-  for (; ;) {
+  for (;;) {
     const item = iter.next();
     if (item.done) return result;
     const value = await item.value;

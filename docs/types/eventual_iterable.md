@@ -4,14 +4,15 @@
 
 Represents either an Iterable or an AsyncIterable yielding values of
 type `A`.
-  
+
 Definition:
+
 ```typescript
-type EventualIterable<A> = Iterable<A> | AsyncIterable<A>
+type EventualIterable<A> = Iterable<A> | AsyncIterable<A>;
 ```
 
 Example:
-```typescript
-const numbers: EventualIterable<number> = [1,2,3];
-```
 
+```typescript
+const numbers: EventualIterable<number> = [1, 2, 3];
+```

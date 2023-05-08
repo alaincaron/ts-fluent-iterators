@@ -2,15 +2,16 @@
 
 # Type: Eventually <**A**>
 
-Represents a value of type `A` or `Promise<A>`.  
-  
+Represents a value of type `A` or `Promise<A>`.
+
 Definition:
+
 ```typescript
 type Eventually<A> = A | Promise<A>;
 ```
 
 Example:
+
 ```typescript
 const value: Eventually<number> = Promise.resolve(5);
 ```
-

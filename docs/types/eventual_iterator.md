@@ -3,14 +3,15 @@
 # Type: EventualIterator <**A**>
 
 Represents either an Iterator or an AsyncIterator yielding values of type `A`.
-  
+
 Definition:
+
 ```typescript
-type EventualIterator<A> = Iterator<A> | AsyncIterator<A>
+type EventualIterator<A> = Iterator<A> | AsyncIterator<A>;
 ```
 
 Example:
-```typescript
-const numbers: EventualIterator<number> = [1,2,3][Symbol.iterator]();
-```
 
+```typescript
+const numbers: EventualIterator<number> = [1, 2, 3][Symbol.iterator]();
+```

@@ -11,7 +11,8 @@
     "repl": "npm run build && env NODE_PATH=./dist ts-node -i",
     "htmldoc": "./scripts/htmldoc",
     "eslint": "eslint",
-    "coverage": "nyc npm run test"
+    "coverage": "nyc npm run test",
+    "prettier": "prettier --write ."
   },
   "repository": {
     "type": "git",

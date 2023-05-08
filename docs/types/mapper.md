@@ -3,15 +3,16 @@
 # Type: Mapper <**A**,**B**>
 
 Represents a function accepting argument of type `A` and returning a
-value of type  `B`.  
-  
+value of type `B`.
+
 Definition:
+
 ```typescript
-type Mapper<A,B> = (a: A) => B;
+type Mapper<A, B> = (a: A) => B;
 ```
 
 Example:
-```typescript
-const doubleValue: Mapper<number, number> = (x) => 2 * x;
-```
 
+```typescript
+const doubleValue: Mapper<number, number> = x => 2 * x;
+```

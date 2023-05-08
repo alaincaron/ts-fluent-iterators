@@ -224,7 +224,7 @@ Array.prototype.iterator = function <T>(this: Array<T>) {
   return new FluentIterator<T>(this[Symbol.iterator]());
 };
 
-String.prototype.iterator = function() {
+String.prototype.iterator = function () {
   return new FluentIterator<String>(this[Symbol.iterator]());
 };
 
