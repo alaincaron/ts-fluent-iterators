@@ -294,7 +294,7 @@ export async function join<A>(iter: AsyncIterator<A>, separator: string = ','): 
       state.first = false;
       return state;
     },
-    { first: true, acc: '' },
+    { first: true, acc: '' }
   );
   return state.acc;
 }

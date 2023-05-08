@@ -23,7 +23,7 @@ console.log(
   `The first five even numbers are: ${iter
     .filter(n => n % 2 === 0)
     .take(5)
-    .collect()}`,
+    .collect()}`
 );
 ```
 

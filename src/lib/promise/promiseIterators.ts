@@ -73,7 +73,7 @@ export async function includes<A>(iter: Iterator<Promise<A>>, target: Eventually
 export async function fold<A, B>(
   iter: Iterator<Promise<A>>,
   reducer: EventualReducer<A, B>,
-  initialValue: Eventually<B>,
+  initialValue: Eventually<B>
 ): Promise<B> {
   let acc = await initialValue;
   for (;;) {
@@ -86,7 +86,7 @@ export async function fold<A, B>(
 export async function reduce<A>(
   iter: Iterator<Promise<A>>,
   reducer: EventualReducer<A, A>,
-  initialValue?: Eventually<A>,
+  initialValue?: Eventually<A>
 ): Promise<A | undefined> {
   let acc = initialValue;
   if (acc === undefined) {
@@ -236,7 +236,7 @@ export function join<A>(iter: Iterator<Promise<A>>, separator: string = ','): Pr
       state.first = false;
       return state;
     },
-    { first: true, acc: '' },
+    { first: true, acc: '' }
   ).then(state => state.acc);
 }
 

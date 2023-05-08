@@ -267,7 +267,7 @@ export function join<A>(iter: Iterator<A>, separator: string = ','): string {
       state.first = false;
       return state;
     },
-    { first: true, acc: '' },
+    { first: true, acc: '' }
   ).acc;
 }
 

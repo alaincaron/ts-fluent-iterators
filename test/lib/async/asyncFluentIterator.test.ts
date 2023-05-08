@@ -20,7 +20,7 @@ describe('AsyncFluentIterator', () => {
       expect(
         await iterator([1, 2])
           .map(x => 2 * x)
-          .collect(),
+          .collect()
       ).to.deep.equal([2, 4]);
     });
   });
@@ -73,14 +73,14 @@ describe('AsyncFluentIterator', () => {
       expect(
         await iterator(range(1, 3))
           .filter(x => x % 2 === 0)
-          .collect(),
+          .collect()
       ).deep.equal([2]);
     });
     it('should filter odd elements with promise predicate', async () => {
       expect(
         await iterator(range(1, 3))
           .filter(x => Promise.resolve(x % 2 === 0))
-          .collect(),
+          .collect()
       ).deep.equal([2]);
     });
   });
@@ -90,7 +90,7 @@ describe('AsyncFluentIterator', () => {
       expect(
         await iterator(range(1, 4))
           .zip(iterator(range(1, 3)))
-          .collect(),
+          .collect()
       ).deep.equal([
         [1, 1],
         [2, 2],
@@ -100,7 +100,7 @@ describe('AsyncFluentIterator', () => {
       expect(
         await iterator(range(1, 4))
           .zip(toAsync([1, 2]))
-          .collect(),
+          .collect()
       ).deep.equal([
         [1, 1],
         [2, 2],
@@ -237,21 +237,21 @@ describe('AsyncFluentIterator', () => {
       expect(
         await iterator(range(1, 100))
           .takeWhile(x => x <= 2)
-          .collect(),
+          .collect()
       ).to.deep.equal([1, 2]);
     });
     it('should return all elements', async () => {
       expect(
         await iterator(range(1, 4))
           .takeWhile(_ => Promise.resolve(true))
-          .collect(),
+          .collect()
       ).to.deep.equal([1, 2, 3]);
     });
     it('should return no elements', async () => {
       expect(
         await iterator(range(1, 4))
           .takeWhile(_ => false)
-          .collect(),
+          .collect()
       ).to.deep.equal([]);
     });
     it('should work on empty iterator', async () => {
@@ -260,7 +260,7 @@ describe('AsyncFluentIterator', () => {
           .takeWhile(x => {
             throw new Error(`x = ${x}`);
           })
-          .collect(),
+          .collect()
       ).to.deep.equal([]);
     });
   });
@@ -270,21 +270,21 @@ describe('AsyncFluentIterator', () => {
       expect(
         await iterator([1, 10, 2, 11])
           .skipWhile(x => x != 10)
-          .collect(),
+          .collect()
       ).to.deep.equal([10, 2, 11]);
     });
     it('should return no elements', async () => {
       expect(
         await iterator(range(1, 4))
           .skipWhile(x => x > 0)
-          .collect(),
+          .collect()
       ).to.deep.equal([]);
     });
     it('should return all elements', async () => {
       expect(
         await iterator(range(1, 4))
           .skipWhile(x => x % 2 === 0)
-          .collect(),
+          .collect()
       ).to.deep.equal([1, 2, 3]);
     });
     it('should work on empty iterator', async () => {
@@ -293,7 +293,7 @@ describe('AsyncFluentIterator', () => {
           .skipWhile(x => {
             throw new Error(`x = ${x}`);
           })
-          .collect(),
+          .collect()
       ).to.deep.equal([]);
     });
   });
@@ -306,7 +306,7 @@ describe('AsyncFluentIterator', () => {
       expect(
         await iterator([1, 2, 5, 2, 1, 0])
           .distinct(x => x % 2)
-          .collect(),
+          .collect()
       ).deep.equal([1, 2]);
     });
   });
