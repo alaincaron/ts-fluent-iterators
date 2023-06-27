@@ -1,6 +1,6 @@
 import { Comparator, Mapper, Predicate, Reducer, MinMax } from '../types';
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from '../functions';
-import { Collector } from '../collectors';
+import { Collector, StringJoiner } from '../collectors';
 
 export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
   const x: any = iter;
@@ -260,15 +260,7 @@ export function last<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue)
 }
 
 export function join<A>(iter: Iterator<A>, separator: string = ','): string {
-  return fold(
-    iter,
-    (state, a) => {
-      state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
-      state.first = false;
-      return state;
-    },
-    { first: true, acc: '' }
-  ).acc;
+  return collectTo(iter, new StringJoiner(separator));
 }
 
 export function* partition<A>(iter: Iterator<A>, size: number): Iterator<A[]> {

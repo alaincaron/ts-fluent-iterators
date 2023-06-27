@@ -159,3 +159,26 @@ export class TallyCollector<A, K> implements Collector<A, Map<K, number>> {
     this.map.set(k, (v ?? 0) + 1);
   }
 }
+
+export class StringJoiner<A> implements Collector<A, string> {
+  private acc: string;
+  private first: boolean;
+
+  constructor(private readonly separator: string = ',') {
+    this.acc = '';
+    this.first = true;
+  }
+
+  collect(a: A) {
+    if (this.first) {
+      this.acc = `${a}`;
+      this.first = false;
+    } else {
+      this.acc = `${this.acc}${this.separator}${a}`;
+    }
+  }
+
+  get result() {
+    return this.acc;
+  }
+}
