@@ -25,11 +25,7 @@ import {
 } from '../collectors';
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
-  private iter: Iterator<Promise<A>>;
-
-  constructor(iter: Iterator<Promise<A>>) {
-    this.iter = iter;
-  }
+  constructor(private readonly iter: Iterator<Promise<A>>) {}
 
   static empty<A = never>(): PromiseIterator<A> {
     return new PromiseIterator(SyncIterators.empty());

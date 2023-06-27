@@ -9,6 +9,7 @@ export interface Collector<A, B> {
 
 export class CollectorFromFolder<A, B> implements Collector<A, B> {
   constructor(private reducer: Reducer<A, B>, private state: B) {}
+
   collect(a: A): void {
     this.state = this.reducer(this.state, a);
   }
@@ -22,6 +23,7 @@ export class CollectorFromReducer<A> implements Collector<A, A | undefined> {
   private first = true;
 
   constructor(private reducer: Reducer<A, A>, private state?: A) {}
+
   collect(a: A): void {
     if (this.first) {
       this.state = a;
@@ -62,9 +64,8 @@ export class SetCollector<A> implements Collector<A, Set<A>> {
 
 export class GroupByCollector<A, K> implements Collector<A, Map<K, A[]>> {
   private readonly map: Map<K, A[]> = new Map();
-  private mapper: Mapper<A, K>;
 
-  constructor(mapper: Mapper<A, K>) {
+  constructor(private readonly mapper: Mapper<A, K>) {
     this.mapper = mapper;
   }
 
@@ -85,11 +86,11 @@ export class GroupByCollector<A, K> implements Collector<A, Map<K, A[]>> {
 
 export class MapCollector<A, K, V> implements Collector<A, Map<K, V>> {
   private readonly map: Map<K, V> = new Map();
-  private readonly collisionHandler: CollisionHandler<K, V>;
 
-  constructor(private readonly mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>) {
-    this.collisionHandler = collisionHandler ?? handleCollisionOverwrite;
-  }
+  constructor(
+    private readonly mapper: Mapper<A, [K, V]>,
+    private readonly collisionHandler: CollisionHandler<K, V> = handleCollisionOverwrite
+  ) {}
 
   get result(): Map<K, V> {
     return this.map;
@@ -109,11 +110,11 @@ export class MapCollector<A, K, V> implements Collector<A, Map<K, V>> {
 
 export class ObjectCollector<A, V> implements Collector<A, Record<string, V>> {
   private readonly hash: Record<string, V> = {};
-  private readonly collisionHandler: CollisionHandler<string, V>;
 
-  constructor(private readonly mapper: Mapper<A, [string, V]>, collisionHandler?: CollisionHandler<string, V>) {
-    this.collisionHandler = collisionHandler ?? handleCollisionOverwrite;
-  }
+  constructor(
+    private readonly mapper: Mapper<A, [string, V]>,
+    private readonly collisionHandler: CollisionHandler<string, V> = handleCollisionOverwrite
+  ) {}
 
   get result(): Record<string, V> {
     return this.hash;
@@ -145,11 +146,8 @@ export class FlattenCollector<A> implements Collector<Iterable<A> | Iterator<A>,
 
 export class TallyCollector<A, K> implements Collector<A, Map<K, number>> {
   private readonly map: Map<K, number> = new Map();
-  private readonly mapper: Mapper<A, K>;
 
-  constructor(mapper?: Mapper<A, K>) {
-    this.mapper = mapper ?? (identity as Mapper<A, K>);
-  }
+  constructor(private readonly mapper: Mapper<A, K> = identity as Mapper<A, K>) {}
 
   get result(): Map<K, number> {
     return this.map;

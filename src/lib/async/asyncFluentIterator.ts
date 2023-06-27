@@ -23,11 +23,7 @@ import {
 } from '../collectors';
 
 export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A> {
-  private iter: AsyncIterator<A>;
-
-  constructor(iter: AsyncIterator<A>) {
-    this.iter = iter;
-  }
+  constructor(private readonly iter: AsyncIterator<A>) {}
 
   static empty<A = never>(): AsyncFluentIterator<A> {
     return new AsyncFluentIterator(Iterators.empty());

@@ -190,12 +190,12 @@ export function any<A>(iter: Iterator<Promise<A>>): Promise<A | undefined> {
   return Promise.any(promises);
 }
 
-export function sum(iter: Iterator<Promise<number>>): Promise<number> {
-  return fold(iter, sumReducer, { sum: 0, correction: 0 }).then(s => s.sum);
+export async function sum(iter: Iterator<Promise<number>>): Promise<number> {
+  return (await fold(iter, sumReducer, { sum: 0, correction: 0 })).sum;
 }
 
-export function avg(iter: Iterator<Promise<number>>): Promise<number> {
-  return fold(iter, avgReducer, { avg: 0, n: 0 }).then(s => s.avg);
+export async function avg(iter: Iterator<Promise<number>>): Promise<number> {
+  return (await fold(iter, avgReducer, { avg: 0, n: 0 })).avg;
 }
 
 export async function count<A>(
@@ -249,16 +249,18 @@ export async function last<A>(
   }
 }
 
-export function join<A>(iter: Iterator<Promise<A>>, separator: string = ','): Promise<string> {
-  return fold(
-    iter,
-    (state, a) => {
-      state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
-      state.first = false;
-      return state;
-    },
-    { first: true, acc: '' }
-  ).then(state => state.acc);
+export async function join<A>(iter: Iterator<Promise<A>>, separator: string = ','): Promise<string> {
+  return (
+    await fold(
+      iter,
+      (state, a) => {
+        state.acc = state.first ? `${a}` : `${state.acc}${separator}${a}`;
+        state.first = false;
+        return state;
+      },
+      { first: true, acc: '' }
+    )
+  ).acc;
 }
 
 export function toPromise<A>(iter: Iterator<A> | Iterable<A>): Iterator<Promise<Awaited<A>>> {
