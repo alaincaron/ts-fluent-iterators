@@ -357,7 +357,10 @@ describe('SyncFluentIterator', () => {
 
     describe('minmax', () => {
       it('should return the longest and shortest strings', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax(lengthComparator)).deep.equal({ min: 'x', max: 'foobar' });
+        expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax(lengthComparator)).deep.equal({
+          min: 'x',
+          max: 'foobar',
+        });
       });
       it('should return lexicographically smallest and largest strings', () => {
         expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax()).deep.equal({ min: 'bar', max: 'x' });

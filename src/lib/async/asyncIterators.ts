@@ -50,7 +50,10 @@ export async function* map<A, B>(iter: AsyncIterator<A>, mapper: EventualMapper<
   }
 }
 
-export async function first<A>(iter: AsyncIterator<A>, predicate: EventualPredicate<A> = alwaysTrue): Promise<A | undefined> {
+export async function first<A>(
+  iter: AsyncIterator<A>,
+  predicate: EventualPredicate<A> = alwaysTrue
+): Promise<A | undefined> {
   for (;;) {
     const item = await iter.next();
     if (item.done) return undefined;
@@ -131,7 +134,11 @@ export async function fold<A, B>(iter: AsyncIterator<A>, reducer: EventualReduce
   }
 }
 
-export async function reduce<A>(iter: AsyncIterator<A>, reducer: EventualReducer<A, A>, initialValue?: A): Promise<A | undefined> {
+export async function reduce<A>(
+  iter: AsyncIterator<A>,
+  reducer: EventualReducer<A, A>,
+  initialValue?: A
+): Promise<A | undefined> {
   let acc = initialValue;
   if (acc === undefined) {
     const item = await iter.next();
@@ -271,13 +278,19 @@ export function max<A>(iter: AsyncIterator<A>, comparator: Comparator<A> = defau
   return reduce(iter, reducer);
 }
 
-export async function minmax<A>(iter: AsyncIterator<A>, comparator: Comparator<A> = defaultComparator): Promise<MinMax<A>> {
+export async function minmax<A>(
+  iter: AsyncIterator<A>,
+  comparator: Comparator<A> = defaultComparator
+): Promise<MinMax<A>> {
   const item = await iter.next();
   if (item.done) return {};
   return fold(iter, minMaxReducer(comparator), { min: item.value, max: item.value });
 }
 
-export async function last<A>(iter: AsyncIterator<A>, predicate: EventualPredicate<A> = alwaysTrue): Promise<A | undefined> {
+export async function last<A>(
+  iter: AsyncIterator<A>,
+  predicate: EventualPredicate<A> = alwaysTrue
+): Promise<A | undefined> {
   let result: A | undefined;
   for (;;) {
     const item = await iter.next();

@@ -53,7 +53,10 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return this.collectTo(new MapCollector(mapper, collisionHandler));
   }
 
-  collectToObject<V>(mapper: Mapper<A, [string, V]>, collisionHandler?: CollisionHandler<string, V>): Promise<Record<string, V>> {
+  collectToObject<V>(
+    mapper: Mapper<A, [string, V]>,
+    collisionHandler?: CollisionHandler<string, V>
+  ): Promise<Record<string, V>> {
     return this.collectTo(new ObjectCollector(mapper, collisionHandler));
   }
 

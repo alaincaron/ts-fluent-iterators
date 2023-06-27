@@ -55,7 +55,10 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return this.collectTo(new MapCollector(mapper, collisionHandler));
   }
 
-  collectToObject<V>(mapper: Mapper<A, [string, V]>, collisionHandler?: CollisionHandler<string, V>): Promise<Record<string, V>> {
+  collectToObject<V>(
+    mapper: Mapper<A, [string, V]>,
+    collisionHandler?: CollisionHandler<string, V>
+  ): Promise<Record<string, V>> {
     return this.collectTo(new ObjectCollector(mapper, collisionHandler));
   }
 

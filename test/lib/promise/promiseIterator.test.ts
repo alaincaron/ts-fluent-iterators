@@ -27,7 +27,9 @@ describe('PromiseIterator', () => {
       ]);
     });
     it('should return errors', async () => {
-      expect(await iterator([Promise.resolve(1), Promise.resolve(2), Promise.reject('foobar')]).allSettled()).to.deep.equal([
+      expect(
+        await iterator([Promise.resolve(1), Promise.resolve(2), Promise.reject('foobar')]).allSettled()
+      ).to.deep.equal([
         { status: 'fulfilled', value: 1 },
         { status: 'fulfilled', value: 2 },
         { status: 'rejected', reason: 'foobar' },
@@ -420,9 +422,9 @@ describe('PromiseIterator', () => {
 
   describe('min', () => {
     it('should return the shortest string', async () => {
-      expect(await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).min((a, b) => defaultComparator(a.length, b.length))).equal(
-        'x'
-      );
+      expect(
+        await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).min((a, b) => defaultComparator(a.length, b.length))
+      ).equal('x');
     });
     it('should return lexicographically smallest string', async () => {
       expect(await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).min()).equal('bar');
@@ -431,9 +433,9 @@ describe('PromiseIterator', () => {
 
   describe('max', () => {
     it('should return the longest string', async () => {
-      expect(await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).max((a, b) => defaultComparator(a.length, b.length))).equal(
-        'foobar'
-      );
+      expect(
+        await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).max((a, b) => defaultComparator(a.length, b.length))
+      ).equal('foobar');
     });
     it('should return lexicographically largest string', async () => {
       expect(await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).max()).equal('x');

@@ -1,5 +1,11 @@
 import { range, asyncIterator as iterator, toAsync, emptyAsyncIterator as empty } from '../../../src/lib/async';
-import { alwaysFalse, alwaysTrue, defaultComparator, lengthComparator, handleCollisionIgnore } from '../../../src/lib/functions';
+import {
+  alwaysFalse,
+  alwaysTrue,
+  defaultComparator,
+  lengthComparator,
+  handleCollisionIgnore,
+} from '../../../src/lib/functions';
 import { FlattenCollector } from '../../../src/lib/collectors';
 
 import { expect } from 'chai';
@@ -361,7 +367,9 @@ describe('AsyncFluentIterator', () => {
 
   describe('min', () => {
     it('should return the shortest string', async () => {
-      expect(await iterator(['foo', 'bar', 'x', 'foobar']).min((a, b) => defaultComparator(a.length, b.length))).equal('x');
+      expect(await iterator(['foo', 'bar', 'x', 'foobar']).min((a, b) => defaultComparator(a.length, b.length))).equal(
+        'x'
+      );
     });
     it('should return lexicographically smallest string', async () => {
       expect(await iterator(['foo', 'bar', 'x', 'foobar']).min()).equal('bar');
@@ -370,7 +378,9 @@ describe('AsyncFluentIterator', () => {
 
   describe('max', () => {
     it('should return the longest string', async () => {
-      expect(await iterator(['foo', 'bar', 'x', 'foobar']).max((a, b) => defaultComparator(a.length, b.length))).equal('foobar');
+      expect(await iterator(['foo', 'bar', 'x', 'foobar']).max((a, b) => defaultComparator(a.length, b.length))).equal(
+        'foobar'
+      );
     });
     it('should return lexicographically largest string', async () => {
       expect(await iterator(['foo', 'bar', 'x', 'foobar']).max()).equal('x');
@@ -379,7 +389,10 @@ describe('AsyncFluentIterator', () => {
 
   describe('minmax', () => {
     it('should return the longest and shortest strings', async () => {
-      expect(await iterator(['foo', 'bar', 'x', 'foobar']).minmax(lengthComparator)).deep.equal({ min: 'x', max: 'foobar' });
+      expect(await iterator(['foo', 'bar', 'x', 'foobar']).minmax(lengthComparator)).deep.equal({
+        min: 'x',
+        max: 'foobar',
+      });
     });
     it('should return lexicographically smallest and largest strings', async () => {
       expect(await iterator(['foo', 'bar', 'x', 'foobar']).minmax()).deep.equal({ min: 'bar', max: 'x' });
