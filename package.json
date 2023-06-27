@@ -12,7 +12,7 @@
     "htmldoc": "./scripts/htmldoc",
     "eslint": "eslint",
     "coverage": "nyc npm run test",
-    "prettier": "prettier --write .",
+    "format": "prettier --write .",
     "precommit": "pretty-quick --staged",
     "prepare": "husky install .husky"
   },
