@@ -7,6 +7,13 @@ export interface Collector<A, B> {
   get result(): B;
 }
 
+export interface AsyncCollector<A, B> {
+  collect(a: A): Promise<void>;
+  get result(): B;
+}
+
+export type EventualCollector<A, B> = Collector<A, B> | AsyncCollector<A, B>;
+
 export class ArrayCollector<A> implements Collector<A, A[]> {
   private readonly acc: A[] = [];
 

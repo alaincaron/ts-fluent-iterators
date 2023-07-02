@@ -10,7 +10,7 @@ import {
   MinMax,
 } from '../types';
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, asyncIdentity } from '../functions';
-import { Collector, StringJoiner } from '../collectors';
+import { EventualCollector, StringJoiner } from '../collectors';
 
 export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
   const x: any = iter;
@@ -243,11 +243,14 @@ export async function some<A>(iter: AsyncIterator<A>, predicate: EventualPredica
   }
 }
 
-export async function collectTo<A, B>(iter: AsyncIterator<A>, collector: Collector<A, Eventually<B>>): Promise<B> {
+export async function collectTo<A, B>(
+  iter: AsyncIterator<A>,
+  collector: EventualCollector<A, Eventually<B>>
+): Promise<B> {
   for (;;) {
     const item = await iter.next();
     if (item.done) return collector.result;
-    collector.collect(await item.value);
+    await collector.collect(await item.value);
   }
 }
 

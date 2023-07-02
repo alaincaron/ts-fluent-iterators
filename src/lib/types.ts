@@ -1,4 +1,4 @@
-export type Eventually<A> = A | Promise<A>;
+export type Eventually<A> = A | Promise<Awaited<A>>;
 export type Mapper<A, B> = (a: A) => B;
 export type EventualMapper<A, B> = Mapper<A, Eventually<B>>;
 export type Predicate<A> = Mapper<A, boolean>;

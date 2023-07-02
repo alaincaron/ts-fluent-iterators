@@ -14,7 +14,7 @@ import {
 import { identity } from '../functions';
 import {
   ArrayCollector,
-  Collector,
+  EventualCollector,
   GroupByCollector,
   MapCollector,
   ObjectCollector,
@@ -33,7 +33,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return new AsyncFluentIterator(Iterators.toAsyncIterator(iter));
   }
 
-  collectTo<B>(collector: Collector<A, B>): Promise<B> {
+  collectTo<B>(collector: EventualCollector<A, B>): Promise<B> {
     return Iterators.collectTo(this.iter, collector);
   }
 
