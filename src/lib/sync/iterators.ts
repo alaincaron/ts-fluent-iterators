@@ -1,17 +1,6 @@
-import { Comparator, Mapper, Predicate, Reducer, MinMax } from '../types';
+import { Comparator, Mapper, Predicate, Reducer, MinMax, ArrayGenerator, IteratorGenerator } from '../types';
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from '../functions';
 import { Collector, StringJoiner } from '../collectors';
-
-export function toIterator<A>(iter: Iterable<A> | Iterator<A>): Iterator<A> {
-  const x: any = iter;
-  if (typeof x?.next === 'function') {
-    return x as Iterator<A>;
-  }
-  if (typeof x?.[Symbol.iterator] === 'function') {
-    return (x as Iterable<A>)[Symbol.iterator]();
-  }
-  throw new Error(`Invalid non-iterable object: ${iter}`);
-}
 
 export function* empty<A = never>(): Iterator<A> {}
 
@@ -277,4 +266,43 @@ export function* partition<A>(iter: Iterator<A>, size: number): Iterator<A[]> {
       values = [];
     }
   }
+}
+
+function* seedToIterator<E>(n: number, seed: (i: number) => E) {
+  for (let i = 0; i < n; ++i) {
+    yield seed(i);
+  }
+}
+
+function arrayLikeToIterator<E>(arrayLike: ArrayGenerator<E>): Iterator<E> | null {
+  const { seed, length }: { seed: any; length: number } = arrayLike;
+  if (seed == null || length == null) return null;
+  if (typeof seed === 'function') {
+    return seedToIterator(length, seed);
+  }
+  if (typeof seed.next === 'function') {
+    return take(seed as Iterator<E>, length);
+  } else if (typeof seed[Symbol.iterator] === 'function') {
+    return take((seed as Iterable<E>)[Symbol.iterator](), length);
+  }
+  return null;
+}
+
+export function toIteratorMaybe<E>(x: IteratorGenerator<E>): Iterator<E> | null {
+  const iter: any = x as any;
+  if (typeof iter[Symbol.iterator] === 'function') {
+    return iter[Symbol.iterator]();
+  } else if (typeof iter.iterator === 'function') {
+    return iter.iterator();
+  } else if (typeof iter === 'function') {
+    return seedToIterator(Number.MAX_SAFE_INTEGER, iter);
+  } else {
+    return arrayLikeToIterator(iter as unknown as ArrayGenerator<E>);
+  }
+}
+
+export function toIterator<E>(x: IteratorGenerator<E>): Iterator<E> {
+  const iter = toIteratorMaybe(x);
+  if (iter) return iter;
+  throw new Error('Unable to convert object into an Iterator');
 }

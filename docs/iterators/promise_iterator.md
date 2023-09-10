@@ -581,7 +581,7 @@ await Promise.all(
   promiseIterator(toPromise([1, 2, 3, 4, 5]))
     .partition(2)
     .map(x => Promise.all(x))
-    .collect()
+    .collect(),
 );
 // returns [ [1, 2], [3, 4], [5]]
 ```

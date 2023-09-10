@@ -586,6 +586,87 @@ This is an terminal operation.
 iterator([1, 2]).collectTo(new ArrayCollector()); // returns [1,2];
 ```
 
+## collectToMap
+
+```typescript
+collectToMap<K,V>(
+  mapper: Mapper<A, [K,V]>,
+  collisionHandler?: CollisionHandler<K,V>
+): Map<K, V>
+```
+
+Returns a `Map` whose keys are consisting of applying the `mapper` to
+the elemenst of the
+[`FluentIterator`](fluent_iterator.md)
+The `collisionHandler` determines how to resolve collisions when two or
+more elements resolve to the same key. When a collision is detected,
+it is invoked with the key and the current mapping, it should return
+new mapping for the key. The default behaviour is to
+overwrite current value.
+
+This is a terminal operation.
+
+### Example
+
+```typescript
+// returns the last even and odd numbers
+iterator([2, 5, 4, 3, 1]).collectToMap(x => [x % 2, x], handleCollisionOverwrite);
+// new Map().set(0, 4).set(1, 1);
+
+// returns the first even and odd numbers
+iterator([2, 5, 4, 3, 1]).collectToMap(x => [x % 2, x], handleCollisionIgnore);
+// new Map().set(0, 2).set(1, 5);
+```
+
+## collectToObject
+
+```typescript
+collectToObject<K,V>(
+  mapper: Mapper<A, [string,V]>,
+  collisionHandler>: CollisionHandler<string,V>
+): Record<string, V>
+```
+
+Returns a hash whose keys are consisting of applying the `mapper` to
+the elemenst of the
+[`FluentIterator`](fluent_iterator.md)
+The `collisionHandler` determines how to resolve collisions when two or
+more elements resolve to the same key. When a collision is detected,
+it is invoked with the key and the current mapping, it should return
+new mapping for the key. The default behaviour is to
+overwrite current value.
+
+This is a terminal operation.
+
+### Example
+
+```typescript
+interface Data {
+  key: string;
+  value: number;
+}
+
+function mapper(data: Data): [string, number] {
+  return [data.key, data.value];
+}
+
+iterator([
+  { key: 'a', value: 1 },
+  { key: 'a', value: 2 },
+  { key: 'b', value: 3 },
+  { key: 'b', value: 4 },
+]).collectToObject(mapper, handleCollisionOverwrite);
+// { a: 2, b: 4}
+
+iterator([
+  { key: 'a', value: 1 },
+  { key: 'a', value: 2 },
+  { key: 'b', value: 3 },
+  { key: 'b', value: 4 },
+]).collectToObject(mapper, handleCollisionOverwrite);
+// { a: 1, b: 3}
+```
+
 ## partition
 
 ```typescript

@@ -23,7 +23,7 @@ console.log(
   `The first five even numbers are: ${iter
     .filter(n => n % 2 === 0)
     .take(5)
-    .collect()}`
+    .collect()}`,
 );
 ```
 
@@ -62,6 +62,8 @@ console.log(
   - [groupBy](docs/iterators/fluent_iterator.md#groupby)
   - [collectToSet](docs/iterators/fluent_iterator.md#collecttoset)
   - [collectTo](docs/iterators/fluent_iterator.md#collectto)
+  - [collectToMap](docs/iterators/fluent_iterator.md#collecttomap)
+  - [collectToObject](docs/iterators/fluent_iterator.md#collecttoobject)
   - [fold](docs/iterators/fluent_iterator.md#fold)
   - [reduce](docs/iterators/fluent_iterator.md#reduce)
   - [join](docs/iterators/fluent_iterator.md#join)

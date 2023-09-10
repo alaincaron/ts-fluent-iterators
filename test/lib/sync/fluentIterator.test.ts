@@ -14,12 +14,18 @@ describe('SyncFluentIterator', () => {
     });
   });
 
+  describe('use of ArrayGenerator', () => {
+    it('should use the seed function', () => {
+      expect(iterator({ length: 5, seed: i => i }).collect()).deep.equal([0, 1, 2, 3, 4]);
+    });
+  });
+
   describe('map', () => {
     it('should apply function to all elements', () => {
       expect(
         iterator([1, 2])
           .map(x => 2 * x)
-          .collect()
+          .collect(),
       ).deep.equal([2, 4]);
     });
   });
@@ -72,7 +78,7 @@ describe('SyncFluentIterator', () => {
       expect(
         iterator<number>([1, 2])
           .filter(x => x % 2 === 0)
-          .collect()
+          .collect(),
       ).deep.equal([2]);
     });
   });
@@ -82,7 +88,7 @@ describe('SyncFluentIterator', () => {
       expect(
         iterator([1, 2, 3])
           .zip(iterator(['a', 'b']))
-          .collect()
+          .collect(),
       ).deep.equal([
         [1, 'a'],
         [2, 'b'],
@@ -215,21 +221,21 @@ describe('SyncFluentIterator', () => {
         expect(
           iterator(range(1, 100))
             .takeWhile(x => x <= 2)
-            .collect()
+            .collect(),
         ).deep.equal([1, 2]);
       });
       it('should return all elements', () => {
         expect(
           iterator([1, 2, 3])
             .takeWhile(_ => true)
-            .collect()
+            .collect(),
         ).deep.equal([1, 2, 3]);
       });
       it('should return no elements', () => {
         expect(
           iterator([1, 2, 3])
             .takeWhile(_ => false)
-            .collect()
+            .collect(),
         ).deep.equal([]);
       });
       it('should work on empty iterator', () => {
@@ -238,7 +244,7 @@ describe('SyncFluentIterator', () => {
             .takeWhile(x => {
               throw new Error(`x = ${x}`);
             })
-            .collect()
+            .collect(),
         ).deep.equal([]);
       });
     });
@@ -248,21 +254,21 @@ describe('SyncFluentIterator', () => {
         expect(
           iterator([1, 10, 2, 11])
             .skipWhile(x => x != 10)
-            .collect()
+            .collect(),
         ).deep.equal([10, 2, 11]);
       });
       it('should return no elements', () => {
         expect(
           iterator([1, 2, 3])
             .skipWhile(x => x > 0)
-            .collect()
+            .collect(),
         ).deep.equal([]);
       });
       it('should return all elements', () => {
         expect(
           iterator([1, 2, 3])
             .skipWhile(x => x % 2 === 0)
-            .collect()
+            .collect(),
         ).deep.equal([1, 2, 3]);
       });
       it('should work on empty iterator', () => {
@@ -271,7 +277,7 @@ describe('SyncFluentIterator', () => {
             .skipWhile(x => {
               throw new Error(`x = ${x}`);
             })
-            .collect()
+            .collect(),
         ).deep.equal([]);
       });
     });
@@ -284,7 +290,7 @@ describe('SyncFluentIterator', () => {
         expect(
           iterator([1, 2, 5, 2, 1, 0])
             .distinct(x => x % 2)
-            .collect()
+            .collect(),
         ).deep.equal([1, 2]);
       });
     });

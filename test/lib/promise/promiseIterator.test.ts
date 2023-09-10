@@ -28,7 +28,7 @@ describe('PromiseIterator', () => {
     });
     it('should return errors', async () => {
       expect(
-        await iterator([Promise.resolve(1), Promise.resolve(2), Promise.reject('foobar')]).allSettled()
+        await iterator([Promise.resolve(1), Promise.resolve(2), Promise.reject('foobar')]).allSettled(),
       ).to.deep.equal([
         { status: 'fulfilled', value: 1 },
         { status: 'fulfilled', value: 2 },
@@ -77,7 +77,7 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(range(1, 3))
           .map(x => 2 * x)
-          .collect()
+          .collect(),
       ).to.deep.equal([2, 4]);
     });
   });
@@ -87,7 +87,7 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(range(1, 3))
           .flatmap(async x => 2 * (await x))
-          .collect()
+          .collect(),
       ).to.deep.equal([2, 4]);
     });
   });
@@ -134,14 +134,14 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(range(1, 3))
           .filter(x => x % 2 === 0)
-          .collect()
+          .collect(),
       ).deep.equal([2]);
     });
     it('should filter odd elements with promise predicate', async () => {
       expect(
         await iterator(range(1, 3))
           .filter(x => Promise.resolve(x % 2 === 0))
-          .collect()
+          .collect(),
       ).deep.equal([2]);
     });
   });
@@ -151,7 +151,7 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(range(1, 4))
           .zip(iterator(range(1, 3)))
-          .collect()
+          .collect(),
       ).to.deep.equal([
         [1, 1],
         [2, 2],
@@ -161,7 +161,7 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(range(1, 4))
           .zip(toPromise([1, 2]))
-          .collect()
+          .collect(),
       ).to.deep.equal([
         [1, 1],
         [2, 2],
@@ -282,7 +282,7 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(range(1, 2))
           .concat([Promise.resolve(2)], [Promise.resolve(3)])
-          .collect()
+          .collect(),
       ).to.deep.equal([1, 2, 3]);
     });
 
@@ -302,7 +302,7 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(range(1, 100))
           .takeWhile(x => Promise.resolve(x <= 2))
-          .collect()
+          .collect(),
       ).to.deep.equal([1, 2]);
     });
     it('should return all elements', async () => {
@@ -317,7 +317,7 @@ describe('PromiseIterator', () => {
           .takeWhile(x => {
             throw new Error(`x = ${x}`);
           })
-          .collect()
+          .collect(),
       ).to.deep.equal([]);
     });
   });
@@ -327,21 +327,21 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(toPromise([1, 10, 2, 11]))
           .skipWhile(x => Promise.resolve(x != 10))
-          .collect()
+          .collect(),
       ).to.deep.equal([10, 2, 11]);
     });
     it('should return no elements', async () => {
       expect(
         await iterator(range(1, 4))
           .skipWhile(x => Promise.resolve(x > 0))
-          .collect()
+          .collect(),
       ).to.deep.equal([]);
     });
     it('should return all elements', async () => {
       expect(
         await iterator(range(1, 4))
           .skipWhile(x => x % 2 === 0)
-          .collect()
+          .collect(),
       ).to.deep.equal([1, 2, 3]);
     });
     it('should work on empty iterator', async () => {
@@ -350,7 +350,7 @@ describe('PromiseIterator', () => {
           .skipWhile(x => {
             throw new Error(`x = ${x}`);
           })
-          .collect()
+          .collect(),
       ).to.deep.equal([]);
     });
   });
@@ -360,14 +360,14 @@ describe('PromiseIterator', () => {
       expect(
         await iterator(toPromise([1, 2, 5, 2, 1, 0]))
           .distinct()
-          .collect()
+          .collect(),
       ).deep.equal([1, 2, 5, 0]);
     });
     it('should only yield one odd and one even number', async () => {
       expect(
         await iterator(toPromise([1, 2, 5, 2, 1, 0]))
           .distinct(x => x % 2)
-          .collect()
+          .collect(),
       ).deep.equal([1, 2]);
     });
   });
@@ -423,7 +423,7 @@ describe('PromiseIterator', () => {
   describe('min', () => {
     it('should return the shortest string', async () => {
       expect(
-        await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).min((a, b) => defaultComparator(a.length, b.length))
+        await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).min((a, b) => defaultComparator(a.length, b.length)),
       ).equal('x');
     });
     it('should return lexicographically smallest string', async () => {
@@ -434,7 +434,7 @@ describe('PromiseIterator', () => {
   describe('max', () => {
     it('should return the longest string', async () => {
       expect(
-        await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).max((a, b) => defaultComparator(a.length, b.length))
+        await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).max((a, b) => defaultComparator(a.length, b.length)),
       ).equal('foobar');
     });
     it('should return lexicographically largest string', async () => {
@@ -525,7 +525,7 @@ describe('PromiseIterator', () => {
           { key: 'a', value: 2 },
           { key: 'b', value: 3 },
           { key: 'b', value: 4 },
-        ])
+        ]),
       ).collectToObject(mapper);
       const expected = { a: 2, b: 4 };
       expect(actual).deep.equal(expected);
@@ -537,7 +537,7 @@ describe('PromiseIterator', () => {
           { key: 'a', value: 2 },
           { key: 'b', value: 3 },
           { key: 'b', value: 4 },
-        ])
+        ]),
       ).collectToObject(mapper, handleCollisionIgnore);
       const expected = { a: 1, b: 3 };
       expect(actual).deep.equal(expected);
@@ -551,7 +551,7 @@ describe('PromiseIterator', () => {
           toPromise([
             [2, 5],
             [4, 2, 5],
-          ])
+          ]),
         ).collectTo(new FlattenCollector())
       ).collect();
       const expected = [2, 5, 4, 2, 5];
@@ -563,7 +563,7 @@ describe('PromiseIterator', () => {
           toPromise([
             [2, 5],
             [4, 2, 5],
-          ])
+          ]),
         ).collectTo(new FlattenCollector())
       ).collectToSet();
       const expected = new Set([2, 4, 5]);
@@ -598,7 +598,7 @@ describe('PromiseIterator', () => {
         iterator(toPromise([2, 5, 4, 3, 1]))
           .partition(2)
           .map(x => Promise.all(x))
-          .collect()
+          .collect(),
       );
       const expected = [[2, 5], [4, 3], [1]];
       expect(actual).deep.equal(expected);

@@ -24,3 +24,21 @@ export interface SumState {
   sum: number;
   correction: number;
 }
+
+export interface ArrayGenerator<E> {
+  length: number;
+  seed: IteratorLike<E>;
+}
+
+export type IteratorLike<E> = ((i: number) => E) | Iterator<E> | Iterable<E>;
+export type IteratorGenerator<E> = ArrayGenerator<E> | IteratorLike<E>;
+
+export interface AsyncArrayGenerator<E> {
+  length: number;
+  seed: AsyncIteratorLike<E>;
+}
+
+export type AsyncIteratorLike<E> = ((i: number) => Promise<E>) | AsyncIterator<E> | AsyncIterable<E>;
+export type AsyncIteratorGenerator<E> = AsyncArrayGenerator<E> | AsyncIteratorLike<E>;
+
+export type EventualIteratorGenerator<E> = IteratorGenerator<E> | AsyncGenerator<E>;

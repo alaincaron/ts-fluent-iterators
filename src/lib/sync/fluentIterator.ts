@@ -1,5 +1,5 @@
 import * as Iterators from './iterators';
-import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler } from '../types';
+import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler, IteratorGenerator } from '../types';
 import { identity } from '../functions';
 import {
   ArrayCollector,
@@ -24,7 +24,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.empty());
   }
 
-  static from<A>(iter: Iterable<A> | Iterator<A>): FluentIterator<A> {
+  static from<A>(iter: IteratorGenerator<A>): FluentIterator<A> {
     return new FluentIterator(Iterators.toIterator(iter));
   }
 
@@ -46,7 +46,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
   collectToObject<V>(
     mapper: Mapper<A, [string, V]>,
-    collisionHandler?: CollisionHandler<string, V>
+    collisionHandler?: CollisionHandler<string, V>,
   ): Record<string, V> {
     return this.collectTo(new ObjectCollector(mapper, collisionHandler));
   }
@@ -198,7 +198,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 }
 
-export function iterator<A>(iter: Iterable<A> | Iterator<A>): FluentIterator<A> {
+export function iterator<A>(iter: IteratorGenerator<A>): FluentIterator<A> {
   return FluentIterator.from(iter);
 }
 

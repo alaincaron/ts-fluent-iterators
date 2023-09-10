@@ -52,7 +52,7 @@ export async function* map<A, B>(iter: AsyncIterator<A>, mapper: EventualMapper<
 
 export async function first<A>(
   iter: AsyncIterator<A>,
-  predicate: EventualPredicate<A> = alwaysTrue
+  predicate: EventualPredicate<A> = alwaysTrue,
 ): Promise<A | undefined> {
   for (;;) {
     const item = await iter.next();
@@ -137,7 +137,7 @@ export async function fold<A, B>(iter: AsyncIterator<A>, reducer: EventualReduce
 export async function reduce<A>(
   iter: AsyncIterator<A>,
   reducer: EventualReducer<A, A>,
-  initialValue?: A
+  initialValue?: A,
 ): Promise<A | undefined> {
   let acc = initialValue;
   if (acc === undefined) {
@@ -245,7 +245,7 @@ export async function some<A>(iter: AsyncIterator<A>, predicate: EventualPredica
 
 export async function collectTo<A, B>(
   iter: AsyncIterator<A>,
-  collector: EventualCollector<A, Eventually<B>>
+  collector: EventualCollector<A, Eventually<B>>,
 ): Promise<B> {
   for (;;) {
     const item = await iter.next();
@@ -283,7 +283,7 @@ export function max<A>(iter: AsyncIterator<A>, comparator: Comparator<A> = defau
 
 export async function minmax<A>(
   iter: AsyncIterator<A>,
-  comparator: Comparator<A> = defaultComparator
+  comparator: Comparator<A> = defaultComparator,
 ): Promise<MinMax<A>> {
   const item = await iter.next();
   if (item.done) return {};
@@ -292,7 +292,7 @@ export async function minmax<A>(
 
 export async function last<A>(
   iter: AsyncIterator<A>,
-  predicate: EventualPredicate<A> = alwaysTrue
+  predicate: EventualPredicate<A> = alwaysTrue,
 ): Promise<A | undefined> {
   let result: A | undefined;
   for (;;) {

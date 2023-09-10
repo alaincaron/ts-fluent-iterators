@@ -1,4 +1,4 @@
-export function* range(start?: number, end?: number, step?: number): Iterator<number> {
+export function* range(start?: number, end?: number, step?: number): IterableIterator<number> {
   if (step === 0) {
     throw new Error(`Invalid value for step: ${step}`);
   }
@@ -23,7 +23,7 @@ export function* range(start?: number, end?: number, step?: number): Iterator<nu
   }
 }
 
-export function* repeatedly<T>(f: () => T, n?: number): Iterator<T> {
+export function* repeatedly<T>(f: () => T, n?: number): IterableIterator<T> {
   if (n == null) {
     for (;;) {
       yield f();
@@ -35,7 +35,7 @@ export function* repeatedly<T>(f: () => T, n?: number): Iterator<T> {
   }
 }
 
-export function* iterate<T>(f: (t: T) => T, seed: T, n?: number): Iterator<T> {
+export function* iterate<T>(f: (t: T) => T, seed: T, n?: number): IterableIterator<T> {
   if (n == null) {
     yield seed;
     for (;;) {
