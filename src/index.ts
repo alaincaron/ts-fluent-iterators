@@ -11,5 +11,4 @@ export { promiseIterator, PromiseIterator } from './lib/promise/promiseIterator'
 export * as PromiseGenerators from './lib/promise/promiseGenerators';
 
 export * from './lib/types';
-export * from './lib/functions';
-export * from './lib/collectors';
+export * as Collectors from './lib/collectors';
