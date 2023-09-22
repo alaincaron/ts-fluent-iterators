@@ -65,7 +65,7 @@ export class MapCollector<A, K, V> implements Collector<A, Map<K, V>> {
 
   constructor(
     private readonly mapper: Mapper<A, [K, V]>,
-    private readonly collisionHandler: CollisionHandler<K, V> = handleCollisionOverwrite,
+    private readonly collisionHandler: CollisionHandler<K, V> = handleCollisionOverwrite
   ) {}
 
   get result(): Map<K, V> {
@@ -89,7 +89,7 @@ export class ObjectCollector<A, V> implements Collector<A, Record<string, V>> {
 
   constructor(
     private readonly mapper: Mapper<A, [string, V]>,
-    private readonly collisionHandler: CollisionHandler<string, V> = handleCollisionOverwrite,
+    private readonly collisionHandler: CollisionHandler<string, V> = handleCollisionOverwrite
   ) {}
 
   get result(): Record<string, V> {

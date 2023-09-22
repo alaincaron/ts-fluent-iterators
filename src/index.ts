@@ -12,3 +12,4 @@ export * as PromiseGenerators from './lib/promise/promiseGenerators';
 
 export * from './lib/types';
 export * as Collectors from './lib/collectors';
+export * as Functions from './lib/functions';

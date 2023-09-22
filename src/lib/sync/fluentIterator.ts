@@ -46,7 +46,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
   collectToObject<V>(
     mapper: Mapper<A, [string, V]>,
-    collisionHandler?: CollisionHandler<string, V>,
+    collisionHandler?: CollisionHandler<string, V>
   ): Record<string, V> {
     return this.collectTo(new ObjectCollector(mapper, collisionHandler));
   }
