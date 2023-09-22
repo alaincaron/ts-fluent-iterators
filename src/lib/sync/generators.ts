@@ -1,3 +1,6 @@
+import { alwaysTrue } from '../functions';
+import { Predicate } from '../types';
+
 export function* range(start?: number, end?: number, step?: number): IterableIterator<number> {
   if (step === 0) {
     throw new Error(`Invalid value for step: ${step}`);
@@ -23,30 +26,42 @@ export function* range(start?: number, end?: number, step?: number): IterableIte
   }
 }
 
-export function* repeatedly<T>(f: () => T, n?: number): IterableIterator<T> {
+export function* repeat<T>(f: (i: number) => T, n?: number): IterableIterator<T> {
   if (n == null) {
-    for (;;) {
-      yield f();
-    }
-  }
-  if (n <= 0) return;
-  for (let i = 0; i < n; ++i) {
-    yield f();
+    for (let i = 0; ; ++i) yield f(i);
+  } else if (n > 0) {
+    for (let i = 0; i < n; ++i) yield f(i);
   }
 }
 
-export function* iterate<T>(f: (t: T) => T, seed: T, n?: number): IterableIterator<T> {
-  if (n == null) {
+export function* yieldWhile<T>(f: (t: T) => T, seed: T, condition?: Predicate<T>): IterableIterator<T> {
+  condition ??= alwaysTrue;
+  while (condition(seed)) {
     yield seed;
-    for (;;) {
-      seed = f(seed);
-      yield seed;
-    }
+    seed = f(seed);
   }
-  if (n <= 0) return;
-  yield seed;
-  for (let i = 1; i < n; ++i) {
+}
+
+export function* repeatWhile<T>(f: (t: T) => T, seed: T, condition?: Predicate<T>): IterableIterator<T> {
+  condition ??= alwaysTrue;
+  while (condition(seed)) {
     seed = f(seed);
     yield seed;
   }
+}
+
+export function* doWhile<T>(f: (t: T) => T, seed: T, condition?: Predicate<T>): IterableIterator<T> {
+  condition ??= alwaysTrue;
+  do {
+    seed = f(seed);
+    yield seed;
+  } while (condition(seed));
+}
+
+export function* doYieldWhile<T>(f: (t: T) => T, seed: T, condition?: Predicate<T>): IterableIterator<T> {
+  condition ??= alwaysTrue;
+  do {
+    yield seed;
+    seed = f(seed);
+  } while (condition(seed));
 }

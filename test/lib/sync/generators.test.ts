@@ -1,4 +1,4 @@
-import { iterate, range, repeatedly, iterator } from '../../../src/lib/sync';
+import { range, repeat, repeatWhile, doWhile, iterator } from '../../../src/lib/sync';
 import { expect } from 'chai';
 
 describe('Generators', () => {
@@ -20,17 +20,79 @@ describe('Generators', () => {
     });
   });
 
-  describe('repeatedly', () => {
+  describe('repeat', () => {
     it('should yield the exact number of items', () => {
       let i = 1;
-      expect(iterator(repeatedly(() => i++, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
+      expect(iterator(repeat(_ => i++, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
+      expect(i).equal(6);
+    });
+    it('should yield powers of 2', () => {
+      expect(iterator(repeat(x => 2 ** x, 5)).collect()).deep.equal([1, 2, 4, 8, 16]);
+    });
+  });
+
+  describe('repeat', () => {
+    it('should yield the exact number of items', () => {
+      let i = 1;
+      expect(iterator(repeat(_ => i++, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
       expect(i).equal(6);
     });
   });
 
-  describe('iterate', () => {
-    it('should yield powers of 2', () => {
-      expect(iterator(iterate(x => 2 * x, 1, 5)).collect()).deep.equal([1, 2, 4, 8, 16]);
+  describe('repeat', () => {
+    it('should yield the exact number of items', () => {
+      expect(iterator(repeat(i => i + 1, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
+    });
+  });
+
+  describe('repeatWhile', () => {
+    it('should yield the exact number of items', () => {
+      expect(
+        iterator(
+          repeatWhile(
+            i => i + 1,
+            0,
+            i => i < 5
+          )
+        ).collect()
+      ).deep.equal([1, 2, 3, 4, 5]);
+    });
+
+    it('should not yield anything if predicate is false', () => {
+      expect(
+        iterator(
+          repeatWhile(
+            i => i + 1,
+            0,
+            i => i < 0
+          )
+        ).collect()
+      ).deep.equal([]);
+    });
+  });
+
+  describe('doWhile', () => {
+    it('should yield the exact number of items', () => {
+      expect(
+        iterator(
+          doWhile(
+            i => i + 1,
+            0,
+            i => i < 5
+          )
+        ).collect()
+      ).deep.equal([1, 2, 3, 4, 5]);
+    });
+    it('should yield 1 item if predicate is false', () => {
+      expect(
+        iterator(
+          doWhile(
+            i => i + 1,
+            0,
+            i => i < 0
+          )
+        ).collect()
+      ).deep.equal([1]);
     });
   });
 });

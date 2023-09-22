@@ -1,7 +1,7 @@
 [ts-fluent-iterators](../../README.md) › [API](../index.md) ›
-[Generators](../index.md#generators) › [repeatedly](repeatedly.md)
+[Generators](../index.md#generators) › [repeat](repeat.md)
 
-# repeatedly generator
+# repeat generator
 
 ```typescript
 function* iterate<T>(f: (t: T) => T, seed: T, n?: number): Iterator<T>;

@@ -256,6 +256,12 @@ export function join<A>(iter: Iterator<Promise<A>>, separator: string = ','): Pr
   return collectTo(iter, new StringJoiner(separator));
 }
 
-export function toPromise<A>(iter: Iterator<A> | Iterable<A>): Iterator<Promise<Awaited<A>>> {
-  return SyncIterators.map(SyncIterators.toIterator(iter), a => Promise.resolve(a));
+export function* toPromise<A>(iterable: Iterator<A> | Iterable<A>): IterableIterator<Promise<Awaited<A>>> {
+  const iter = SyncIterators.toIterator(iterable);
+  for (;;) {
+    const item = iter.next();
+    if (item.done) break;
+    const value = item.value;
+    yield Promise.resolve(value);
+  }
 }

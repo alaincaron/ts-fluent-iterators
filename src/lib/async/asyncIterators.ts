@@ -322,7 +322,7 @@ export async function* partition<A>(iter: AsyncIterator<A>, size: number): Async
   }
 }
 
-export async function* toAsync<A>(iter: Iterator<A> | Iterable<A>): AsyncIterator<A> {
+export async function* toAsync<A>(iter: Iterator<A> | Iterable<A>): AsyncIterableIterator<A> {
   const iterator = toIterator(iter);
   for (;;) {
     const item = iterator.next();

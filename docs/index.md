@@ -34,5 +34,5 @@ and [PromiseIterator](iterators/promise_iterator.md) objects.
 ## Generators
 
 - [range](generators/range.md)
-- [repeatedly](generators/repeatedly.md)
+- [repeat](generators/repeat.md)
 - [iterate](generators/iterate.md)

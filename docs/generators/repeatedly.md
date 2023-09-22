@@ -1,10 +1,10 @@
 [ts-fluent-iterators](../../README.md) › [API](../index.md) ›
-[Generators](../index.md#generators) › [repeatedly](repeatedly.md)
+[Generators](../index.md#generators) › [repeat](repeat.md)
 
-# repeatedly generator
+# repeat generator
 
 ```typescript
-function* repeatedly<T>(f: () => T, n?: number): Iterator<T>;
+function* repeat<T>(f: () => T, n?: number): Iterator<T>;
 ```
 
 Creates a new `Iterator<T>` by invoking function `f` repeatedly.
@@ -15,16 +15,5 @@ Example:
 ```typescript
 import { Generators, AsyncGenerators, PromiseGenerators } from "ts-fluent-iterators";
 
-function fib(): () => number {
-   let x = 0;
-   let y = 1;
-   return {
-      y = x + y;
-      x = y - x;
-      return y;
-   };
-}
-
-const r1 = Generators.repeatedly(fib()); // yields  1, 2, 3, 5, 8, 13, ...
-const r2 = AsyncGenerators.repeatedly(fib(), 2); // yields 1, 2
+const r1 = Generators.repeat(Math.random); // yields a sequence of random numbers between 0 and 1
 ```
