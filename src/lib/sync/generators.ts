@@ -1,5 +1,5 @@
-import { alwaysTrue } from '../functions';
-import { Predicate } from '../types';
+import * as Iterators from './iterators';
+import { Mapper } from '../types';
 
 export function* range(start?: number, end?: number, step?: number): IterableIterator<number> {
   if (step === 0) {
@@ -26,42 +26,6 @@ export function* range(start?: number, end?: number, step?: number): IterableIte
   }
 }
 
-export function* repeat<T>(f: (i: number) => T, n?: number): IterableIterator<T> {
-  if (n == null) {
-    for (let i = 0; ; ++i) yield f(i);
-  } else if (n > 0) {
-    for (let i = 0; i < n; ++i) yield f(i);
-  }
-}
-
-export function* yieldWhile<T>(f: (t: T) => T, seed: T, condition?: Predicate<T>): IterableIterator<T> {
-  condition ??= alwaysTrue;
-  while (condition(seed)) {
-    yield seed;
-    seed = f(seed);
-  }
-}
-
-export function* repeatWhile<T>(f: (t: T) => T, seed: T, condition?: Predicate<T>): IterableIterator<T> {
-  condition ??= alwaysTrue;
-  while (condition(seed)) {
-    seed = f(seed);
-    yield seed;
-  }
-}
-
-export function* doWhile<T>(f: (t: T) => T, seed: T, condition?: Predicate<T>): IterableIterator<T> {
-  condition ??= alwaysTrue;
-  do {
-    seed = f(seed);
-    yield seed;
-  } while (condition(seed));
-}
-
-export function* doYieldWhile<T>(f: (t: T) => T, seed: T, condition?: Predicate<T>): IterableIterator<T> {
-  condition ??= alwaysTrue;
-  do {
-    yield seed;
-    seed = f(seed);
-  } while (condition(seed));
+export function repeat<T>(f: Mapper<number, T>, start?: number, end?: number, step?: number): IterableIterator<T> {
+  return Iterators.map(range(start, end, step), f);
 }

@@ -1,4 +1,4 @@
-import { range, repeat, repeatWhile, doWhile, asyncIterator as iterator } from '../../../src/lib/async';
+import { range, repeat, asyncIterator as iterator } from '../../../src/lib/async';
 import { expect } from 'chai';
 
 describe('AsyncGenerators', () => {
@@ -20,60 +20,12 @@ describe('AsyncGenerators', () => {
     });
   });
 
-  describe('repeat', () => {
+  describe('repeat', async () => {
     it('should yield the exact number of items', async () => {
-      expect(await iterator(repeat(i => i + 1, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
+      expect(await iterator(repeat(i => i + 1, 0, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
     });
-  });
-
-  describe('repeatWhile', () => {
-    it('should yield the exact number of items', async () => {
-      expect(
-        await iterator(
-          repeatWhile(
-            i => i + 1,
-            0,
-            i => i < 5
-          )
-        ).collect()
-      ).deep.equal([1, 2, 3, 4, 5]);
-    });
-
-    it('should not yield anything if predicate is false', async () => {
-      expect(
-        await iterator(
-          repeatWhile(
-            i => i + 1,
-            0,
-            i => i < 0
-          )
-        ).collect()
-      ).deep.equal([]);
-    });
-  });
-
-  describe('doWhile', () => {
-    it('should yield the exact number of items', async () => {
-      expect(
-        await iterator(
-          doWhile(
-            i => i + 1,
-            0,
-            i => i < 5
-          )
-        ).collect()
-      ).deep.equal([1, 2, 3, 4, 5]);
-    });
-    it('should yield 1 item if predicate is false', async () => {
-      expect(
-        await iterator(
-          doWhile(
-            i => i + 1,
-            0,
-            i => i < 0
-          )
-        ).collect()
-      ).deep.equal([1]);
+    it('should yield powers of 2', async () => {
+      expect(await iterator(repeat(x => 2 ** x, 0, 5)).collect()).deep.equal([1, 2, 4, 8, 16]);
     });
   });
 });

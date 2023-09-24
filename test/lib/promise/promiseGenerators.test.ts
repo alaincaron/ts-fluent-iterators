@@ -1,4 +1,4 @@
-import { range, repeat, repeatWhile, doWhile, promiseIterator as iterator } from '../../../src/lib/promise';
+import { range, repeat, promiseIterator as iterator } from '../../../src/lib/promise';
 
 import { expect } from 'chai';
 
@@ -20,68 +20,12 @@ describe('PromiseGenerators', () => {
       expect(await iterator(range(5, 0)).collect()).to.deep.equal([5, 4, 3, 2, 1]);
     });
 
-    describe('repeat', () => {
+    describe('repeat', async () => {
       it('should yield the exact number of items', async () => {
-        let i = 1;
-        expect(await iterator(repeat(_ => i++, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
-        expect(i).equal(6);
+        expect(await iterator(repeat(i => i + 1, 0, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
       });
-    });
-
-    describe('repeat', () => {
-      it('should yield the exact number of items', async () => {
-        expect(await iterator(repeat(i => i + 1, 5)).collect()).deep.equal([1, 2, 3, 4, 5]);
-      });
-    });
-
-    describe('repeatWhile', () => {
-      it('should yield the exact number of items', async () => {
-        expect(
-          await iterator(
-            repeatWhile(
-              i => i + 1,
-              0,
-              i => i < 5
-            )
-          ).collect()
-        ).deep.equal([1, 2, 3, 4, 5]);
-      });
-
-      it('should not yield anything if predicate is false', async () => {
-        expect(
-          await iterator(
-            repeatWhile(
-              i => i + 1,
-              0,
-              i => i < 0
-            )
-          ).collect()
-        ).deep.equal([]);
-      });
-    });
-
-    describe('doWhile', () => {
-      it('should yield the exact number of items', async () => {
-        expect(
-          await iterator(
-            doWhile(
-              i => i + 1,
-              0,
-              i => i < 5
-            )
-          ).collect()
-        ).deep.equal([1, 2, 3, 4, 5]);
-      });
-      it('should yield 1 item if predicate is false', async () => {
-        expect(
-          await iterator(
-            doWhile(
-              i => i + 1,
-              0,
-              i => i < 0
-            )
-          ).collect()
-        ).deep.equal([1]);
+      it('should yield powers of 2', async () => {
+        expect(await iterator(repeat(x => 2 ** x, 0, 5)).collect()).deep.equal([1, 2, 4, 8, 16]);
       });
     });
   });
