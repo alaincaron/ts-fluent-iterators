@@ -26,6 +26,10 @@ export function* range(start?: number, end?: number, step?: number): IterableIte
   }
 }
 
-export function repeat<T>(f: Mapper<number, T>, start?: number, end?: number, step?: number): IterableIterator<T> {
+export function loop<T>(f: Mapper<number, T>, start?: number, end?: number, step?: number): IterableIterator<T> {
   return Iterators.map(range(start, end, step), f);
+}
+
+export function repeat<T>(f: Mapper<number, T>, count?: number): IterableIterator<T> {
+  return Iterators.map(range(0, count, 1), f);
 }
