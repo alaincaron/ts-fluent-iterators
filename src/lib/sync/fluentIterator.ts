@@ -9,6 +9,7 @@ import {
   ObjectCollector,
   GroupByCollector,
   TallyCollector,
+  StringJoiner,
 } from '../collectors';
 import { PromiseIterator, toPromise } from '../promise';
 import { AsyncFluentIterator, toAsync } from '../async';
@@ -165,8 +166,8 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return Iterators.last(this.iter, predicate);
   }
 
-  join(separator?: string): string {
-    return Iterators.join(this.iter, separator);
+  join(separator?: string, prefix?: string, suffix?: string): string {
+    return this.collectTo(new StringJoiner(separator, prefix, suffix));
   }
 
   groupBy<K>(mapper: Mapper<A, K>): Map<K, A[]> {

@@ -22,6 +22,7 @@ import {
   ObjectCollector,
   SetCollector,
   TallyCollector,
+  StringJoiner,
 } from '../collectors';
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
@@ -188,8 +189,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.last(this.iter, predicate);
   }
 
-  join(separator?: string): Promise<string> {
-    return Iterators.join(this.iter, separator);
+  join(separator?: string, prefix?: string, suffix?: string): Promise<string> {
+    return this.collectTo(new StringJoiner(separator, prefix, suffix));
   }
 
   groupBy<K>(mapper: Mapper<A, K>): Promise<Map<K, A[]>> {

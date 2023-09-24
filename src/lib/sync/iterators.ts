@@ -1,6 +1,6 @@
 import { Comparator, Mapper, Predicate, Reducer, MinMax, ArrayGenerator, IteratorGenerator } from '../types';
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from '../functions';
-import { Collector, StringJoiner } from '../collectors';
+import { Collector } from '../collectors';
 
 export function* empty<A = never>(): IterableIterator<A> {}
 
@@ -246,10 +246,6 @@ export function last<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue)
     if (item.done) return result;
     if (predicate(item.value)) result = item.value;
   }
-}
-
-export function join<A>(iter: Iterator<A>, separator: string = ','): string {
-  return collectTo(iter, new StringJoiner(separator));
 }
 
 export function* partition<A>(iter: Iterator<A>, size: number): IterableIterator<A[]> {

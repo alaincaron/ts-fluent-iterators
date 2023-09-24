@@ -407,6 +407,12 @@ describe('SyncFluentIterator', () => {
       it('should return empty string', () => {
         expect(iterator([]).join()).equal('');
       });
+      it('should use prefix and suffix', () => {
+        expect(iterator([1, 2, 3]).join(',', '[', ']')).equal('[1,2,3]');
+      });
+      it('should use prefix and suffix on empty iterator', () => {
+        expect(iterator([]).join(',', '[', ']')).equal('[]');
+      });
     });
 
     describe('groupBy', () => {

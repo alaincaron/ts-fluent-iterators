@@ -433,6 +433,12 @@ describe('AsyncFluentIterator', () => {
     it('should return empty string', async () => {
       expect(await empty().join()).equal('');
     });
+    it('should use prefix and suffix', async () => {
+      expect(await iterator([1, 2, 3]).join(',', '[', ']')).equal('[1,2,3]');
+    });
+    it('should use prefix and suffix on empty iterator', async () => {
+      expect(await iterator([]).join(',', '[', ']')).equal('[]');
+    });
   });
 
   describe('groupBy', () => {

@@ -485,6 +485,12 @@ describe('PromiseIterator', () => {
     it('should return empty string', async () => {
       expect(await iterator(toPromise([])).join()).equal('');
     });
+    it('should use prefix and suffix', async () => {
+      expect(await iterator(toPromise([1, 2, 3])).join(',', '[', ']')).equal('[1,2,3]');
+    });
+    it('should use prefix and suffix', async () => {
+      expect(await iterator(toPromise([])).join(',', '[', ']')).equal('[]');
+    });
   });
 
   describe('groupBy', () => {

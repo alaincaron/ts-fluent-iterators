@@ -1,7 +1,7 @@
 import * as SyncIterators from '../sync/iterators';
 import { EventualMapper, EventualPredicate, EventualReducer, Eventually, Comparator, MinMax } from '../types';
 import { defaultComparator, alwaysTrue, sumReducer, avgReducer, minMaxReducer, identity } from '../functions';
-import { EventualCollector, ArrayCollector, StringJoiner } from '../collectors';
+import { EventualCollector, ArrayCollector } from '../collectors';
 
 export function* map<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, B>): IterableIterator<Promise<B>> {
   for (;;) {
@@ -265,10 +265,6 @@ export async function last<A>(
     const value = await item.value;
     if (await predicate(value)) result = value;
   }
-}
-
-export function join<A>(iter: Iterator<Promise<A>>, separator: string = ','): Promise<string> {
-  return collectTo(iter, new StringJoiner(separator));
 }
 
 export function* toPromise<A>(iterable: Iterator<A> | Iterable<A>): IterableIterator<Promise<Awaited<A>>> {

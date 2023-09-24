@@ -137,21 +137,32 @@ export class TallyCollector<A, K> implements Collector<A, Map<K, number>> {
 }
 
 export class StringJoiner<A> implements Collector<A, string> {
-  private acc = '';
+  private acc: string;
   private first = true;
+  private done = false;
 
-  constructor(private readonly separator: string = ',') {}
+  constructor(
+    private readonly separator: string = ',',
+    prefix = '',
+    private readonly suffix = ''
+  ) {
+    this.acc = prefix;
+  }
 
   collect(a: A) {
     if (this.first) {
-      this.acc = `${a}`;
       this.first = false;
     } else {
-      this.acc = `${this.acc}${this.separator}${a}`;
+      this.acc = `${this.acc}${this.separator}`;
     }
+    this.acc = `${this.acc}${a}`;
   }
 
   get result() {
+    if (!this.done) {
+      this.acc = `${this.acc}${this.suffix}`;
+      this.done = true;
+    }
     return this.acc;
   }
 }

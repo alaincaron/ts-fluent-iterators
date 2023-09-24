@@ -10,7 +10,7 @@ import {
   MinMax,
 } from '../types';
 import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, asyncIdentity } from '../functions';
-import { EventualCollector, StringJoiner } from '../collectors';
+import { EventualCollector } from '../collectors';
 
 export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
   const x: any = iter;
@@ -300,10 +300,6 @@ export async function last<A>(
     if (item.done) return result;
     if (await predicate(item.value)) result = item.value;
   }
-}
-
-export function join<A>(iter: AsyncIterator<A>, separator: string = ','): Promise<string> {
-  return collectTo(iter, new StringJoiner(separator));
 }
 
 export async function* partition<A>(iter: AsyncIterator<A>, size: number): AsyncIterableIterator<A[]> {
