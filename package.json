@@ -1,6 +1,6 @@
 {
   "name": "ts-fluent-iterators",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "lazy fluent iterators",
   "main": "./dist/index.js",
   "engines": {
