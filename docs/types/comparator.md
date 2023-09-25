@@ -2,7 +2,7 @@
 
 # Type: Comparator<**A**>
 
-Represents a function accepting tow arguments of type `A` and returning a
+Represents a function accepting two arguments of type `A` and returning a
 a number value greater than 0 if the first parameter is larger than
 the second one, less than 0 if the first parameter is smaller than the
 second one and 0 if they are equal.

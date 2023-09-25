@@ -9,11 +9,13 @@
 - [EventualMapper](types/eventual_mapper.md)
 - [Predicate](types/predicate.md)
 - [EventualPredicate](types/eventual_predicate.md)
+- [CollisionHandler](types/collision_handler.md)
 - [Reducer](types/reducer.md)
 - [EventualReducer](types/eventual_reducer.md)
 - [Comparator](types/comparator.md)
 - [EventualIterator](types/eventual_iterator.md)
 - [EventualIterable](types/eventual_iterable.md)
+- [EventualIterableIterator](types/eventual_iterable_iterator.md)
 
 ## Fluent Iterators
 
@@ -35,4 +37,4 @@ and [PromiseIterator](iterators/promise_iterator.md) objects.
 
 - [range](generators/range.md)
 - [repeat](generators/repeat.md)
-- [iterate](generators/iterate.md)
+- [loop](generators/loop.md)

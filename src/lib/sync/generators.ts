@@ -6,7 +6,7 @@ export function* range(start?: number, end?: number, step?: number): IterableIte
     throw new Error(`Invalid value for step: ${step}`);
   }
   start ??= 0;
-  let value = start!;
+  let value = start;
   step ??= end == null || start < end ? 1 : -1;
   if (end == null) {
     for (;;) {

@@ -29,3 +29,4 @@ class ArrayCollector<A> implements Collector<A, A[]> {
   }
 }
 ```
+
