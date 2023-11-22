@@ -99,6 +99,18 @@ export async function* filter<A>(iter: AsyncIterator<A>, predicate: EventualPred
   }
 }
 
+export async function* filterMap<A, B>(
+  iter: AsyncIterator<A>,
+  mapper: EventualMapper<A, B | null | undefined>
+): AsyncIterableIterator<B> {
+  for (;;) {
+    const item = await iter.next();
+    if (item.done) break;
+    const b = await mapper(item.value);
+    if (b != null) yield b;
+  }
+}
+
 export async function* zip<A, B>(iter1: AsyncIterator<A>, iter2: AsyncIterator<B>): AsyncIterableIterator<[A, B]> {
   for (;;) {
     const item1 = await iter1.next();

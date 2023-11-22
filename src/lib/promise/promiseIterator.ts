@@ -63,6 +63,10 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return new AsyncFluentIterator(Iterators.filter(this.iter, predicate));
   }
 
+  filterMap<B>(mapper: EventualMapper<A, B | null | undefined>): AsyncFluentIterator<B> {
+    return new AsyncFluentIterator(Iterators.filterMap(this.iter, mapper));
+  }
+
   allSettled(): Promise<PromiseSettledResult<A>[]> {
     return Iterators.allSettled(this.iter);
   }

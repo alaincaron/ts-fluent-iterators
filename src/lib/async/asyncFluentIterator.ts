@@ -65,6 +65,10 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return new AsyncFluentIterator(Iterators.map(this.iter, mapper));
   }
 
+  filterMap<B>(mapper: EventualMapper<A, B | null | undefined>): AsyncFluentIterator<B> {
+    return new AsyncFluentIterator(Iterators.filterMap(this.iter, mapper));
+  }
+
   first(predicate?: EventualPredicate<A>): Promise<A | undefined> {
     return Iterators.first(this.iter, predicate);
   }

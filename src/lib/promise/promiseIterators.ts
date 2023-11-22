@@ -45,6 +45,18 @@ export async function* filter<A>(
   }
 }
 
+export async function* filterMap<A, B>(
+  iter: Iterator<Promise<A>>,
+  mapper: EventualMapper<A, B | null | undefined>
+): AsyncIterableIterator<B> {
+  for (;;) {
+    const item = iter.next();
+    if (item.done) break;
+    const b = await mapper(await item.value);
+    if (b != null) yield b;
+  }
+}
+
 export function* tap<A>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, any>): IterableIterator<Promise<A>> {
   for (;;) {
     const item = iter.next();

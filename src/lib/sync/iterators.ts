@@ -12,6 +12,15 @@ export function* map<A, B>(iter: Iterator<A>, mapper: Mapper<A, B>): IterableIte
   }
 }
 
+export function* filterMap<A, B>(iter: Iterator<A>, mapper: Mapper<A, B | null | undefined>): IterableIterator<B> {
+  for (;;) {
+    const item = iter.next();
+    if (item.done) break;
+    const b = mapper(item.value);
+    if (b != null) yield b;
+  }
+}
+
 export function first<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): A | undefined {
   for (;;) {
     const item = iter.next();

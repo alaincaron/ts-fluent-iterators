@@ -31,6 +31,23 @@ describe('AsyncFluentIterator', () => {
     });
   });
 
+  describe('filterMap', () => {
+    it('should apply function to all elements', async () => {
+      expect(
+        await iterator([1, 2])
+          .map(x => 2 * x)
+          .collect()
+      ).to.deep.equal([2, 4]);
+    });
+    it('should filter elements that return null or undefined', async () => {
+      expect(
+        await iterator([1, 2])
+          .filterMap(x => (x % 2 === 0 ? 2 * x : undefined))
+          .collect()
+      ).to.deep.equal([4]);
+    });
+  });
+
   describe('first', () => {
     it('should return the first element', async () => {
       expect(await iterator(range(1, 100)).first()).to.deep.equal(1);

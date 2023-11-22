@@ -30,6 +30,23 @@ describe('SyncFluentIterator', () => {
     });
   });
 
+  describe('filterMap', () => {
+    it('should apply function to all elements', () => {
+      expect(
+        iterator([1, 2])
+          .map(x => 2 * x)
+          .collect()
+      ).deep.equal([2, 4]);
+    });
+    it('should filter elements that return null or undefined', () => {
+      expect(
+        iterator([1, 2])
+          .filterMap(x => (x % 2 === 0 ? 2 * x : undefined))
+          .collect()
+      ).deep.equal([4]);
+    });
+  });
+
   describe('first', () => {
     it('should return the first element', () => {
       expect(iterator([1, 2]).first()).equal(1);

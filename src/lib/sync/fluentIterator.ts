@@ -60,6 +60,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.map(this.iter, mapper));
   }
 
+  filterMap<B>(mapper: Mapper<A, B | null | undefined>): FluentIterator<B> {
+    return new FluentIterator(Iterators.filterMap(this.iter, mapper));
+  }
+
   first(predicate?: Predicate<A>): A | undefined {
     return Iterators.first(this.iter, predicate);
   }

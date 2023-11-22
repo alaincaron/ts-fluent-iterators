@@ -146,6 +146,23 @@ describe('PromiseIterator', () => {
     });
   });
 
+  describe('filterMap', () => {
+    it('should apply function to all elements', async () => {
+      expect(
+        await iterator(toPromise([1, 2]))
+          .map(x => 2 * x)
+          .collect()
+      ).to.deep.equal([2, 4]);
+    });
+    it('should filter elements that return null or undefined', async () => {
+      expect(
+        await iterator(toPromise([1, 2]))
+          .filterMap(x => (x % 2 === 0 ? 2 * x : undefined))
+          .collect()
+      ).to.deep.equal([4]);
+    });
+  });
+
   describe('zip', () => {
     it('should zip up to shortest iterator with PromiseIterator', async () => {
       expect(
