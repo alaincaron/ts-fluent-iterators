@@ -99,6 +99,10 @@ export async function* filter<A>(iter: AsyncIterator<A>, predicate: EventualPred
   }
 }
 
+export function removeNull<A>(iter: AsyncIterator<A>): AsyncIterableIterator<A> {
+  return filter(iter, a => a != null);
+}
+
 export async function* filterMap<A, B>(
   iter: AsyncIterator<A>,
   mapper: EventualMapper<A, B | null | undefined>

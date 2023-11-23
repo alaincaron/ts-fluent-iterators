@@ -100,6 +100,12 @@ describe('SyncFluentIterator', () => {
     });
   });
 
+  describe('removeNull', () => {
+    it('should remove null or undefined', () => {
+      expect(iterator([1, null, undefined, 2]).removeNull().collect()).deep.equal([1, 2]);
+    });
+  });
+
   describe('zip', () => {
     it('should zip up to shortest iterator with a FluentIterator', () => {
       expect(

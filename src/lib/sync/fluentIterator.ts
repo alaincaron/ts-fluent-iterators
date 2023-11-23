@@ -56,6 +56,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.filter(this.iter, predicate));
   }
 
+  removeNull(): FluentIterator<A> {
+    return new FluentIterator(Iterators.removeNull(this.iter));
+  }
+
   map<B>(mapper: Mapper<A, B>): FluentIterator<B> {
     return new FluentIterator(Iterators.map(this.iter, mapper));
   }

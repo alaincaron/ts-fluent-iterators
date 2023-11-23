@@ -108,6 +108,16 @@ describe('AsyncFluentIterator', () => {
     });
   });
 
+  describe('removeNull', () => {
+    it('should remove null or undefined', async () => {
+      expect(
+        await iterator(toAsync([1, null, undefined, 2]))
+          .removeNull()
+          .collect()
+      ).deep.equal([1, 2]);
+    });
+  });
+
   describe('zip', () => {
     it('should zip up to shortest iterator with AsyncFluentIterator', async () => {
       expect(

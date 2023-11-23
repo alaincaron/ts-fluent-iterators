@@ -146,6 +146,16 @@ describe('PromiseIterator', () => {
     });
   });
 
+  describe('removeNull', () => {
+    it('should remove null or undefined', async () => {
+      expect(
+        await iterator(toPromise([1, null, undefined, 2]))
+          .removeNull()
+          .collect()
+      ).deep.equal([1, 2]);
+    });
+  });
+
   describe('filterMap', () => {
     it('should apply function to all elements', async () => {
       expect(

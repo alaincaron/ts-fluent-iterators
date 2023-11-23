@@ -67,6 +67,10 @@ export function* filter<A>(iter: Iterator<A>, predicate: Predicate<A>): Iterable
   }
 }
 
+export function removeNull<A>(iter: Iterator<A>): IterableIterator<A> {
+  return filter(iter, a => a != null);
+}
+
 export function* zip<A, B>(iter1: Iterator<A>, iter2: Iterator<B>): IterableIterator<[A, B]> {
   for (;;) {
     const item1 = iter1.next();

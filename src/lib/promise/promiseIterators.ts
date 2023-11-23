@@ -45,6 +45,10 @@ export async function* filter<A>(
   }
 }
 
+export function removeNull<A>(iter: Iterator<Promise<A>>): AsyncIterableIterator<A> {
+  return filter(iter, a => a != null);
+}
+
 export async function* filterMap<A, B>(
   iter: Iterator<Promise<A>>,
   mapper: EventualMapper<A, B | null | undefined>
