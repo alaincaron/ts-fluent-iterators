@@ -1,16 +1,16 @@
+import { EventualCollector } from '../collectors';
+import { alwaysTrue, asyncIdentity, avgReducer, defaultComparator, minMaxReducer, sumReducer } from '../functions';
 import { toIterator } from '../sync';
 import {
+  Comparator,
+  EventualIterable,
+  EventualIterator,
+  Eventually,
   EventualMapper,
   EventualPredicate,
-  Eventually,
-  Comparator,
   EventualReducer,
-  EventualIterator,
-  EventualIterable,
   MinMax,
 } from '../types';
-import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, asyncIdentity } from '../functions';
-import { EventualCollector } from '../collectors';
 
 export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
   const x: any = iter;

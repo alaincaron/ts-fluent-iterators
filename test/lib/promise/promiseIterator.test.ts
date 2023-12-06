@@ -1,13 +1,13 @@
-import { range, promiseIterator as iterator, emptyPromiseIterator as empty, toPromise } from '../../../src/lib/promise';
+import { assert, expect } from 'chai';
+import { FlattenCollector } from '../../../src/lib/collectors';
 import {
   asyncAlwaysFalse,
   asyncAlwaysTrue,
   defaultComparator,
-  lengthComparator,
   handleCollisionIgnore,
+  lengthComparator,
 } from '../../../src/lib/functions';
-import { FlattenCollector } from '../../../src/lib/collectors';
-import { expect, assert } from 'chai';
+import { emptyPromiseIterator as empty, promiseIterator as iterator, range, toPromise } from '../../../src/lib/promise';
 
 describe('PromiseIterator', () => {
   describe('collect', () => {
@@ -259,7 +259,7 @@ describe('PromiseIterator', () => {
   describe('tap', () => {
     it('should tap all elements', async () => {
       let count = 0;
-      let f = (x: number) => {
+      const f = (x: number) => {
         count += x;
       };
       expect(await iterator(range(1, 5)).tap(f).collect()).to.deep.equal([1, 2, 3, 4]);
@@ -270,7 +270,7 @@ describe('PromiseIterator', () => {
   describe('forEach', () => {
     it('should invoke function for all elements', async () => {
       let count = 0;
-      let f = (x: number) => {
+      const f = (x: number) => {
         count += x;
       };
       await iterator(range(1, 5)).forEach(f);

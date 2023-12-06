@@ -1,5 +1,5 @@
-import * as SyncGenerators from '../sync';
 import * as AsyncIterators from './asyncIterators';
+import * as SyncGenerators from '../sync';
 import { EventualMapper } from '../types';
 
 export function range(start?: number, end?: number, step?: number): AsyncIterableIterator<number> {

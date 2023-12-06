@@ -1,19 +1,5 @@
 import * as Iterators from './promiseIterators';
-import * as SyncIterators from '../sync/iterators';
 import { AsyncFluentIterator } from '../async';
-import { FluentIterator } from '../sync';
-
-import {
-  Mapper,
-  Eventually,
-  EventualReducer,
-  EventualMapper,
-  EventualPredicate,
-  Comparator,
-  MinMax,
-  CollisionHandler,
-} from '../types';
-import { identity } from '../functions';
 import {
   ArrayCollector,
   Collector,
@@ -21,9 +7,23 @@ import {
   MapCollector,
   ObjectCollector,
   SetCollector,
-  TallyCollector,
   StringJoiner,
+  TallyCollector,
 } from '../collectors';
+import { identity } from '../functions';
+import { FluentIterator } from '../sync';
+import * as SyncIterators from '../sync/iterators';
+
+import {
+  CollisionHandler,
+  Comparator,
+  Eventually,
+  EventualMapper,
+  EventualPredicate,
+  EventualReducer,
+  Mapper,
+  MinMax,
+} from '../types';
 
 export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promise<A>> {
   constructor(private readonly iter: Iterator<Promise<A>>) {}

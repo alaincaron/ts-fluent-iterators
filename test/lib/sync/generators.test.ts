@@ -1,5 +1,5 @@
-import { range, repeat, iterator, loop } from '../../../src/lib/sync';
 import { expect } from 'chai';
+import { iterator, loop, range, repeat } from '../../../src/lib/sync';
 
 describe('Generators', () => {
   describe('range', () => {

@@ -1,18 +1,5 @@
 import * as Iterators from './asyncIterators';
 import {
-  Mapper,
-  EventualMapper,
-  EventualPredicate,
-  Eventually,
-  Comparator,
-  EventualReducer,
-  EventualIterable,
-  EventualIterator,
-  MinMax,
-  CollisionHandler,
-} from '../types';
-import { identity } from '../functions';
-import {
   ArrayCollector,
   EventualCollector,
   GroupByCollector,
@@ -22,6 +9,19 @@ import {
   StringJoiner,
   TallyCollector,
 } from '../collectors';
+import { identity } from '../functions';
+import {
+  CollisionHandler,
+  Comparator,
+  EventualIterable,
+  EventualIterator,
+  Eventually,
+  EventualMapper,
+  EventualPredicate,
+  EventualReducer,
+  Mapper,
+  MinMax,
+} from '../types';
 
 export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A> {
   constructor(private readonly iter: AsyncIterator<A>) {}

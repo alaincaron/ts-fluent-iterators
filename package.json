@@ -13,7 +13,7 @@
     "build": "rimraf ./dist && tsc",
     "repl": "npm run build && env NODE_PATH=./dist ts-node -i",
     "htmldoc": "./scripts/htmldoc",
-    "eslint": "eslint",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "coverage": "nyc npm run test",
     "format": "prettier --write .",
     "precommit": "lint-staged",
@@ -38,7 +38,10 @@
   },
   "homepage": "https://github.com/alaincaron/ts-fluent-iterators#readme",
   "lint-staged": {
-    "*.ts": "prettier --write",
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
     "*.json": "prettier --write",
     "*.js": "prettier --write"
   },

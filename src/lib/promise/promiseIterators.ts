@@ -1,7 +1,7 @@
+import { ArrayCollector, EventualCollector } from '../collectors';
+import { alwaysTrue, avgReducer, defaultComparator, identity, minMaxReducer, sumReducer } from '../functions';
 import * as SyncIterators from '../sync/iterators';
-import { EventualMapper, EventualPredicate, EventualReducer, Eventually, Comparator, MinMax } from '../types';
-import { defaultComparator, alwaysTrue, sumReducer, avgReducer, minMaxReducer, identity } from '../functions';
-import { EventualCollector, ArrayCollector } from '../collectors';
+import { Comparator, Eventually, EventualMapper, EventualPredicate, EventualReducer, MinMax } from '../types';
 
 export function* map<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, B>): IterableIterator<Promise<B>> {
   for (;;) {

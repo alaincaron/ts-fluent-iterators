@@ -1,14 +1,13 @@
-import { range, asyncIterator as iterator, toAsync, emptyAsyncIterator as empty } from '../../../src/lib/async';
+import { expect } from 'chai';
+import { emptyAsyncIterator as empty, asyncIterator as iterator, range, toAsync } from '../../../src/lib/async';
+import { FlattenCollector } from '../../../src/lib/collectors';
 import {
   alwaysFalse,
   alwaysTrue,
   defaultComparator,
-  lengthComparator,
   handleCollisionIgnore,
+  lengthComparator,
 } from '../../../src/lib/functions';
-import { FlattenCollector } from '../../../src/lib/collectors';
-
-import { expect } from 'chai';
 
 describe('AsyncFluentIterator', () => {
   describe('collect', () => {
@@ -204,7 +203,7 @@ describe('AsyncFluentIterator', () => {
   describe('tap', () => {
     it('should tap all elements', async () => {
       let count = 0;
-      let f = (x: number) => {
+      const f = (x: number) => {
         count += x;
       };
       expect(await iterator(range(1, 5)).tap(f).collect()).deep.equal([1, 2, 3, 4]);
@@ -215,7 +214,7 @@ describe('AsyncFluentIterator', () => {
   describe('forEach', () => {
     it('should invoke function on all elements', async () => {
       let count = 0;
-      let f = (x: number) => {
+      const f = (x: number) => {
         count += x;
       };
       await iterator(range(1, 5)).forEach(f);

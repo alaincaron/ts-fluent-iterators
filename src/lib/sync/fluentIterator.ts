@@ -1,18 +1,18 @@
 import * as Iterators from './iterators';
-import { Comparator, Mapper, Predicate, Reducer, MinMax, CollisionHandler, IteratorGenerator } from '../types';
-import { identity } from '../functions';
+import { AsyncFluentIterator, toAsync } from '../async';
 import {
   ArrayCollector,
   Collector,
-  SetCollector,
+  GroupByCollector,
   MapCollector,
   ObjectCollector,
-  GroupByCollector,
-  TallyCollector,
+  SetCollector,
   StringJoiner,
+  TallyCollector,
 } from '../collectors';
+import { identity } from '../functions';
 import { PromiseIterator, toPromise } from '../promise';
-import { AsyncFluentIterator, toAsync } from '../async';
+import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
 
 export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   private iter: Iterator<A>;
@@ -220,7 +220,7 @@ declare global {
     iterator(): FluentIterator<T>;
   }
   interface String {
-    iterator(): FluentIterator<String>;
+    iterator(): FluentIterator<string>;
   }
   interface Set<T> {
     iterator(): FluentIterator<T>;
@@ -237,7 +237,7 @@ Array.prototype.iterator = function <T>(this: Array<T>) {
 };
 
 String.prototype.iterator = function () {
-  return new FluentIterator<String>(this[Symbol.iterator]());
+  return new FluentIterator<string>(this[Symbol.iterator]());
 };
 
 Set.prototype.iterator = function <T>(this: Set<T>) {

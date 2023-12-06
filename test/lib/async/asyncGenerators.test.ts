@@ -1,5 +1,5 @@
-import { range, repeat, loop, asyncIterator as iterator } from '../../../src/lib/async';
 import { expect } from 'chai';
+import { asyncIterator as iterator, loop, range, repeat } from '../../../src/lib/async';
 
 describe('AsyncGenerators', () => {
   describe('range', () => {

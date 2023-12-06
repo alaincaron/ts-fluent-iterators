@@ -1,6 +1,6 @@
-import { Comparator, Mapper, Predicate, Reducer, MinMax, ArrayGenerator, IteratorGenerator } from '../types';
-import { alwaysTrue, defaultComparator, sumReducer, avgReducer, minMaxReducer, identity } from '../functions';
 import { Collector } from '../collectors';
+import { alwaysTrue, avgReducer, defaultComparator, identity, minMaxReducer, sumReducer } from '../functions';
+import { ArrayGenerator, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
 
 export function* empty<A = never>(): IterableIterator<A> {}
 

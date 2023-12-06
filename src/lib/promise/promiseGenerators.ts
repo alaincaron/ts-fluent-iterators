@@ -1,5 +1,5 @@
-import * as SyncGenerators from '../sync';
 import * as PromiseIterators from '../promise/promiseIterators';
+import * as SyncGenerators from '../sync';
 import { EventualMapper } from '../types';
 
 export function range(start?: number, end?: number, step?: number): IterableIterator<Promise<number>> {

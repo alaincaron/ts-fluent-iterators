@@ -1,7 +1,7 @@
-import { range, iterator, emptyIterator as empty, toIterator } from '../../../src/lib/sync';
-import { handleCollisionIgnore, handleCollisionOverwrite, lengthComparator } from '../../../src/lib/functions';
-import { FlattenCollector } from '../../../src/lib/collectors';
 import { expect } from 'chai';
+import { FlattenCollector } from '../../../src/lib/collectors';
+import { handleCollisionIgnore, handleCollisionOverwrite, lengthComparator } from '../../../src/lib/functions';
+import { emptyIterator as empty, iterator, range, toIterator } from '../../../src/lib/sync';
 
 describe('SyncFluentIterator', () => {
   describe('collect', () => {
@@ -178,7 +178,7 @@ describe('SyncFluentIterator', () => {
     describe('tap', () => {
       it('should tap all elements', () => {
         let count = 0;
-        let f = (x: number) => {
+        const f = (x: number) => {
           count += x;
         };
         expect(iterator(range(1, 5)).tap(f).collect()).deep.equal([1, 2, 3, 4]);
@@ -189,7 +189,7 @@ describe('SyncFluentIterator', () => {
     describe('forEach', () => {
       it('should invokd function for all elements', () => {
         let count = 0;
-        let f = (x: number) => {
+        const f = (x: number) => {
           count += x;
         };
         expect(iterator(range(1, 5)).forEach(f)).to.be.undefined;
