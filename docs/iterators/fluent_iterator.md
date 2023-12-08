@@ -589,10 +589,10 @@ iterator([1, 2]).collectTo(new ArrayCollector()); // returns [1,2];
 ## collectToMap
 
 ```typescript
-collectToMap<K,V>(
-  mapper: Mapper<A, [K,V]>,
-  collisionHandler?: CollisionHandler<K,V>
-): Map<K, V>
+collectToMap<A,K>(
+  mapper: Mapper<A, K>,
+  collisionHandler?: CollisionHandler<K,A>
+): Map<K, >
 ```
 
 Returns a `Map` whose keys are consisting of applying the `mapper` to
@@ -610,11 +610,11 @@ This is a terminal operation.
 
 ```typescript
 // returns the last even and odd numbers
-iterator([2, 5, 4, 3, 1]).collectToMap(x => [x % 2, x], handleCollisionOverwrite);
+iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionOverwrite);
 // new Map().set(0, 4).set(1, 1);
 
 // returns the first even and odd numbers
-iterator([2, 5, 4, 3, 1]).collectToMap(x => [x % 2, x], handleCollisionIgnore);
+iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionIgnore);
 // new Map().set(0, 2).set(1, 5);
 ```
 
