@@ -1,4 +1,4 @@
-export type Eventually<A> = A | Promise<Awaited<A>>;
+export type Eventually<A> = A | Promise<A>;
 export type Mapper<A, B> = (a: A) => B;
 export type EventualMapper<A, B> = Mapper<A, Eventually<B>>;
 export type Predicate<A> = Mapper<A, boolean>;
@@ -12,18 +12,8 @@ export type EventualIterable<A> = Iterable<A> | AsyncIterable<A>;
 export type EventualIterableIterator<A> = IterableIterator<A> | AsyncIterableIterator<A>;
 
 export interface MinMax<A> {
-  min?: A;
-  max?: A;
-}
-
-export interface AvgState {
-  avg: number;
-  n: number;
-}
-
-export interface SumState {
-  sum: number;
-  correction: number;
+  min: A;
+  max: A;
 }
 
 export interface ArrayGenerator<E> {

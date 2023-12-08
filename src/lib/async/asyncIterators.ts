@@ -1,15 +1,13 @@
 import { EventualCollector } from '../collectors';
-import { alwaysTrue, asyncIdentity, avgReducer, defaultComparator, minMaxReducer, sumReducer } from '../functions';
+import { alwaysTrue, asyncIdentity } from '../functions';
 import { toIterator } from '../sync';
 import {
-  Comparator,
   EventualIterable,
   EventualIterator,
   Eventually,
   EventualMapper,
   EventualPredicate,
   EventualReducer,
-  MinMax,
 } from '../types';
 
 export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
@@ -267,54 +265,6 @@ export async function collectTo<A, B>(
     const item = await iter.next();
     if (item.done) return collector.result;
     await collector.collect(await item.value);
-  }
-}
-
-export function sum(iter: AsyncIterator<number>): Promise<number> {
-  return fold(iter, sumReducer, { sum: 0, correction: 0 }).then(s => s.sum);
-}
-
-export function avg(iter: AsyncIterator<number>): Promise<number> {
-  return fold(iter, avgReducer, { avg: 0, n: 0 }).then(s => s.avg);
-}
-
-export async function count<A>(iter: AsyncIterator<A>, predicate: EventualPredicate<A> = alwaysTrue): Promise<number> {
-  let n = 0;
-  for (;;) {
-    const item = await iter.next();
-    if (item.done) return n;
-    if (await predicate(item.value)) ++n;
-  }
-}
-
-export function min<A>(iter: AsyncIterator<A>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
-  const reducer = (acc: A, a: A) => (comparator(acc, a) <= 0 ? acc : a);
-  return reduce(iter, reducer);
-}
-
-export function max<A>(iter: AsyncIterator<A>, comparator: Comparator<A> = defaultComparator): Promise<A | undefined> {
-  const reducer = (acc: A, a: A) => (comparator(acc, a) >= 0 ? acc : a);
-  return reduce(iter, reducer);
-}
-
-export async function minmax<A>(
-  iter: AsyncIterator<A>,
-  comparator: Comparator<A> = defaultComparator
-): Promise<MinMax<A>> {
-  const item = await iter.next();
-  if (item.done) return {};
-  return fold(iter, minMaxReducer(comparator), { min: item.value, max: item.value });
-}
-
-export async function last<A>(
-  iter: AsyncIterator<A>,
-  predicate: EventualPredicate<A> = alwaysTrue
-): Promise<A | undefined> {
-  let result: A | undefined;
-  for (;;) {
-    const item = await iter.next();
-    if (item.done) return result;
-    if (await predicate(item.value)) result = item.value;
   }
 }
 

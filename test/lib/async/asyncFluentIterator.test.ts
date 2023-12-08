@@ -477,12 +477,12 @@ describe('AsyncFluentIterator', () => {
 
   describe('collectToMap', () => {
     it('should return the last even and odd number', async () => {
-      const actual = await iterator([2, 5, 4, 3, 1]).collectToMap(x => [x % 2, x]);
+      const actual = await iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2);
       const expected = new Map().set(0, 4).set(1, 1);
       expect(actual).deep.equal(expected);
     });
     it('should return the first even and odd number', async () => {
-      const actual = await iterator([2, 5, 4, 3, 1]).collectToMap(x => [x % 2, x], handleCollisionIgnore);
+      const actual = await iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionIgnore);
       const expected = new Map().set(0, 2).set(1, 5);
       expect(actual).deep.equal(expected);
     });

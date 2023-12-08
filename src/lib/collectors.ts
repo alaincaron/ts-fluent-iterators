@@ -1,15 +1,17 @@
-import { handleCollisionOverwrite, identity } from './functions';
+import { alwaysTrue, asyncIdentity, defaultComparator, handleCollisionOverwrite, identity } from './functions';
 import { emptyIterator, FluentIterator } from './sync';
-import { CollisionHandler, Mapper } from './types';
+import { CollisionHandler, Comparator, EventualMapper, EventualPredicate, Mapper, MinMax, Predicate } from './types';
 
-export interface Collector<A, B> {
-  collect(a: A): void;
+export interface CollectorResult<B> {
   get result(): B;
 }
 
-export interface AsyncCollector<A, B> {
+export interface Collector<A, B> extends CollectorResult<B> {
+  collect(a: A): void;
+}
+
+export interface AsyncCollector<A, B> extends CollectorResult<B> {
   collect(a: A): Promise<void>;
-  get result(): B;
 }
 
 export type EventualCollector<A, B> = Collector<A, B> | AsyncCollector<A, B>;
@@ -38,42 +40,33 @@ export class SetCollector<A> implements Collector<A, Set<A>> {
   }
 }
 
-export class GroupByCollector<A, K> implements Collector<A, Map<K, A[]>> {
-  private readonly map: Map<K, A[]> = new Map();
+export class GroupByCollector<K, V> implements Collector<[K, V], Map<K, V[]>> {
+  private readonly map: Map<K, V[]> = new Map();
 
-  constructor(private readonly mapper: Mapper<A, K>) {
-    this.mapper = mapper;
-  }
-
-  get result(): Map<K, A[]> {
+  get result(): Map<K, V[]> {
     return this.map;
   }
 
-  collect(a: A) {
-    const k = this.mapper(a);
+  collect([k, v]: [K, V]) {
     let arr = this.map.get(k);
     if (!arr) {
       arr = [];
       this.map.set(k, arr);
     }
-    arr.push(a);
+    arr.push(v);
   }
 }
 
-export class MapCollector<A, K, V> implements Collector<A, Map<K, V>> {
+export class MapCollector<K, V> implements Collector<[K, V], Map<K, V>> {
   private readonly map: Map<K, V> = new Map();
 
-  constructor(
-    private readonly mapper: Mapper<A, [K, V]>,
-    private readonly collisionHandler: CollisionHandler<K, V> = handleCollisionOverwrite
-  ) {}
+  constructor(private readonly collisionHandler: CollisionHandler<K, V> = handleCollisionOverwrite) {}
 
   get result(): Map<K, V> {
     return this.map;
   }
 
-  collect(a: A) {
-    const [k, v] = this.mapper(a);
+  collect([k, v]: [K, V]) {
     if (this.collisionHandler === handleCollisionOverwrite || !this.map.has(k)) {
       this.map.set(k, v);
     } else {
@@ -84,20 +77,16 @@ export class MapCollector<A, K, V> implements Collector<A, Map<K, V>> {
   }
 }
 
-export class ObjectCollector<A, V> implements Collector<A, Record<string, V>> {
+export class ObjectCollector<V> implements Collector<[string, V], Record<string, V>> {
   private readonly hash: Record<string, V> = {};
 
-  constructor(
-    private readonly mapper: Mapper<A, [string, V]>,
-    private readonly collisionHandler: CollisionHandler<string, V> = handleCollisionOverwrite
-  ) {}
+  constructor(private readonly collisionHandler: CollisionHandler<string, V> = handleCollisionOverwrite) {}
 
   get result(): Record<string, V> {
     return this.hash;
   }
 
-  collect(a: A) {
-    const [k, v] = this.mapper(a);
+  collect([k, v]: [string, V]) {
     if (this.collisionHandler === handleCollisionOverwrite || !this.hash.hasOwnProperty(k)) {
       this.hash[k] = v;
     } else {
@@ -120,19 +109,16 @@ export class FlattenCollector<A> implements Collector<Iterable<A> | Iterator<A>,
   }
 }
 
-export class TallyCollector<A, K> implements Collector<A, Map<K, number>> {
-  private readonly map: Map<K, number> = new Map();
+export class TallyCollector<A> implements Collector<A, Map<A, number>> {
+  private readonly map: Map<A, number> = new Map();
 
-  constructor(private readonly mapper: Mapper<A, K> = identity as Mapper<A, K>) {}
-
-  get result(): Map<K, number> {
+  get result(): Map<A, number> {
     return this.map;
   }
 
   collect(a: A) {
-    const k = this.mapper(a);
-    const v = this.map.get(k);
-    this.map.set(k, (v ?? 0) + 1);
+    const v = this.map.get(a);
+    this.map.set(a, (v ?? 0) + 1);
   }
 }
 
@@ -164,5 +150,161 @@ export class StringJoiner<A> implements Collector<A, string> {
       this.done = true;
     }
     return this.acc;
+  }
+}
+
+export class AvgCollector implements Collector<number, number> {
+  private n: number = 0;
+  private avg: number = 0;
+
+  collect(a: number) {
+    this.avg += (a - this.avg) / ++this.n;
+  }
+
+  get result() {
+    return this.avg;
+  }
+}
+
+export class SumCollector implements Collector<number, number> {
+  private correction = 0;
+  private sum = 0;
+
+  collect(a: number) {
+    const y = a - this.correction;
+    const t = this.sum + y;
+    this.correction = t - this.sum - y;
+    this.sum = t;
+  }
+
+  get result() {
+    return this.sum;
+  }
+}
+
+export class MinCollector<A> implements Collector<A, A | undefined> {
+  private acc: A | undefined;
+
+  constructor(private readonly comparator: Comparator<A> = defaultComparator) {}
+
+  collect(a: A) {
+    if (this.acc === undefined || this.comparator(a, this.acc) < 0) this.acc = a;
+  }
+
+  get result() {
+    return this.acc;
+  }
+}
+
+export class MaxCollector<A> implements Collector<A, A | undefined> {
+  private acc: A | undefined;
+
+  constructor(private readonly comparator: Comparator<A> = defaultComparator) {}
+
+  collect(a: A) {
+    if (this.acc === undefined || this.comparator(a, this.acc) > 0) this.acc = a;
+  }
+
+  get result() {
+    return this.acc;
+  }
+}
+
+export class MinMaxCollector<A> implements Collector<A, MinMax<A> | undefined> {
+  private acc: MinMax<A> | undefined;
+
+  constructor(private readonly comparator: Comparator<A> = defaultComparator) {}
+
+  collect(a: A) {
+    if (this.acc === undefined) this.acc = { min: a, max: a };
+    else if (this.comparator(this.acc.max, a) < 0) this.acc.max = a;
+    else if (this.comparator(this.acc.min, a) > 0) this.acc.min = a;
+  }
+
+  get result() {
+    return this.acc;
+  }
+}
+
+export class CountCollector<A> implements Collector<A, number> {
+  private count = 0;
+
+  collect(_a: A) {
+    ++this.count;
+  }
+
+  get result() {
+    return this.count;
+  }
+}
+
+export class LastCollector<A> implements Collector<A, A | undefined> {
+  private acc: A | undefined = undefined;
+
+  collect(a: A) {
+    this.acc = a;
+  }
+
+  get result() {
+    return this.acc;
+  }
+}
+
+export class CollectorDecorator<A, B, C> implements Collector<A, C> {
+  constructor(
+    private readonly collector: Collector<B, C>,
+    private readonly mapper: Mapper<A, B> = identity as Mapper<A, B>
+  ) {}
+
+  collect(a: A) {
+    this.collector.collect(this.mapper(a));
+  }
+
+  get result() {
+    return this.collector.result;
+  }
+}
+
+export class AsyncCollectorDecorator<A, B, C> implements AsyncCollector<A, C> {
+  constructor(
+    private readonly collector: EventualCollector<B, C>,
+    private readonly mapper: EventualMapper<A, B> = asyncIdentity as EventualMapper<A, B>
+  ) {}
+
+  async collect(a: A) {
+    await this.collector.collect(await this.mapper(a));
+  }
+  get result() {
+    return this.collector.result;
+  }
+}
+
+export class CollectorFilter<A, B> implements Collector<A, B> {
+  constructor(
+    private readonly collector: Collector<A, B>,
+    private readonly predicate: Predicate<A> = alwaysTrue
+  ) {}
+
+  collect(a: A) {
+    if (this.predicate(a)) this.collector.collect(a);
+  }
+
+  get result() {
+    return this.collector.result;
+  }
+}
+
+export class AsyncCollectorFilter<A, B> implements AsyncCollector<A, B> {
+  constructor(
+    private readonly collector: EventualCollector<A, B>,
+    private readonly predicate: EventualPredicate<A> = alwaysTrue
+  ) {}
+
+  async collect(a: A) {
+    if (await this.predicate(a)) await this.collector.collect(a);
+  }
+
+  get result() {
+    return this.collector.result;
   }
 }

@@ -185,439 +185,439 @@ describe('SyncFluentIterator', () => {
         expect(count).equal(10);
       });
     });
+  });
 
-    describe('forEach', () => {
-      it('should invokd function for all elements', () => {
-        let count = 0;
-        const f = (x: number) => {
-          count += x;
-        };
-        expect(iterator(range(1, 5)).forEach(f)).to.be.undefined;
-        expect(count).equal(10);
-      });
+  describe('forEach', () => {
+    it('should invokd function for all elements', () => {
+      let count = 0;
+      const f = (x: number) => {
+        count += x;
+      };
+      expect(iterator(range(1, 5)).forEach(f)).to.be.undefined;
+      expect(count).equal(10);
+    });
+  });
+
+  describe('append', () => {
+    it('should append multiple elements', () => {
+      expect(iterator([1]).append([2, 3]).collect()).deep.equal([1, 2, 3]);
     });
 
-    describe('append', () => {
-      it('should append multiple elements', () => {
-        expect(iterator([1]).append([2, 3]).collect()).deep.equal([1, 2, 3]);
-      });
+    it('should append to empty iterator', () => {
+      expect(empty<number>().append([1, 2]).collect()).deep.equal([1, 2]);
+    });
+    it('should append an empty array', () => {
+      expect(iterator([1, 2]).append([]).collect()).deep.equal([1, 2]);
+    });
+  });
 
-      it('should append to empty iterator', () => {
-        expect(empty<number>().append([1, 2]).collect()).deep.equal([1, 2]);
-      });
-      it('should append an empty array', () => {
-        expect(iterator([1, 2]).append([]).collect()).deep.equal([1, 2]);
-      });
+  describe('prepend', () => {
+    it('should prepend multiple elements', () => {
+      expect(iterator([1]).prepend([2, 3]).collect()).deep.equal([2, 3, 1]);
     });
 
-    describe('prepend', () => {
-      it('should prepend multiple elements', () => {
-        expect(iterator([1]).prepend([2, 3]).collect()).deep.equal([2, 3, 1]);
-      });
+    it('should prepend to empty iterator', () => {
+      expect(empty<number>().prepend([1, 2]).collect()).deep.equal([1, 2]);
+    });
+    it('should prepend an empty array', () => {
+      expect(iterator([1, 2]).prepend([]).collect()).deep.equal([1, 2]);
+    });
+  });
 
-      it('should prepend to empty iterator', () => {
-        expect(empty<number>().prepend([1, 2]).collect()).deep.equal([1, 2]);
-      });
-      it('should prepend an empty array', () => {
-        expect(iterator([1, 2]).prepend([]).collect()).deep.equal([1, 2]);
-      });
+  describe('concat', () => {
+    it('should concat multiple elements', () => {
+      expect(iterator([1]).concat([2], [3]).collect()).deep.equal([1, 2, 3]);
     });
 
-    describe('concat', () => {
-      it('should concat multiple elements', () => {
-        expect(iterator([1]).concat([2], [3]).collect()).deep.equal([1, 2, 3]);
-      });
+    it('should concat to empty iterator', () => {
+      expect(empty<number>().concat([1, 2]).collect()).deep.equal([1, 2]);
+    });
+    it('should concat an empty array', () => {
+      expect(iterator([1, 2]).concat([]).collect()).deep.equal([1, 2]);
+    });
+    it('should concat argument-less', () => {
+      expect(iterator([1, 2]).concat().collect()).deep.equal([1, 2]);
+    });
+  });
 
-      it('should concat to empty iterator', () => {
-        expect(empty<number>().concat([1, 2]).collect()).deep.equal([1, 2]);
-      });
-      it('should concat an empty array', () => {
-        expect(iterator([1, 2]).concat([]).collect()).deep.equal([1, 2]);
-      });
-      it('should concat argument-less', () => {
-        expect(iterator([1, 2]).concat().collect()).deep.equal([1, 2]);
+  describe('takeWhile', () => {
+    it('take up to 5', () => {
+      expect(
+        iterator(range(1, 100))
+          .takeWhile(x => x <= 2)
+          .collect()
+      ).deep.equal([1, 2]);
+    });
+    it('should return all elements', () => {
+      expect(
+        iterator([1, 2, 3])
+          .takeWhile(_ => true)
+          .collect()
+      ).deep.equal([1, 2, 3]);
+    });
+    it('should return no elements', () => {
+      expect(
+        iterator([1, 2, 3])
+          .takeWhile(_ => false)
+          .collect()
+      ).deep.equal([]);
+    });
+    it('should work on empty iterator', () => {
+      expect(
+        empty()
+          .takeWhile(x => {
+            throw new Error(`x = ${x}`);
+          })
+          .collect()
+      ).deep.equal([]);
+    });
+  });
+
+  describe('skipWhile', () => {
+    it('should yield skip 2 elements', () => {
+      expect(
+        iterator([1, 10, 2, 11])
+          .skipWhile(x => x != 10)
+          .collect()
+      ).deep.equal([10, 2, 11]);
+    });
+    it('should return no elements', () => {
+      expect(
+        iterator([1, 2, 3])
+          .skipWhile(x => x > 0)
+          .collect()
+      ).deep.equal([]);
+    });
+    it('should return all elements', () => {
+      expect(
+        iterator([1, 2, 3])
+          .skipWhile(x => x % 2 === 0)
+          .collect()
+      ).deep.equal([1, 2, 3]);
+    });
+    it('should work on empty iterator', () => {
+      expect(
+        empty()
+          .skipWhile(x => {
+            throw new Error(`x = ${x}`);
+          })
+          .collect()
+      ).deep.equal([]);
+    });
+  });
+
+  describe('distinct', () => {
+    it('should eliminate duplicates', () => {
+      expect(iterator([1, 2, 5, 2, 1, 0]).distinct().collect()).deep.equal([1, 2, 5, 0]);
+    });
+    it('should only yield one odd and one even number', () => {
+      expect(
+        iterator([1, 2, 5, 2, 1, 0])
+          .distinct(x => x % 2)
+          .collect()
+      ).deep.equal([1, 2]);
+    });
+  });
+
+  describe('all', () => {
+    it('should return true', () => {
+      expect(iterator([1, 10, 2, 11]).all(x => x > 0)).equal(true);
+    });
+    it('should return true if empty', () => {
+      expect(iterator([]).all(x => x > 0)).equal(true);
+    });
+    it('should return false', () => {
+      expect(iterator([1, 2, 3, -1]).all(x => x > 0)).equal(false);
+    });
+  });
+
+  describe('some', () => {
+    it('should return true', () => {
+      expect(iterator([-1, 1]).some(x => x > 0)).equal(true);
+    });
+    it('should return false if empty', () => {
+      expect(iterator([]).some(x => x > 0)).equal(false);
+    });
+    it('should return false', () => {
+      expect(iterator([-1, -2, -3]).some(x => x > 0)).equal(false);
+    });
+  });
+
+  describe('sum', () => {
+    it('should apply mapper', () => {
+      expect(iterator(['foo', 'bar', 'foobar']).sum(x => x.length)).equal(12);
+    });
+    it('should sum numbers', () => {
+      expect(iterator([1, 2, 3]).sum()).equal(6);
+    });
+    it('should return 0 on empty iterators', () => {
+      expect(iterator([]).sum()).equal(0);
+    });
+  });
+
+  describe('avg', () => {
+    it('should apply mapper', () => {
+      expect(iterator(['foo', 'bar', 'foobar']).avg(x => x.length)).equal(4);
+    });
+    it('should avg numbers', () => {
+      expect(iterator([1, 2]).avg()).equal(1.5);
+    });
+    it('should return 0 on empty iterators', () => {
+      expect(iterator([]).avg()).equal(0);
+    });
+  });
+
+  describe('min', () => {
+    it('should return the shortest string', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).min(lengthComparator)).equal('x');
+    });
+    it('should return lexicographically smallest string', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).min()).equal('bar');
+    });
+  });
+
+  describe('max', () => {
+    it('should return the longest string', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).max(lengthComparator)).equal('foobar');
+    });
+    it('should return lexicographically largest string', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).max()).equal('x');
+    });
+  });
+
+  describe('minmax', () => {
+    it('should return the longest and shortest strings', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax(lengthComparator)).deep.equal({
+        min: 'x',
+        max: 'foobar',
       });
     });
-
-    describe('takeWhile', () => {
-      it('take up to 5', () => {
-        expect(
-          iterator(range(1, 100))
-            .takeWhile(x => x <= 2)
-            .collect()
-        ).deep.equal([1, 2]);
-      });
-      it('should return all elements', () => {
-        expect(
-          iterator([1, 2, 3])
-            .takeWhile(_ => true)
-            .collect()
-        ).deep.equal([1, 2, 3]);
-      });
-      it('should return no elements', () => {
-        expect(
-          iterator([1, 2, 3])
-            .takeWhile(_ => false)
-            .collect()
-        ).deep.equal([]);
-      });
-      it('should work on empty iterator', () => {
-        expect(
-          empty()
-            .takeWhile(x => {
-              throw new Error(`x = ${x}`);
-            })
-            .collect()
-        ).deep.equal([]);
-      });
+    it('should return lexicographically smallest and largest strings', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax()).deep.equal({ min: 'bar', max: 'x' });
     });
-
-    describe('skipWhile', () => {
-      it('should yield skip 2 elements', () => {
-        expect(
-          iterator([1, 10, 2, 11])
-            .skipWhile(x => x != 10)
-            .collect()
-        ).deep.equal([10, 2, 11]);
-      });
-      it('should return no elements', () => {
-        expect(
-          iterator([1, 2, 3])
-            .skipWhile(x => x > 0)
-            .collect()
-        ).deep.equal([]);
-      });
-      it('should return all elements', () => {
-        expect(
-          iterator([1, 2, 3])
-            .skipWhile(x => x % 2 === 0)
-            .collect()
-        ).deep.equal([1, 2, 3]);
-      });
-      it('should work on empty iterator', () => {
-        expect(
-          empty()
-            .skipWhile(x => {
-              throw new Error(`x = ${x}`);
-            })
-            .collect()
-        ).deep.equal([]);
-      });
+    it('should return return undefined on empty iterator', () => {
+      expect(empty().minmax()).to.be.undefined;
     });
+  });
 
-    describe('distinct', () => {
-      it('should eliminate duplicates', () => {
-        expect(iterator([1, 2, 5, 2, 1, 0]).distinct().collect()).deep.equal([1, 2, 5, 0]);
-      });
-      it('should only yield one odd and one even number', () => {
-        expect(
-          iterator([1, 2, 5, 2, 1, 0])
-            .distinct(x => x % 2)
-            .collect()
-        ).deep.equal([1, 2]);
-      });
+  describe('last', () => {
+    it('should return the last string', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).last()).equal('foobar');
     });
-
-    describe('all', () => {
-      it('should return true', () => {
-        expect(iterator([1, 10, 2, 11]).all(x => x > 0)).equal(true);
-      });
-      it('should return true if empty', () => {
-        expect(iterator([]).all(x => x > 0)).equal(true);
-      });
-      it('should return false', () => {
-        expect(iterator([1, 2, 3, -1]).all(x => x > 0)).equal(false);
-      });
+    it('should return the last string of length 3', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).last(s => s.length === 3)).equal('bar');
     });
-
-    describe('some', () => {
-      it('should return true', () => {
-        expect(iterator([-1, 1]).some(x => x > 0)).equal(true);
-      });
-      it('should return false if empty', () => {
-        expect(iterator([]).some(x => x > 0)).equal(false);
-      });
-      it('should return false', () => {
-        expect(iterator([-1, -2, -3]).some(x => x > 0)).equal(false);
-      });
+    it('should return undefined', () => {
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).last(s => s.length > 10)).to.be.undefined;
     });
+  });
 
-    describe('sum', () => {
-      it('should apply mapper', () => {
-        expect(iterator(['foo', 'bar', 'foobar']).sum(x => x.length)).equal(12);
-      });
-      it('should sum numbers', () => {
-        expect(iterator([1, 2, 3]).sum()).equal(6);
-      });
-      it('should return 0 on empty iterators', () => {
-        expect(iterator([]).sum()).equal(0);
-      });
+  describe('count', () => {
+    it('should use predicate', () => {
+      expect(iterator([1, 2, 3]).count(x => x % 2 === 0)).equal(1);
     });
-
-    describe('avg', () => {
-      it('should apply mapper', () => {
-        expect(iterator(['foo', 'bar', 'foobar']).avg(x => x.length)).equal(4);
-      });
-      it('should avg numbers', () => {
-        expect(iterator([1, 2]).avg()).equal(1.5);
-      });
-      it('should return 0 on empty iterators', () => {
-        expect(iterator([]).avg()).equal(0);
-      });
+    it('should use default true predicate', () => {
+      expect(iterator([1, 2, 3]).count()).equal(3);
     });
+  });
 
-    describe('min', () => {
-      it('should return the shortest string', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).min(lengthComparator)).equal('x');
-      });
-      it('should return lexicographically smallest string', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).min()).equal('bar');
-      });
+  describe('join', () => {
+    it('should use separator', () => {
+      expect(iterator([1, 2, 3]).join('-')).equal('1-2-3');
     });
-
-    describe('max', () => {
-      it('should return the longest string', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).max(lengthComparator)).equal('foobar');
-      });
-      it('should return lexicographically largest string', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).max()).equal('x');
-      });
+    it('should use default separator', () => {
+      expect(iterator([1, 2, 3]).join()).equal('1,2,3');
     });
-
-    describe('minmax', () => {
-      it('should return the longest and shortest strings', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax(lengthComparator)).deep.equal({
-          min: 'x',
-          max: 'foobar',
-        });
-      });
-      it('should return lexicographically smallest and largest strings', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax()).deep.equal({ min: 'bar', max: 'x' });
-      });
-      it('should return return empty object on empty iterator', () => {
-        expect(empty().minmax()).deep.equal({});
-      });
+    it('should return empty string', () => {
+      expect(iterator([]).join()).equal('');
     });
-
-    describe('last', () => {
-      it('should return the last string', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).last()).equal('foobar');
-      });
-      it('should return the last string of length 3', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).last(s => s.length === 3)).equal('bar');
-      });
-      it('should return undefined', () => {
-        expect(iterator(['foo', 'bar', 'x', 'foobar']).last(s => s.length > 10)).to.be.undefined;
-      });
+    it('should use prefix and suffix', () => {
+      expect(iterator([1, 2, 3]).join(',', '[', ']')).equal('[1,2,3]');
     });
-
-    describe('count', () => {
-      it('should use predicate', () => {
-        expect(iterator([1, 2, 3]).count(x => x % 2 === 0)).equal(1);
-      });
-      it('should use default true predicate', () => {
-        expect(iterator([1, 2, 3]).count()).equal(3);
-      });
+    it('should use prefix and suffix on empty iterator', () => {
+      expect(iterator([]).join(',', '[', ']')).equal('[]');
     });
+  });
 
-    describe('join', () => {
-      it('should use separator', () => {
-        expect(iterator([1, 2, 3]).join('-')).equal('1-2-3');
-      });
-      it('should use default separator', () => {
-        expect(iterator([1, 2, 3]).join()).equal('1,2,3');
-      });
-      it('should return empty string', () => {
-        expect(iterator([]).join()).equal('');
-      });
-      it('should use prefix and suffix', () => {
-        expect(iterator([1, 2, 3]).join(',', '[', ']')).equal('[1,2,3]');
-      });
-      it('should use prefix and suffix on empty iterator', () => {
-        expect(iterator([]).join(',', '[', ']')).equal('[]');
-      });
+  describe('groupBy', () => {
+    it('should group numbers according to their last bit', () => {
+      const actual = iterator([2, 5, 4, 3, 1]).groupBy(x => x % 2);
+      const expected = new Map().set(0, [2, 4]).set(1, [5, 3, 1]);
+      expect(actual).deep.equal(expected);
     });
+  });
 
-    describe('groupBy', () => {
-      it('should group numbers according to their last bit', () => {
-        const actual = iterator([2, 5, 4, 3, 1]).groupBy(x => x % 2);
-        const expected = new Map().set(0, [2, 4]).set(1, [5, 3, 1]);
-        expect(actual).deep.equal(expected);
-      });
+  describe('collectToMap', () => {
+    it('should return the last even and odd number', () => {
+      const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionOverwrite);
+      const expected = new Map().set(0, 4).set(1, 1);
+      expect(actual).deep.equal(expected);
     });
-
-    describe('collectToMap', () => {
-      it('should return the last even and odd number', () => {
-        const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => [x % 2, x], handleCollisionOverwrite);
-        const expected = new Map().set(0, 4).set(1, 1);
-        expect(actual).deep.equal(expected);
-      });
-      it('should return the first even and odd number', () => {
-        const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => [x % 2, x], handleCollisionIgnore);
-        const expected = new Map().set(0, 2).set(1, 5);
-        expect(actual).deep.equal(expected);
-      });
+    it('should return the first even and odd number', () => {
+      const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionIgnore);
+      const expected = new Map().set(0, 2).set(1, 5);
+      expect(actual).deep.equal(expected);
     });
+  });
 
-    describe('collectToObject', () => {
-      interface Data {
-        key: string;
-        value: number;
+  describe('collectToObject', () => {
+    interface Data {
+      key: string;
+      value: number;
+    }
+
+    function mapper(data: Data): [string, number] {
+      return [data.key, data.value];
+    }
+
+    it('should return the last occurences of key', () => {
+      const actual = iterator([
+        { key: 'a', value: 1 },
+        { key: 'a', value: 2 },
+        { key: 'b', value: 3 },
+        { key: 'b', value: 4 },
+      ]).collectToObject(mapper);
+      const expected = { a: 2, b: 4 };
+      expect(actual).deep.equal(expected);
+    });
+    it('should return the first occurences of key', () => {
+      const actual = iterator([
+        { key: 'a', value: 1 },
+        { key: 'a', value: 2 },
+        { key: 'b', value: 3 },
+        { key: 'b', value: 4 },
+      ]).collectToObject(mapper, handleCollisionIgnore);
+      const expected = { a: 1, b: 3 };
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe('collectTo with FlattenCollector', () => {
+    it('should return flattened list of numbers', () => {
+      const actual = iterator([
+        [2, 5],
+        [4, 2, 5],
+      ])
+        .collectTo(new FlattenCollector())
+        .collect();
+      const expected = [2, 5, 4, 2, 5];
+      expect(actual).deep.equal(expected);
+    });
+    it('should return flattened set of numbers', () => {
+      const actual = iterator([
+        [2, 5],
+        [4, 2, 5],
+      ])
+        .collectTo(new FlattenCollector())
+        .collectToSet();
+      const expected = new Set([2, 4, 5]);
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe('collectToSet', () => {
+    it('should return set of numbers', () => {
+      const actual = iterator([2, 5, 4, 2, 5]).collectToSet();
+      const expected = new Set([2, 4, 5]);
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe('partition', () => {
+    it('should split iterator based on partition size', () => {
+      const actual = iterator([2, 5, 4, 3, 1]).partition(2).collect();
+      const expected = [[2, 5], [4, 3], [1]];
+      expect(actual).deep.equal(expected);
+    });
+    it('should throw on partition size smaller than 1', () => {
+      expect(() => empty().partition(0)).to.throw;
+    });
+    it('should throw on non-integer values', () => {
+      expect(() => empty().partition(0.5)).to.throw;
+    });
+  });
+
+  describe('tally', () => {
+    it('should count event and odd numbers', () => {
+      const actual = iterator([2, 5, 4, 3, 1]).tally(x => x % 2);
+      const expected = new Map().set(0, 2).set(1, 3);
+      expect(actual).deep.equal(expected);
+    });
+    it('should count all words', () => {
+      const actual = iterator(['foo', 'bar', 'foobar', 'foo']).tally();
+      const expected = new Map().set('foo', 2).set('bar', 1).set('foobar', 1);
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe('toPromise', () => {
+    it('should convert to a Promise iterator', async () => {
+      const actual = await [1, 2].iterator().toPromise().collect();
+      expect(actual).to.deep.equal([1, 2]);
+    });
+  });
+
+  describe('toAsync', () => {
+    it('should convert to a AsyncFluentIterator', async () => {
+      const actual = await [1, 2].iterator().toAsync().collect();
+      expect(actual).to.deep.equal([1, 2]);
+    });
+  });
+
+  describe('Symbol', () => {
+    it('should be usable as a native iterator', () => {
+      const expected = [1, 2];
+      const iter = expected.iterator();
+      const actual = [];
+      for (const c of iter) {
+        actual.push(c);
       }
+      expect(actual).to.deep.equal(expected);
+    });
+  });
 
-      function mapper(data: Data): [string, number] {
-        return [data.key, data.value];
-      }
+  describe('String iterator', () => {
+    it('should add iterator to String prototype', () => {
+      const str = 'foobar';
+      const actual = str.iterator().join('');
+      expect(actual).to.equal(str);
+    });
+  });
 
-      it('should return the last occurences of key', () => {
-        const actual = iterator([
-          { key: 'a', value: 1 },
-          { key: 'a', value: 2 },
-          { key: 'b', value: 3 },
-          { key: 'b', value: 4 },
-        ]).collectToObject(mapper);
-        const expected = { a: 2, b: 4 };
-        expect(actual).deep.equal(expected);
-      });
-      it('should return the first occurences of key', () => {
-        const actual = iterator([
-          { key: 'a', value: 1 },
-          { key: 'a', value: 2 },
-          { key: 'b', value: 3 },
-          { key: 'b', value: 4 },
-        ]).collectToObject(mapper, handleCollisionIgnore);
-        const expected = { a: 1, b: 3 };
-        expect(actual).deep.equal(expected);
-      });
+  describe('Set iterator', () => {
+    it('should add iterator to Set prototype', () => {
+      const expected = new Set().add(1).add(2);
+      const actual = expected.iterator().collectToSet();
+      expect(actual).to.deep.equal(expected);
     });
-
-    describe('collectTo with FlattenCollector', () => {
-      it('should return flattened list of numbers', () => {
-        const actual = iterator([
-          [2, 5],
-          [4, 2, 5],
-        ])
-          .collectTo(new FlattenCollector())
-          .collect();
-        const expected = [2, 5, 4, 2, 5];
-        expect(actual).deep.equal(expected);
-      });
-      it('should return flattened set of numbers', () => {
-        const actual = iterator([
-          [2, 5],
-          [4, 2, 5],
-        ])
-          .collectTo(new FlattenCollector())
-          .collectToSet();
-        const expected = new Set([2, 4, 5]);
-        expect(actual).deep.equal(expected);
-      });
+  });
+  describe('Map iterator', () => {
+    it('should add iterator to Map prototype', () => {
+      const map = new Map().set('a', 2).set('b', 3);
+      const actual = map.iterator().collect();
+      expect(actual).to.deep.equal([
+        ['a', 2],
+        ['b', 3],
+      ]);
     });
-
-    describe('collectToSet', () => {
-      it('should return set of numbers', () => {
-        const actual = iterator([2, 5, 4, 2, 5]).collectToSet();
-        const expected = new Set([2, 4, 5]);
-        expect(actual).deep.equal(expected);
-      });
+  });
+  describe('Map key iterator', () => {
+    it('should add keyIterator to Map prototype', () => {
+      const map = new Map().set('a', 2).set('b', 3);
+      const actual = map.keyIterator().collect();
+      expect(actual).to.deep.equal(['a', 'b']);
     });
-
-    describe('partition', () => {
-      it('should split iterator based on partition size', () => {
-        const actual = iterator([2, 5, 4, 3, 1]).partition(2).collect();
-        const expected = [[2, 5], [4, 3], [1]];
-        expect(actual).deep.equal(expected);
-      });
-      it('should throw on partition size smaller than 1', () => {
-        expect(() => empty().partition(0)).to.throw;
-      });
-      it('should throw on non-integer values', () => {
-        expect(() => empty().partition(0.5)).to.throw;
-      });
+  });
+  describe('Map value iterator', () => {
+    it('should add valueIterator to Map prototype', () => {
+      const map = new Map().set('a', 2).set('b', 3);
+      const actual = map.valueIterator().collect();
+      expect(actual).to.deep.equal([2, 3]);
     });
-
-    describe('tally', () => {
-      it('should count event and odd numbers', () => {
-        const actual = iterator([2, 5, 4, 3, 1]).tally(x => x % 2);
-        const expected = new Map().set(0, 2).set(1, 3);
-        expect(actual).deep.equal(expected);
-      });
-      it('should count all words', () => {
-        const actual = iterator(['foo', 'bar', 'foobar', 'foo']).tally();
-        const expected = new Map().set('foo', 2).set('bar', 1).set('foobar', 1);
-        expect(actual).deep.equal(expected);
-      });
-    });
-
-    describe('toPromise', () => {
-      it('should convert to a Promise iterator', async () => {
-        const actual = await [1, 2].iterator().toPromise().collect();
-        expect(actual).to.deep.equal([1, 2]);
-      });
-    });
-
-    describe('toAsync', () => {
-      it('should convert to a AsyncFluentIterator', async () => {
-        const actual = await [1, 2].iterator().toAsync().collect();
-        expect(actual).to.deep.equal([1, 2]);
-      });
-    });
-
-    describe('Symbol', () => {
-      it('should be usable as a native iterator', () => {
-        const expected = [1, 2];
-        const iter = expected.iterator();
-        const actual = [];
-        for (const c of iter) {
-          actual.push(c);
-        }
-        expect(actual).to.deep.equal(expected);
-      });
-    });
-
-    describe('String iterator', () => {
-      it('should add iterator to String prototype', () => {
-        const str = 'foobar';
-        const actual = str.iterator().join('');
-        expect(actual).to.equal(str);
-      });
-    });
-
-    describe('Set iterator', () => {
-      it('should add iterator to Set prototype', () => {
-        const expected = new Set().add(1).add(2);
-        const actual = expected.iterator().collectToSet();
-        expect(actual).to.deep.equal(expected);
-      });
-    });
-    describe('Map iterator', () => {
-      it('should add iterator to Map prototype', () => {
-        const map = new Map().set('a', 2).set('b', 3);
-        const actual = map.iterator().collect();
-        expect(actual).to.deep.equal([
-          ['a', 2],
-          ['b', 3],
-        ]);
-      });
-    });
-    describe('Map key iterator', () => {
-      it('should add keyIterator to Map prototype', () => {
-        const map = new Map().set('a', 2).set('b', 3);
-        const actual = map.keyIterator().collect();
-        expect(actual).to.deep.equal(['a', 'b']);
-      });
-    });
-    describe('Map value iterator', () => {
-      it('should add valueIterator to Map prototype', () => {
-        const map = new Map().set('a', 2).set('b', 3);
-        const actual = map.valueIterator().collect();
-        expect(actual).to.deep.equal([2, 3]);
-      });
-    });
-    describe('toIterator', () => {
-      it('should throw non iterable input', () => {
-        expect(() => toIterator(2 as unknown as Iterable<unknown>)).to.throw();
-      });
+  });
+  describe('toIterator', () => {
+    it('should throw non iterable input', () => {
+      expect(() => toIterator(2 as unknown as Iterable<unknown>)).to.throw();
     });
   });
 });

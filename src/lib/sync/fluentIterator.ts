@@ -2,15 +2,23 @@ import * as Iterators from './iterators';
 import { AsyncFluentIterator, toAsync } from '../async';
 import {
   ArrayCollector,
+  AvgCollector,
   Collector,
+  CollectorDecorator,
+  CollectorFilter,
+  CountCollector,
   GroupByCollector,
+  LastCollector,
   MapCollector,
+  MaxCollector,
+  MinCollector,
+  MinMaxCollector,
   ObjectCollector,
   SetCollector,
   StringJoiner,
+  SumCollector,
   TallyCollector,
 } from '../collectors';
-import { identity } from '../functions';
 import { PromiseIterator, toPromise } from '../promise';
 import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
 
@@ -41,15 +49,15 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return this.collectTo(new SetCollector());
   }
 
-  collectToMap<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Map<K, V> {
-    return this.collectTo(new MapCollector(mapper, collisionHandler));
+  collectToMap<K>(mapper: Mapper<A, K>, collisionHandler?: CollisionHandler<K, A>): Map<K, A> {
+    return this.collectTo(new CollectorDecorator(new MapCollector(collisionHandler), a => [mapper(a), a]));
   }
 
   collectToObject<V>(
     mapper: Mapper<A, [string, V]>,
     collisionHandler?: CollisionHandler<string, V>
   ): Record<string, V> {
-    return this.collectTo(new ObjectCollector(mapper, collisionHandler));
+    return this.collectTo(new CollectorDecorator(new ObjectCollector(collisionHandler), mapper));
   }
 
   filter(predicate: Predicate<A>): FluentIterator<A> {
@@ -145,33 +153,35 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   sum(mapper?: Mapper<A, number>): number {
-    mapper ??= identity as Mapper<A, number>;
-    return Iterators.sum(Iterators.map(this.iter, mapper));
+    return this.collectTo(new CollectorDecorator(new SumCollector(), mapper));
   }
 
   avg(mapper?: Mapper<A, number>): number {
-    mapper ??= identity as Mapper<A, number>;
-    return Iterators.avg(Iterators.map(this.iter, mapper));
+    return this.collectTo(new CollectorDecorator(new AvgCollector(), mapper));
   }
 
   count(predicate?: Predicate<A>): number {
-    return Iterators.count(this.iter, predicate);
+    let collector: Collector<A, number> = new CountCollector();
+    if (predicate) collector = new CollectorFilter(collector, predicate);
+    return this.collectTo(collector);
   }
 
   min(comparator?: Comparator<A>): A | undefined {
-    return Iterators.min(this.iter, comparator);
+    return this.collectTo(new MinCollector(comparator));
   }
 
   max(comparator?: Comparator<A>): A | undefined {
-    return Iterators.max(this.iter, comparator);
+    return this.collectTo(new MaxCollector(comparator));
   }
 
-  minmax(comparator?: Comparator<A>): MinMax<A> {
-    return Iterators.minmax(this.iter, comparator);
+  minmax(comparator?: Comparator<A>): MinMax<A> | undefined {
+    return this.collectTo(new MinMaxCollector(comparator));
   }
 
   last(predicate?: Predicate<A>): A | undefined {
-    return Iterators.last(this.iter, predicate);
+    let collector: Collector<A, A | undefined> = new LastCollector();
+    if (predicate) collector = new CollectorFilter(collector, predicate);
+    return this.collectTo(collector);
   }
 
   join(separator?: string, prefix?: string, suffix?: string): string {
@@ -179,11 +189,11 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   groupBy<K>(mapper: Mapper<A, K>): Map<K, A[]> {
-    return this.collectTo(new GroupByCollector(mapper));
+    return this.collectTo(new CollectorDecorator(new GroupByCollector(), a => [mapper(a), a]));
   }
 
   tally<K>(mapper?: Mapper<A, K>): Map<K, number> {
-    return this.collectTo(new TallyCollector(mapper));
+    return this.collectTo(new CollectorDecorator(new TallyCollector(), mapper));
   }
 
   partition(size: number): FluentIterator<A[]> {

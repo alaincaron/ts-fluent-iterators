@@ -1,6 +1,6 @@
 import { Collector } from '../collectors';
-import { alwaysTrue, avgReducer, defaultComparator, identity, minMaxReducer, sumReducer } from '../functions';
-import { ArrayGenerator, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
+import { alwaysTrue, identity } from '../functions';
+import { ArrayGenerator, IteratorGenerator, Mapper, Predicate, Reducer } from '../types';
 
 export function* empty<A = never>(): IterableIterator<A> {}
 
@@ -216,48 +216,6 @@ export function collectTo<A, B>(iter: Iterator<A>, collector: Collector<A, B>): 
     const item = iter.next();
     if (item.done) return collector.result;
     collector.collect(item.value);
-  }
-}
-
-export function sum(iter: Iterator<number>): number {
-  return fold(iter, sumReducer, { sum: 0, correction: 0 }).sum;
-}
-
-export function avg(iter: Iterator<number>): number {
-  return fold(iter, avgReducer, { avg: 0, n: 0 }).avg;
-}
-
-export function count<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): number {
-  let n = 0;
-  for (;;) {
-    const item = iter.next();
-    if (item.done) return n;
-    if (predicate(item.value)) ++n;
-  }
-}
-
-export function min<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultComparator): A | undefined {
-  const reducer = (acc: A, a: A) => (comparator(acc, a) <= 0 ? acc : a);
-  return reduce(iter, reducer);
-}
-
-export function max<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultComparator): A | undefined {
-  const reducer = (acc: A, a: A) => (comparator(acc, a) >= 0 ? acc : a);
-  return reduce(iter, reducer);
-}
-
-export function minmax<A>(iter: Iterator<A>, comparator: Comparator<A> = defaultComparator): MinMax<A> {
-  const item = iter.next();
-  if (item.done) return {};
-  return fold(iter, minMaxReducer(comparator), { min: item.value, max: item.value });
-}
-
-export function last<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): A | undefined {
-  let result: A | undefined;
-  for (;;) {
-    const item = iter.next();
-    if (item.done) return result;
-    if (predicate(item.value)) result = item.value;
   }
 }
 

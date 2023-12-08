@@ -1,15 +1,24 @@
 import * as Iterators from './asyncIterators';
 import {
   ArrayCollector,
+  AsyncCollectorDecorator,
+  AsyncCollectorFilter,
+  AvgCollector,
+  CountCollector,
   EventualCollector,
   GroupByCollector,
+  LastCollector,
   MapCollector,
+  MaxCollector,
+  MinCollector,
+  MinMaxCollector,
   ObjectCollector,
   SetCollector,
   StringJoiner,
+  SumCollector,
   TallyCollector,
 } from '../collectors';
-import { identity } from '../functions';
+import { asyncKeyMapper } from '../functions';
 import {
   CollisionHandler,
   Comparator,
@@ -19,7 +28,6 @@ import {
   EventualMapper,
   EventualPredicate,
   EventualReducer,
-  Mapper,
   MinMax,
 } from '../types';
 
@@ -46,15 +54,15 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return this.collectTo(new SetCollector());
   }
 
-  collectToMap<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Promise<Map<K, V>> {
-    return this.collectTo(new MapCollector(mapper, collisionHandler));
+  collectToMap<K>(mapper: EventualMapper<A, K>, collisionHandler?: CollisionHandler<K, A>): Promise<Map<K, A>> {
+    return this.collectTo(new AsyncCollectorDecorator(new MapCollector(collisionHandler), asyncKeyMapper(mapper)));
   }
 
   collectToObject<V>(
-    mapper: Mapper<A, [string, V]>,
+    mapper: EventualMapper<A, [string, V]>,
     collisionHandler?: CollisionHandler<string, V>
   ): Promise<Record<string, V>> {
-    return this.collectTo(new ObjectCollector(mapper, collisionHandler));
+    return this.collectTo(new AsyncCollectorDecorator(new ObjectCollector(collisionHandler), mapper));
   }
 
   filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
@@ -150,45 +158,43 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   sum(mapper?: EventualMapper<A, number>): Promise<number> {
-    mapper ??= identity as EventualMapper<A, number>;
-    return Iterators.sum(Iterators.map(this.iter, mapper));
+    return this.collectTo(new AsyncCollectorDecorator(new SumCollector(), mapper));
   }
 
   avg(mapper?: EventualMapper<A, number>): Promise<number> {
-    mapper ??= identity as EventualMapper<A, number>;
-    return Iterators.avg(Iterators.map(this.iter, mapper));
+    return this.collectTo(new AsyncCollectorDecorator(new AvgCollector(), mapper));
   }
 
   count(predicate?: EventualPredicate<A>): Promise<number> {
-    return Iterators.count(this.iter, predicate);
+    return this.collectTo(new AsyncCollectorFilter(new CountCollector(), predicate));
   }
 
   min(comparator?: Comparator<A>): Promise<A | undefined> {
-    return Iterators.min(this.iter, comparator);
+    return this.collectTo(new MinCollector(comparator));
   }
 
   max(comparator?: Comparator<A>): Promise<A | undefined> {
-    return Iterators.max(this.iter, comparator);
+    return this.collectTo(new MaxCollector(comparator));
   }
 
-  minmax(comparator?: Comparator<A>): Promise<MinMax<A>> {
-    return Iterators.minmax(this.iter, comparator);
+  minmax(comparator?: Comparator<A>): Promise<MinMax<A> | undefined> {
+    return this.collectTo(new MinMaxCollector(comparator));
   }
 
   last(predicate?: EventualPredicate<A>): Promise<A | undefined> {
-    return Iterators.last(this.iter, predicate);
+    return this.collectTo(new AsyncCollectorFilter(new LastCollector(), predicate));
   }
 
   join(separator?: string, prefix?: string, suffix?: string): Promise<string> {
     return this.collectTo(new StringJoiner(separator, prefix, suffix));
   }
 
-  groupBy<K>(mapper: Mapper<A, K>): Promise<Map<K, A[]>> {
-    return this.collectTo(new GroupByCollector(mapper));
+  groupBy<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
+    return this.collectTo(new AsyncCollectorDecorator(new GroupByCollector(), asyncKeyMapper(mapper)));
   }
 
-  tally<K>(mapper?: Mapper<A, K>): Promise<Map<K, number>> {
-    return this.collectTo(new TallyCollector(mapper));
+  tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
+    return this.collectTo(new AsyncCollectorDecorator(new TallyCollector(), mapper));
   }
 
   partition(size: number): AsyncFluentIterator<A[]> {
