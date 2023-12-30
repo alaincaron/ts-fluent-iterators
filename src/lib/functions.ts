@@ -1,5 +1,3 @@
-import { EventualMapper } from './types';
-
 export const identity = <A>(a: A) => a;
 export const asyncIdentity = <A>(a: A) => Promise.resolve(a);
 export const alwaysTrue = <A>(_: A) => true;
@@ -21,10 +19,4 @@ export function handleCollisionOverwrite<K, V>(_k: K, _oldValue: V, newValue: V)
 
 export function handleCollisionIgnore<K, V>(_k: K, oldValue: V, _newValue: V): V {
   return oldValue;
-}
-
-export function asyncKeyMapper<A, K>(mapper: EventualMapper<A, K>): EventualMapper<A, [K, A]> {
-  return async function (a: A) {
-    return [await mapper(a), a];
-  };
 }

@@ -50,7 +50,11 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   collectToMap<K>(mapper: Mapper<A, K>, collisionHandler?: CollisionHandler<K, A>): Map<K, A> {
-    return this.collectTo(new CollectorDecorator(new MapCollector(collisionHandler), a => [mapper(a), a]));
+    return this.collectToMap2(a => [mapper(a), a], collisionHandler);
+  }
+
+  collectToMap2<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Map<K, V> {
+    return this.map(mapper).collectTo(new MapCollector(collisionHandler));
   }
 
   collectToObject<V>(

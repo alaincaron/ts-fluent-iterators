@@ -18,7 +18,6 @@ import {
   SumCollector,
   TallyCollector,
 } from '../collectors';
-import { asyncKeyMapper } from '../functions';
 import {
   CollisionHandler,
   Comparator,
@@ -55,7 +54,14 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   collectToMap<K>(mapper: EventualMapper<A, K>, collisionHandler?: CollisionHandler<K, A>): Promise<Map<K, A>> {
-    return this.collectTo(new AsyncCollectorDecorator(new MapCollector(collisionHandler), asyncKeyMapper(mapper)));
+    return this.collectToMap2(async a => [await mapper(a), a], collisionHandler);
+  }
+
+  collectToMap2<K, V>(
+    mapper: EventualMapper<A, [K, V]>,
+    collisionHandler?: CollisionHandler<K, V>
+  ): Promise<Map<K, V>> {
+    return this.map(mapper).collectTo(new MapCollector(collisionHandler));
   }
 
   collectToObject<V>(
@@ -190,7 +196,9 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   groupBy<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-    return this.collectTo(new AsyncCollectorDecorator(new GroupByCollector(), asyncKeyMapper(mapper)));
+    return this.collectTo(
+      new AsyncCollectorDecorator(new GroupByCollector(), async a => [await mapper(a), a] as [K, A])
+    );
   }
 
   tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
