@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
-import { handleCollisionIgnore, handleCollisionOverwrite, lengthComparator } from '../../../src/lib/functions';
+import { CollisionHandlers, lengthComparator } from '../../../src/lib/functions';
 import { emptyIterator as empty, iterator, range, toIterator } from '../../../src/lib/sync';
 
 describe('SyncFluentIterator', () => {
@@ -449,12 +449,12 @@ describe('SyncFluentIterator', () => {
 
   describe('collectToMap', () => {
     it('should return the last even and odd number', () => {
-      const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionOverwrite);
+      const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, CollisionHandlers.overwrite);
       const expected = new Map().set(0, 4).set(1, 1);
       expect(actual).deep.equal(expected);
     });
     it('should return the first even and odd number', () => {
-      const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionIgnore);
+      const actual = iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, CollisionHandlers.ignore);
       const expected = new Map().set(0, 2).set(1, 5);
       expect(actual).deep.equal(expected);
     });
@@ -486,7 +486,7 @@ describe('SyncFluentIterator', () => {
         { key: 'a', value: 2 },
         { key: 'b', value: 3 },
         { key: 'b', value: 4 },
-      ]).collectToObject(mapper, handleCollisionIgnore);
+      ]).collectToObject(mapper, CollisionHandlers.ignore);
       const expected = { a: 1, b: 3 };
       expect(actual).deep.equal(expected);
     });

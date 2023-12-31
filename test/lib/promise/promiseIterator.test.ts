@@ -3,8 +3,8 @@ import { FlattenCollector } from '../../../src/lib/collectors';
 import {
   asyncAlwaysFalse,
   asyncAlwaysTrue,
+  CollisionHandlers,
   defaultComparator,
-  handleCollisionIgnore,
   lengthComparator,
 } from '../../../src/lib/functions';
 import { emptyPromiseIterator as empty, promiseIterator as iterator, range, toPromise } from '../../../src/lib/promise';
@@ -535,7 +535,7 @@ describe('PromiseIterator', () => {
       expect(actual).deep.equal(expected);
     });
     it('should return the first even and odd number', async () => {
-      const actual = await iterator(toPromise([2, 5, 4, 3, 1])).collectToMap(x => x % 2, handleCollisionIgnore);
+      const actual = await iterator(toPromise([2, 5, 4, 3, 1])).collectToMap(x => x % 2, CollisionHandlers.ignore);
       const expected = new Map().set(0, 2).set(1, 5);
       expect(actual).deep.equal(expected);
     });
@@ -571,7 +571,7 @@ describe('PromiseIterator', () => {
           { key: 'b', value: 3 },
           { key: 'b', value: 4 },
         ])
-      ).collectToObject(mapper, handleCollisionIgnore);
+      ).collectToObject(mapper, CollisionHandlers.ignore);
       const expected = { a: 1, b: 3 };
       expect(actual).deep.equal(expected);
     });

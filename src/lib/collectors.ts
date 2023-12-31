@@ -1,4 +1,4 @@
-import { alwaysTrue, asyncIdentity, defaultComparator, handleCollisionOverwrite, identity } from './functions';
+import { alwaysTrue, asyncIdentity, CollisionHandlers, defaultComparator, identity } from './functions';
 import { emptyIterator, FluentIterator } from './sync';
 import { CollisionHandler, Comparator, EventualMapper, EventualPredicate, Mapper, MinMax, Predicate } from './types';
 
@@ -60,14 +60,14 @@ export class GroupByCollector<K, V> implements Collector<[K, V], Map<K, V[]>> {
 export class MapCollector<K, V> implements Collector<[K, V], Map<K, V>> {
   private readonly map: Map<K, V> = new Map();
 
-  constructor(private readonly collisionHandler: CollisionHandler<K, V> = handleCollisionOverwrite) {}
+  constructor(private readonly collisionHandler: CollisionHandler<K, V> = CollisionHandlers.overwrite) {}
 
   get result(): Map<K, V> {
     return this.map;
   }
 
   collect([k, v]: [K, V]) {
-    if (this.collisionHandler === handleCollisionOverwrite || !this.map.has(k)) {
+    if (this.collisionHandler === CollisionHandlers.overwrite || !this.map.has(k)) {
       this.map.set(k, v);
     } else {
       const oldValue = this.map.get(k)!;
@@ -80,14 +80,14 @@ export class MapCollector<K, V> implements Collector<[K, V], Map<K, V>> {
 export class ObjectCollector<V> implements Collector<[string, V], Record<string, V>> {
   private readonly hash: Record<string, V> = {};
 
-  constructor(private readonly collisionHandler: CollisionHandler<string, V> = handleCollisionOverwrite) {}
+  constructor(private readonly collisionHandler: CollisionHandler<string, V> = CollisionHandlers.overwrite) {}
 
   get result(): Record<string, V> {
     return this.hash;
   }
 
   collect([k, v]: [string, V]) {
-    if (this.collisionHandler === handleCollisionOverwrite || !this.hash.hasOwnProperty(k)) {
+    if (this.collisionHandler === CollisionHandlers.overwrite || !this.hash.hasOwnProperty(k)) {
       this.hash[k] = v;
     } else {
       const oldValue = this.hash[k];

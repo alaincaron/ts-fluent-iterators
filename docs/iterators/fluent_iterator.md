@@ -610,11 +610,11 @@ This is a terminal operation.
 
 ```typescript
 // returns the last even and odd numbers
-iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionOverwrite);
+iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, CollisionHandlers.overwrite);
 // new Map().set(0, 4).set(1, 1);
 
 // returns the first even and odd numbers
-iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, handleCollisionIgnore);
+iterator([2, 5, 4, 3, 1]).collectToMap(x => x % 2, CollisionHandlers.gnore);
 // new Map().set(0, 2).set(1, 5);
 ```
 
@@ -655,7 +655,7 @@ iterator([
   { key: 'a', value: 2 },
   { key: 'b', value: 3 },
   { key: 'b', value: 4 },
-]).collectToObject(mapper, handleCollisionOverwrite);
+]).collectToObject(mapper, CollisionHandlers.overwrite);
 // { a: 2, b: 4}
 
 iterator([
@@ -663,7 +663,7 @@ iterator([
   { key: 'a', value: 2 },
   { key: 'b', value: 3 },
   { key: 'b', value: 4 },
-]).collectToObject(mapper, handleCollisionOverwrite);
+]).collectToObject(mapper, CollisionHandlers.ignore);
 // { a: 1, b: 3}
 ```
 
