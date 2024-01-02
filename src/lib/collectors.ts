@@ -1,4 +1,4 @@
-import { CollisionHandlers, defaultComparator } from './functions';
+import { defaultComparator } from './functions';
 import { emptyIterator, FluentIterator } from './sync';
 import { CollisionHandler, Comparator, MinMax } from './types';
 
@@ -60,19 +60,19 @@ export class GroupByCollector<K, V> implements Collector<[K, V], Map<K, V[]>> {
 export class MapCollector<K, V> implements Collector<[K, V], Map<K, V>> {
   private readonly map: Map<K, V> = new Map();
 
-  constructor(private readonly collisionHandler: CollisionHandler<K, V> = CollisionHandlers.overwrite) {}
+  constructor(private readonly collisionHandler?: CollisionHandler<K, V>) {}
 
   get result(): Map<K, V> {
     return this.map;
   }
 
   collect([k, v]: [K, V]) {
-    if (this.collisionHandler === CollisionHandlers.overwrite || !this.map.has(k)) {
+    if (!this.collisionHandler) {
       this.map.set(k, v);
     } else {
-      const oldValue = this.map.get(k)!;
-      const newValue = this.collisionHandler(k, oldValue, v);
-      this.map.set(k, newValue);
+      const oldValue = this.map.get(k);
+      const effectiveValue = oldValue != null ? this.collisionHandler(k, oldValue, v) : v;
+      if (effectiveValue !== oldValue) this.map.set(k, effectiveValue);
     }
   }
 }
@@ -80,19 +80,19 @@ export class MapCollector<K, V> implements Collector<[K, V], Map<K, V>> {
 export class ObjectCollector<V> implements Collector<[string, V], Record<string, V>> {
   private readonly hash: Record<string, V> = {};
 
-  constructor(private readonly collisionHandler: CollisionHandler<string, V> = CollisionHandlers.overwrite) {}
+  constructor(private readonly collisionHandler?: CollisionHandler<string, V>) {}
 
   get result(): Record<string, V> {
     return this.hash;
   }
 
   collect([k, v]: [string, V]) {
-    if (this.collisionHandler === CollisionHandlers.overwrite || !this.hash.hasOwnProperty(k)) {
+    if (!this.collisionHandler) {
       this.hash[k] = v;
     } else {
       const oldValue = this.hash[k];
-      const newValue = this.collisionHandler(k, oldValue, v);
-      this.hash[k] = newValue;
+      const effectiveValue = oldValue != null ? this.collisionHandler(k, oldValue, v) : v;
+      if (effectiveValue !== oldValue) this.hash[k] = effectiveValue;
     }
   }
 }
