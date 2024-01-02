@@ -11,6 +11,10 @@ export function defaultComparator<A>(a1: A, a2: A) {
   return 0;
 }
 
+export function reverseComparator<A>(a1: A, a2: A) {
+  return defaultComparator(a2, a1);
+}
+
 export const lengthComparator = (a: { length: number }, b: { length: number }) => defaultComparator(a.length, b.length);
 
 function handleCollisionOverwrite<K, V>(_k: K, _oldValue: V, newValue: V): V {
