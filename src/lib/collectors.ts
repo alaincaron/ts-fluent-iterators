@@ -1,6 +1,6 @@
-import { alwaysTrue, asyncIdentity, CollisionHandlers, defaultComparator, identity } from './functions';
+import { CollisionHandlers, defaultComparator } from './functions';
 import { emptyIterator, FluentIterator } from './sync';
-import { CollisionHandler, Comparator, EventualMapper, EventualPredicate, Mapper, MinMax, Predicate } from './types';
+import { CollisionHandler, Comparator, MinMax } from './types';
 
 export interface CollectorResult<B> {
   get result(): B;
@@ -170,6 +170,10 @@ export class SumCollector implements Collector<number, number> {
   private correction = 0;
   private sum = 0;
 
+  constructor(initial: number = 0) {
+    this.sum = initial;
+  }
+
   collect(a: number) {
     const y = a - this.correction;
     const t = this.sum + y;
@@ -247,64 +251,5 @@ export class LastCollector<A> implements Collector<A, A | undefined> {
 
   get result() {
     return this.acc;
-  }
-}
-
-export class CollectorDecorator<A, B, C> implements Collector<A, C> {
-  constructor(
-    private readonly collector: Collector<B, C>,
-    private readonly mapper: Mapper<A, B> = identity as Mapper<A, B>
-  ) {}
-
-  collect(a: A) {
-    this.collector.collect(this.mapper(a));
-  }
-
-  get result() {
-    return this.collector.result;
-  }
-}
-
-export class AsyncCollectorDecorator<A, B, C> implements AsyncCollector<A, C> {
-  constructor(
-    private readonly collector: EventualCollector<B, C>,
-    private readonly mapper: EventualMapper<A, B> = asyncIdentity as EventualMapper<A, B>
-  ) {}
-
-  async collect(a: A) {
-    await this.collector.collect(await this.mapper(a));
-  }
-  get result() {
-    return this.collector.result;
-  }
-}
-
-export class CollectorFilter<A, B> implements Collector<A, B> {
-  constructor(
-    private readonly collector: Collector<A, B>,
-    private readonly predicate: Predicate<A> = alwaysTrue
-  ) {}
-
-  collect(a: A) {
-    if (this.predicate(a)) this.collector.collect(a);
-  }
-
-  get result() {
-    return this.collector.result;
-  }
-}
-
-export class AsyncCollectorFilter<A, B> implements AsyncCollector<A, B> {
-  constructor(
-    private readonly collector: EventualCollector<A, B>,
-    private readonly predicate: EventualPredicate<A> = alwaysTrue
-  ) {}
-
-  async collect(a: A) {
-    if (await this.predicate(a)) await this.collector.collect(a);
-  }
-
-  get result() {
-    return this.collector.result;
   }
 }

@@ -343,30 +343,6 @@ describe('SyncFluentIterator', () => {
     });
   });
 
-  describe('sum', () => {
-    it('should apply mapper', () => {
-      expect(iterator(['foo', 'bar', 'foobar']).sum(x => x.length)).equal(12);
-    });
-    it('should sum numbers', () => {
-      expect(iterator([1, 2, 3]).sum()).equal(6);
-    });
-    it('should return 0 on empty iterators', () => {
-      expect(iterator([]).sum()).equal(0);
-    });
-  });
-
-  describe('avg', () => {
-    it('should apply mapper', () => {
-      expect(iterator(['foo', 'bar', 'foobar']).avg(x => x.length)).equal(4);
-    });
-    it('should avg numbers', () => {
-      expect(iterator([1, 2]).avg()).equal(1.5);
-    });
-    it('should return 0 on empty iterators', () => {
-      expect(iterator([]).avg()).equal(0);
-    });
-  });
-
   describe('min', () => {
     it('should return the shortest string', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).min(lengthComparator)).equal('x');
@@ -539,7 +515,9 @@ describe('SyncFluentIterator', () => {
 
   describe('tally', () => {
     it('should count event and odd numbers', () => {
-      const actual = iterator([2, 5, 4, 3, 1]).tally(x => x % 2);
+      const actual = iterator([2, 5, 4, 3, 1])
+        .map(x => x % 2)
+        .tally();
       const expected = new Map().set(0, 2).set(1, 3);
       expect(actual).deep.equal(expected);
     });

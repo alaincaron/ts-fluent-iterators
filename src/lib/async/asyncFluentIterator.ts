@@ -1,9 +1,6 @@
 import * as Iterators from './asyncIterators';
 import {
   ArrayCollector,
-  AsyncCollectorDecorator,
-  AsyncCollectorFilter,
-  AvgCollector,
   CountCollector,
   EventualCollector,
   GroupByCollector,
@@ -15,7 +12,6 @@ import {
   ObjectCollector,
   SetCollector,
   StringJoiner,
-  SumCollector,
   TallyCollector,
 } from '../collectors';
 import {
@@ -68,7 +64,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     mapper: EventualMapper<A, [string, V]>,
     collisionHandler?: CollisionHandler<string, V>
   ): Promise<Record<string, V>> {
-    return this.collectTo(new AsyncCollectorDecorator(new ObjectCollector(collisionHandler), mapper));
+    return this.map(mapper).collectTo(new ObjectCollector(collisionHandler));
   }
 
   filter(predicate: EventualPredicate<A>): AsyncFluentIterator<A> {
@@ -163,16 +159,9 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return Iterators.some(this.iter, predicate);
   }
 
-  sum(mapper?: EventualMapper<A, number>): Promise<number> {
-    return this.collectTo(new AsyncCollectorDecorator(new SumCollector(), mapper));
-  }
-
-  avg(mapper?: EventualMapper<A, number>): Promise<number> {
-    return this.collectTo(new AsyncCollectorDecorator(new AvgCollector(), mapper));
-  }
-
   count(predicate?: EventualPredicate<A>): Promise<number> {
-    return this.collectTo(new AsyncCollectorFilter(new CountCollector(), predicate));
+    const iter = predicate ? this.filter(predicate) : this;
+    return iter.collectTo(new CountCollector());
   }
 
   min(comparator?: Comparator<A>): Promise<A | undefined> {
@@ -188,7 +177,8 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   last(predicate?: EventualPredicate<A>): Promise<A | undefined> {
-    return this.collectTo(new AsyncCollectorFilter(new LastCollector(), predicate));
+    const iter = predicate ? this.filter(predicate) : this;
+    return iter.collectTo(new LastCollector());
   }
 
   join(separator?: string, prefix?: string, suffix?: string): Promise<string> {
@@ -196,13 +186,15 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   groupBy<K>(mapper: EventualMapper<A, K>): Promise<Map<K, A[]>> {
-    return this.collectTo(
-      new AsyncCollectorDecorator(new GroupByCollector(), async a => [await mapper(a), a] as [K, A])
-    );
+    return this.groupBy2(async a => [await mapper(a), a]);
   }
 
-  tally<K>(mapper?: EventualMapper<A, K>): Promise<Map<K, number>> {
-    return this.collectTo(new AsyncCollectorDecorator(new TallyCollector(), mapper));
+  groupBy2<K, V>(mapper: EventualMapper<A, [K, V]>): Promise<Map<K, V[]>> {
+    return this.map(mapper).collectTo(new GroupByCollector());
+  }
+
+  tally(): Promise<Map<A, number>> {
+    return this.collectTo(new TallyCollector());
   }
 
   partition(size: number): AsyncFluentIterator<A[]> {
