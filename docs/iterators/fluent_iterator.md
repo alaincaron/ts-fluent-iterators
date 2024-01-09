@@ -344,22 +344,6 @@ iterator([1,1,2,3,5]).skipWhile(x => x % 2 === 1)
 yields 2, 3, 5
 ```
 
-## distinct
-
-```typescript
-distinct<B>(mapper?: Mapper<A,B>): FluentIterator<A>;
-```
-
-Returns a new [`FluentIterator`](fluent_iterator.md) that returns only
-elements of this [`FluentIterator`] (fluent_iterator.md) mapping to distinct values.
-
-##### Example
-
-```typescript
-iterator([1, 1, 2, 3, 4, 2, 3]).distinct(); // will yield 1,2,3,4
-iterator([1, 1, 2, 3, 4, 2, 3]).distinct(x => x % 2); // will yield 1,2
-```
-
 ## all
 
 ```typescript

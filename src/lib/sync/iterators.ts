@@ -1,5 +1,4 @@
 import { Collector } from '../collectors';
-import { alwaysTrue, identity } from '../functions';
 import { ArrayGenerator, IteratorGenerator, Mapper, Predicate, Reducer } from '../types';
 
 export function* empty<A = never>(): IterableIterator<A> {}
@@ -21,11 +20,11 @@ export function* filterMap<A, B>(iter: Iterator<A>, mapper: Mapper<A, B | null |
   }
 }
 
-export function first<A>(iter: Iterator<A>, predicate: Predicate<A> = alwaysTrue): A | undefined {
+export function first<A>(iter: Iterator<A>): A | undefined {
   for (;;) {
     const item = iter.next();
     if (item.done) return undefined;
-    if (predicate(item.value)) return item.value;
+    return item.value;
   }
 }
 
@@ -90,11 +89,11 @@ export function* enumerate<A>(iter: Iterator<A>, start = 0): IterableIterator<[A
 }
 
 export function contains<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean {
-  return first(iter, predicate) !== undefined;
+  return first(filter(iter, predicate)) !== undefined;
 }
 
 export function includes<A>(iter: Iterator<A>, target: A): boolean {
-  return first(iter, a => a === target) !== undefined;
+  return contains(iter, a => a === target);
 }
 
 export function fold<A, B>(iter: Iterator<A>, reducer: Reducer<A, B>, initialValue: B): B {
@@ -178,19 +177,6 @@ export function* skipWhile<A>(iter: Iterator<A>, predicate: Predicate<A>): Itera
       skip = predicate(item.value);
       if (skip) continue;
     }
-    yield item.value;
-  }
-}
-
-export function* distinct<A, B>(iter: Iterator<A>, mapper?: Mapper<A, B>): IterableIterator<A> {
-  mapper ??= identity as Mapper<A, B>;
-  const seen = new Set<B>();
-  for (;;) {
-    const item = iter.next();
-    if (item.done) break;
-    const value = mapper(item.value);
-    if (seen.has(value)) continue;
-    seen.add(value);
     yield item.value;
   }
 }

@@ -73,7 +73,6 @@ Return the last element matching the
 element is found. If no [predicate](../types/eventual_predicate.md) is
 specfied, then the last element of the iterator is returned or
 `undefined` if the iterator is empty.  
-The iterator's cursor is left after the last element tested.
 
 ## take
 
@@ -352,24 +351,6 @@ will then yield the subsequent elements.
 ```typescript
 await promiseIterator(toPromise[1,1,2,3,5])).skipWhile(x => x % 2 === 1).collect();
 // returns [2, 3, 5]
-```
-
-## distinct
-
-```typescript
-distinct<B>(mapper?: EventualMapper<A,B>): AsyncFluentIterator<A>;
-```
-
-Returns a new [`AsyncFluentIterator`](async_fluent_iterator.md) that returns only
-elements of this [`PromiseIterator`] (async_fluent_iterator.md) mapping to distinct values.
-
-##### Example
-
-```typescript
-await promiseIterator(toPromise([1, 1, 2, 3, 4, 2, 3]))
-  .distinct()
-  .collect(); // returns [1, 2, 3, 4]
-await asyncIterator(toPromise([1, 1, 2, 3, 4, 2, 3])).distinct(x => x % 2); // returns [1, 2]
 ```
 
 ## all

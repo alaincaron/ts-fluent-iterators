@@ -1,5 +1,4 @@
 import { EventualCollector } from '../collectors';
-import { alwaysTrue, asyncIdentity } from '../functions';
 import { toIterator } from '../sync';
 import {
   EventualIterable,
@@ -48,14 +47,11 @@ export async function* map<A, B>(iter: AsyncIterator<A>, mapper: EventualMapper<
   }
 }
 
-export async function first<A>(
-  iter: AsyncIterator<A>,
-  predicate: EventualPredicate<A> = alwaysTrue
-): Promise<A | undefined> {
+export async function first<A>(iter: AsyncIterator<A>): Promise<A | undefined> {
   for (;;) {
     const item = await iter.next();
     if (item.done) return undefined;
-    if (await predicate(item.value)) return item.value;
+    return item.value;
   }
 }
 
@@ -132,11 +128,11 @@ export async function* enumerate<A>(iter: AsyncIterator<A>, start = 0): AsyncIte
 }
 
 export async function contains<A>(iter: AsyncIterator<A>, predicate: EventualPredicate<A>): Promise<boolean> {
-  return (await first(iter, predicate)) !== undefined;
+  return (await first(filter(iter, predicate))) !== undefined;
 }
 
 export async function includes<A>(iter: AsyncIterator<A>, target: Eventually<A>): Promise<boolean> {
-  return (await first(iter, async a => a === (await target))) !== undefined;
+  return (await first(filter(iter, async a => a === (await target)))) !== undefined;
 }
 
 export async function fold<A, B>(iter: AsyncIterator<A>, reducer: EventualReducer<A, B>, initialValue: B): Promise<B> {
@@ -224,19 +220,6 @@ export async function* skipWhile<A>(iter: AsyncIterator<A>, predicate: EventualP
       skip = await predicate(item.value);
       if (skip) continue;
     }
-    yield item.value;
-  }
-}
-
-export async function* distinct<A, B>(iter: AsyncIterator<A>, mapper?: EventualMapper<A, B>): AsyncIterableIterator<A> {
-  mapper ??= asyncIdentity as EventualMapper<A, B>;
-  const seen = new Set<B>();
-  for (;;) {
-    const item = await iter.next();
-    if (item.done) break;
-    const value = await mapper(item.value);
-    if (seen.has(value)) continue;
-    seen.add(value);
     yield item.value;
   }
 }

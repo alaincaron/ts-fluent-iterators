@@ -47,12 +47,6 @@ describe('PromiseIterator', () => {
     it('should return undefined on empty iterator', async () => {
       expect(await empty().any()).to.be.undefined;
     });
-    it('should return matching element if exists', async () => {
-      expect(await iterator(range(1, 7)).first(x => x % 3 === 0)).to.equal(3);
-    });
-    it('should return if no matching element', async () => {
-      expect(await iterator(range(1, 5)).first(x => x >= 5)).to.be.undefined;
-    });
   });
 
   describe('race', () => {
@@ -382,23 +376,6 @@ describe('PromiseIterator', () => {
     });
   });
 
-  describe('distinct', () => {
-    it('should eliminate duplicates', async () => {
-      expect(
-        await iterator(toPromise([1, 2, 5, 2, 1, 0]))
-          .distinct()
-          .collect()
-      ).deep.equal([1, 2, 5, 0]);
-    });
-    it('should only yield one odd and one even number', async () => {
-      expect(
-        await iterator(toPromise([1, 2, 5, 2, 1, 0]))
-          .distinct(x => x % 2)
-          .collect()
-      ).deep.equal([1, 2]);
-    });
-  });
-
   describe('all', () => {
     it('should return true', async () => {
       expect(await iterator(range(1, 5)).all(x => x > 0)).equal(true);
@@ -462,10 +439,18 @@ describe('PromiseIterator', () => {
       expect(await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).last()).equal('foobar');
     });
     it('should return the last string of length 3', async () => {
-      expect(await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).last(s => s.length === 3)).equal('bar');
+      expect(
+        await iterator(toPromise(['foo', 'bar', 'x', 'foobar']))
+          .filter(s => s.length === 3)
+          .last()
+      ).equal('bar');
     });
     it('should return undefined', async () => {
-      expect(await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).last(s => s.length > 10)).to.be.undefined;
+      expect(
+        await iterator(toPromise(['foo', 'bar', 'x', 'foobar']))
+          .filter(s => s.length > 10)
+          .last()
+      ).to.be.undefined;
     });
   });
 

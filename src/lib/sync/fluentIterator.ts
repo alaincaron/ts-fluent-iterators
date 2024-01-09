@@ -76,8 +76,8 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.filterMap(this.iter, mapper));
   }
 
-  first(predicate?: Predicate<A>): A | undefined {
-    return Iterators.first(this.iter, predicate);
+  first(): A | undefined {
+    return Iterators.first(this.iter);
   }
 
   take(n: number): FluentIterator<A> {
@@ -140,10 +140,6 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.skipWhile(this.iter, predicate));
   }
 
-  distinct<B>(mapper?: Mapper<A, B>): FluentIterator<A> {
-    return new FluentIterator(Iterators.distinct(this.iter, mapper));
-  }
-
   all(predicate: Predicate<A>): boolean {
     return Iterators.all(this.iter, predicate);
   }
@@ -169,9 +165,8 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return this.collectTo(new MinMaxCollector(comparator));
   }
 
-  last(predicate?: Predicate<A>): A | undefined {
-    const iter = predicate ? this.filter(predicate) : this;
-    return iter.collectTo(new LastCollector());
+  last(): A | undefined {
+    return this.collectTo(new LastCollector());
   }
 
   join(separator?: string, prefix?: string, suffix?: string): string {

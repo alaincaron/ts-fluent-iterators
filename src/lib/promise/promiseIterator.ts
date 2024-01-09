@@ -113,8 +113,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.includes(this.iter, target);
   }
 
-  first(predicate?: EventualPredicate<A>): Promise<A | undefined> {
-    return Iterators.first(this.iter, predicate);
+  first(): Promise<A | undefined> {
+    return Iterators.first(this.iter);
   }
 
   fold<B>(reducer: EventualReducer<A, B>, initialValue: B): Promise<B> {
@@ -165,10 +165,6 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return new AsyncFluentIterator(Iterators.skipWhile(this.iter, predicate));
   }
 
-  distinct<B>(mapper?: EventualMapper<A, B>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.distinct(this.iter, mapper));
-  }
-
   all(predicate: EventualPredicate<A>): Promise<boolean> {
     return Iterators.all(this.iter, predicate);
   }
@@ -194,9 +190,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return this.collectTo(new MinMaxCollector(comparator));
   }
 
-  last(predicate?: EventualPredicate<A>): Promise<A | undefined> {
-    const iter = predicate ? this.filter(predicate) : this;
-    return iter.collectTo(new LastCollector());
+  last(): Promise<A | undefined> {
+    return this.collectTo(new LastCollector());
   }
 
   join(separator?: string, prefix?: string, suffix?: string): Promise<string> {

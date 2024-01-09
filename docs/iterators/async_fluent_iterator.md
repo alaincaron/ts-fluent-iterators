@@ -356,22 +356,6 @@ await asyncIterator([1, 1, 2, 3, 5])
 // returns [2, 3, 5]
 ```
 
-## distinct
-
-```typescript
-distinct<B>(mapper?: EventualMapper<A,B>): AsyncFluentIterator<A>;
-```
-
-Returns a new [`AsyncFluentIterator`](async_fluent_iterator.md) that returns only
-elements of this [`AsyncFluentIterator`] (async_fluent_iterator.md) mapping to distinct values.
-
-##### Example
-
-```typescript
-await asyncIterator([1, 1, 2, 3, 4, 2, 3]).distinct().collect(); // returns [1, 2, 3, 4]
-await asyncIterator([1, 1, 2, 3, 4, 2, 3]).distinct(x => x % 2); // returns [1, 2]
-```
-
 ## all
 
 ```typescript

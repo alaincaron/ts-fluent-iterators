@@ -56,10 +56,18 @@ describe('SyncFluentIterator', () => {
       expect(empty().first()).to.be.undefined;
     });
     it('should return matching element if exists', () => {
-      expect(iterator(range(1, 7)).first(x => x % 3 === 0)).equal(3);
+      expect(
+        iterator(range(1, 7))
+          .filter(x => x % 3 === 0)
+          .first()
+      ).equal(3);
     });
     it('should return if no matching element', () => {
-      expect(iterator(range(1, 5)).first(x => x >= 5)).to.be.undefined;
+      expect(
+        iterator(range(1, 5))
+          .filter(x => x >= 5)
+          .first()
+      ).to.be.undefined;
     });
   });
 
@@ -306,19 +314,6 @@ describe('SyncFluentIterator', () => {
     });
   });
 
-  describe('distinct', () => {
-    it('should eliminate duplicates', () => {
-      expect(iterator([1, 2, 5, 2, 1, 0]).distinct().collect()).deep.equal([1, 2, 5, 0]);
-    });
-    it('should only yield one odd and one even number', () => {
-      expect(
-        iterator([1, 2, 5, 2, 1, 0])
-          .distinct(x => x % 2)
-          .collect()
-      ).deep.equal([1, 2]);
-    });
-  });
-
   describe('all', () => {
     it('should return true', () => {
       expect(iterator([1, 10, 2, 11]).all(x => x > 0)).equal(true);
@@ -381,10 +376,18 @@ describe('SyncFluentIterator', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).last()).equal('foobar');
     });
     it('should return the last string of length 3', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).last(s => s.length === 3)).equal('bar');
+      expect(
+        iterator(['foo', 'bar', 'x', 'foobar'])
+          .filter(s => s.length === 3)
+          .last()
+      ).equal('bar');
     });
     it('should return undefined', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).last(s => s.length > 10)).to.be.undefined;
+      expect(
+        iterator(['foo', 'bar', 'x', 'foobar'])
+          .filter(s => s.length > 10)
+          .last()
+      ).to.be.undefined;
     });
   });
 

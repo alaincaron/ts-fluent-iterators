@@ -1,5 +1,5 @@
+import * as AsyncIterators from '../async/asyncIterators';
 import { ArrayCollector, EventualCollector } from '../collectors';
-import { alwaysTrue, identity } from '../functions';
 import * as SyncIterators from '../sync/iterators';
 import { Eventually, EventualMapper, EventualPredicate, EventualReducer } from '../types';
 
@@ -22,14 +22,11 @@ export function* flatmap<A, B>(
   }
 }
 
-export async function first<A>(
-  iter: Iterator<Promise<A>>,
-  predicate: EventualPredicate<A> = alwaysTrue
-): Promise<A | undefined> {
+export function first<A>(iter: Iterator<Promise<A>>): Promise<A | undefined> {
   for (;;) {
     const item = iter.next();
-    if (item.done) return undefined;
-    if (await predicate(await item.value)) return item.value;
+    if (item.done) return Promise.resolve(undefined);
+    return item.value;
   }
 }
 
@@ -91,11 +88,11 @@ export function* enumerate<A>(iter: Iterator<Promise<A>>, start = 0): IterableIt
 }
 
 export async function contains<A>(iter: Iterator<Promise<A>>, predicate: EventualPredicate<A>): Promise<boolean> {
-  return (await first(iter, predicate)) !== undefined;
+  return (await AsyncIterators.first(filter(iter, predicate))) !== undefined;
 }
 
 export async function includes<A>(iter: Iterator<Promise<A>>, target: Eventually<A>): Promise<boolean> {
-  return (await first(iter, async a => a === (await target))) !== undefined;
+  return contains(iter, async a => a === (await target));
 }
 
 export async function fold<A, B>(
@@ -159,23 +156,6 @@ export async function* skipWhile<A>(
       skip = await predicate(value);
       if (skip) continue;
     }
-    yield value;
-  }
-}
-
-export async function* distinct<A, B>(
-  iter: Iterator<Promise<A>>,
-  mapper?: EventualMapper<A, B>
-): AsyncIterableIterator<A> {
-  mapper ??= identity as EventualMapper<A, B>;
-  const seen = new Set<B>();
-  for (;;) {
-    const item = iter.next();
-    if (item.done) break;
-    const value = await item.value;
-    const mappedValue = await mapper(value);
-    if (seen.has(mappedValue)) continue;
-    seen.add(mappedValue);
     yield value;
   }
 }

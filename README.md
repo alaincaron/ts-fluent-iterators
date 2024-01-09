@@ -52,7 +52,6 @@ console.log(
   - [takeWhile](docs/iterators/fluent_iterator.md#takewhile)
   - [skip](docs/iterators/fluent_iterator.md#skip)
   - [skipWhile](docs/iterators/fluent_iterator.md#skipwhile)
-  - [distinct](docs/iterators/fluent_iterator.md#distinct)
   - [first](docs/iterators/fluent_iterator.md#first)
   - [last](docs/iterators/fluent_iterator.md#last)
 
