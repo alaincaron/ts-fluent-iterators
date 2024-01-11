@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / FluentIterator
+[ts-fluent-iterators](../README.md) / FluentIterator
 
 # Class: FluentIterator\<A\>
 
@@ -112,7 +112,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -182,8 +182,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `K`\> |
-| `collisionHandler?` | [`CollisionHandler`](../modules.md#collisionhandler)\<`K`, `A`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `K`\> |
+| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `A`\> |
 
 #### Returns
 
@@ -206,8 +206,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, [`K`, `V`]\> |
-| `collisionHandler?` | [`CollisionHandler`](../modules.md#collisionhandler)\<`K`, `V`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, [`K`, `V`]\> |
+| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `V`\> |
 
 #### Returns
 
@@ -229,8 +229,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, [`string`, `V`]\> |
-| `collisionHandler?` | [`CollisionHandler`](../modules.md#collisionhandler)\<`string`, `V`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, [`string`, `V`]\> |
+| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`string`, `V`\> |
 
 #### Returns
 
@@ -272,7 +272,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -288,7 +288,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate?` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate?` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -320,7 +320,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -342,7 +342,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
 
 #### Returns
 
@@ -374,7 +374,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `reducer` | [`Reducer`](../modules.md#reducer)\<`A`, `B`\> |
+| `reducer` | [`Reducer`](../README.md#reducer)\<`A`, `B`\> |
 | `initialValue` | `B` |
 
 #### Returns
@@ -391,7 +391,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `any`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `any`\> |
 
 #### Returns
 
@@ -413,7 +413,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `K`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `K`\> |
 
 #### Returns
 
@@ -436,7 +436,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, [`K`, `V`]\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, [`K`, `V`]\> |
 
 #### Returns
 
@@ -502,7 +502,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `B`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `B`\> |
 
 #### Returns
 
@@ -518,7 +518,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `comparator?` | [`Comparator`](../modules.md#comparator)\<`A`\> |
+| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
 
 #### Returns
 
@@ -534,7 +534,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `comparator?` | [`Comparator`](../modules.md#comparator)\<`A`\> |
+| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
 
 #### Returns
 
@@ -550,7 +550,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `comparator?` | [`Comparator`](../modules.md#comparator)\<`A`\> |
+| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
 
 #### Returns
 
@@ -612,7 +612,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `reducer` | [`Reducer`](../modules.md#reducer)\<`A`, `A`\> |
+| `reducer` | [`Reducer`](../README.md#reducer)\<`A`, `A`\> |
 | `initialValue?` | `A` |
 
 #### Returns
@@ -655,7 +655,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -671,7 +671,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -703,7 +703,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -729,7 +729,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `any`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `any`\> |
 
 #### Returns
 
@@ -809,7 +809,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `iter` | [`IteratorGenerator`](../modules.md#iteratorgenerator)\<`A`\> |
+| `iter` | [`IteratorGenerator`](../README.md#iteratorgenerator)\<`A`\> |
 
 #### Returns
 

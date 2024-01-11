@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / [Collectors](../modules/Collectors.md) / MapCollector
+[ts-fluent-iterators](../README.md) / [Collectors](../modules/Collectors.md) / MapCollector
 
 # Class: MapCollector\<K, V\>
 
@@ -46,7 +46,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `collisionHandler?` | [`CollisionHandler`](../modules.md#collisionhandler)\<`K`, `V`\> |
+| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `V`\> |
 
 #### Returns
 

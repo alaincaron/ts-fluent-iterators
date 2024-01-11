@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / [Collectors](../modules/Collectors.md) / ObjectCollector
+[ts-fluent-iterators](../README.md) / [Collectors](../modules/Collectors.md) / ObjectCollector
 
 # Class: ObjectCollector\<V\>
 
@@ -44,7 +44,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `collisionHandler?` | [`CollisionHandler`](../modules.md#collisionhandler)\<`string`, `V`\> |
+| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`string`, `V`\> |
 
 #### Returns
 

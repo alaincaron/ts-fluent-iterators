@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / Collectors
+[ts-fluent-iterators](../README.md) / Collectors
 
 # Namespace: Collectors
 

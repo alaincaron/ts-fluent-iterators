@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / Generators
+[ts-fluent-iterators](../README.md) / Generators
 
 # Namespace: Generators
 
@@ -34,7 +34,7 @@ This is equivalent to
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `f` | [`Mapper`](../modules.md#mapper)\<`number`, `T`\> | The function to apply on each element of the range. |
+| `f` | [`Mapper`](../README.md#mapper)\<`number`, `T`\> | The function to apply on each element of the range. |
 | `start?` | `number` | the start of the range. Defaults to 0. |
 | `end?` | `number` | the end of the range. Defaults to infinity. |
 | `step?` | `number` | increment in the range. Defaults to 1 if `end` > `start`, -1 otherwise. |
@@ -91,7 +91,7 @@ This is equivalent to
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `f` | [`Mapper`](../modules.md#mapper)\<`number`, `T`\> | The function to apply on each element of the range. |
+| `f` | [`Mapper`](../README.md#mapper)\<`number`, `T`\> | The function to apply on each element of the range. |
 | `count?` | `number` | the numbe of times f should be invoked. |
 
 #### Returns

@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / ArrayGenerator
+[ts-fluent-iterators](../README.md) / ArrayGenerator
 
 # Interface: ArrayGenerator\<E\>
 
@@ -25,4 +25,4 @@ ___
 
 ### seed
 
-• **seed**: [`IteratorLike`](../modules.md#iteratorlike)\<`E`\>
+• **seed**: [`IteratorLike`](../README.md#iteratorlike)\<`E`\>

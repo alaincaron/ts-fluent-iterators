@@ -3,5 +3,6 @@
   "out": "docs",
   "disableSources": true,
   "tsconfig": "tsconfig.json",
-  "excludePrivate": true
+  "excludePrivate": true,
+  "readme": "none"
 }

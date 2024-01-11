@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / PromiseIterators
+[ts-fluent-iterators](../README.md) / PromiseIterators
 
 # Namespace: PromiseIterators
 
@@ -47,7 +47,7 @@
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -115,7 +115,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `collector` | [`EventualCollector`](Collectors.md#eventualcollector)\<`A`, [`Eventually`](../modules.md#eventually)\<`B`\>\> |
+| `collector` | [`EventualCollector`](Collectors.md#eventualcollector)\<`A`, [`Eventually`](../README.md#eventually)\<`B`\>\> |
 
 #### Returns
 
@@ -138,7 +138,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -184,7 +184,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -208,7 +208,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
 
 #### Returns
 
@@ -254,7 +254,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`Promise`\<`A`\>, `B`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`Promise`\<`A`\>, `B`\> |
 
 #### Returns
 
@@ -278,8 +278,8 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `reducer` | [`EventualReducer`](../modules.md#eventualreducer)\<`A`, `B`\> |
-| `initialValue` | [`Eventually`](../modules.md#eventually)\<`B`\> |
+| `reducer` | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `B`\> |
+| `initialValue` | [`Eventually`](../README.md#eventually)\<`B`\> |
 
 #### Returns
 
@@ -302,7 +302,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `any`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> |
 
 #### Returns
 
@@ -325,7 +325,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `target` | [`Eventually`](../modules.md#eventually)\<`A`\> |
+| `target` | [`Eventually`](../README.md#eventually)\<`A`\> |
 
 #### Returns
 
@@ -349,7 +349,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `B`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `B`\> |
 
 #### Returns
 
@@ -394,8 +394,8 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `reducer` | [`EventualReducer`](../modules.md#eventualreducer)\<`A`, `A`\> |
-| `initialValue?` | [`Eventually`](../modules.md#eventually)\<`A`\> |
+| `reducer` | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `A`\> |
+| `initialValue?` | [`Eventually`](../README.md#eventually)\<`A`\> |
 
 #### Returns
 
@@ -440,7 +440,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -463,7 +463,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -486,7 +486,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -509,7 +509,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `any`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> |
 
 #### Returns
 

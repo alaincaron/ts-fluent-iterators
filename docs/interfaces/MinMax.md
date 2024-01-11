@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / MinMax
+[ts-fluent-iterators](../README.md) / MinMax
 
 # Interface: MinMax\<A\>
 

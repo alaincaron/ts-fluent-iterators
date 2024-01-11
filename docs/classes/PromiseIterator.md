@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / PromiseIterator
+[ts-fluent-iterators](../README.md) / PromiseIterator
 
 # Class: PromiseIterator\<A\>
 
@@ -114,7 +114,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -204,8 +204,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `K`\> |
-| `collisionHandler?` | [`CollisionHandler`](../modules.md#collisionhandler)\<`K`, `A`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `K`\> |
+| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `A`\> |
 
 #### Returns
 
@@ -228,8 +228,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, [`K`, `V`]\> |
-| `collisionHandler?` | [`CollisionHandler`](../modules.md#collisionhandler)\<`K`, `V`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`K`, `V`]\> |
+| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `V`\> |
 
 #### Returns
 
@@ -251,8 +251,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, [`string`, `V`]\> |
-| `collisionHandler?` | [`CollisionHandler`](../modules.md#collisionhandler)\<`string`, `V`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`string`, `V`]\> |
+| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`string`, `V`\> |
 
 #### Returns
 
@@ -294,7 +294,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -310,7 +310,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate?` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate?` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -342,7 +342,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -364,7 +364,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
 
 #### Returns
 
@@ -396,7 +396,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`Promise`\<`A`\>, `B`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`Promise`\<`A`\>, `B`\> |
 
 #### Returns
 
@@ -418,7 +418,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `reducer` | [`EventualReducer`](../modules.md#eventualreducer)\<`A`, `B`\> |
+| `reducer` | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `B`\> |
 | `initialValue` | `B` |
 
 #### Returns
@@ -435,7 +435,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `any`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> |
 
 #### Returns
 
@@ -457,7 +457,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `K`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `K`\> |
 
 #### Returns
 
@@ -480,7 +480,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, [`K`, `V`]\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`K`, `V`]\> |
 
 #### Returns
 
@@ -496,7 +496,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`Eventually`](../modules.md#eventually)\<`A`\> |
+| `target` | [`Eventually`](../README.md#eventually)\<`A`\> |
 
 #### Returns
 
@@ -546,7 +546,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `B`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `B`\> |
 
 #### Returns
 
@@ -562,7 +562,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `comparator?` | [`Comparator`](../modules.md#comparator)\<`A`\> |
+| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
 
 #### Returns
 
@@ -578,7 +578,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `comparator?` | [`Comparator`](../modules.md#comparator)\<`A`\> |
+| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
 
 #### Returns
 
@@ -594,7 +594,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `comparator?` | [`Comparator`](../modules.md#comparator)\<`A`\> |
+| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
 
 #### Returns
 
@@ -666,8 +666,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `reducer` | [`EventualReducer`](../modules.md#eventualreducer)\<`A`, `A`\> |
-| `initialValue?` | [`Eventually`](../modules.md#eventually)\<`A`\> |
+| `reducer` | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `A`\> |
+| `initialValue?` | [`Eventually`](../README.md#eventually)\<`A`\> |
 
 #### Returns
 
@@ -709,7 +709,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -725,7 +725,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -757,7 +757,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -783,7 +783,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `any`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / [Collectors](../modules/Collectors.md) / FlattenCollector
+[ts-fluent-iterators](../README.md) / [Collectors](../modules/Collectors.md) / FlattenCollector
 
 # Class: FlattenCollector\<A\>
 

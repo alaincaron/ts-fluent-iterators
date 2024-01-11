@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / AsyncIterators
+[ts-fluent-iterators](../README.md) / AsyncIterators
 
 # Namespace: AsyncIterators
 
@@ -52,7 +52,7 @@
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -75,7 +75,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `other` | [`EventualIterator`](../modules.md#eventualiterator)\<`A`\> |
+| `other` | [`EventualIterator`](../README.md#eventualiterator)\<`A`\> |
 
 #### Returns
 
@@ -99,7 +99,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `collector` | [`EventualCollector`](Collectors.md#eventualcollector)\<`A`, [`Eventually`](../modules.md#eventually)\<`B`\>\> |
+| `collector` | [`EventualCollector`](Collectors.md#eventualcollector)\<`A`, [`Eventually`](../README.md#eventually)\<`B`\>\> |
 
 #### Returns
 
@@ -121,7 +121,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `...iters` | [`EventualIterator`](../modules.md#eventualiterator)\<`A`\>[] |
+| `...iters` | [`EventualIterator`](../README.md#eventualiterator)\<`A`\>[] |
 
 #### Returns
 
@@ -144,7 +144,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -206,7 +206,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -230,7 +230,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
 
 #### Returns
 
@@ -276,7 +276,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `reducer` | [`EventualReducer`](../modules.md#eventualreducer)\<`A`, `B`\> |
+| `reducer` | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `B`\> |
 | `initialValue` | `B` |
 
 #### Returns
@@ -300,7 +300,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `any`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> |
 
 #### Returns
 
@@ -323,7 +323,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `target` | [`Eventually`](../modules.md#eventually)\<`A`\> |
+| `target` | [`Eventually`](../README.md#eventually)\<`A`\> |
 
 #### Returns
 
@@ -347,7 +347,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `B`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `B`\> |
 
 #### Returns
 
@@ -393,7 +393,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `other` | [`EventualIterator`](../modules.md#eventualiterator)\<`A`\> |
+| `other` | [`EventualIterator`](../README.md#eventualiterator)\<`A`\> |
 
 #### Returns
 
@@ -416,7 +416,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `reducer` | [`EventualReducer`](../modules.md#eventualreducer)\<`A`, `A`\> |
+| `reducer` | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `A`\> |
 | `initialValue?` | `A` |
 
 #### Returns
@@ -485,7 +485,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -508,7 +508,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -554,7 +554,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`EventualPredicate`](../modules.md#eventualpredicate)\<`A`\> |
+| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
 
 #### Returns
 
@@ -577,7 +577,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `mapper` | [`EventualMapper`](../modules.md#eventualmapper)\<`A`, `any`\> |
+| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> |
 
 #### Returns
 
@@ -621,7 +621,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `iter` | [`EventualIterable`](../modules.md#eventualiterable)\<`A`\> \| `AsyncIterator`\<`A`, `any`, `undefined`\> |
+| `iter` | [`EventualIterable`](../README.md#eventualiterable)\<`A`\> \| `AsyncIterator`\<`A`, `any`, `undefined`\> |
 
 #### Returns
 
@@ -631,7 +631,7 @@ ___
 
 ### toEventualIterator
 
-▸ **toEventualIterator**\<`A`\>(`iter`): [`EventualIterator`](../modules.md#eventualiterator)\<`A`\>
+▸ **toEventualIterator**\<`A`\>(`iter`): [`EventualIterator`](../README.md#eventualiterator)\<`A`\>
 
 #### Type parameters
 
@@ -643,11 +643,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `iter` | [`EventualIterator`](../modules.md#eventualiterator)\<`A`\> \| [`EventualIterable`](../modules.md#eventualiterable)\<`A`\> |
+| `iter` | [`EventualIterator`](../README.md#eventualiterator)\<`A`\> \| [`EventualIterable`](../README.md#eventualiterable)\<`A`\> |
 
 #### Returns
 
-[`EventualIterator`](../modules.md#eventualiterator)\<`A`\>
+[`EventualIterator`](../README.md#eventualiterator)\<`A`\>
 
 ___
 

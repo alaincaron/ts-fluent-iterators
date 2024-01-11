@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / [Collectors](../modules/Collectors.md) / CountCollector
+[ts-fluent-iterators](../README.md) / [Collectors](../modules/Collectors.md) / CountCollector
 
 # Class: CountCollector\<A\>
 

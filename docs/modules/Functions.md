@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / Functions
+[ts-fluent-iterators](../README.md) / Functions
 
 # Namespace: Functions
 

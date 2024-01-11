@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / Iterators
+[ts-fluent-iterators](../README.md) / Iterators
 
 # Namespace: Iterators
 
@@ -51,7 +51,7 @@
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -143,7 +143,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -205,7 +205,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -229,7 +229,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `undefined` \| ``null`` \| `B`\> |
 
 #### Returns
 
@@ -275,7 +275,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `reducer` | [`Reducer`](../modules.md#reducer)\<`A`, `B`\> |
+| `reducer` | [`Reducer`](../README.md#reducer)\<`A`, `B`\> |
 | `initialValue` | `B` |
 
 #### Returns
@@ -299,7 +299,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `any`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `any`\> |
 
 #### Returns
 
@@ -346,7 +346,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `B`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `B`\> |
 
 #### Returns
 
@@ -415,7 +415,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `reducer` | [`Reducer`](../modules.md#reducer)\<`A`, `A`\> |
+| `reducer` | [`Reducer`](../README.md#reducer)\<`A`, `A`\> |
 | `initialValue?` | `A` |
 
 #### Returns
@@ -484,7 +484,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -507,7 +507,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -553,7 +553,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `predicate` | [`Predicate`](../modules.md#predicate)\<`A`\> |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> |
 
 #### Returns
 
@@ -576,7 +576,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `Iterator`\<`A`, `any`, `undefined`\> |
-| `mapper` | [`Mapper`](../modules.md#mapper)\<`A`, `any`\> |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `any`\> |
 
 #### Returns
 
@@ -598,7 +598,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `x` | [`IteratorGenerator`](../modules.md#iteratorgenerator)\<`E`\> |
+| `x` | [`IteratorGenerator`](../README.md#iteratorgenerator)\<`E`\> |
 
 #### Returns
 
@@ -620,7 +620,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `x` | [`IteratorGenerator`](../modules.md#iteratorgenerator)\<`E`\> |
+| `x` | [`IteratorGenerator`](../README.md#iteratorgenerator)\<`E`\> |
 
 #### Returns
 

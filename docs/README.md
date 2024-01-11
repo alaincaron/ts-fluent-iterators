@@ -1,4 +1,4 @@
-[ts-fluent-iterators](README.md) / Exports
+ts-fluent-iterators
 
 # ts-fluent-iterators
 
@@ -29,35 +29,35 @@
 
 ### Type Aliases
 
-- [AsyncIteratorGenerator](modules.md#asynciteratorgenerator)
-- [AsyncIteratorLike](modules.md#asynciteratorlike)
-- [CollisionHandler](modules.md#collisionhandler)
-- [Comparator](modules.md#comparator)
-- [EventualIterable](modules.md#eventualiterable)
-- [EventualIterableIterator](modules.md#eventualiterableiterator)
-- [EventualIterator](modules.md#eventualiterator)
-- [EventualIteratorGenerator](modules.md#eventualiteratorgenerator)
-- [EventualMapper](modules.md#eventualmapper)
-- [EventualPredicate](modules.md#eventualpredicate)
-- [EventualReducer](modules.md#eventualreducer)
-- [Eventually](modules.md#eventually)
-- [IteratorGenerator](modules.md#iteratorgenerator)
-- [IteratorLike](modules.md#iteratorlike)
-- [Mapper](modules.md#mapper)
-- [Predicate](modules.md#predicate)
-- [Reducer](modules.md#reducer)
+- [AsyncIteratorGenerator](README.md#asynciteratorgenerator)
+- [AsyncIteratorLike](README.md#asynciteratorlike)
+- [CollisionHandler](README.md#collisionhandler)
+- [Comparator](README.md#comparator)
+- [EventualIterable](README.md#eventualiterable)
+- [EventualIterableIterator](README.md#eventualiterableiterator)
+- [EventualIterator](README.md#eventualiterator)
+- [EventualIteratorGenerator](README.md#eventualiteratorgenerator)
+- [EventualMapper](README.md#eventualmapper)
+- [EventualPredicate](README.md#eventualpredicate)
+- [EventualReducer](README.md#eventualreducer)
+- [Eventually](README.md#eventually)
+- [IteratorGenerator](README.md#iteratorgenerator)
+- [IteratorLike](README.md#iteratorlike)
+- [Mapper](README.md#mapper)
+- [Predicate](README.md#predicate)
+- [Reducer](README.md#reducer)
 
 ### Functions
 
-- [asyncIterator](modules.md#asynciterator)
-- [iterator](modules.md#iterator)
-- [promiseIterator](modules.md#promiseiterator)
+- [asyncIterator](README.md#asynciterator)
+- [iterator](README.md#iterator)
+- [promiseIterator](README.md#promiseiterator)
 
 ## Type Aliases
 
 ### AsyncIteratorGenerator
 
-Ƭ **AsyncIteratorGenerator**\<`E`\>: [`AsyncArrayGenerator`](interfaces/AsyncArrayGenerator.md)\<`E`\> \| [`AsyncIteratorLike`](modules.md#asynciteratorlike)\<`E`\>
+Ƭ **AsyncIteratorGenerator**\<`E`\>: [`AsyncArrayGenerator`](interfaces/AsyncArrayGenerator.md)\<`E`\> \| [`AsyncIteratorLike`](README.md#asynciteratorlike)\<`E`\>
 
 #### Type parameters
 
@@ -173,7 +173,7 @@ ___
 
 ### EventualIteratorGenerator
 
-Ƭ **EventualIteratorGenerator**\<`E`\>: [`IteratorGenerator`](modules.md#iteratorgenerator)\<`E`\> \| `AsyncGenerator`\<`E`\>
+Ƭ **EventualIteratorGenerator**\<`E`\>: [`IteratorGenerator`](README.md#iteratorgenerator)\<`E`\> \| `AsyncGenerator`\<`E`\>
 
 #### Type parameters
 
@@ -185,7 +185,7 @@ ___
 
 ### EventualMapper
 
-Ƭ **EventualMapper**\<`A`, `B`\>: [`Mapper`](modules.md#mapper)\<`A`, [`Eventually`](modules.md#eventually)\<`B`\>\>
+Ƭ **EventualMapper**\<`A`, `B`\>: [`Mapper`](README.md#mapper)\<`A`, [`Eventually`](README.md#eventually)\<`B`\>\>
 
 #### Type parameters
 
@@ -198,7 +198,7 @@ ___
 
 ### EventualPredicate
 
-Ƭ **EventualPredicate**\<`A`\>: [`Mapper`](modules.md#mapper)\<`A`, [`Eventually`](modules.md#eventually)\<`boolean`\>\>
+Ƭ **EventualPredicate**\<`A`\>: [`Mapper`](README.md#mapper)\<`A`, [`Eventually`](README.md#eventually)\<`boolean`\>\>
 
 #### Type parameters
 
@@ -210,7 +210,7 @@ ___
 
 ### EventualReducer
 
-Ƭ **EventualReducer**\<`A`, `B`\>: (`acc`: `B`, `a`: `A`) => [`Eventually`](modules.md#eventually)\<`B`\>
+Ƭ **EventualReducer**\<`A`, `B`\>: (`acc`: `B`, `a`: `A`) => [`Eventually`](README.md#eventually)\<`B`\>
 
 #### Type parameters
 
@@ -221,7 +221,7 @@ ___
 
 #### Type declaration
 
-▸ (`acc`, `a`): [`Eventually`](modules.md#eventually)\<`B`\>
+▸ (`acc`, `a`): [`Eventually`](README.md#eventually)\<`B`\>
 
 ##### Parameters
 
@@ -232,7 +232,7 @@ ___
 
 ##### Returns
 
-[`Eventually`](modules.md#eventually)\<`B`\>
+[`Eventually`](README.md#eventually)\<`B`\>
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 ### IteratorGenerator
 
-Ƭ **IteratorGenerator**\<`E`\>: [`ArrayGenerator`](interfaces/ArrayGenerator.md)\<`E`\> \| [`IteratorLike`](modules.md#iteratorlike)\<`E`\>
+Ƭ **IteratorGenerator**\<`E`\>: [`ArrayGenerator`](interfaces/ArrayGenerator.md)\<`E`\> \| [`IteratorLike`](README.md#iteratorlike)\<`E`\>
 
 #### Type parameters
 
@@ -301,7 +301,7 @@ ___
 
 ### Predicate
 
-Ƭ **Predicate**\<`A`\>: [`Mapper`](modules.md#mapper)\<`A`, `boolean`\>
+Ƭ **Predicate**\<`A`\>: [`Mapper`](README.md#mapper)\<`A`, `boolean`\>
 
 #### Type parameters
 
@@ -353,7 +353,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> \| [`EventualIterable`](modules.md#eventualiterable)\<`A`\> |
+| `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> \| [`EventualIterable`](README.md#eventualiterable)\<`A`\> |
 
 #### Returns
 
@@ -375,7 +375,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `iter` | [`IteratorGenerator`](modules.md#iteratorgenerator)\<`A`\> |
+| `iter` | [`IteratorGenerator`](README.md#iteratorgenerator)\<`A`\> |
 
 #### Returns
 

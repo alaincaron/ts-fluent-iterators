@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / [Collectors](../modules/Collectors.md) / CollectorResult
+[ts-fluent-iterators](../README.md) / [Collectors](../modules/Collectors.md) / CollectorResult
 
 # Interface: CollectorResult\<B\>
 

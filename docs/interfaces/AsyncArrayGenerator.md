@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / AsyncArrayGenerator
+[ts-fluent-iterators](../README.md) / AsyncArrayGenerator
 
 # Interface: AsyncArrayGenerator\<E\>
 
@@ -25,4 +25,4 @@ ___
 
 ### seed
 
-• **seed**: [`AsyncIteratorLike`](../modules.md#asynciteratorlike)\<`E`\>
+• **seed**: [`AsyncIteratorLike`](../README.md#asynciteratorlike)\<`E`\>

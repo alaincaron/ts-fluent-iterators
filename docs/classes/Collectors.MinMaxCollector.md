@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / [Collectors](../modules/Collectors.md) / MinMaxCollector
+[ts-fluent-iterators](../README.md) / [Collectors](../modules/Collectors.md) / MinMaxCollector
 
 # Class: MinMaxCollector\<A\>
 
@@ -44,7 +44,7 @@
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `comparator` | [`Comparator`](../modules.md#comparator)\<`A`\> | `defaultComparator` |
+| `comparator` | [`Comparator`](../README.md#comparator)\<`A`\> | `defaultComparator` |
 
 #### Returns
 

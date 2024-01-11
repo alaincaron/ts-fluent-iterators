@@ -1,4 +1,4 @@
-[ts-fluent-iterators](../README.md) / [Exports](../modules.md) / PromiseGenerators
+[ts-fluent-iterators](../README.md) / PromiseGenerators
 
 # Namespace: PromiseGenerators
 
@@ -26,7 +26,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `f` | [`EventualMapper`](../modules.md#eventualmapper)\<`number`, `T`\> |
+| `f` | [`EventualMapper`](../README.md#eventualmapper)\<`number`, `T`\> |
 | `start?` | `number` |
 | `end?` | `number` |
 | `step?` | `number` |
@@ -69,7 +69,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `f` | [`EventualMapper`](../modules.md#eventualmapper)\<`number`, `T`\> |
+| `f` | [`EventualMapper`](../README.md#eventualmapper)\<`number`, `T`\> |
 | `count?` | `number` |
 
 #### Returns
