@@ -21,11 +21,6 @@
 
 - [constructor](Collectors.MapCollector.md#constructor)
 
-### Properties
-
-- [collisionHandler](Collectors.MapCollector.md#collisionhandler)
-- [map](Collectors.MapCollector.md#map)
-
 ### Accessors
 
 - [result](Collectors.MapCollector.md#result)
@@ -56,18 +51,6 @@
 #### Returns
 
 [`MapCollector`](Collectors.MapCollector.md)\<`K`, `V`\>
-
-## Properties
-
-### collisionHandler
-
-• `Private` `Optional` `Readonly` **collisionHandler**: [`CollisionHandler`](../modules.md#collisionhandler)\<`K`, `V`\>
-
-___
-
-### map
-
-• `Private` `Readonly` **map**: `Map`\<`K`, `V`\>
 
 ## Accessors
 

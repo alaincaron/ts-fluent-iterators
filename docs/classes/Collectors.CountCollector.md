@@ -20,10 +20,6 @@
 
 - [constructor](Collectors.CountCollector.md#constructor)
 
-### Properties
-
-- [count](Collectors.CountCollector.md#count)
-
 ### Accessors
 
 - [result](Collectors.CountCollector.md#result)
@@ -47,12 +43,6 @@
 #### Returns
 
 [`CountCollector`](Collectors.CountCollector.md)\<`A`\>
-
-## Properties
-
-### count
-
-• `Private` **count**: `number` = `0`
 
 ## Accessors
 

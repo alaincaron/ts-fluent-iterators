@@ -20,11 +20,6 @@
 
 - [constructor](Collectors.MinCollector.md#constructor)
 
-### Properties
-
-- [acc](Collectors.MinCollector.md#acc)
-- [comparator](Collectors.MinCollector.md#comparator)
-
 ### Accessors
 
 - [result](Collectors.MinCollector.md#result)
@@ -54,18 +49,6 @@
 #### Returns
 
 [`MinCollector`](Collectors.MinCollector.md)\<`A`\>
-
-## Properties
-
-### acc
-
-• `Private` **acc**: `undefined` \| `A`
-
-___
-
-### comparator
-
-• `Private` `Readonly` **comparator**: [`Comparator`](../modules.md#comparator)\<`A`\> = `defaultComparator`
 
 ## Accessors
 

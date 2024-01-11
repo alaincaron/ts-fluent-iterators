@@ -20,10 +20,6 @@
 
 - [constructor](Collectors.FlattenCollector.md#constructor)
 
-### Properties
-
-- [iter](Collectors.FlattenCollector.md#iter)
-
 ### Accessors
 
 - [result](Collectors.FlattenCollector.md#result)
@@ -47,12 +43,6 @@
 #### Returns
 
 [`FlattenCollector`](Collectors.FlattenCollector.md)\<`A`\>
-
-## Properties
-
-### iter
-
-• `Private` **iter**: [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 ## Accessors
 

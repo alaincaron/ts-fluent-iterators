@@ -19,10 +19,6 @@
 
 - [constructor](FluentIterator.md#constructor)
 
-### Properties
-
-- [iter](FluentIterator.md#iter)
-
 ### Methods
 
 - [[iterator]](FluentIterator.md#[iterator])
@@ -91,12 +87,6 @@
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
-
-## Properties
-
-### iter
-
-• `Private` **iter**: `Iterator`\<`A`, `any`, `undefined`\>
 
 ## Methods
 

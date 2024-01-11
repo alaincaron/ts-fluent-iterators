@@ -14,11 +14,6 @@
 
 - [constructor](Collectors.SumCollector.md#constructor)
 
-### Properties
-
-- [correction](Collectors.SumCollector.md#correction)
-- [sum](Collectors.SumCollector.md#sum)
-
 ### Accessors
 
 - [result](Collectors.SumCollector.md#result)
@@ -42,18 +37,6 @@
 #### Returns
 
 [`SumCollector`](Collectors.SumCollector.md)
-
-## Properties
-
-### correction
-
-• `Private` **correction**: `number` = `0`
-
-___
-
-### sum
-
-• `Private` **sum**: `number` = `0`
 
 ## Accessors
 

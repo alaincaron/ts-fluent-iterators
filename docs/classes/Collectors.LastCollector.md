@@ -20,10 +20,6 @@
 
 - [constructor](Collectors.LastCollector.md#constructor)
 
-### Properties
-
-- [acc](Collectors.LastCollector.md#acc)
-
 ### Accessors
 
 - [result](Collectors.LastCollector.md#result)
@@ -47,12 +43,6 @@
 #### Returns
 
 [`LastCollector`](Collectors.LastCollector.md)\<`A`\>
-
-## Properties
-
-### acc
-
-• `Private` **acc**: `undefined` \| `A` = `undefined`
 
 ## Accessors
 

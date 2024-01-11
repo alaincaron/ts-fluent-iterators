@@ -20,11 +20,6 @@
 
 - [constructor](Collectors.MaxCollector.md#constructor)
 
-### Properties
-
-- [acc](Collectors.MaxCollector.md#acc)
-- [comparator](Collectors.MaxCollector.md#comparator)
-
 ### Accessors
 
 - [result](Collectors.MaxCollector.md#result)
@@ -54,18 +49,6 @@
 #### Returns
 
 [`MaxCollector`](Collectors.MaxCollector.md)\<`A`\>
-
-## Properties
-
-### acc
-
-• `Private` **acc**: `undefined` \| `A`
-
-___
-
-### comparator
-
-• `Private` `Readonly` **comparator**: [`Comparator`](../modules.md#comparator)\<`A`\> = `defaultComparator`
 
 ## Accessors
 

@@ -20,10 +20,6 @@
 
 - [constructor](Collectors.ArrayCollector.md#constructor)
 
-### Properties
-
-- [acc](Collectors.ArrayCollector.md#acc)
-
 ### Accessors
 
 - [result](Collectors.ArrayCollector.md#result)
@@ -47,12 +43,6 @@
 #### Returns
 
 [`ArrayCollector`](Collectors.ArrayCollector.md)\<`A`\>
-
-## Properties
-
-### acc
-
-• `Private` `Readonly` **acc**: `A`[] = `[]`
 
 ## Accessors
 

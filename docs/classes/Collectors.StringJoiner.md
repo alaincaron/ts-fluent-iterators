@@ -20,14 +20,6 @@
 
 - [constructor](Collectors.StringJoiner.md#constructor)
 
-### Properties
-
-- [acc](Collectors.StringJoiner.md#acc)
-- [done](Collectors.StringJoiner.md#done)
-- [first](Collectors.StringJoiner.md#first)
-- [separator](Collectors.StringJoiner.md#separator)
-- [suffix](Collectors.StringJoiner.md#suffix)
-
 ### Accessors
 
 - [result](Collectors.StringJoiner.md#result)
@@ -59,36 +51,6 @@
 #### Returns
 
 [`StringJoiner`](Collectors.StringJoiner.md)\<`A`\>
-
-## Properties
-
-### acc
-
-• `Private` **acc**: `string`
-
-___
-
-### done
-
-• `Private` **done**: `boolean` = `false`
-
-___
-
-### first
-
-• `Private` **first**: `boolean` = `true`
-
-___
-
-### separator
-
-• `Private` `Readonly` **separator**: `string` = `','`
-
-___
-
-### suffix
-
-• `Private` `Readonly` **suffix**: `string` = `''`
 
 ## Accessors
 

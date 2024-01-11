@@ -14,11 +14,6 @@
 
 - [constructor](Collectors.AvgCollector.md#constructor)
 
-### Properties
-
-- [avg](Collectors.AvgCollector.md#avg)
-- [n](Collectors.AvgCollector.md#n)
-
 ### Accessors
 
 - [result](Collectors.AvgCollector.md#result)
@@ -36,18 +31,6 @@
 #### Returns
 
 [`AvgCollector`](Collectors.AvgCollector.md)
-
-## Properties
-
-### avg
-
-• `Private` **avg**: `number` = `0`
-
-___
-
-### n
-
-• `Private` **n**: `number` = `0`
 
 ## Accessors
 

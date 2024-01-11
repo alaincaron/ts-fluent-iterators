@@ -21,10 +21,6 @@
 
 - [constructor](Collectors.GroupByCollector.md#constructor)
 
-### Properties
-
-- [map](Collectors.GroupByCollector.md#map)
-
 ### Accessors
 
 - [result](Collectors.GroupByCollector.md#result)
@@ -49,12 +45,6 @@
 #### Returns
 
 [`GroupByCollector`](Collectors.GroupByCollector.md)\<`K`, `V`\>
-
-## Properties
-
-### map
-
-• `Private` `Readonly` **map**: `Map`\<`K`, `V`[]\>
 
 ## Accessors
 

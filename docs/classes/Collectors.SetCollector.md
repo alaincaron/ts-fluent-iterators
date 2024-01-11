@@ -20,10 +20,6 @@
 
 - [constructor](Collectors.SetCollector.md#constructor)
 
-### Properties
-
-- [acc](Collectors.SetCollector.md#acc)
-
 ### Accessors
 
 - [result](Collectors.SetCollector.md#result)
@@ -47,12 +43,6 @@
 #### Returns
 
 [`SetCollector`](Collectors.SetCollector.md)\<`A`\>
-
-## Properties
-
-### acc
-
-• `Private` `Readonly` **acc**: `Set`\<`A`\>
 
 ## Accessors
 

@@ -20,10 +20,6 @@
 
 - [constructor](Collectors.TallyCollector.md#constructor)
 
-### Properties
-
-- [map](Collectors.TallyCollector.md#map)
-
 ### Accessors
 
 - [result](Collectors.TallyCollector.md#result)
@@ -47,12 +43,6 @@
 #### Returns
 
 [`TallyCollector`](Collectors.TallyCollector.md)\<`A`\>
-
-## Properties
-
-### map
-
-• `Private` `Readonly` **map**: `Map`\<`A`, `number`\>
 
 ## Accessors
 

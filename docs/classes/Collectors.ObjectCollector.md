@@ -20,11 +20,6 @@
 
 - [constructor](Collectors.ObjectCollector.md#constructor)
 
-### Properties
-
-- [collisionHandler](Collectors.ObjectCollector.md#collisionhandler)
-- [hash](Collectors.ObjectCollector.md#hash)
-
 ### Accessors
 
 - [result](Collectors.ObjectCollector.md#result)
@@ -54,18 +49,6 @@
 #### Returns
 
 [`ObjectCollector`](Collectors.ObjectCollector.md)\<`V`\>
-
-## Properties
-
-### collisionHandler
-
-• `Private` `Optional` `Readonly` **collisionHandler**: [`CollisionHandler`](../modules.md#collisionhandler)\<`string`, `V`\>
-
-___
-
-### hash
-
-• `Private` `Readonly` **hash**: `Record`\<`string`, `V`\> = `{}`
 
 ## Accessors
 

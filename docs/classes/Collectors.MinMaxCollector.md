@@ -20,11 +20,6 @@
 
 - [constructor](Collectors.MinMaxCollector.md#constructor)
 
-### Properties
-
-- [acc](Collectors.MinMaxCollector.md#acc)
-- [comparator](Collectors.MinMaxCollector.md#comparator)
-
 ### Accessors
 
 - [result](Collectors.MinMaxCollector.md#result)
@@ -54,18 +49,6 @@
 #### Returns
 
 [`MinMaxCollector`](Collectors.MinMaxCollector.md)\<`A`\>
-
-## Properties
-
-### acc
-
-• `Private` **acc**: `undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
-
-___
-
-### comparator
-
-• `Private` `Readonly` **comparator**: [`Comparator`](../modules.md#comparator)\<`A`\> = `defaultComparator`
 
 ## Accessors
 

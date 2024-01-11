@@ -19,10 +19,6 @@
 
 - [constructor](AsyncFluentIterator.md#constructor)
 
-### Properties
-
-- [iter](AsyncFluentIterator.md#iter)
-
 ### Methods
 
 - [[asyncIterator]](AsyncFluentIterator.md#[asynciterator])
@@ -89,12 +85,6 @@
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
-
-## Properties
-
-### iter
-
-• `Private` `Readonly` **iter**: `AsyncIterator`\<`A`, `any`, `undefined`\>
 
 ## Methods
 

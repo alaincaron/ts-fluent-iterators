@@ -19,10 +19,6 @@
 
 - [constructor](PromiseIterator.md#constructor)
 
-### Properties
-
-- [iter](PromiseIterator.md#iter)
-
 ### Methods
 
 - [[iterator]](PromiseIterator.md#[iterator])
@@ -93,12 +89,6 @@
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<`A`\>
-
-## Properties
-
-### iter
-
-• `Private` `Readonly` **iter**: `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>
 
 ## Methods
 

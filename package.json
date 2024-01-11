@@ -18,7 +18,7 @@
     "format": "prettier --write .",
     "precommit": "lint-staged",
     "prepare": "husky install .husky",
-    "typedoc": "typedoc --plugin typedoc-plugin-markdown --out docs --disableSources --tsconfig tsconfig.json src/index.ts"
+    "typedoc": "typedoc src/index.ts && rimraf ./docs/README.md"
   },
   "repository": {
     "type": "git",
