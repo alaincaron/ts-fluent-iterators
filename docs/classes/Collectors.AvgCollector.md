@@ -4,6 +4,17 @@
 
 [Collectors](../modules/Collectors.md).AvgCollector
 
+A `Collector` that accepts numbers and return their average.
+
+**`Example`**
+
+```ts
+const c = new AvgCollector();
+c.collect(1);
+c.collect(2);
+c.result : 1.5
+```
+
 ## Implements
 
 - [`Collector`](../interfaces/Collectors.Collector.md)\<`number`, `number`\>
@@ -38,9 +49,13 @@
 
 • `get` **result**(): `number`
 
+Returns the aggregated object.
+
 #### Returns
 
 `number`
+
+The aggregated object resulting from collecting all objects
 
 #### Implementation of
 
@@ -52,11 +67,13 @@ Collector.result
 
 ▸ **collect**(`a`): `void`
 
+Collects an element.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `number` | The element being collected. |
 
 #### Returns
 

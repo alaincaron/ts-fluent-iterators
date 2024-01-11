@@ -4,11 +4,23 @@
 
 [Collectors](../modules/Collectors.md).CountCollector
 
+A `Collector` that accepts elements of type `A` and return the number of elements collected.
+
+**`Example`**
+
+```ts
+const c = new CountCollector();
+c.collect('foo');
+c.collect('bar');
+c.collect('baz')
+c.result : 3
+```
+
 ## Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `unknown` |
 
 ## Implements
 
@@ -36,9 +48,9 @@
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `unknown` |
 
 #### Returns
 
@@ -50,9 +62,13 @@
 
 • `get` **result**(): `number`
 
+Returns the aggregated object.
+
 #### Returns
 
 `number`
+
+The aggregated object resulting from collecting all objects
 
 #### Implementation of
 
@@ -64,11 +80,13 @@ Collector.result
 
 ▸ **collect**(`_a`): `void`
 
+Collects an element.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_a` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_a` | `A` | The element being collected. |
 
 #### Returns
 

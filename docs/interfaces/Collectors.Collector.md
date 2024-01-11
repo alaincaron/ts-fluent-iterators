@@ -4,18 +4,14 @@
 
 [Collectors](../modules/Collectors.md).Collector
 
+A `Collector` is an object that collects elements of type `A` and aggregates them into an object of type `B`.
+
 ## Type parameters
 
-| Name |
-| :------ |
-| `A` |
-| `B` |
-
-## Hierarchy
-
-- [`CollectorResult`](Collectors.CollectorResult.md)\<`B`\>
-
-  ↳ **`Collector`**
+| Name | Description |
+| :------ | :------ |
+| `A` | the type of elements being collected. |
+| `B` | the type of the aggregated object. |
 
 ## Implemented by
 
@@ -51,13 +47,13 @@
 
 • `get` **result**(): `B`
 
+Returns the aggregated object.
+
 #### Returns
 
 `B`
 
-#### Inherited from
-
-CollectorResult.result
+The aggregated object resulting from collecting all objects
 
 ## Methods
 
@@ -65,11 +61,13 @@ CollectorResult.result
 
 ▸ **collect**(`a`): `void`
 
+Collects an element.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `A` | The element being collected. |
 
 #### Returns
 

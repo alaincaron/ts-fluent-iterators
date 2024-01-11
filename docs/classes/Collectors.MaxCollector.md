@@ -4,6 +4,17 @@
 
 [Collectors](../modules/Collectors.md).MaxCollector
 
+A `Collector` that accepts elements of type `A` and return their maximum or `undefined` if no elements were collected.
+
+**`Example`**
+
+```ts
+const c = new MaxCollector<string>();
+c.collect('foo');
+c.collect('bar');
+c.result : 'foo'
+```
+
 ## Type parameters
 
 | Name |
@@ -42,9 +53,9 @@
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `comparator` | [`Comparator`](../README.md#comparator)\<`A`\> | `defaultComparator` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `comparator` | [`Comparator`](../README.md#comparator)\<`A`\> | `defaultComparator` | The comparator used to compare elements. Default is natural ordering. |
 
 #### Returns
 
@@ -56,9 +67,13 @@
 
 • `get` **result**(): `undefined` \| `A`
 
+Returns the aggregated object.
+
 #### Returns
 
 `undefined` \| `A`
+
+The aggregated object resulting from collecting all objects
 
 #### Implementation of
 
@@ -70,11 +85,13 @@ Collector.result
 
 ▸ **collect**(`a`): `void`
 
+Collects an element.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `A` | The element being collected. |
 
 #### Returns
 

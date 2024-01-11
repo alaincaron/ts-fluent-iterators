@@ -19,11 +19,6 @@
 Returns an iterator resulting from applying f on all elements of the range
 from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
-This is equivalent to
-```ts
-  for (const v of range(start, end, step)) yield f(v)
-```
-
 #### Type parameters
 
 | Name |
@@ -44,6 +39,23 @@ This is equivalent to
 `IterableIterator`\<`T`\>
 
 A new iterator resulting from apply f on all elements in the [`start`,`end`[ range by increment of `step`.
+
+**`Example`**
+
+```ts
+loop(x => 2 * x, 1, 100, 2)
+// yields 2, 6, 10, ..., 198
+```
+
+**`Remarks`**
+
+```ts
+for (const v of loop(f, start, end, step)) yield v;
+```
+is equivalent to
+```ts
+for (const v of range(start, end, step)) yield f(v);
+```
 
 ___
 
@@ -67,6 +79,13 @@ Returns an iterator from `start` (inclusively) to `end` (exclusively) by increme
 
 A new iterator for the range [`start`,`end`[ by increment of `step`.
 
+**`Example`**
+
+```ts
+range(1, 100, 2)
+// yields 1, 3, 5, 7, ..., 99
+```
+
 ___
 
 ### repeat
@@ -75,11 +94,6 @@ ___
 
 Returns an iterator resulting from applying f on all elements of the range [0,`count`]
 from `start` (inclusively) to `end` (exclusively) by increment of `step`.
-
-This is equivalent to
-```ts
-  loop(f,0,count,1)
-```
 
 #### Type parameters
 
@@ -99,3 +113,20 @@ This is equivalent to
 `IterableIterator`\<`T`\>
 
 A new iterator resulting from apply f on all elements in the [`start`,`end`[ range by increment of `step`.
+
+**`Example`**
+
+```ts
+repeat(x => x * 2, 10)
+// yields 0, 2, 4, ..., 18
+```
+
+**`Remarks`**
+
+```ts
+for (const v of repeat(f, count)) yield v;
+```
+is equivalent to
+```ts
+for (const v of range(0, count, 1)) yield f(v);
+```

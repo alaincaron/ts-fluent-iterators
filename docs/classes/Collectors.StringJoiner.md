@@ -4,11 +4,23 @@
 
 [Collectors](../modules/Collectors.md).StringJoiner
 
+A `Collector` that accepts elements of type `A` and returns a `string`
+
+**`Example`**
+
+```ts
+const c = new StringJoiner<string>(', ', '[', ']');
+c.collect('foo');
+c.collect('bar');
+c.collect('baz');
+// c.result : [foo, bar, baz]
+```
+
 ## Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | The type of the elements being accepted. |
 
 ## Implements
 
@@ -42,11 +54,11 @@
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `separator` | `string` | `','` |
-| `prefix` | `string` | `''` |
-| `suffix` | `string` | `''` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `separator` | `string` | `','` | separator between elements. |
+| `prefix` | `string` | `''` | prefix of the joined string. |
+| `suffix` | `string` | `''` | suffix of the joined string. |
 
 #### Returns
 
@@ -58,9 +70,13 @@
 
 • `get` **result**(): `string`
 
+Returns the aggregated object.
+
 #### Returns
 
 `string`
+
+The aggregated object resulting from collecting all objects
 
 #### Implementation of
 
@@ -72,11 +88,13 @@ Collector.result
 
 ▸ **collect**(`a`): `void`
 
+Collects an element.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `A` | The element being collected. |
 
 #### Returns
 

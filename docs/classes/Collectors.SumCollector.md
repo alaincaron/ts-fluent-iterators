@@ -4,6 +4,17 @@
 
 [Collectors](../modules/Collectors.md).SumCollector
 
+A `Collector` that accepts numbers and return their sum.
+
+**`Example`**
+
+```ts
+const c = new SumCollector();
+c.collect(1);
+c.collect(2);
+c.result : 3.0
+```
+
 ## Implements
 
 - [`Collector`](../interfaces/Collectors.Collector.md)\<`number`, `number`\>
@@ -30,9 +41,9 @@
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `initial` | `number` | `0` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `initial` | `number` | `0` | The initial value of the sum. |
 
 #### Returns
 
@@ -44,9 +55,13 @@
 
 • `get` **result**(): `number`
 
+Returns the aggregated object.
+
 #### Returns
 
 `number`
+
+The aggregated object resulting from collecting all objects
 
 #### Implementation of
 
@@ -58,11 +73,13 @@ Collector.result
 
 ▸ **collect**(`a`): `void`
 
+Collects an element.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `number` | The element being collected. |
 
 #### Returns
 

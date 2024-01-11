@@ -26,21 +26,4 @@
 
 - [AsyncCollector](../interfaces/Collectors.AsyncCollector.md)
 - [Collector](../interfaces/Collectors.Collector.md)
-- [CollectorResult](../interfaces/Collectors.CollectorResult.md)
-
-### Type Aliases
-
-- [EventualCollector](Collectors.md#eventualcollector)
-
-## Type Aliases
-
-### EventualCollector
-
-Ƭ **EventualCollector**\<`A`, `B`\>: [`Collector`](../interfaces/Collectors.Collector.md)\<`A`, `B`\> \| [`AsyncCollector`](../interfaces/Collectors.AsyncCollector.md)\<`A`, `B`\>
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `A` |
-| `B` |
+- [EventualCollector](../interfaces/Collectors.EventualCollector.md)

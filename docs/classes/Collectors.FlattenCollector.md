@@ -4,11 +4,22 @@
 
 [Collectors](../modules/Collectors.md).FlattenCollector
 
+A `Collector` that accepts `Iterable<A>` or `Iterator<A>` and returns a `FluentIterator<A>` that consists of the concatenation of all the collected iterable objects.
+
+**`Example`**
+
+```ts
+const c = new FlattenCollector<number>();
+c.collect([1,2]);
+c.collect([3,4]);
+c.result.collect() : [1,2,3,4]
+```
+
 ## Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | the type of elements being iterated on. |
 
 ## Implements
 
@@ -50,9 +61,13 @@
 
 • `get` **result**(): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
+Returns the aggregated object.
+
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
+
+The aggregated object resulting from collecting all objects
 
 #### Implementation of
 
@@ -64,11 +79,13 @@ Collector.result
 
 ▸ **collect**(`a`): `void`
 
+Collects an element.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | `Iterable`\<`A`\> \| `Iterator`\<`A`, `any`, `undefined`\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `Iterable`\<`A`\> \| `Iterator`\<`A`, `any`, `undefined`\> | The element being collected. |
 
 #### Returns
 

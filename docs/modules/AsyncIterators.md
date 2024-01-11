@@ -99,7 +99,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> |
-| `collector` | [`EventualCollector`](Collectors.md#eventualcollector)\<`A`, [`Eventually`](../README.md#eventually)\<`B`\>\> |
+| `collector` | [`EventualCollector`](../interfaces/Collectors.EventualCollector.md)\<`A`, [`Eventually`](../README.md#eventually)\<`B`\>\> |
 
 #### Returns
 

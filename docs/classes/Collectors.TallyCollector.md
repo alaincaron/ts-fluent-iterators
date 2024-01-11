@@ -1,18 +1,30 @@
 [ts-fluent-iterators](../README.md) / [Collectors](../modules/Collectors.md) / TallyCollector
 
-# Class: TallyCollector\<A\>
+# Class: TallyCollector\<K\>
 
 [Collectors](../modules/Collectors.md).TallyCollector
 
+A `Collector` that accepts elements of type `K` and returns a `Map<K,number>` indicating how many times has an element been seen.
+
+**`Example`**
+
+```ts
+const c = new TallyCollector<string>();
+c.collect('foo');
+c.collect('bar');
+c.collect('foo');
+// c.result : Map(2) { 'foo' => 2, 'bar' => 1 }
+```
+
 ## Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `K` | The type of the keys of the map. |
 
 ## Implements
 
-- [`Collector`](../interfaces/Collectors.Collector.md)\<`A`, `Map`\<`A`, `number`\>\>
+- [`Collector`](../interfaces/Collectors.Collector.md)\<`K`, `Map`\<`K`, `number`\>\>
 
 ## Table of contents
 
@@ -32,27 +44,31 @@
 
 ### constructor
 
-• **new TallyCollector**\<`A`\>(): [`TallyCollector`](Collectors.TallyCollector.md)\<`A`\>
+• **new TallyCollector**\<`K`\>(): [`TallyCollector`](Collectors.TallyCollector.md)\<`K`\>
 
 #### Type parameters
 
 | Name |
 | :------ |
-| `A` |
+| `K` |
 
 #### Returns
 
-[`TallyCollector`](Collectors.TallyCollector.md)\<`A`\>
+[`TallyCollector`](Collectors.TallyCollector.md)\<`K`\>
 
 ## Accessors
 
 ### result
 
-• `get` **result**(): `Map`\<`A`, `number`\>
+• `get` **result**(): `Map`\<`K`, `number`\>
+
+Returns the aggregated object.
 
 #### Returns
 
-`Map`\<`A`, `number`\>
+`Map`\<`K`, `number`\>
+
+The aggregated object resulting from collecting all objects
 
 #### Implementation of
 
@@ -62,13 +78,15 @@ Collector.result
 
 ### collect
 
-▸ **collect**(`a`): `void`
+▸ **collect**(`k`): `void`
+
+Collects an element.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `k` | `K` | The element being collected. |
 
 #### Returns
 

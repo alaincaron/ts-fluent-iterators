@@ -158,7 +158,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `collector` | [`EventualCollector`](../modules/Collectors.md#eventualcollector)\<`A`, `B`\> |
+| `collector` | [`EventualCollector`](../interfaces/Collectors.EventualCollector.md)\<`A`, `B`\> |
 
 #### Returns
 

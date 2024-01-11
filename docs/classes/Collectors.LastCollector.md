@@ -4,11 +4,23 @@
 
 [Collectors](../modules/Collectors.md).LastCollector
 
+A `Collector` that accepts elements of type `A` and return the last element collected or `undefined` if no elements were collected.
+
+**`Example`**
+
+```ts
+const c = new LastCollector();
+c.collect('foo');
+c.collect('bar');
+c.collect('baz')
+c.result : 'baz'
+```
+
 ## Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `unknown` |
 
 ## Implements
 
@@ -36,9 +48,9 @@
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Type |
+| :------ | :------ |
+| `A` | `unknown` |
 
 #### Returns
 
@@ -50,9 +62,13 @@
 
 • `get` **result**(): `undefined` \| `A`
 
+Returns the aggregated object.
+
 #### Returns
 
 `undefined` \| `A`
+
+The aggregated object resulting from collecting all objects
 
 #### Implementation of
 
@@ -64,11 +80,13 @@ Collector.result
 
 ▸ **collect**(`a`): `void`
 
+Collects an element.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a` | `A` | The element being collected. |
 
 #### Returns
 
