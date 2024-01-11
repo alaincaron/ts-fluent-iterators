@@ -1,3 +1,5 @@
+ts-fluent-iterators / [Exports](modules.md)
+
 # Typescript Fluent Iterators
 
 Provides [fluent api](https://en.wikipedia.org/wiki/Fluent_interface)
