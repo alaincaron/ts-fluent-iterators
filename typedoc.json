@@ -4,5 +4,6 @@
   "disableSources": true,
   "tsconfig": "tsconfig.json",
   "excludePrivate": true,
-  "readme": "none"
+  "readme": "none",
+  "excludeNotDocumented": true
 }
