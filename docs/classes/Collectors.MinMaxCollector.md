@@ -32,14 +32,6 @@ c.result : { min: 'bar', max: 'foo' }
 
 - [constructor](Collectors.MinMaxCollector.md#constructor)
 
-### Accessors
-
-- [result](Collectors.MinMaxCollector.md#result)
-
-### Methods
-
-- [collect](Collectors.MinMaxCollector.md#collect)
-
 ## Constructors
 
 ### constructor
@@ -61,43 +53,3 @@ c.result : { min: 'bar', max: 'foo' }
 #### Returns
 
 [`MinMaxCollector`](Collectors.MinMaxCollector.md)\<`A`\>
-
-## Accessors
-
-### result
-
-• `get` **result**(): `undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
-
-Returns the aggregated object.
-
-#### Returns
-
-`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
-
-The aggregated object resulting from collecting all objects
-
-#### Implementation of
-
-Collector.result
-
-## Methods
-
-### collect
-
-▸ **collect**(`a`): `void`
-
-Collects an element.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `A` | The element being collected. |
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-[Collector](../interfaces/Collectors.Collector.md).[collect](../interfaces/Collectors.Collector.md#collect)

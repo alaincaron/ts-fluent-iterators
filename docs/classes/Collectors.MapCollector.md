@@ -33,14 +33,6 @@ c.collect(['foo',3]);
 
 - [constructor](Collectors.MapCollector.md#constructor)
 
-### Accessors
-
-- [result](Collectors.MapCollector.md#result)
-
-### Methods
-
-- [collect](Collectors.MapCollector.md#collect)
-
 ## Constructors
 
 ### constructor
@@ -63,43 +55,3 @@ c.collect(['foo',3]);
 #### Returns
 
 [`MapCollector`](Collectors.MapCollector.md)\<`K`, `V`\>
-
-## Accessors
-
-### result
-
-• `get` **result**(): `Map`\<`K`, `V`\>
-
-Returns the aggregated object.
-
-#### Returns
-
-`Map`\<`K`, `V`\>
-
-The aggregated object resulting from collecting all objects
-
-#### Implementation of
-
-Collector.result
-
-## Methods
-
-### collect
-
-▸ **collect**(`«destructured»`): `void`
-
-Collects an element.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `«destructured»` | [`K`, `V`] | The element being collected. |
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-[Collector](../interfaces/Collectors.Collector.md).[collect](../interfaces/Collectors.Collector.md#collect)

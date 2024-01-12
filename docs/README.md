@@ -6,20 +6,13 @@ ts-fluent-iterators
 
 ### Namespaces
 
-- [AsyncGenerators](modules/AsyncGenerators.md)
-- [AsyncIterators](modules/AsyncIterators.md)
 - [Collectors](modules/Collectors.md)
 - [Comparators](modules/Comparators.md)
 - [Generators](modules/Generators.md)
-- [Iterators](modules/Iterators.md)
-- [PromiseGenerators](modules/PromiseGenerators.md)
-- [PromiseIterators](modules/PromiseIterators.md)
 
 ### Classes
 
-- [AsyncFluentIterator](classes/AsyncFluentIterator.md)
 - [FluentIterator](classes/FluentIterator.md)
-- [PromiseIterator](classes/PromiseIterator.md)
 
 ### Interfaces
 
@@ -53,9 +46,8 @@ ts-fluent-iterators
 
 ### Functions
 
-- [asyncIterator](README.md#asynciterator)
+- [emptyIterator](README.md#emptyiterator)
 - [iterator](README.md#iterator)
-- [promiseIterator](README.md#promiseiterator)
 
 ## Type Aliases
 
@@ -439,31 +431,29 @@ Default collision handlers for `MapCollector`
 
 ## Functions
 
-### asyncIterator
+### emptyIterator
 
-▸ **asyncIterator**\<`A`\>(`iter`): [`AsyncFluentIterator`](classes/AsyncFluentIterator.md)\<`A`\>
+▸ **emptyIterator**\<`A`\>(): [`FluentIterator`](classes/FluentIterator.md)\<`A`\>
+
+Alias for [FluentIterator.empty](classes/FluentIterator.md#empty)
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
-
-#### Parameters
-
 | Name | Type |
 | :------ | :------ |
-| `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> \| [`EventualIterable`](README.md#eventualiterable)\<`A`\> |
+| `A` | `never` |
 
 #### Returns
 
-[`AsyncFluentIterator`](classes/AsyncFluentIterator.md)\<`A`\>
+[`FluentIterator`](classes/FluentIterator.md)\<`A`\>
 
 ___
 
 ### iterator
 
 ▸ **iterator**\<`A`\>(`iter`): [`FluentIterator`](classes/FluentIterator.md)\<`A`\>
+
+Alias for [FluentIterator.from](classes/FluentIterator.md#from)
 
 #### Type parameters
 
@@ -480,25 +470,3 @@ ___
 #### Returns
 
 [`FluentIterator`](classes/FluentIterator.md)\<`A`\>
-
-___
-
-### promiseIterator
-
-▸ **promiseIterator**\<`A`\>(`iter`): [`PromiseIterator`](classes/PromiseIterator.md)\<`A`\>
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `A` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\> |
-
-#### Returns
-
-[`PromiseIterator`](classes/PromiseIterator.md)\<`A`\>

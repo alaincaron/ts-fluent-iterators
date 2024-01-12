@@ -1,5 +1,5 @@
 export * as Iterators from './lib/sync/iterators';
-export { iterator, FluentIterator } from './lib/sync/fluentIterator';
+export { iterator, FluentIterator, emptyIterator } from './lib/sync/fluentIterator';
 export * as Generators from './lib/sync/generators';
 
 export * as AsyncIterators from './lib/async/asyncIterators';

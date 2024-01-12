@@ -25,14 +25,6 @@ c.result : 3.0
 
 - [constructor](Collectors.SumCollector.md#constructor)
 
-### Accessors
-
-- [result](Collectors.SumCollector.md#result)
-
-### Methods
-
-- [collect](Collectors.SumCollector.md#collect)
-
 ## Constructors
 
 ### constructor
@@ -48,43 +40,3 @@ c.result : 3.0
 #### Returns
 
 [`SumCollector`](Collectors.SumCollector.md)
-
-## Accessors
-
-### result
-
-• `get` **result**(): `number`
-
-Returns the aggregated object.
-
-#### Returns
-
-`number`
-
-The aggregated object resulting from collecting all objects
-
-#### Implementation of
-
-Collector.result
-
-## Methods
-
-### collect
-
-▸ **collect**(`a`): `void`
-
-Collects an element.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `number` | The element being collected. |
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-[Collector](../interfaces/Collectors.Collector.md).[collect](../interfaces/Collectors.Collector.md#collect)

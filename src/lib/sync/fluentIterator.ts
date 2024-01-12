@@ -18,41 +18,131 @@ import {
 import { PromiseIterator, toPromise } from '../promise';
 import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
 
+/**
+ * Iterator with a Fluent interface.
+ * @typeParam A The type of elements being iterated.
+ */
 export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   private iter: Iterator<A>;
 
+  /**
+   * Creates a `FluentIterator` by wrapping an `Iterator`
+   * @param iter The `Iterator` being wrapped into a `FluentIterator`
+   * @example
+   * const iterator = new FluentIterator([1,2,3][Symbol.iterator]());
+   */
   constructor(iter: Iterator<A>) {
     this.iter = iter;
   }
 
+  /**
+   * Creates an empty `FluentIterator`.  The returned iterator will not yield any element.
+   * @typeParam A the type of elements of the `FluentIterator`
+   * @returns An empty `FluentIterator`
+   */
   static empty<A = never>(): FluentIterator<A> {
     return new FluentIterator(Iterators.empty());
   }
 
-  static from<A>(iter: IteratorGenerator<A>): FluentIterator<A> {
-    return new FluentIterator(Iterators.toIterator(iter));
+  /**
+   * Creates a `FluentIterator` from an `IteratorGenerator`.
+   * @typeParam A the type of elements of the `FluentIterator`
+   * @param generator Used to generate an `Iterator` that will be wrapped into a `FluentIterator`
+   * @returns A new `FluentIterator`
+   * @example
+   * const iterator = FluentIterator.from([1,2,3]);
+   */
+  static from<A>(generator: IteratorGenerator<A>): FluentIterator<A> {
+    return new FluentIterator(Iterators.toIterator(generator));
   }
 
+  /**
+   * Collects items from the `FluentIterator` into a `Collector`.
+   * @typeParam B The result type of the `Collector`.
+   * @param collector The `Collector` into which to collect the items
+   * @returns The result of the `collector`
+   * @example
+   * const collector = new ArrayCollector<string>;
+   * const iterator = FluentIterator.from([1,2,3]);
+   * const data = iterator.collectTo(collector);
+   * // data is [1,2,3]
+   */
   collectTo<B>(collector: Collector<A, B>): B {
     return Iterators.collectTo(this.iter, collector);
   }
 
+  /**
+   * Collects items into an array.
+   * @returns an array consisting of the elements of this `FluentIterator`
+   * @example
+   * const iterator = FluentIterator.from([1,2,3]);
+   * const data = iterator.collect();
+   * // data is [1,2,3]
+   */
   collect(): A[] {
     return this.collectTo(new ArrayCollector());
   }
 
+  /**
+   * Collects items into a `Set`.
+   * @returns a Set consisting of the elements of this {@link FluentIterator}
+   * @example
+   * const iterator = FluentIterator.from([1,2,3,1,2,3]);
+   * const data = iterator.collectToSet();
+   * // data is Set { 1,2,3 }
+   */
   collectToSet(): Set<A> {
     return this.collectTo(new SetCollector());
   }
 
+  /**
+   * Collects items into a `Map` by mapping values into keys.
+   * @typeParam K The type of the keys of the `Map`
+   *
+   * @param mapper Maps the values into keys
+   * @param collisionHandler  Specifies how to handle the collision. Default is to ignore collision.
+   * @returns a Map whose keys are the result of applying the `mapper` to the values of this {@link FluentIterator} and the values are iterated items.
+
+   * @example
+   * const iterator = FluentIterator.from("foo","bar","foobar")
+   * const data = iterator.collectToMap(s => s.length);
+   * // data is Map {3 => "foo", 6 => "foobar"}
+   */
   collectToMap<K>(mapper: Mapper<A, K>, collisionHandler?: CollisionHandler<K, A>): Map<K, A> {
     return this.collectToMap2(a => [mapper(a), a], collisionHandler);
   }
 
+  /**
+   * Collects items into a `Map` by mapping values into keys and new value
+   * @typeParam K The type of the keys of the `Map`
+   * @typeParam V The type of the values of the `Map`
+   *
+   * @param mapper Maps the values into [key, values] pairs
+   * @param collisionHandler  Specifies how to handle the collision. Default is to ignore collision.
+   * @returns a Map whose entries are the result of applying the `mapper` to the values of this {@link FluentIterator}.
+
+   * @example
+   * const iterator = FluentIterator.from("foo","bar","foobar")
+   * const data = iterator.collectToMap2(s => [s, s.length]);
+   * // data is Map { "foo" => 3, "bar" => 3, "foobar" => 6 }
+   */
   collectToMap2<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Map<K, V> {
     return this.map(mapper).collectTo(new MapCollector(collisionHandler));
   }
 
+  /**
+   * Collects items into a `Record` by mapping values into keys and new value
+   * @typeParam V The type of the values of the `Map`
+   *
+   * @param mapper Maps the values into [key, values] pairs
+   * @param collisionHandler  Specifies how to handle the collision. Default is to ignore collision.
+   * @returns a `Record` whose entries are the result of applying the `mapper` to the values of this {@link FluentIterator}.
+
+   * @example
+   * const iterator = FluentIterator.from("foo","bar","foobar")
+   * const data = iterator.collectToObject(s => [s, s.length]);
+   * // data is { foo: 3, bar: 3, foobar: 6 }
+   */
   collectToObject<V>(
     mapper: Mapper<A, [string, V]>,
     collisionHandler?: CollisionHandler<string, V>
@@ -205,10 +295,16 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 }
 
+/**
+ * Alias for {@link FluentIterator.from}
+ */
 export function iterator<A>(iter: IteratorGenerator<A>): FluentIterator<A> {
   return FluentIterator.from(iter);
 }
 
+/**
+ * Alias for {@link FluentIterator.empty}
+ */
 export function emptyIterator<A = never>() {
   return FluentIterator.empty<A>();
 }
@@ -229,7 +325,10 @@ declare global {
     keyIterator(): FluentIterator<K>;
   }
 }
-
+/**
+ * Adding method to `Array` prototype.
+ *
+ */
 Array.prototype.iterator = function <T>(this: Array<T>) {
   return new FluentIterator<T>(this[Symbol.iterator]());
 };

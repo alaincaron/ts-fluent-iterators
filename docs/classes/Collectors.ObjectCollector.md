@@ -32,14 +32,6 @@ c.collect(['foo',3]);
 
 - [constructor](Collectors.ObjectCollector.md#constructor)
 
-### Accessors
-
-- [result](Collectors.ObjectCollector.md#result)
-
-### Methods
-
-- [collect](Collectors.ObjectCollector.md#collect)
-
 ## Constructors
 
 ### constructor
@@ -61,43 +53,3 @@ c.collect(['foo',3]);
 #### Returns
 
 [`ObjectCollector`](Collectors.ObjectCollector.md)\<`V`\>
-
-## Accessors
-
-### result
-
-• `get` **result**(): `Record`\<`string`, `V`\>
-
-Returns the aggregated object.
-
-#### Returns
-
-`Record`\<`string`, `V`\>
-
-The aggregated object resulting from collecting all objects
-
-#### Implementation of
-
-Collector.result
-
-## Methods
-
-### collect
-
-▸ **collect**(`«destructured»`): `void`
-
-Collects an element.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `«destructured»` | [`string`, `V`] | The element being collected. |
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-[Collector](../interfaces/Collectors.Collector.md).[collect](../interfaces/Collectors.Collector.md#collect)

@@ -15,19 +15,9 @@ A `Collector` or an `AsyncCollector`.
 
 ## Table of contents
 
-### Properties
-
-- [result](Collectors.EventualCollector.md#result)
-
 ### Methods
 
 - [collect](Collectors.EventualCollector.md#collect)
-
-## Properties
-
-### result
-
-• **result**: `B`
 
 ## Methods
 

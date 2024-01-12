@@ -31,14 +31,6 @@ c.result : 'foo'
 
 - [constructor](Collectors.MaxCollector.md#constructor)
 
-### Accessors
-
-- [result](Collectors.MaxCollector.md#result)
-
-### Methods
-
-- [collect](Collectors.MaxCollector.md#collect)
-
 ## Constructors
 
 ### constructor
@@ -60,43 +52,3 @@ c.result : 'foo'
 #### Returns
 
 [`MaxCollector`](Collectors.MaxCollector.md)\<`A`\>
-
-## Accessors
-
-### result
-
-• `get` **result**(): `undefined` \| `A`
-
-Returns the aggregated object.
-
-#### Returns
-
-`undefined` \| `A`
-
-The aggregated object resulting from collecting all objects
-
-#### Implementation of
-
-Collector.result
-
-## Methods
-
-### collect
-
-▸ **collect**(`a`): `void`
-
-Collects an element.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `A` | The element being collected. |
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-[Collector](../interfaces/Collectors.Collector.md).[collect](../interfaces/Collectors.Collector.md#collect)

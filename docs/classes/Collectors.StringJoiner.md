@@ -32,14 +32,6 @@ c.collect('baz');
 
 - [constructor](Collectors.StringJoiner.md#constructor)
 
-### Accessors
-
-- [result](Collectors.StringJoiner.md#result)
-
-### Methods
-
-- [collect](Collectors.StringJoiner.md#collect)
-
 ## Constructors
 
 ### constructor
@@ -63,43 +55,3 @@ c.collect('baz');
 #### Returns
 
 [`StringJoiner`](Collectors.StringJoiner.md)\<`A`\>
-
-## Accessors
-
-### result
-
-• `get` **result**(): `string`
-
-Returns the aggregated object.
-
-#### Returns
-
-`string`
-
-The aggregated object resulting from collecting all objects
-
-#### Implementation of
-
-Collector.result
-
-## Methods
-
-### collect
-
-▸ **collect**(`a`): `void`
-
-Collects an element.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `A` | The element being collected. |
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-[Collector](../interfaces/Collectors.Collector.md).[collect](../interfaces/Collectors.Collector.md#collect)
