@@ -173,9 +173,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return Iterators.some(this.iter, predicate);
   }
 
-  count(predicate?: EventualPredicate<A>): Promise<number> {
-    const iter = predicate ? this.filter(predicate) : this;
-    return iter.collectTo(new CountCollector());
+  count(): Promise<number> {
+    return this.collectTo(new CountCollector());
   }
 
   min(comparator?: Comparator<A>): Promise<A | undefined> {

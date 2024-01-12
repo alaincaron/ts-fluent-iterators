@@ -304,13 +304,7 @@ ___
 
 ### count
 
-▸ **count**(`predicate?`): `Promise`\<`number`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `predicate?` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> |
+▸ **count**(): `Promise`\<`number`\>
 
 #### Returns
 

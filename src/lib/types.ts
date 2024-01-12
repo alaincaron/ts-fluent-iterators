@@ -1,5 +1,17 @@
+/**
+ * Represents a value of type `A` or `Promise<A>`.
+ */
 export type Eventually<A> = A | Promise<A>;
+
+/**
+ * A function mapping a value of type `A` to type `B`
+ * @typeParam A the source type
+ * @typeParam B the target type
+ * @example
+ * const strlen: Mapper<string,number> = s => s.length;
+ */
 export type Mapper<A, B> = (a: A) => B;
+
 export type EventualMapper<A, B> = Mapper<A, Eventually<B>>;
 export type Predicate<A> = Mapper<A, boolean>;
 export type CollisionHandler<K, V> = (k: K, oldValue: V, newValue: V) => V;

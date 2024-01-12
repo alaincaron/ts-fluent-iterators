@@ -282,13 +282,7 @@ ___
 
 ### count
 
-▸ **count**(`predicate?`): `number`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `predicate?` | [`Predicate`](../README.md#predicate)\<`A`\> |
+▸ **count**(): `number`
 
 #### Returns
 

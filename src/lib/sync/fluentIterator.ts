@@ -148,9 +148,8 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return Iterators.some(this.iter, predicate);
   }
 
-  count(predicate?: Predicate<A>): number {
-    const iter = predicate ? this.filter(predicate) : this;
-    return iter.collectTo(new CountCollector());
+  count(): number {
+    return this.collectTo(new CountCollector());
   }
 
   min(comparator?: Comparator<A>): A | undefined {

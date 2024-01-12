@@ -155,9 +155,8 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return Iterators.some(this.iter, predicate);
   }
 
-  count(predicate?: EventualPredicate<A>): Promise<number> {
-    const iter = predicate ? this.filter(predicate) : this;
-    return iter.collectTo(new CountCollector());
+  count(): Promise<number> {
+    return this.collectTo(new CountCollector());
   }
 
   min(comparator?: Comparator<A>): Promise<A | undefined> {

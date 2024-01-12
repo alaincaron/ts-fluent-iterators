@@ -9,7 +9,7 @@ ts-fluent-iterators
 - [AsyncGenerators](modules/AsyncGenerators.md)
 - [AsyncIterators](modules/AsyncIterators.md)
 - [Collectors](modules/Collectors.md)
-- [Functions](modules/Functions.md)
+- [Comparators](modules/Comparators.md)
 - [Generators](modules/Generators.md)
 - [Iterators](modules/Iterators.md)
 - [PromiseGenerators](modules/PromiseGenerators.md)
@@ -46,6 +46,10 @@ ts-fluent-iterators
 - [Mapper](README.md#mapper)
 - [Predicate](README.md#predicate)
 - [Reducer](README.md#reducer)
+
+### Variables
+
+- [CollisionHandlers](README.md#collisionhandlers)
 
 ### Functions
 
@@ -240,6 +244,8 @@ ___
 
 Ƭ **Eventually**\<`A`\>: `A` \| `Promise`\<`A`\>
 
+Represents a value of type `A` or `Promise<A>`.
+
 #### Type parameters
 
 | Name |
@@ -276,12 +282,20 @@ ___
 
 Ƭ **Mapper**\<`A`, `B`\>: (`a`: `A`) => `B`
 
+A function mapping a value of type `A` to type `B`
+
+**`Example`**
+
+```ts
+const strlen: Mapper<string,number> = s => s.length;
+```
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
-| `B` |
+| Name | Description |
+| :------ | :------ |
+| `A` | the source type |
+| `B` | the target type |
 
 #### Type declaration
 
@@ -336,6 +350,27 @@ ___
 ##### Returns
 
 `B`
+
+## Variables
+
+### CollisionHandlers
+
+• `Const` **CollisionHandlers**: `Object`
+
+Default collision handlers for `MapCollector`
+```
+- overwrite: new value overwrite existing value
+- ignore: new value is ignored
+- reject: an Error is thrown
+```
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `ignore` | \<K, V\>(`_k`: `K`, `oldValue`: `V`, `_newValue`: `V`) => `V` |
+| `overwrite` | \<K, V\>(`_k`: `K`, `_oldValue`: `V`, `newValue`: `V`) => `V` |
+| `reject` | \<K, V\>(`k`: `K`, `oldValue`: `V`, `newValue`: `V`) => `never` |
 
 ## Functions
 

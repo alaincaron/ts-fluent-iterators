@@ -1,4 +1,4 @@
-import { defaultComparator } from './functions';
+import { defaultComparator } from './comparators';
 import { emptyIterator, FluentIterator } from './sync';
 import { CollisionHandler, Comparator, MinMax } from './types';
 
