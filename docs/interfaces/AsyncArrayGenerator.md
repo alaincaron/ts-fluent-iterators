@@ -2,11 +2,13 @@
 
 # Interface: AsyncArrayGenerator\<E\>
 
+An interface used to asynchronously generate arrays from `length` and `seed`
+
 ## Type parameters
 
-| Name |
-| :------ |
-| `E` |
+| Name | Description |
+| :------ | :------ |
+| `E` | the type of the objects in the generated `Array` |
 
 ## Table of contents
 
@@ -21,8 +23,12 @@
 
 • **length**: `number`
 
+The number of items to generate.
+
 ___
 
 ### seed
 
 • **seed**: [`AsyncIteratorLike`](../README.md#asynciteratorlike)\<`E`\>
+
+Generates the entry in the array.

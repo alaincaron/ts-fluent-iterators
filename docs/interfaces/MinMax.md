@@ -2,11 +2,13 @@
 
 # Interface: MinMax\<A\>
 
+Holds result of a `MinMaxCollector`
+
 ## Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | the type of the objects in the result. |
 
 ## Table of contents
 
@@ -21,8 +23,12 @@
 
 • **max**: `A`
 
+The max value
+
 ___
 
 ### min
 
 • **min**: `A`
+
+The min value

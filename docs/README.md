@@ -63,11 +63,13 @@ ts-fluent-iterators
 
 Ƭ **AsyncIteratorGenerator**\<`E`\>: [`AsyncArrayGenerator`](interfaces/AsyncArrayGenerator.md)\<`E`\> \| [`AsyncIteratorLike`](README.md#asynciteratorlike)\<`E`\>
 
+An object that can generate an asynchronous iterator.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `E` |
+| Name | Description |
+| :------ | :------ |
+| `E` | the type of the objects that can be iterated on |
 
 ___
 
@@ -75,11 +77,13 @@ ___
 
 Ƭ **AsyncIteratorLike**\<`E`\>: (`i`: `number`) => `Promise`\<`E`\> \| `AsyncIterator`\<`E`\> \| `AsyncIterable`\<`E`\>
 
+An object that behaves like an `AsyncIterator`.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `E` |
+| Name | Description |
+| :------ | :------ |
+| `E` | the type of the objects that can be iterated on |
 
 ___
 
@@ -87,12 +91,19 @@ ___
 
 Ƭ **CollisionHandler**\<`K`, `V`\>: (`k`: `K`, `oldValue`: `V`, `newValue`: `V`) => `V`
 
+A collision handler for collectors. Used by `Collectors` `MapCollector` and `ObjectCollector` to handle collisions.
+The value returned will be the new mapping for the key. It can also throw to abort the collecting of elements.
+
+**`Throws`**
+
+It can throw to reject the collision and abort the collecting
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `K` |
-| `V` |
+| Name | Description |
+| :------ | :------ |
+| `K` | the keys on which collisions are detected. |
+| `V` | the type of the values |
 
 #### Type declaration
 
@@ -100,11 +111,11 @@ ___
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `k` | `K` |
-| `oldValue` | `V` |
-| `newValue` | `V` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `k` | `K` | The key for which the collision is detected. |
+| `oldValue` | `V` | The current value mapped to the key `k` |
+| `newValue` | `V` | The new value to be mapped to the key `k` |
 
 ##### Returns
 
@@ -116,11 +127,30 @@ ___
 
 Ƭ **Comparator**\<`A`\>: (`a1`: `A`, `a2`: `A`) => `number`
 
+A function used to compare objects for ordering. Its return value should satisfy the following properties:
+
+- strictly negative if first operand is before (<) second operand
+- strictly positive if first operand is after (>) second operand
+- 0 if both operands have same ordering (===)
+
+**`Example`**
+
+To compare string case insensitively:
+```ts
+const ignoreCaseComparator: Comparator<string> = (s1, s2) => {
+   const l1 = s1.toLowerCase();
+   const l2 = s2.toLowerCase();
+   if (l1 < l2) return -1;
+   if (l1 > l2) return 1;
+   return 0;
+};
+```
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | Type of objects to compare. |
 
 #### Type declaration
 
@@ -128,10 +158,10 @@ ___
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `a1` | `A` |
-| `a2` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `a1` | `A` | The first operand |
+| `a2` | `A` | The second operand |
 
 ##### Returns
 
@@ -143,11 +173,13 @@ ___
 
 Ƭ **EventualIterable**\<`A`\>: `Iterable`\<`A`\> \| `AsyncIterable`\<`A`\>
 
+An `Iterable` that maybe asynchronous.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | the type of objects being iterated on. |
 
 ___
 
@@ -155,11 +187,13 @@ ___
 
 Ƭ **EventualIterableIterator**\<`A`\>: `IterableIterator`\<`A`\> \| `AsyncIterableIterator`\<`A`\>
 
+An `IterableIterator` that maybe asynchronous.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | the type of objects being iterated on. |
 
 ___
 
@@ -167,11 +201,13 @@ ___
 
 Ƭ **EventualIterator**\<`A`\>: `Iterator`\<`A`\> \| `AsyncIterator`\<`A`\>
 
+An `Iterator` that maybe asynchronous.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | the type of objects being iterated on. |
 
 ___
 
@@ -179,11 +215,13 @@ ___
 
 Ƭ **EventualIteratorGenerator**\<`E`\>: [`IteratorGenerator`](README.md#iteratorgenerator)\<`E`\> \| `AsyncGenerator`\<`E`\>
 
+An object that can generate a synchronous or asynchronous iterator.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `E` |
+| Name | Description |
+| :------ | :------ |
+| `E` | the type of the objects that can be iterated on |
 
 ___
 
@@ -191,18 +229,22 @@ ___
 
 Ƭ **EventualMapper**\<`A`, `B`\>: [`Mapper`](README.md#mapper)\<`A`, [`Eventually`](README.md#eventually)\<`B`\>\>
 
+A function mapping a value of type `A` to type `Eventually<B>`
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
-| `B` |
+| Name | Description |
+| :------ | :------ |
+| `A` | the source type on which the `EventualMapper` is applied. |
+| `B` | the target type |
 
 ___
 
 ### EventualPredicate
 
 Ƭ **EventualPredicate**\<`A`\>: [`Mapper`](README.md#mapper)\<`A`, [`Eventually`](README.md#eventually)\<`boolean`\>\>
+
+A predicate that can be synchronous or asynchronous.
 
 #### Type parameters
 
@@ -216,12 +258,14 @@ ___
 
 Ƭ **EventualReducer**\<`A`, `B`\>: (`acc`: `B`, `a`: `A`) => [`Eventually`](README.md#eventually)\<`B`\>
 
+An eventual `Reducer`. Used for asynchronous `fold` and `reduce` operations.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
-| `B` |
+| Name | Description |
+| :------ | :------ |
+| `A` | Type of elements being reduced |
+| `B` | Type into which the elements are being reduced to. |
 
 #### Type declaration
 
@@ -229,10 +273,10 @@ ___
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `acc` | `B` |
-| `a` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `acc` | `B` | The current value of the accumulator |
+| `a` | `A` | The current value to reduce |
 
 ##### Returns
 
@@ -258,11 +302,13 @@ ___
 
 Ƭ **IteratorGenerator**\<`E`\>: [`ArrayGenerator`](interfaces/ArrayGenerator.md)\<`E`\> \| [`IteratorLike`](README.md#iteratorlike)\<`E`\>
 
+An object that can generate an iterator.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `E` |
+| Name | Description |
+| :------ | :------ |
+| `E` | the type of the objects that can be iterated on |
 
 ___
 
@@ -270,11 +316,13 @@ ___
 
 Ƭ **IteratorLike**\<`E`\>: (`i`: `number`) => `E` \| `Iterator`\<`E`\> \| `Iterable`\<`E`\>
 
+An object that behaves like an iterator.
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `E` |
+| Name | Description |
+| :------ | :------ |
+| `E` | the type of the objects that can be iterated on |
 
 ___
 
@@ -294,7 +342,7 @@ const strlen: Mapper<string,number> = s => s.length;
 
 | Name | Description |
 | :------ | :------ |
-| `A` | the source type |
+| `A` | the source type on which the `Mapper` is applied. |
 | `B` | the target type |
 
 #### Type declaration
@@ -317,11 +365,19 @@ ___
 
 Ƭ **Predicate**\<`A`\>: [`Mapper`](README.md#mapper)\<`A`, `boolean`\>
 
+A predicate on a value.
+
+**`Example`**
+
+```ts
+const lengthGreaterThanFive: Predicate<string> = s => s.length > 5;
+```
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | the type of values on which the predicate is to be evaluated. |
 
 ___
 
@@ -329,12 +385,21 @@ ___
 
 Ƭ **Reducer**\<`A`, `B`\>: (`acc`: `B`, `a`: `A`) => `B`
 
+Function used in `reduce` and `fold` operations.
+
+**`Example`**
+
+To compute the sum of the length of strings:
+```ts
+const sumLenReducer: Reducer<string, number> = (sum, s) => { sum += s.length; return sum; };
+```
+
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
-| `B` |
+| Name | Description |
+| :------ | :------ |
+| `A` | Type of elements being reduced |
+| `B` | Type into which the elements are being reduced to. |
 
 #### Type declaration
 
@@ -342,10 +407,10 @@ ___
 
 ##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `acc` | `B` |
-| `a` | `A` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `acc` | `B` | The current value of the accumulator |
+| `a` | `A` | The current value to reduce |
 
 ##### Returns
 
