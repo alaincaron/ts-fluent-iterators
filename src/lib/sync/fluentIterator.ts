@@ -150,30 +150,87 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return this.map(mapper).collectTo(new ObjectCollector(collisionHandler));
   }
 
+  /**
+   * Returns a new {@link FluentIterator} consisting of elements for which the `predicate` evaluates to true.
+   *
+   * @param predicate the predicate on which the evaluate the items.
+   * @returns a new {@link FluentIterator} consisting of elements of this {@link FluentIterator} for which the `predicate` evaluates to true.
+   * @example
+   * const iterator = FluentIterator.from([1,8,2,3,4,6]).filter(x => x % 2 === 1);
+   * // yields 1, 2
+   */
   filter(predicate: Predicate<A>): FluentIterator<A> {
     return new FluentIterator(Iterators.filter(this.iter, predicate));
   }
 
+  /**
+   * Returns a new {@link FluentIterator} consisting of elements of this {@link FluentIterator} that are not `null` nor `undefined`
+   *
+   * @returns a new {@link FluentIterator} where all the `null` or `undefined` elements are removed.
+   */
   removeNull(): FluentIterator<A> {
     return new FluentIterator(Iterators.removeNull(this.iter));
   }
 
+  /**
+   * Returns a new {@link FluentIterator} consisting of applying the {@link Mapper} to all elements of this {@link FluentIterator}.
+   * @typeParam B The type of the elements of the returned {@link FluentIterator}
+   * @param mapper Transformation applied to elements of this {@link FluentIterator}
+   * @returns A new {@link FluentIterator}
+   * @example
+   * const iter = FluentIterator.from(['foo','bar',foobar'])
+   * iter.map(s => s.length)
+   * // yields 3, 3, 6
+   */
   map<B>(mapper: Mapper<A, B>): FluentIterator<B> {
     return new FluentIterator(Iterators.map(this.iter, mapper));
   }
 
+  /**
+   * Returns a new {@link FluentIterator} consisting of applying the {@link Mapper} to all elements of this {@link FluentIterator} and filtering those for which the {@link Mapper} returned null or undefined
+   * @typeParam B The type of the elements of the returned {@link FluentIterator}
+   * @param mapper Transformation applied to elements of this {@link FluentIterator}
+   * @returns A new {@link FluentIterator}
+   * @remarks
+   * ```ts
+   * iter.filterMap(mapper)
+   * ```
+   * is equivalent to
+   * ```ts
+   * iter.map(mapper).removeNull()
+   * ```
+   */
   filterMap<B>(mapper: Mapper<A, B | null | undefined>): FluentIterator<B> {
     return new FluentIterator(Iterators.filterMap(this.iter, mapper));
   }
 
+  /**
+   * Returns the first element of this {@link FluentIterator} or `undefined` if this {@link FluentIterator} is empty.
+   *
+   * @returns The first element of this {@link FluentIterator} or `undefined`.
+   */
   first(): A | undefined {
     return Iterators.first(this.iter);
   }
 
+  /**
+   * Returns a {@link FluentIterator} yielding the first `n` elements of this {@link FluentIterator}.
+   *
+   * @param n The number of elements to take
+   * @returns a {@link FluentIterator} yielding the first `n` elements of this {@link FluentIterator}.
+   * @remarks If there are less than `n` elements in this {@link FluentIterator}, then only the available elements will be yielded.
+   */
   take(n: number): FluentIterator<A> {
     return new FluentIterator(Iterators.take(this.iter, n));
   }
 
+  /**
+   * Returns a {@link FluentIterator} skipping the first `n` elements of this {@link FluentIterator} and then yielding the subsequent ones.
+   *
+   * @param n The number of elements to skip
+   * @returns a {@link FluentIterator} skpping the first `n` elements of this {@link FluentIterator}.
+   * @remarks If there are less than `n` elements in this {@link FluentIterator}, then an empty {@link FluentIterator} is returned.
+   */
   skip(n: number): FluentIterator<A> {
     return new FluentIterator(Iterators.skip(this.iter, n));
   }

@@ -29,6 +29,13 @@ Iterator with a Fluent interface.
 - [collectToMap2](FluentIterator.md#collecttomap2)
 - [collectToObject](FluentIterator.md#collecttoobject)
 - [collectToSet](FluentIterator.md#collecttoset)
+- [filter](FluentIterator.md#filter)
+- [filterMap](FluentIterator.md#filtermap)
+- [first](FluentIterator.md#first)
+- [map](FluentIterator.md#map)
+- [removeNull](FluentIterator.md#removenull)
+- [skip](FluentIterator.md#skip)
+- [take](FluentIterator.md#take)
 - [empty](FluentIterator.md#empty)
 - [from](FluentIterator.md#from)
 
@@ -215,7 +222,7 @@ Collects items into a `Record` by mapping values into keys and new value
 
 `Record`\<`string`, `V`\>
 
-a Map whose entries are the result of applying the `mapper` to the values of this [FluentIterator](FluentIterator.md).
+a `Record` whose entries are the result of applying the `mapper` to the values of this [FluentIterator](FluentIterator.md).
 
 **`Example`**
 
@@ -246,6 +253,179 @@ const iterator = FluentIterator.from([1,2,3,1,2,3]);
 const data = iterator.collectToSet();
 // data is Set { 1,2,3 }
 ```
+
+___
+
+### filter
+
+▸ **filter**(`predicate`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+
+Returns a new [FluentIterator](FluentIterator.md) consisting of elements for which the `predicate` evaluates to true.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> | the predicate on which the evaluate the items. |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`A`\>
+
+a new [FluentIterator](FluentIterator.md) consisting of elements of this [FluentIterator](FluentIterator.md) for which the `predicate` evaluates to true.
+
+**`Example`**
+
+```ts
+const iterator = FluentIterator.from([1,8,2,3,4,6]).filter(x => x % 2 === 1);
+// yields 1, 2
+```
+
+___
+
+### filterMap
+
+▸ **filterMap**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
+
+Returns a new [FluentIterator](FluentIterator.md) consisting of applying the [Mapper](../README.md#mapper) to all elements of this [FluentIterator](FluentIterator.md) and filtering those for which the [Mapper](../README.md#mapper) returned null or undefined
+
+#### Type parameters
+
+| Name | Description |
+| :------ | :------ |
+| `B` | The type of the elements of the returned [FluentIterator](FluentIterator.md) |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `undefined` \| ``null`` \| `B`\> | Transformation applied to elements of this [FluentIterator](FluentIterator.md) |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`B`\>
+
+A new [FluentIterator](FluentIterator.md)
+
+**`Remarks`**
+
+```ts
+iter.filterMap(mapper)
+```
+is equivalent to
+```ts
+iter.map(mapper).removeNull()
+```
+
+___
+
+### first
+
+▸ **first**(): `undefined` \| `A`
+
+Returns the first element of this [FluentIterator](FluentIterator.md) or `undefined` if this [FluentIterator](FluentIterator.md) is empty.
+
+#### Returns
+
+`undefined` \| `A`
+
+The first element of this [FluentIterator](FluentIterator.md) or `undefined`.
+
+___
+
+### map
+
+▸ **map**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
+
+Returns a new [FluentIterator](FluentIterator.md) consisting of applying the [Mapper](../README.md#mapper) to all elements of this [FluentIterator](FluentIterator.md).
+
+#### Type parameters
+
+| Name | Description |
+| :------ | :------ |
+| `B` | The type of the elements of the returned [FluentIterator](FluentIterator.md) |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `B`\> | Transformation applied to elements of this [FluentIterator](FluentIterator.md) |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`B`\>
+
+A new [FluentIterator](FluentIterator.md)
+
+**`Example`**
+
+```ts
+const iter = FluentIterator.from(['foo','bar',foobar'])
+iter.map(s => s.length)
+// yields 3, 3, 6
+```
+
+___
+
+### removeNull
+
+▸ **removeNull**(): [`FluentIterator`](FluentIterator.md)\<`A`\>
+
+Returns a new [FluentIterator](FluentIterator.md) consisting of elements of this [FluentIterator](FluentIterator.md) that are not `null` nor `undefined`
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`A`\>
+
+a new [FluentIterator](FluentIterator.md) where all the `null` or `undefined` elements are removed.
+
+___
+
+### skip
+
+▸ **skip**(`n`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+
+Returns a [FluentIterator](FluentIterator.md) skipping the first `n` elements of this [FluentIterator](FluentIterator.md) and then yielding the subsequent ones.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `n` | `number` | The number of elements to skip |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`A`\>
+
+a [FluentIterator](FluentIterator.md) skpping the first `n` elements of this [FluentIterator](FluentIterator.md).
+
+**`Remarks`**
+
+If there are less than `n` elements in this [FluentIterator](FluentIterator.md), then an empty [FluentIterator](FluentIterator.md) is returned.
+
+___
+
+### take
+
+▸ **take**(`n`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+
+Returns a [FluentIterator](FluentIterator.md) yielding the first `n` elements of this [FluentIterator](FluentIterator.md).
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `n` | `number` | The number of elements to take |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`A`\>
+
+a [FluentIterator](FluentIterator.md) yielding the first `n` elements of this [FluentIterator](FluentIterator.md).
+
+**`Remarks`**
+
+If there are less than `n` elements in this [FluentIterator](FluentIterator.md), then only the available elements will be yielded.
 
 ___
 
