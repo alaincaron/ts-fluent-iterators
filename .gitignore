@@ -109,3 +109,5 @@ dist
 *~
 *.back
 *.bak
+
+htmldoc
