@@ -1,5 +1,4 @@
 {
-  "plugin": "typedoc-plugin-markdown",
   "out": "docs",
   "disableSources": true,
   "tsconfig": "tsconfig.json",

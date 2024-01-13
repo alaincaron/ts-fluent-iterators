@@ -12,13 +12,13 @@
     "pristine": "rimraf ./dist ./node_modules",
     "build": "rimraf ./dist && tsc",
     "repl": "npm run build && env NODE_PATH=./dist ts-node -i",
-    "htmldoc": "./scripts/htmldoc",
+    "htmldoc": "typedoc --plugin typedoc-material-theme src/index.ts",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "coverage": "nyc npm run test",
     "format": "prettier --write .",
     "precommit": "lint-staged",
     "prepare": "husky install .husky",
-    "typedoc": "typedoc src/index.ts"
+    "typedoc": "typedoc --plugin typedoc-plugin-markdown src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -62,6 +62,7 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.7",
+    "typedoc-material-theme": "^1.0.2",
     "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.3.3"
   },
