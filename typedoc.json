@@ -1,5 +1,4 @@
 {
-  "out": "docs",
   "disableSources": true,
   "tsconfig": "tsconfig.json",
   "excludePrivate": true,
