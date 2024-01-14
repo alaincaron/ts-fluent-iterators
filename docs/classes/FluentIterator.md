@@ -29,13 +29,20 @@ Iterator with a Fluent interface.
 - [collectToMap2](FluentIterator.md#collecttomap2)
 - [collectToObject](FluentIterator.md#collecttoobject)
 - [collectToSet](FluentIterator.md#collecttoset)
+- [contains](FluentIterator.md#contains)
+- [enumerate](FluentIterator.md#enumerate)
 - [filter](FluentIterator.md#filter)
 - [filterMap](FluentIterator.md#filtermap)
 - [first](FluentIterator.md#first)
+- [fold](FluentIterator.md#fold)
+- [includes](FluentIterator.md#includes)
 - [map](FluentIterator.md#map)
+- [reduce](FluentIterator.md#reduce)
 - [removeNull](FluentIterator.md#removenull)
 - [skip](FluentIterator.md#skip)
 - [take](FluentIterator.md#take)
+- [tap](FluentIterator.md#tap)
+- [zip](FluentIterator.md#zip)
 - [empty](FluentIterator.md#empty)
 - [from](FluentIterator.md#from)
 
@@ -256,6 +263,56 @@ const data = iterator.collectToSet();
 
 ___
 
+### contains
+
+▸ **contains**(`predicate`): `boolean`
+
+Returns true if this [FluentIterator](FluentIterator.md) yields an element for which the [Predicate](../README.md#predicate) evaluates to true.
+*
+*
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> | The predicate to evaluate. * |
+
+#### Returns
+
+`boolean`
+
+true if this [FluentIterator](FluentIterator.md) yields an element for which the [Predicate](../README.md#predicate) evaluates to true, false otherwise.
+
+___
+
+### enumerate
+
+▸ **enumerate**(`start?`): [`FluentIterator`](FluentIterator.md)\<[`A`, `number`]\>
+
+Returns a new [FluentIterator](FluentIterator.md) that yields pairs of elements
+consisting of the elements yielded by this
+@{link FluentIterator and their index in the iteration.
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `start` | `number` | `0` | The starting index |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<[`A`, `number`]\>
+
+**`Example`**
+
+```ts
+const iter = iterator(['a', 'b', 'c']);
+const enumerated = iter.enumerate(10);
+// enumerated will yield ["a", 10], ["b", 11], ["c", 12]
+```
+
+___
+
 ### filter
 
 ▸ **filter**(`predicate`): [`FluentIterator`](FluentIterator.md)\<`A`\>
@@ -333,6 +390,83 @@ The first element of this [FluentIterator](FluentIterator.md) or `undefined`.
 
 ___
 
+### fold
+
+▸ **fold**\<`B`\>(`reducer`, `initialValue`): `B`
+
+Executes the [reducer](../README.md#reducer) function on each element
+of this [FluentIterator](FluentIterator.md), in order, passing in
+the return value from the calculation on the preceding element. The
+final result of running the reducer across all elements of the array
+is a single value.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `B` |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `reducer` | [`Reducer`](../README.md#reducer)\<`A`, `B`\> | The reducer to be applied at each iteration. |
+| `initialValue` | `B` | The value of the accumulator to be used in the first call to `reducer` |
+
+#### Returns
+
+`B`
+
+**`Param Type`**
+
+B the type into which the elements are being folded to
+
+**`Remarks`**
+
+If the [FluentIterator](FluentIterator.md) is empty, `initialValue` is returned.
+
+**`Example`**
+
+```ts
+To compute the sum of elements of an array:
+const sum = new FluentIterator([1,2,3]).fold((acc, x) => acc + x, 0)
+// sum = 6
+```
+
+___
+
+### includes
+
+▸ **includes**(`target`): `boolean`
+
+Returns true if this [FluentIterator](FluentIterator.md) yields an element equals to `target`
+*
+*
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `A` | value to look for * |
+
+#### Returns
+
+`boolean`
+
+true if this [FluentIterator](FluentIterator.md) yields an element equals to `target`, false otherwise.
+* @
+
+**`Remarks`**
+
+* ```ts
+* iter.includes(target)
+* ```
+* is equivalent to
+* ```ts
+* iter.contains(x => x === target)
+
+___
+
 ### map
 
 ▸ **map**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
@@ -363,6 +497,37 @@ A new [FluentIterator](FluentIterator.md)
 const iter = FluentIterator.from(['foo','bar',foobar'])
 iter.map(s => s.length)
 // yields 3, 3, 6
+```
+
+___
+
+### reduce
+
+▸ **reduce**(`reducer`, `initialValue?`): `undefined` \| `A`
+
+Special case of [FluentIterator.fold](FluentIterator.md#fold) where items being iteraded on and the accumulator are of the same type.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `reducer` | [`Reducer`](../README.md#reducer)\<`A`, `A`\> | The reducer to be applied at each iteration. |
+| `initialValue?` | `A` | The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this [FluentIterator](FluentIterator.md) is used. |
+
+#### Returns
+
+`undefined` \| `A`
+
+**`Remarks`**
+
+If the [FluentIterator](FluentIterator.md) is empty, `initialValue` is returned.
+
+**`Example`**
+
+```ts
+To compute the sum of elements of an array:
+const sum = new FluentIterator([1,2,3]).reduce((acc, x) => acc + x)
+// sum = 6
 ```
 
 ___
@@ -426,6 +591,77 @@ a [FluentIterator](FluentIterator.md) yielding the first `n` elements of this [F
 **`Remarks`**
 
 If there are less than `n` elements in this [FluentIterator](FluentIterator.md), then only the available elements will be yielded.
+
+___
+
+### tap
+
+▸ **tap**(`mapper`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+
+Returns a new [FluentIterator](FluentIterator.md) that
+yields the same elements as this [`FluentIterator<A>`](fluent_iterator.md)
+and executes the [mapper](../README.md#mapper) on each element.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `any`\> | the operation to be invoked on each element. |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`A`\>
+
+**`Remarks`**
+
+This can be useful to see intermediate steps of complex FlunentIterator.  The results of invoking the `mapper` are ignored unless it throww.
+
+**`Example`**
+
+```ts
+const iter = new FluentIterator([1,2,3])
+iter.tap(x => console.log(`before filter ${x}`)).filter(x => x % 2 === 0).tap(x => console.log(`after filter: ${x}`)).collect();
+// ouputs:
+  // before filter 1
+// before filter 2
+// after filter: 2
+// before filter 3
+// result : [ 2 ]
+```
+
+___
+
+### zip
+
+▸ **zip**\<`B`\>(`other`): [`FluentIterator`](FluentIterator.md)\<[`A`, `B`]\>
+
+Returns a new [FluentIterator](FluentIterator.md) that yields pairs of elements
+yielded by each Iterators which are navigated in parallel.
+The length of the new [FluentIterator](FluentIterator.md) is equal to the length the shorter iterator.
+
+#### Type parameters
+
+| Name | Description |
+| :------ | :------ |
+| `B` | The type of elements of the `other` iterator. |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `other` | `Iterator`\<`B`, `any`, `undefined`\> \| `Iterable`\<`B`\> | The iterator that is combined with this one. |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<[`A`, `B`]\>
+
+**`Example`**
+
+```ts
+const iter = iterator([1, 2, 3]);
+const zipped = iter.zip(['a', 'b']);
+// zipped will yield [1,"a"], [2,"b"]
+```
 
 ___
 

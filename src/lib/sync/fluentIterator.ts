@@ -235,30 +235,132 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.skip(this.iter, n));
   }
 
+  /**
+     Returns true if this {@link FluentIterator} yields an element for which the {@link Predicate} evaluates to true.
+     *
+     * @param predicate The predicate to evaluate.
+     * @returns true if this {@link FluentIterator} yields an element for which the {@link Predicate} evaluates to true, false otherwise.
+     */
   contains(predicate: Predicate<A>): boolean {
     return Iterators.contains(this.iter, predicate);
   }
 
+  /**
+     Returns true if this {@link FluentIterator} yields an element equals to `target`
+     *
+     * @param target value to look for
+     * @returns true if this {@link FluentIterator} yields an element equals to `target`, false otherwise.
+     * @ @remarks
+     * ```ts
+     * iter.includes(target)
+     * ```
+     * is equivalent to
+     * ```ts
+     * iter.contains(x => x === target)
+     */
   includes(target: A): boolean {
     return Iterators.includes(this.iter, target);
   }
 
+  /**
+   * Executes the {@link Reducer | reducer} function on each element
+   * of this {@link FluentIterator}, in order, passing in
+   * the return value from the calculation on the preceding element. The
+   * final result of running the reducer across all elements of the array
+   * is a single value.
+
+   * @paramType B the type into which the elements are being folded to
+   * @param reducer The reducer to be applied at each iteration.
+   * @param initialValue The value of the accumulator to be used in the first call to `reducer`
+
+   * @remarks
+   * If the {@link FluentIterator} is empty, `initialValue` is returned.
+   *
+   * @example
+   * To compute the sum of elements of an array:
+   * const sum = new FluentIterator([1,2,3])
+   *    .fold((acc, x) => acc + x, 0)
+   * // sum = 6
+   */
   fold<B>(reducer: Reducer<A, B>, initialValue: B): B {
     return Iterators.fold(this.iter, reducer, initialValue);
   }
 
+  /**
+   * Special case of {@link FluentIterator.fold} where items being iteraded on and the accumulator are of the same type.
+
+   * @param reducer The reducer to be applied at each iteration.
+   * @param initialValue The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this {@link FluentIterator} is used.
+
+   * @remarks
+   * If the {@link FluentIterator} is empty, `initialValue` is returned.
+   *
+   * @example
+   * To compute the sum of elements of an array:
+   * const sum = new FluentIterator([1,2,3])
+   *    .reduce((acc, x) => acc + x)
+   * // sum = 6
+   */
   reduce(reducer: Reducer<A, A>, initialValue?: A): A | undefined {
     return Iterators.reduce(this.iter, reducer, initialValue);
   }
 
+  /**
+   * Returns a new {@link FluentIterator} that yields pairs of elements
+   * yielded by each Iterators which are navigated in parallel.
+   * The length of the new {@link FluentIterator} is equal to the length the shorter iterator.
+   *
+   * @typeParam B The type of elements of the `other` iterator.
+   * @param other The iterator that is combined with this one.
+   *
+   * @example
+   * const iter = iterator([1, 2, 3]);
+   * const zipped = iter.zip(['a', 'b']);
+   * // zipped will yield [1,"a"], [2,"b"]
+   */
   zip<B>(other: Iterator<B> | Iterable<B>): FluentIterator<[A, B]> {
     return new FluentIterator(Iterators.zip(this.iter, Iterators.toIterator(other)));
   }
 
+  /**
+   * Returns a new {@link FluentIterator} that yields pairs of elements
+   * consisting of the elements yielded by this
+   * @{link FluentIterator and their index in the iteration.
+   *
+   * @param start The starting index
+   *
+   * @example
+   * const iter = iterator(['a', 'b', 'c']);
+   * const enumerated = iter.enumerate(10);
+   * // enumerated will yield ["a", 10], ["b", 11], ["c", 12]
+   *
+   */
   enumerate(start = 0): FluentIterator<[A, number]> {
     return new FluentIterator(Iterators.enumerate(this.iter, start));
   }
 
+  /**
+   * Returns a new {@link FluentIterator} that
+   * yields the same elements as this [`FluentIterator<A>`](fluent_iterator.md)
+   * and executes the {@link Mapper | mapper} on each element.
+   *
+   *
+   * @param mapper the operation to be invoked on each element.
+   *
+   * @remarks This can be useful to see intermediate steps of complex {@link FlunentIterator}.  The results of invoking the `mapper` are ignored unless it throww.
+   * @example
+   * const iter = new FluentIterator([1,2,3])
+   * iter.tap(x => console.log(`before filter ${x}`))
+   *      .filter(x => x % 2 === 0)
+   *      .tap(x => console.log(`after filter: ${x}`))
+   *      .collect();
+   * // ouputs:
+   * // before filter 1
+   * // before filter 2
+   * // after filter: 2
+   * // before filter 3
+   * // result : [ 2 ]
+   */
   tap(mapper: Mapper<A, any>): FluentIterator<A> {
     return new FluentIterator(Iterators.tap(this.iter, mapper));
   }
