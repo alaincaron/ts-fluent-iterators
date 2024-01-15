@@ -270,6 +270,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
    * is equivalent to
    * ```ts
    * iter.contains(x => x === target)
+   * ```
    */
   includes(target: Eventually<A>): Promise<boolean> {
     return Iterators.includes(this.iter, target);

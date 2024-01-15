@@ -693,6 +693,7 @@ iter.includes(target)
 is equivalent to
 ```ts
 iter.contains(x => x === target)
+```
 
 ___
 

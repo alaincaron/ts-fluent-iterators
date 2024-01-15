@@ -261,6 +261,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * is equivalent to
    * ```ts
    * iter.contains(x => x === target)
+   * ```
    */
   includes(target: A): boolean {
     return Iterators.includes(this.iter, target);

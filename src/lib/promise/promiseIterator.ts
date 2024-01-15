@@ -391,6 +391,7 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
    * is equivalent to
    * ```ts
    * iter.contains(x => x === target)
+   * ```
    */
   includes(target: Eventually<A>): Promise<boolean> {
     return Iterators.includes(this.iter, target);
