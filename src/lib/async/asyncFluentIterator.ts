@@ -15,6 +15,7 @@ import {
   TallyCollector,
 } from '../collectors';
 import {
+  AsyncIteratorGenerator,
   CollisionHandler,
   Comparator,
   EventualIterable,
@@ -26,15 +27,34 @@ import {
   MinMax,
 } from '../types';
 
+/**
+ * AsyncIterator with a Fluent interface.
+ * @typeParam A The type of elements being iterated.
+ */
 export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A> {
+  /**
+   * Creates an {@link AsyncFluentIterator} by wrapping an `AsyncIterator`
+   * @param iter The `AsyncIterator` being wrapped into a `AsyncFluentIterator`
+   */
   constructor(private readonly iter: AsyncIterator<A>) {}
 
+  /**
+   * Creates an empty {@link AsyncFluentIterator}.  The returned iterator will not yield any element.
+   * @typeParam A the type of elements of the `FluentIterator`
+   * @returns An empty {@link AsyncFluentIterator}
+   */
   static empty<A = never>(): AsyncFluentIterator<A> {
     return new AsyncFluentIterator(Iterators.empty());
   }
 
-  static from<A>(iter: AsyncIterator<A> | EventualIterable<A>): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(Iterators.toAsyncIterator(iter));
+  /**
+   * Creates a {@link AsyncFluentIterator} from an `AsyncIteratorGenerator`.
+   * @typeParam A the type of elements of the `FluentIterator`
+   * @param generator Used to generate an `AsyncIterator` that will be wrapped into a `AsyncFluentIterator`
+   * @returns A new `AsyncFluentIterator`
+   */
+  static from<A>(generator: AsyncIteratorGenerator<A>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.toAsyncIterator(generator));
   }
 
   collectTo<B>(collector: EventualCollector<A, B>): Promise<B> {
@@ -204,10 +224,16 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 }
 
+/**
+ * Alias for {@link AsyncFluentIterator.empty}
+ */
 export function emptyAsyncIterator<A = never>(): AsyncFluentIterator<A> {
   return AsyncFluentIterator.empty();
 }
 
-export function asyncIterator<A>(iter: AsyncIterator<A> | EventualIterable<A>): AsyncFluentIterator<A> {
-  return AsyncFluentIterator.from(iter);
+/**
+ * Alias for {@link AsyncFluentIterator.from}
+ */
+export function asyncIterator<A>(generator: AsyncIteratorGenerator<A>): AsyncFluentIterator<A> {
+  return AsyncFluentIterator.from(generator);
 }

@@ -1,6 +1,7 @@
 import { EventualCollector } from '../collectors';
 import { toIterator } from '../sync';
 import {
+  AsyncIteratorGenerator,
   EventualIterable,
   EventualIterator,
   Eventually,
@@ -9,7 +10,7 @@ import {
   EventualReducer,
 } from '../types';
 
-export function toAsyncIterator<A>(iter: EventualIterable<A> | AsyncIterator<A>): AsyncIterator<A> {
+export function toAsyncIterator<A>(iter: AsyncIteratorGenerator<A>): AsyncIterator<A> {
   const x: any = iter;
   if (typeof x?.next === 'function') {
     return x as AsyncIterator<A>;

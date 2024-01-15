@@ -2,7 +2,7 @@ import * as Iterators from './iterators';
 import { Mapper } from '../types';
 
 /**
- *  Returns an iterator from `start` (inclusively) to `end` (exclusively) by increment of `step`.
+ *  Returns an `IterableIterator` from `start` (inclusively) to `end` (exclusively) by increment of `step`.
  *  @param start the start of the range.  Defaults to 0.
  *  @param end the end of the range. Defaults to infinity.
  *  @param step increment in the range. Defaults to 1 if `end` > `start`, -1 otherwise.

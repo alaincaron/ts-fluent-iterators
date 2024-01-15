@@ -178,7 +178,7 @@ export interface AsyncArrayGenerator<E> {
  * An object that behaves like an `AsyncIterator`.
  * @typeParam E the type of the objects that can be iterated on
  */
-export type AsyncIteratorLike<E> = ((i: number) => Promise<E>) | AsyncIterator<E> | AsyncIterable<E>;
+export type AsyncIteratorLike<E> = ((i: number) => Promise<E>) | AsyncIterator<E> | AsyncIterable<E> | Iterable<E>;
 
 /**
  * An object that can generate an asynchronous iterator.
