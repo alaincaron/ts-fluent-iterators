@@ -92,7 +92,7 @@ console.log(
 
 ## Usage
 
-Click here for the [Full API Reference](docs/index.md).
+Click here for the [Full API Reference](docs/README.md).
 
 ## License
 

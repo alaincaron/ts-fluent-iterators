@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
-import { CollisionHandlers, lengthComparator } from '../../../src/lib/functions';
+import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
+import { defaultComparator } from '../../../src/lib/comparators';
 import { emptyIterator as empty, iterator, range, toIterator } from '../../../src/lib/sync';
 
 describe('SyncFluentIterator', () => {
@@ -340,7 +341,7 @@ describe('SyncFluentIterator', () => {
 
   describe('min', () => {
     it('should return the shortest string', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).min(lengthComparator)).equal('x');
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).min((a, b) => defaultComparator(a.length, b.length))).equal('x');
     });
     it('should return lexicographically smallest string', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).min()).equal('bar');
@@ -349,7 +350,9 @@ describe('SyncFluentIterator', () => {
 
   describe('max', () => {
     it('should return the longest string', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).max(lengthComparator)).equal('foobar');
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).max((a, b) => defaultComparator(a.length, b.length))).equal(
+        'foobar'
+      );
     });
     it('should return lexicographically largest string', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).max()).equal('x');
@@ -358,7 +361,9 @@ describe('SyncFluentIterator', () => {
 
   describe('minmax', () => {
     it('should return the longest and shortest strings', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax(lengthComparator)).deep.equal({
+      expect(
+        iterator(['foo', 'bar', 'x', 'foobar']).minmax((a, b) => defaultComparator(a.length, b.length))
+      ).deep.equal({
         min: 'x',
         max: 'foobar',
       });
@@ -392,10 +397,7 @@ describe('SyncFluentIterator', () => {
   });
 
   describe('count', () => {
-    it('should use predicate', () => {
-      expect(iterator([1, 2, 3]).count(x => x % 2 === 0)).equal(1);
-    });
-    it('should use default true predicate', () => {
+    it('should count elements', () => {
       expect(iterator([1, 2, 3]).count()).equal(3);
     });
   });

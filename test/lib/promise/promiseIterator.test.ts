@@ -1,12 +1,7 @@
 import { assert, expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
-import {
-  asyncAlwaysFalse,
-  asyncAlwaysTrue,
-  CollisionHandlers,
-  defaultComparator,
-  lengthComparator,
-} from '../../../src/lib/functions';
+import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
+import { defaultComparator } from '../../../src/lib/comparators';
 import { emptyPromiseIterator as empty, promiseIterator as iterator, range, toPromise } from '../../../src/lib/promise';
 
 describe('PromiseIterator', () => {
@@ -327,10 +322,18 @@ describe('PromiseIterator', () => {
       ).to.deep.equal([1, 2]);
     });
     it('should return all elements', async () => {
-      expect(await iterator(range(1, 4)).takeWhile(asyncAlwaysTrue).collect()).to.deep.equal([1, 2, 3]);
+      expect(
+        await iterator(range(1, 4))
+          .takeWhile(_ => true)
+          .collect()
+      ).to.deep.equal([1, 2, 3]);
     });
     it('should return no elements', async () => {
-      expect(await iterator(range(1, 4)).takeWhile(asyncAlwaysFalse).collect()).to.deep.equal([]);
+      expect(
+        await iterator(range(1, 4))
+          .takeWhile(_ => false)
+          .collect()
+      ).to.deep.equal([]);
     });
     it('should work on empty iterator', async () => {
       expect(
@@ -424,7 +427,9 @@ describe('PromiseIterator', () => {
 
   describe('minmax', () => {
     it('should return the longest and shortest strings', async () => {
-      expect(await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).minmax(lengthComparator)).deep.equal({
+      expect(
+        await iterator(toPromise(['foo', 'bar', 'x', 'foobar'])).minmax((a, b) => defaultComparator(a.length, b.length))
+      ).deep.equal({
         min: 'x',
         max: 'foobar',
       });
@@ -455,10 +460,7 @@ describe('PromiseIterator', () => {
   });
 
   describe('count', () => {
-    it('should use predicate', async () => {
-      expect(await iterator(range(1, 4)).count(x => x % 2 === 0)).equal(1);
-    });
-    it('should use default true predicate', async () => {
+    it('should count elements', async () => {
       expect(await iterator(range(1, 4)).count()).equal(3);
     });
   });

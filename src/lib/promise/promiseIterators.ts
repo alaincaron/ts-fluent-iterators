@@ -1,7 +1,7 @@
 import * as AsyncIterators from '../async/asyncIterators';
 import { ArrayCollector, EventualCollector } from '../collectors';
 import * as SyncIterators from '../sync/iterators';
-import { Eventually, EventualMapper, EventualPredicate, EventualReducer } from '../types';
+import { Eventually, EventualMapper, EventualPredicate, EventualReducer, IteratorGenerator } from '../types';
 
 export function* map<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, B>): IterableIterator<Promise<B>> {
   for (;;) {
@@ -204,8 +204,8 @@ export function any<A>(iter: Iterator<Promise<A>>): Promise<A | undefined> {
   return Promise.any(promises);
 }
 
-export function* toPromise<A>(iterable: Iterator<A> | Iterable<A>): IterableIterator<Promise<Awaited<A>>> {
-  const iter = SyncIterators.toIterator(iterable);
+export function* toPromise<A>(generator: IteratorGenerator<A>): IterableIterator<Promise<Awaited<A>>> {
+  const iter = SyncIterators.toIterator(generator);
   for (;;) {
     const item = iter.next();
     if (item.done) break;

@@ -1,13 +1,8 @@
 import { expect } from 'chai';
 import { emptyAsyncIterator as empty, asyncIterator as iterator, range, toAsync } from '../../../src/lib/async';
 import { FlattenCollector } from '../../../src/lib/collectors';
-import {
-  alwaysFalse,
-  alwaysTrue,
-  CollisionHandlers,
-  defaultComparator,
-  lengthComparator,
-} from '../../../src/lib/functions';
+import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
+import { defaultComparator } from '../../../src/lib/comparators';
 
 describe('AsyncFluentIterator', () => {
   describe('collect', () => {
@@ -386,7 +381,9 @@ describe('AsyncFluentIterator', () => {
 
   describe('minmax', () => {
     it('should return the longest and shortest strings', async () => {
-      expect(await iterator(['foo', 'bar', 'x', 'foobar']).minmax(lengthComparator)).deep.equal({
+      expect(
+        await iterator(['foo', 'bar', 'x', 'foobar']).minmax((a, b) => defaultComparator(a.length, b.length))
+      ).deep.equal({
         min: 'x',
         max: 'foobar',
       });
@@ -417,14 +414,8 @@ describe('AsyncFluentIterator', () => {
   });
 
   describe('count', () => {
-    it('should use predicate', async () => {
-      expect(await iterator(range(1, 4)).count(x => x % 2 === 0)).equal(1);
-    });
-    it('should use default true predicate', async () => {
-      expect(await iterator(range(1, 4)).count(alwaysTrue)).equal(3);
-    });
-    it('should return 0', async () => {
-      expect(await iterator(range(1, 4)).count(alwaysFalse)).equal(0);
+    it('should count items', async () => {
+      expect(await iterator(range(1, 4)).count()).equal(3);
     });
   });
 
