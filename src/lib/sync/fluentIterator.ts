@@ -187,7 +187,11 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
-   * Returns a new {@link FluentIterator} consisting of applying the {@link Mapper} to all elements of this {@link FluentIterator} and filtering those for which the {@link Mapper} returned null or undefined
+   * Returns a new {@link FluentIterator} consisting of applying the
+   * {@link Mapper} to all elements of this {@link FluentIterator} and
+   * filtering those for which the {@link Mapper} returned null or
+   * undefined
+   *
    * @typeParam B The type of the elements of the returned {@link FluentIterator}
    * @param mapper Transformation applied to elements of this {@link FluentIterator}
    * @returns A new {@link FluentIterator}
@@ -236,28 +240,28 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
-     Returns true if this {@link FluentIterator} yields an element for which the {@link Predicate} evaluates to true.
-     *
-     * @param predicate The predicate to evaluate.
-     * @returns true if this {@link FluentIterator} yields an element for which the {@link Predicate} evaluates to true, false otherwise.
-     */
+   * Returns true if this {@link FluentIterator} yields an element for which the {@link Predicate} evaluates to true.
+   *
+   * @param predicate The predicate to evaluate.
+   * @returns true if this {@link FluentIterator} yields an element for which the {@link Predicate} evaluates to true, false otherwise.
+   */
   contains(predicate: Predicate<A>): boolean {
     return Iterators.contains(this.iter, predicate);
   }
 
   /**
-     Returns true if this {@link FluentIterator} yields an element equals to `target`
-     *
-     * @param target value to look for
-     * @returns true if this {@link FluentIterator} yields an element equals to `target`, false otherwise.
-     * @ @remarks
-     * ```ts
-     * iter.includes(target)
-     * ```
-     * is equivalent to
-     * ```ts
-     * iter.contains(x => x === target)
-     */
+   * Returns true if this {@link FluentIterator} yields an element equals to `target`
+   *
+   * @param target value to look for
+   * @returns true if this {@link FluentIterator} yields an element equals to `target`, false otherwise.
+   * @ @remarks
+   * ```ts
+   * iter.includes(target)
+   * ```
+   * is equivalent to
+   * ```ts
+   * iter.contains(x => x === target)
+   */
   includes(target: A): boolean {
     return Iterators.includes(this.iter, target);
   }
