@@ -7,7 +7,7 @@ export { asyncIterator, AsyncFluentIterator } from './lib/async/asyncFluentItera
 export * as AsyncGenerators from './lib/async/asyncGenerators';
 
 export * as PromiseIterators from './lib/promise/promiseIterators';
-export { promiseIterator, PromiseIterator } from './lib/promise/promiseIterator';
+export { promiseIterator, PromiseIterator, toPromiseIterator } from './lib/promise/promiseIterator';
 export * as PromiseGenerators from './lib/promise/promiseGenerators';
 
 export * from './lib/types';

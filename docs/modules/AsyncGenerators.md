@@ -1,22 +1,22 @@
-[ts-fluent-iterators](../README.md) / Generators
+[ts-fluent-iterators](../README.md) / AsyncGenerators
 
-# Namespace: Generators
+# Namespace: AsyncGenerators
 
 ## Table of contents
 
 ### Functions
 
-- [loop](Generators.md#loop)
-- [range](Generators.md#range)
-- [repeat](Generators.md#repeat)
+- [loop](AsyncGenerators.md#loop)
+- [range](AsyncGenerators.md#range)
+- [repeat](AsyncGenerators.md#repeat)
 
 ## Functions
 
 ### loop
 
-▸ **loop**\<`T`\>(`f`, `start?`, `end?`, `step?`): `IterableIterator`\<`T`\>
+▸ **loop**\<`T`\>(`f`, `start?`, `end?`, `step?`): `AsyncIterableIterator`\<`T`\>
 
-Returns an iterator resulting from applying f on all elements of the range
+Returns an `AsyncIterableIterator` resulting from applying f on all elements of the range
 from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
 #### Type parameters
@@ -29,14 +29,14 @@ from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `f` | [`Mapper`](../README.md#mapper)\<`number`, `T`\> | The function to apply on each element of the range. |
+| `f` | [`EventualMapper`](../README.md#eventualmapper)\<`number`, `T`\> | The function to apply on each element of the range. |
 | `start?` | `number` | the start of the range. Defaults to 0. |
 | `end?` | `number` | the end of the range. Defaults to infinity. |
 | `step?` | `number` | increment in the range. Defaults to 1 if `end` > `start`, -1 otherwise. |
 
 #### Returns
 
-`IterableIterator`\<`T`\>
+`AsyncIterableIterator`\<`T`\>
 
 A new iterator resulting from apply f on all elements in the [`start`,`end`[ range by increment of `step`.
 
@@ -50,20 +50,20 @@ loop(x => 2 * x, 1, 100, 2)
 **`Remarks`**
 
 ```ts
-for (const v of loop(f, start, end, step)) yield v;
+for (await const v of loop(f, start, end, step)) yield v;
 ```
 is equivalent to
 ```ts
-for (const v of range(start, end, step)) yield f(v);
+for (await const v of range(start, end, step)) yield await f(v);
 ```
 
 ___
 
 ### range
 
-▸ **range**(`start?`, `end?`, `step?`): `IterableIterator`\<`number`\>
+▸ **range**(`start?`, `end?`, `step?`): `AsyncIterableIterator`\<`number`\>
 
-Returns an `IterableIterator` from `start` (inclusively) to `end` (exclusively) by increment of `step`.
+Returns an `AsyncIterableiterator` from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
 #### Parameters
 
@@ -75,7 +75,7 @@ Returns an `IterableIterator` from `start` (inclusively) to `end` (exclusively) 
 
 #### Returns
 
-`IterableIterator`\<`number`\>
+`AsyncIterableIterator`\<`number`\>
 
 A new iterator for the range [`start`,`end`[ by increment of `step`.
 
@@ -90,7 +90,7 @@ ___
 
 ### repeat
 
-▸ **repeat**\<`T`\>(`f`, `count?`): `IterableIterator`\<`T`\>
+▸ **repeat**\<`T`\>(`f`, `count?`): `AsyncIterableIterator`\<`T`\>
 
 Returns an iterator resulting from applying f on all elements of the range [0,`count`]
 from `start` (inclusively) to `end` (exclusively) by increment of `step`.
@@ -105,12 +105,12 @@ from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `f` | [`Mapper`](../README.md#mapper)\<`number`, `T`\> | The function to apply on each element of the range. |
+| `f` | [`EventualMapper`](../README.md#eventualmapper)\<`number`, `T`\> | The function to apply on each element of the range. |
 | `count?` | `number` | the numbe of times f should be invoked. |
 
 #### Returns
 
-`IterableIterator`\<`T`\>
+`AsyncIterableIterator`\<`T`\>
 
 A new iterator resulting from apply f on all elements in the [`start`,`end`[ range by increment of `step`.
 
@@ -124,9 +124,9 @@ repeat(x => x * 2, 10)
 **`Remarks`**
 
 ```ts
-for (const v of repeat(f, count)) yield v;
+for (await const v of repeat(f, count)) yield v;
 ```
 is equivalent to
 ```ts
-for (const v of range(0, count, 1)) yield f(v);
+for (await const v of range(0, count, 1)) yield await f(v);
 ```

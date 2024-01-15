@@ -329,7 +329,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   /**
    * Returns a new {@link FluentIterator} that yields pairs of elements
    * consisting of the elements yielded by this
-   * @{link FluentIterator and their index in the iteration.
+   * @{link FluentIterator} and their index in the iteration.
    *
    * @param start The starting index
    *
@@ -345,7 +345,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
   /**
    * Returns a new {@link FluentIterator} that
-   * yields the same elements as this [`FluentIterator<A>`](fluent_iterator.md)
+   * yields the same elements as this {@link FluentIterator}
    * and executes the {@link Mapper | mapper} on each element.
    *
    *
@@ -619,10 +619,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    *
    * @example
    * iterator([1, 2, 3, 4, 5]).partition(2);
-   * // yields [ [1, 2], [3, 4], [5] ]
+   * // yields [1, 2], [3, 4], [5]
    *
    * @remarks The last partition may contain less than `size` elements but is
-   * never
+   * never empty.
    */
   partition(size: number): FluentIterator<A[]> {
     return new FluentIterator(Iterators.partition(this.iter, size));

@@ -6,13 +6,16 @@ ts-fluent-iterators
 
 ### Namespaces
 
+- [AsyncGenerators](modules/AsyncGenerators.md)
 - [Collectors](modules/Collectors.md)
 - [Comparators](modules/Comparators.md)
 - [Generators](modules/Generators.md)
 
 ### Classes
 
+- [AsyncFluentIterator](classes/AsyncFluentIterator.md)
 - [FluentIterator](classes/FluentIterator.md)
+- [PromiseIterator](classes/PromiseIterator.md)
 
 ### Interfaces
 
@@ -46,8 +49,11 @@ ts-fluent-iterators
 
 ### Functions
 
+- [asyncIterator](README.md#asynciterator)
 - [emptyIterator](README.md#emptyiterator)
 - [iterator](README.md#iterator)
+- [promiseIterator](README.md#promiseiterator)
+- [toPromiseIterator](README.md#topromiseiterator)
 
 ## Type Aliases
 
@@ -67,7 +73,7 @@ ___
 
 ### AsyncIteratorLike
 
-Ƭ **AsyncIteratorLike**\<`E`\>: (`i`: `number`) => `Promise`\<`E`\> \| `AsyncIterator`\<`E`\> \| `AsyncIterable`\<`E`\>
+Ƭ **AsyncIteratorLike**\<`E`\>: (`i`: `number`) => `Promise`\<`E`\> \| `AsyncIterator`\<`E`\> \| `AsyncIterable`\<`E`\> \| `Iterable`\<`E`\>
 
 An object that behaves like an `AsyncIterator`.
 
@@ -431,6 +437,30 @@ Default collision handlers for `MapCollector`
 
 ## Functions
 
+### asyncIterator
+
+▸ **asyncIterator**\<`A`\>(`generator`): [`AsyncFluentIterator`](classes/AsyncFluentIterator.md)\<`A`\>
+
+Alias for [AsyncFluentIterator.from](classes/AsyncFluentIterator.md#from)
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `generator` | [`AsyncIteratorGenerator`](README.md#asynciteratorgenerator)\<`A`\> |
+
+#### Returns
+
+[`AsyncFluentIterator`](classes/AsyncFluentIterator.md)\<`A`\>
+
+___
+
 ### emptyIterator
 
 ▸ **emptyIterator**\<`A`\>(): [`FluentIterator`](classes/FluentIterator.md)\<`A`\>
@@ -470,3 +500,51 @@ Alias for [FluentIterator.from](classes/FluentIterator.md#from)
 #### Returns
 
 [`FluentIterator`](classes/FluentIterator.md)\<`A`\>
+
+___
+
+### promiseIterator
+
+▸ **promiseIterator**\<`A`\>(`generator`): [`PromiseIterator`](classes/PromiseIterator.md)\<`A`\>
+
+Alias for [PromiseIterator.from](classes/PromiseIterator.md#from)
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `generator` | [`IteratorGenerator`](README.md#iteratorgenerator)\<`Promise`\<`A`\>\> |
+
+#### Returns
+
+[`PromiseIterator`](classes/PromiseIterator.md)\<`A`\>
+
+___
+
+### toPromiseIterator
+
+▸ **toPromiseIterator**\<`A`\>(`generator`): [`PromiseIterator`](classes/PromiseIterator.md)\<`A`\>
+
+Helper function to create a [PromiseIterator](classes/PromiseIterator.md) from synchronous [IteratorGenerator](README.md#iteratorgenerator).
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `A` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `generator` | [`IteratorGenerator`](README.md#iteratorgenerator)\<`A`\> |
+
+#### Returns
+
+[`PromiseIterator`](classes/PromiseIterator.md)\<`A`\>

@@ -102,10 +102,10 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
    *
    * @param mapper Maps the values into keys
    * @param collisionHandler  Specifies how to handle the collision. Default is to ignore collision.
-   * @returns a `Promise` of a `Map` whose keys are the result of applying the `mapper` to the values of this {@link FluentIterator} and the values are iterated items.
+   * @returns a `Promise` of a `Map` whose keys are the result of applying the `mapper` to the values of this {@link AsyncFluentIterator} and the values are iterated items.
 
    * @example
-   * const iter = asyncIterator("foo","bar","foobar")
+   * const iter = asyncIterator("foo","bar","foobar");
    * const data = await iter.collectToMap(s => s.length);
    * // data is Map {3 => "foo", 6 => "foobar"}
    */
@@ -120,7 +120,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
    *
    * @param mapper Maps the values into [key, values] pairs
    * @param collisionHandler  Specifies how to handle the collision. Default is to ignore collision.
-   * @returns a `Promise` of a `Map` whose entries are the result of applying the `mapper` to the values of this {@link FluentIterator}.
+   * @returns a `Promise` of a `Map` whose entries are the result of applying the `mapper` to the values of this {@link AsyncFluentIterator}.
 
    * @example
    * const iter = asyncIterator("foo","bar","foobar")
@@ -140,7 +140,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
    *
    * @param mapper Maps the values into [key, values] pairs
    * @param collisionHandler  Specifies how to handle the collision. Default is to ignore collision.
-   * @returns a `Promise` of a `Record` whose entries are the result of applying the `mapper` to the values of this {@link FluentIterator}.
+   * @returns a `Promise` of a `Record` whose entries are the result of applying the `mapper` to the values of this {@link AsyncFluentIterator}.
 
    * @example
    * const iter = asyncIterator("foo","bar","foobar")
@@ -177,9 +177,9 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   /**
-   * Returns a new {@link AsyncFluentIterator} consisting of applying the {@link Mapper} to all elements of this {@link FluentIterator}.
-   * @typeParam B The type of the elements of the returned {@link FluentIterator}
-   * @param mapper Transformation applied to elements of this {@link FluentIterator}
+   * Returns a new {@link AsyncFluentIterator} consisting of applying the {@link Mapper} to all elements of this {@link AsyncFluentIterator}.
+   * @typeParam B The type of the elements of the returned {@link AsyncFluentIterator}
+   * @param mapper Transformation applied to elements of this {@link AsyncFluentIterator}
    * @returns A new {@link FluentIterator}
    * @example
    * const iter = asyncIterator(['foo','bar',foobar'])
@@ -303,7 +303,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
    * Special case of {@link AsyncFluentIterator.fold} where items being iteraded on and the accumulator are of the same type.
 
    * @param reducer The reducer to be applied at each iteration.
-   * @param initialValue The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this {@link FluentIterator} is used.
+   * @param initialValue The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this {@link AsyncFluentIterator} is used.
 
    * @remarks
    * If the {@link AsyncFluentIterator} is empty, `initialValue` is returned.
@@ -338,7 +338,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   /**
    * Returns a new {@link AsyncFluentIterator} that yields pairs of elements
    * consisting of the elements yielded by this
-   * @{link FluentIterator and their index in the iteration.
+   * @{link AsyncFluentIterator} and their index in the iteration.
    *
    * @param start The starting index
    *
@@ -354,7 +354,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
 
   /**
    * Returns a new {@link AsyncFluentIterator} that
-   * yields the same elements as this [`FluentIterator<A>`](fluent_iterator.md)
+   * yields the same elements as this {@link AsyncFluentIterator}
    * and executes the {@link EventualMapper | mapper} on each element.
    *
    *
@@ -397,7 +397,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   /**
-   * Returns a new {@link AsyncFluentIterator} that is the result of appending its argument to this {@link FluentIterator}
+   * Returns a new {@link AsyncFluentIterator} that is the result of appending its argument to this {@link AsyncFluentIterator}
    *
    * @param items An `Iterator` or `Iterable` whose items are appended to this {@link AsyncFluentIterator}.
    *
@@ -412,7 +412,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   /**
    * Returns a new {@link AsyncFluentIterator} that is the result of prepending its argument to this {@link AsyncFluentIterator}
    *
-   * @param items An `Iterator` or `Iterable` whose items are prepended to this {@link FluentIterator}.
+   * @param items An `Iterator` or `Iterable` whose items are prepended to this {@link AsyncFluentIterator}.
    *
    * @example
    * asyncIterator([1,2,3]).prepend([4,5,6])
@@ -622,10 +622,10 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
 
   /**
    * Returns a `Promise` of a `Map` of the count of the occurences of each items of
-   * this {@link FluentIterator},
+   * this {@link AsyncFluentIterator},
 
    * @example
-   * await asyncIterator([foo','bar','foo').tally();
+   * await asyncIterator([foo','bar','foo']).tally();
    // Map { 'foo' => 2, bar => 1 }
    */
   tally(): Promise<Map<A, number>> {
@@ -640,10 +640,10 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
    *
    * @example
    * asyncIterator([1, 2, 3, 4, 5]).partition(2);
-   * // asynchronously yields [ [1, 2], [3, 4], [5] ]
+   * // asynchronously yields [1, 2], [3, 4], [5]
    *
    * @remarks The last partition may contain less than `size` elements but is
-   * never
+   * never empty.
    */
   partition(size: number): AsyncFluentIterator<A[]> {
     return new AsyncFluentIterator(Iterators.partition(this.iter, size));
