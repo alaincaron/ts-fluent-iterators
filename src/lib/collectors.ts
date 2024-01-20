@@ -300,7 +300,7 @@ export class AvgCollector implements Collector<number, number> {
  */
 export class SumCollector implements Collector<number, number> {
   private correction = 0;
-  private sum = 0;
+  private sum: number;
 
   /**
      @param initial The initial value of the sum.
