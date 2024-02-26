@@ -13,7 +13,7 @@
 
 ### defaultComparator
 
-▸ **defaultComparator**\<`A`\>(`a1`, `a2`): ``1`` \| ``-1`` \| ``0``
+▸ **defaultComparator**\<`A`\>(`a1`, `a2`): ``-1`` \| ``0`` \| ``1``
 
 Default comparator.
 
@@ -32,7 +32,7 @@ Default comparator.
 
 #### Returns
 
-``1`` \| ``-1`` \| ``0``
+``-1`` \| ``0`` \| ``1``
 
 - -1 if `a1 < a2`,
 - 1 if `a1 > a2`,
@@ -42,7 +42,7 @@ ___
 
 ### reverseComparator
 
-▸ **reverseComparator**\<`A`\>(`a1`, `a2`): ``1`` \| ``-1`` \| ``0``
+▸ **reverseComparator**\<`A`\>(`a1`, `a2`): ``-1`` \| ``0`` \| ``1``
 
 Reverse comparator.
 
@@ -61,7 +61,7 @@ Reverse comparator.
 
 #### Returns
 
-``1`` \| ``-1`` \| ``0``
+``-1`` \| ``0`` \| ``1``
 
 - 1 if `a1 < a2`,
 - -1 if `a1 > a2`,
