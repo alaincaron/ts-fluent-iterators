@@ -634,7 +634,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * PromiseIterator} @returns A {@link PromiseIterator} yielding the
    * same elements as this {@link FluentIterator}
    */
-  toPromise(): PromiseIterator<A> {
+  toPromise(): PromiseIterator<Awaited<A>> {
     return new PromiseIterator(toPromise(this.iter));
   }
 
