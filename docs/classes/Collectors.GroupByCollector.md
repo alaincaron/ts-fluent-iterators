@@ -18,10 +18,10 @@ c.collect(['foo',2]);
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `K` | The type of the keys of the map. |
-| `V` | the type of the values in the map. |
+| Name | Description                        |
+| :--- | :--------------------------------- |
+| `K`  | The type of the keys of the map.   |
+| `V`  | the type of the values in the map. |
 
 ## Implements
 

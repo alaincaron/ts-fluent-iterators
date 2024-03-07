@@ -8,10 +8,10 @@ An `AsyncCollector` is an object that asynchronously collects elements of type `
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `A` | the type of elements being collected. |
-| `B` | the type of the aggregated object. |
+| Name | Description                           |
+| :--- | :------------------------------------ |
+| `A`  | the type of elements being collected. |
+| `B`  | the type of the aggregated object.    |
 
 ## Table of contents
 
@@ -47,9 +47,9 @@ Collects an element.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `A` | The element being collected. |
+| Name | Type | Description                  |
+| :--- | :--- | :--------------------------- |
+| `a`  | `A`  | The element being collected. |
 
 #### Returns
 

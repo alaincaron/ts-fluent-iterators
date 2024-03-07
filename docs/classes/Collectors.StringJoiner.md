@@ -18,9 +18,9 @@ c.collect('baz');
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `A` | The type of the elements being accepted. |
+| Name | Description                              |
+| :--- | :--------------------------------------- |
+| `A`  | The type of the elements being accepted. |
 
 ## Implements
 
@@ -41,16 +41,16 @@ c.collect('baz');
 #### Type parameters
 
 | Name |
-| :------ |
-| `A` |
+| :--- |
+| `A`  |
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `separator` | `string` | `','` | separator between elements. |
-| `prefix` | `string` | `''` | prefix of the joined string. |
-| `suffix` | `string` | `''` | suffix of the joined string. |
+| Name        | Type     | Default value | Description                  |
+| :---------- | :------- | :------------ | :--------------------------- |
+| `separator` | `string` | `','`         | separator between elements.  |
+| `prefix`    | `string` | `''`          | prefix of the joined string. |
+| `suffix`    | `string` | `''`          | suffix of the joined string. |
 
 #### Returns
 

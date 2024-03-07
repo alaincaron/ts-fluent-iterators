@@ -15,7 +15,7 @@ import {
   StringJoiner,
   TallyCollector,
 } from '../collectors';
-import { PromiseIterator, toPromise } from '../promise';
+import { PromiseIterator } from '../promise';
 import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
 
 /**
@@ -184,6 +184,20 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    */
   map<B>(mapper: Mapper<A, B>): FluentIterator<B> {
     return new FluentIterator(Iterators.map(this.iter, mapper));
+  }
+
+  /**
+   * Returns a new {@link FluentIterator} consisting of applying the {@link Mapper} to all elements of this {@link FluentIterator}.
+   * @typeParam B The type of the elements of the returned {@link FluentIterator}
+   * @param mapper Transformation applied to elements of this {@link FluentIterator}
+   * @returns A new {@link FluentIterator}
+   * @example
+   * const iter = iterator(['foo','bar',foobar'])
+   * iter.map(s => s.length)
+   * // yields 3, 3, 6
+   */
+  mapToPromise<B>(mapper: Mapper<A, Promise<B>>): PromiseIterator<B> {
+    return new PromiseIterator(Iterators.map(this.iter, mapper));
   }
 
   /**
@@ -635,7 +649,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * same elements as this {@link FluentIterator}
    */
   toPromise(): PromiseIterator<Awaited<A>> {
-    return new PromiseIterator(toPromise(this.iter));
+    return this.mapToPromise(x => Promise.resolve(x));
   }
 
   /**

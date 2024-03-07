@@ -18,9 +18,9 @@ c.collect('foo');
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `K` | The type of the keys of the map. |
+| Name | Description                      |
+| :--- | :------------------------------- |
+| `K`  | The type of the keys of the map. |
 
 ## Implements
 

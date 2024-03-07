@@ -8,9 +8,9 @@ A Collector that collects elements of type `A` into a `Set` of type `Set<A>`.
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `A` | the type of elements being collected. |
+| Name | Description                           |
+| :--- | :------------------------------------ |
+| `A`  | the type of elements being collected. |
 
 ## Implements
 

@@ -6,9 +6,9 @@ An interface used to asynchronously generate arrays from `length` and `seed`
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `E` | the type of the objects in the generated `Array` |
+| Name | Description                                      |
+| :--- | :----------------------------------------------- |
+| `E`  | the type of the objects in the generated `Array` |
 
 ## Table of contents
 
@@ -25,7 +25,7 @@ An interface used to asynchronously generate arrays from `length` and `seed`
 
 The number of items to generate.
 
-___
+---
 
 ### seed
 

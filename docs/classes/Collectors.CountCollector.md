@@ -18,9 +18,9 @@ c.result : 3
 
 ## Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `A` | `unknown` |
+| Name | Type      |
+| :--- | :-------- |
+| `A`  | `unknown` |
 
 ## Implements
 

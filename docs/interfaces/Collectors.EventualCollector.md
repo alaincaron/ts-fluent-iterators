@@ -9,9 +9,9 @@ A `Collector` or an `AsyncCollector`.
 ## Type parameters
 
 | Name |
-| :------ |
-| `A` |
-| `B` |
+| :--- |
+| `A`  |
+| `B`  |
 
 ## Table of contents
 
@@ -29,9 +29,9 @@ Collects an element.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `a` | `A` | The element being collected. |
+| Name | Type | Description                  |
+| :--- | :--- | :--------------------------- |
+| `a`  | `A`  | The element being collected. |
 
 #### Returns
 

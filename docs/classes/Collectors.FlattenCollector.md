@@ -17,9 +17,9 @@ c.result.collect() : [1,2,3,4]
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `A` | the type of elements being iterated on. |
+| Name | Description                             |
+| :--- | :-------------------------------------- |
+| `A`  | the type of elements being iterated on. |
 
 ## Implements
 

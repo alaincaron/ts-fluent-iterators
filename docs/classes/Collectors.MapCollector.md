@@ -18,10 +18,10 @@ c.collect(['foo',3]);
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `K` | The type of the keys of the map. |
-| `V` | the type of the values in the map. |
+| Name | Description                        |
+| :--- | :--------------------------------- |
+| `K`  | The type of the keys of the map.   |
+| `V`  | the type of the values in the map. |
 
 ## Implements
 
@@ -42,14 +42,14 @@ c.collect(['foo',3]);
 #### Type parameters
 
 | Name |
-| :------ |
-| `K` |
-| `V` |
+| :--- |
+| `K`  |
+| `V`  |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name                | Type                                                            | Description                                                                                                    |
+| :------------------ | :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------- |
 | `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `V`\> | Specify how to handle collisions. Default is to ignore collisions, i.e. newer elements override previous ones. |
 
 #### Returns

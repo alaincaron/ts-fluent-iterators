@@ -18,8 +18,8 @@ c.result : 'foo'
 ## Type parameters
 
 | Name |
-| :------ |
-| `A` |
+| :--- |
+| `A`  |
 
 ## Implements
 
@@ -40,13 +40,13 @@ c.result : 'foo'
 #### Type parameters
 
 | Name |
-| :------ |
-| `A` |
+| :--- |
+| `A`  |
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
+| Name         | Type                                           | Default value       | Description                                                           |
+| :----------- | :--------------------------------------------- | :------------------ | :-------------------------------------------------------------------- |
 | `comparator` | [`Comparator`](../README.md#comparator)\<`A`\> | `defaultComparator` | The comparator used to compare elements. Default is natural ordering. |
 
 #### Returns

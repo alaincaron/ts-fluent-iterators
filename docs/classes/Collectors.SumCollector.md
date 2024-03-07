@@ -33,9 +33,9 @@ c.result : 3.0
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `initial` | `number` | `0` | The initial value of the sum. |
+| Name      | Type     | Default value | Description                   |
+| :-------- | :------- | :------------ | :---------------------------- |
+| `initial` | `number` | `0`           | The initial value of the sum. |
 
 #### Returns
 

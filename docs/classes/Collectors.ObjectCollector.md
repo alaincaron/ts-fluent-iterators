@@ -18,9 +18,9 @@ c.collect(['foo',3]);
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `V` | the type of properties in the returned object. |
+| Name | Description                                    |
+| :--- | :--------------------------------------------- |
+| `V`  | the type of properties in the returned object. |
 
 ## Implements
 
@@ -41,13 +41,13 @@ c.collect(['foo',3]);
 #### Type parameters
 
 | Name |
-| :------ |
-| `V` |
+| :--- |
+| `V`  |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name                | Type                                                                 | Description                                                                                                    |
+| :------------------ | :------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------- |
 | `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`string`, `V`\> | Specify how to handle collisions. Default is to ignore collisions, i.e. newer elements override previous ones. |
 
 #### Returns

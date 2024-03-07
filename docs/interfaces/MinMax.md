@@ -6,9 +6,9 @@ Holds result of a `MinMaxCollector`
 
 ## Type parameters
 
-| Name | Description |
-| :------ | :------ |
-| `A` | the type of the objects in the result. |
+| Name | Description                            |
+| :--- | :------------------------------------- |
+| `A`  | the type of the objects in the result. |
 
 ## Table of contents
 
@@ -25,7 +25,7 @@ Holds result of a `MinMaxCollector`
 
 The max value
 
-___
+---
 
 ### min
 
