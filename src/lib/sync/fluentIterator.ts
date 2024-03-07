@@ -187,14 +187,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
-   * Returns a new {@link FluentIterator} consisting of applying the {@link Mapper} to all elements of this {@link FluentIterator}.
-   * @typeParam B The type of the elements of the returned {@link FluentIterator}
+   * Returns a new {@link PromiseIterator} consisting of applying the {@link Mapper} to all elements of this {@link FluentIterator}.
+   * @typeParam B The type of the elements of the returned {@link PromiseIterator}
    * @param mapper Transformation applied to elements of this {@link FluentIterator}
-   * @returns A new {@link FluentIterator}
-   * @example
-   * const iter = iterator(['foo','bar',foobar'])
-   * iter.map(s => s.length)
-   * // yields 3, 3, 6
+   * @returns A new {@link PromiseIterator}
    */
   mapToPromise<B>(mapper: Mapper<A, Promise<B>>): PromiseIterator<B> {
     return new PromiseIterator(Iterators.map(this.iter, mapper));
