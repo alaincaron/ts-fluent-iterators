@@ -62,6 +62,7 @@ AsyncIterator with a Fluent interface.
 - [takeWhile](AsyncFluentIterator.md#takewhile)
 - [tally](AsyncFluentIterator.md#tally)
 - [tap](AsyncFluentIterator.md#tap)
+- [transform](AsyncFluentIterator.md#transform)
 - [zip](AsyncFluentIterator.md#zip)
 - [empty](AsyncFluentIterator.md#empty)
 - [from](AsyncFluentIterator.md#from)
@@ -1192,6 +1193,45 @@ iter
 // after filter: 2
 // before filter 3
 // result : [ 2 ]
+```
+
+---
+
+### transform
+
+▸ **transform**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
+
+Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
+This method allows to extends the class [FluentIterator](FluentIterator.md) using `Iterator` transformation`
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+
+#### Parameters
+
+| Name     | Type                                                                                                                      |
+| :------- | :------------------------------------------------------------------------------------------------------------------------ |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`AsyncIterator`\<`A`, `any`, `undefined`\>, `AsyncIterator`\<`B`, `any`, `undefined`\>\> |
+
+#### Returns
+
+[`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
+
+**`Example`**
+
+```ts
+async function *doubleIterator(AsyncIterator<number>: iter) {
+   for (;;) {
+      const item = await iter.next();
+      if (item.done) break;
+      yield item.value * 2;
+   }
+}
+await asyncIterator([1,2,3]).transform(doubleiterator).collect()
+// [2, 4, 6]
 ```
 
 ---

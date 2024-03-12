@@ -26,6 +26,7 @@ import {
   EventualPredicate,
   EventualReducer,
   IteratorGenerator,
+  Mapper,
   MinMax,
 } from '../types';
 
@@ -331,6 +332,24 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
    */
   concat(...iterables: Array<Iterator<Promise<A>> | Iterable<Promise<A>>>): PromiseIterator<A> {
     return new PromiseIterator(SyncIterators.concat(this.iter, ...iterables.map(SyncIterators.toIterator)));
+  }
+
+  /**
+   * Returns a new {@link FluentIterator} that is the result of transforming this {@link FluentIterator}.
+   * This method allows to extends the class {@link FluentIterator} using `Iterator` transformation`
+   * @example
+   * function doublePromiseIterator(Iterator<Promise<number>>: iter) {
+   *    for (;;) {
+   *       const item = iter.next();
+   *       if (item.done) break;
+   *       yield item.value.then(v => 2 * v)
+   *    }
+   * }
+   * await iterator([1,2,3]).toPromise().transform(doublePromiseIterator).collect()
+   * // [2, 4, 6]
+   */
+  transform<B>(mapper: Mapper<Iterator<Promise<A>>, Iterator<Promise<B>>>): PromiseIterator<B> {
+    return new PromiseIterator(mapper(this.iter));
   }
 
   /**

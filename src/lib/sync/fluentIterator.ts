@@ -228,6 +228,24 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
+   * Returns a new {@link FluentIterator} that is the result of transforming this {@link FluentIterator}.
+   * This method allows to extends the class {@link FluentIterator} using `Iterator` transformation`
+   * @example
+   * function *doubleIterator(Iterator<number>: iter) {
+   *    for (;;) {
+   *       const item = iter.next();
+   *       if (item.done) break;
+   *       yield item.value * 2;
+   *    }
+   * }
+   * iterator([1,2,3]).transform(doubleiterator).collect()
+   * // [2, 4, 6]
+   */
+  transform<B>(mapper: Mapper<Iterator<A>, Iterator<B>>): FluentIterator<B> {
+    return new FluentIterator(mapper(this.iter));
+  }
+
+  /**
    * Returns a {@link FluentIterator} yielding the first `n` elements of this {@link FluentIterator}.
    *
    * @param n The number of elements to take

@@ -24,6 +24,7 @@ import {
   EventualMapper,
   EventualPredicate,
   EventualReducer,
+  Mapper,
   MinMax,
 } from '../types';
 
@@ -219,6 +220,24 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
    */
   first(): Promise<A | undefined> {
     return Iterators.first(this.iter);
+  }
+
+  /**
+   * Returns a new {@link FluentIterator} that is the result of transforming this {@link FluentIterator}.
+   * This method allows to extends the class {@link FluentIterator} using `Iterator` transformation`
+   * @example
+   * async function *doubleIterator(AsyncIterator<number>: iter) {
+   *    for (;;) {
+   *       const item = await iter.next();
+   *       if (item.done) break;
+   *       yield item.value * 2;
+   *    }
+   * }
+   * await asyncIterator([1,2,3]).transform(doubleiterator).collect()
+   * // [2, 4, 6]
+   */
+  transform<B>(mapper: Mapper<AsyncIterator<A>, AsyncIterator<B>>): AsyncFluentIterator<B> {
+    return new AsyncFluentIterator(mapper(this.iter));
   }
 
   /**

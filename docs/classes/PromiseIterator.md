@@ -66,6 +66,7 @@ Iterator yielding `Promise` objects with a Fluent interface.
 - [takeWhile](PromiseIterator.md#takewhile)
 - [tally](PromiseIterator.md#tally)
 - [tap](PromiseIterator.md#tap)
+- [transform](PromiseIterator.md#transform)
 - [zip](PromiseIterator.md#zip)
 - [empty](PromiseIterator.md#empty)
 - [from](PromiseIterator.md#from)
@@ -1268,6 +1269,45 @@ iter
 // after filter: 2
 // before filter 3
 // result : [ 2 ]
+```
+
+---
+
+### transform
+
+▸ **transform**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
+
+Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
+This method allows to extends the class [FluentIterator](FluentIterator.md) using `Iterator` transformation`
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+
+#### Parameters
+
+| Name     | Type                                                                                                                                      |
+| :------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>, `Iterator`\<`Promise`\<`B`\>, `any`, `undefined`\>\> |
+
+#### Returns
+
+[`PromiseIterator`](PromiseIterator.md)\<`B`\>
+
+**`Example`**
+
+```ts
+function doublePromiseIterator(Iterator<Promise<number>>: iter) {
+   for (;;) {
+      const item = iter.next();
+      if (item.done) break;
+      yield item.value.then(v => 2 * v)
+   }
+}
+await iterator([1,2,3]).toPromise().transform(doublePromiseIterator).collect()
+// [2, 4, 6]
 ```
 
 ---

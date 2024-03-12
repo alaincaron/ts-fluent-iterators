@@ -65,6 +65,7 @@ Iterator with a Fluent interface.
 - [tap](FluentIterator.md#tap)
 - [toAsync](FluentIterator.md#toasync)
 - [toPromise](FluentIterator.md#topromise)
+- [transform](FluentIterator.md#transform)
 - [zip](FluentIterator.md#zip)
 - [empty](FluentIterator.md#empty)
 - [from](FluentIterator.md#from)
@@ -794,13 +795,13 @@ iter.map(s => s.length)
 
 ▸ **mapToPromise**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
-Returns a new [FluentIterator](FluentIterator.md) consisting of applying the [Mapper](../README.md#mapper) to all elements of this [FluentIterator](FluentIterator.md).
+Returns a new [PromiseIterator](PromiseIterator.md) consisting of applying the [Mapper](../README.md#mapper) to all elements of this [FluentIterator](FluentIterator.md).
 
 #### Type parameters
 
-| Name | Description                                                                  |
-| :--- | :--------------------------------------------------------------------------- |
-| `B`  | The type of the elements of the returned [FluentIterator](FluentIterator.md) |
+| Name | Description                                                                    |
+| :--- | :----------------------------------------------------------------------------- |
+| `B`  | The type of the elements of the returned [PromiseIterator](PromiseIterator.md) |
 
 #### Parameters
 
@@ -812,15 +813,7 @@ Returns a new [FluentIterator](FluentIterator.md) consisting of applying the [Ma
 
 [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
-A new [FluentIterator](FluentIterator.md)
-
-**`Example`**
-
-```ts
-const iter = iterator(['foo','bar',foobar'])
-iter.map(s => s.length)
-// yields 3, 3, 6
-```
+A new [PromiseIterator](PromiseIterator.md)
 
 ---
 
@@ -1252,6 +1245,45 @@ Converts this [FluentIterator](FluentIterator.md) into a [PromiseIterator](Promi
 
 A [PromiseIterator](PromiseIterator.md) yielding the
 same elements as this [FluentIterator](FluentIterator.md)
+
+---
+
+### transform
+
+▸ **transform**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
+
+Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
+This method allows to extends the class [FluentIterator](FluentIterator.md) using `Iterator` transformation`
+
+#### Type parameters
+
+| Name |
+| :--- |
+| `B`  |
+
+#### Parameters
+
+| Name     | Type                                                                                                            |
+| :------- | :-------------------------------------------------------------------------------------------------------------- |
+| `mapper` | [`Mapper`](../README.md#mapper)\<`Iterator`\<`A`, `any`, `undefined`\>, `Iterator`\<`B`, `any`, `undefined`\>\> |
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`B`\>
+
+**`Example`**
+
+```ts
+function *doubleIterator(Iterator<number>: iter) {
+   for (;;) {
+      const item = iter.next();
+      if (item.done) break;
+      yield item.value * 2;
+   }
+}
+iterator([1,2,3]).transform(doubleiterator).collect()
+// [2, 4, 6]
+```
 
 ---
 

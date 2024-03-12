@@ -66,12 +66,11 @@ export function loop<T>(f: Mapper<number, T>, start?: number, end?: number, step
 
 /**
  * Returns an iterator resulting from applying f on all elements of the range [0,`count`]
- * from `start` (inclusively) to `end` (exclusively) by increment of `step`.
  *
  * @param f The function to apply on each element of the range.
  * @param count the numbe of times f should be invoked.
  *
- * @returns A new iterator resulting from apply f on all elements in the [`start`,`end`[ range by increment of `step`.
+ * @returns A new iterator resulting from applying f on all elements in the [`start`,`end`[ range by increment of `step`.
  * @example
  * repeat(x => x * 2, 10)
  * // yields 0, 2, 4, ..., 18

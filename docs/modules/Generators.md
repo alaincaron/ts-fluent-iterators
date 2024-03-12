@@ -95,7 +95,6 @@ range(1, 100, 2);
 ▸ **repeat**\<`T`\>(`f`, `count?`): `IterableIterator`\<`T`\>
 
 Returns an iterator resulting from applying f on all elements of the range [0,`count`]
-from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
 #### Type parameters
 
@@ -114,7 +113,7 @@ from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
 `IterableIterator`\<`T`\>
 
-A new iterator resulting from apply f on all elements in the [`start`,`end`[ range by increment of `step`.
+A new iterator resulting from applying f on all elements in the [`start`,`end`[ range by increment of `step`.
 
 **`Example`**
 

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
 import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import { defaultComparator } from '../../../src/lib/comparators';
-import { emptyIterator as empty, iterator, range, toIterator } from '../../../src/lib/sync';
+import { emptyIterator as empty, iterator, map, range, toIterator } from '../../../src/lib/sync';
 
 describe('SyncFluentIterator', () => {
   describe('collect', () => {
@@ -45,6 +45,16 @@ describe('SyncFluentIterator', () => {
           .filterMap(x => (x % 2 === 0 ? 2 * x : undefined))
           .collect()
       ).deep.equal([4]);
+    });
+  });
+
+  describe('transform', () => {
+    it('should return a new iterator', () => {
+      expect(
+        iterator([1, 2])
+          .transform(it => map(it, x => 2 * x))
+          .collect()
+      ).deep.equal([2, 4]);
     });
   });
 
