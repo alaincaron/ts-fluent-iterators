@@ -1,0 +1,23 @@
+[**ts-fluent-iterators**](../README.md) • **Docs**
+
+---
+
+[ts-fluent-iterators](../README.md) / iterator
+
+# Function: iterator()
+
+> **iterator**\<`A`\>(`iter`): [`FluentIterator`](../classes/FluentIterator.md)\<`A`\>
+
+Alias for [FluentIterator.from](../classes/FluentIterator.md#from)
+
+## Type parameters
+
+• **A**
+
+## Parameters
+
+• **iter**: [`IteratorGenerator`](../type-aliases/IteratorGenerator.md)\<`A`\>
+
+## Returns
+
+[`FluentIterator`](../classes/FluentIterator.md)\<`A`\>

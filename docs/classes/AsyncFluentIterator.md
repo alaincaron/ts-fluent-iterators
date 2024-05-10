@@ -1,3 +1,7 @@
+[**ts-fluent-iterators**](../README.md) • **Docs**
+
+---
+
 [ts-fluent-iterators](../README.md) / AsyncFluentIterator
 
 # Class: AsyncFluentIterator\<A\>
@@ -6,86 +10,28 @@ AsyncIterator with a Fluent interface.
 
 ## Type parameters
 
-| Name | Description                          |
-| :--- | :----------------------------------- |
-| `A`  | The type of elements being iterated. |
+• **A**
+
+The type of elements being iterated.
 
 ## Implements
 
 - `AsyncIterator`\<`A`\>
 - `AsyncIterable`\<`A`\>
 
-## Table of contents
-
-### Constructors
-
-- [constructor](AsyncFluentIterator.md#constructor)
-
-### Methods
-
-- [[asyncIterator]](AsyncFluentIterator.md#[asynciterator])
-- [all](AsyncFluentIterator.md#all)
-- [append](AsyncFluentIterator.md#append)
-- [collect](AsyncFluentIterator.md#collect)
-- [collectTo](AsyncFluentIterator.md#collectto)
-- [collectToMap](AsyncFluentIterator.md#collecttomap)
-- [collectToMap2](AsyncFluentIterator.md#collecttomap2)
-- [collectToObject](AsyncFluentIterator.md#collecttoobject)
-- [collectToSet](AsyncFluentIterator.md#collecttoset)
-- [concat](AsyncFluentIterator.md#concat)
-- [contains](AsyncFluentIterator.md#contains)
-- [count](AsyncFluentIterator.md#count)
-- [enumerate](AsyncFluentIterator.md#enumerate)
-- [filter](AsyncFluentIterator.md#filter)
-- [filterMap](AsyncFluentIterator.md#filtermap)
-- [first](AsyncFluentIterator.md#first)
-- [fold](AsyncFluentIterator.md#fold)
-- [forEach](AsyncFluentIterator.md#foreach)
-- [groupBy](AsyncFluentIterator.md#groupby)
-- [groupBy2](AsyncFluentIterator.md#groupby2)
-- [includes](AsyncFluentIterator.md#includes)
-- [join](AsyncFluentIterator.md#join)
-- [last](AsyncFluentIterator.md#last)
-- [map](AsyncFluentIterator.md#map)
-- [max](AsyncFluentIterator.md#max)
-- [min](AsyncFluentIterator.md#min)
-- [minmax](AsyncFluentIterator.md#minmax)
-- [next](AsyncFluentIterator.md#next)
-- [partition](AsyncFluentIterator.md#partition)
-- [prepend](AsyncFluentIterator.md#prepend)
-- [reduce](AsyncFluentIterator.md#reduce)
-- [removeNull](AsyncFluentIterator.md#removenull)
-- [skip](AsyncFluentIterator.md#skip)
-- [skipWhile](AsyncFluentIterator.md#skipwhile)
-- [some](AsyncFluentIterator.md#some)
-- [take](AsyncFluentIterator.md#take)
-- [takeWhile](AsyncFluentIterator.md#takewhile)
-- [tally](AsyncFluentIterator.md#tally)
-- [tap](AsyncFluentIterator.md#tap)
-- [transform](AsyncFluentIterator.md#transform)
-- [zip](AsyncFluentIterator.md#zip)
-- [empty](AsyncFluentIterator.md#empty)
-- [from](AsyncFluentIterator.md#from)
-
 ## Constructors
 
-### constructor
+### new AsyncFluentIterator()
 
-• **new AsyncFluentIterator**\<`A`\>(`iter`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **new AsyncFluentIterator**\<`A`\>(`iter`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Creates an [AsyncFluentIterator](AsyncFluentIterator.md) by wrapping an `AsyncIterator`
 
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
 #### Parameters
 
-| Name   | Type                                       | Description                                                    |
-| :----- | :----------------------------------------- | :------------------------------------------------------------- |
-| `iter` | `AsyncIterator`\<`A`, `any`, `undefined`\> | The `AsyncIterator` being wrapped into a `AsyncFluentIterator` |
+• **iter**: `AsyncIterator`\<`A`, `any`, `undefined`\>
+
+The `AsyncIterator` being wrapped into a `AsyncFluentIterator`
 
 #### Returns
 
@@ -93,9 +39,9 @@ Creates an [AsyncFluentIterator](AsyncFluentIterator.md) by wrapping an `AsyncIt
 
 ## Methods
 
-### [asyncIterator]
+### `[asyncIterator]`()
 
-▸ **[asyncIterator]**(): `AsyncIterator`\<`A`, `any`, `undefined`\>
+> **\[asyncIterator\]**(): `AsyncIterator`\<`A`, `any`, `undefined`\>
 
 Used to make this [AsyncFluentIterator](AsyncFluentIterator.md) being seen as an
 `AsyncIterable<A>`. This allows them to be used in APIs expecting an
@@ -107,29 +53,29 @@ Used to make this [AsyncFluentIterator](AsyncFluentIterator.md) being seen as an
 
 #### Implementation of
 
-AsyncIterable.[asyncIterator]
+`AsyncIterable.[asyncIterator]`
 
 ---
 
-### all
+### all()
 
-▸ **all**(`predicate`): `Promise`\<`boolean`\>
+> **all**(`predicate`): `Promise`\<`boolean`\>
 
-Returns a Promise resolving to `true` if the [predicate](../README.md#eventualpredicate) argument evalatues to true for all
+Returns a Promise resolving to `true` if the [predicate](../type-aliases/EventualPredicate.md) argument evalatues to true for all
 items of this [AsyncFluentIterator](AsyncFluentIterator.md), or resolving to false
 otherwsie.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                   |
-| :---------- | :----------------------------------------------------------- | :---------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 `Promise`\<`boolean`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1, 2]).all(x => x > 0); // true
@@ -139,23 +85,23 @@ await AsyncFluentIterator.empty().all(_ => false); // true;
 
 ---
 
-### append
+### append()
 
-▸ **append**(`items`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **append**(`items`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that is the result of appending its argument to this [AsyncFluentIterator](AsyncFluentIterator.md)
 
 #### Parameters
 
-| Name    | Type                                                                                                                     | Description                                                                                                 |
-| :------ | :----------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
-| `items` | [`EventualIterator`](../README.md#eventualiterator)\<`A`\> \| [`EventualIterable`](../README.md#eventualiterable)\<`A`\> | An `Iterator` or `Iterable` whose items are appended to this [AsyncFluentIterator](AsyncFluentIterator.md). |
+• **items**: [`EventualIterator`](../type-aliases/EventualIterator.md)\<`A`\> \| [`EventualIterable`](../type-aliases/EventualIterable.md)\<`A`\>
+
+An `Iterator` or `Iterable` whose items are appended to this [AsyncFluentIterator](AsyncFluentIterator.md).
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 asyncIterator([1, 2, 3]).append([4, 5, 6]);
@@ -164,9 +110,9 @@ asyncIterator([1, 2, 3]).append([4, 5, 6]);
 
 ---
 
-### collect
+### collect()
 
-▸ **collect**(): `Promise`\<`A`[]\>
+> **collect**(): `Promise`\<`A`[]\>
 
 Collects items into an array.
 
@@ -176,7 +122,7 @@ Collects items into an array.
 
 a `Promise` of an `Array` consisting of the elements of this [AsyncFluentIterator](AsyncFluentIterator.md)
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator([1, 2, 3]);
@@ -186,23 +132,23 @@ const data = await iter.collect();
 
 ---
 
-### collectTo
+### collectTo()
 
-▸ **collectTo**\<`B`\>(`collector`): `Promise`\<`B`\>
+> **collectTo**\<`B`\>(`collector`): `Promise`\<`B`\>
 
-Collects items from the [AsyncFluentIterator](AsyncFluentIterator.md) into an [EventualCollector](../interfaces/Collectors.EventualCollector.md).
+Collects items from the [AsyncFluentIterator](AsyncFluentIterator.md) into an [EventualCollector](../namespaces/Collectors/interfaces/EventualCollector.md).
 
 #### Type parameters
 
-| Name | Description                         |
-| :--- | :---------------------------------- |
-| `B`  | The result type of the `Collector`. |
+• **B**
+
+The result type of the `Collector`.
 
 #### Parameters
 
-| Name        | Type                                                                             | Description                                     |
-| :---------- | :------------------------------------------------------------------------------- | :---------------------------------------------- |
-| `collector` | [`EventualCollector`](../interfaces/Collectors.EventualCollector.md)\<`A`, `B`\> | The `Collector` into which to collect the items |
+• **collector**: [`EventualCollector`](../namespaces/Collectors/interfaces/EventualCollector.md)\<`A`, `B`\>
+
+The `Collector` into which to collect the items
 
 #### Returns
 
@@ -210,7 +156,7 @@ Collects items from the [AsyncFluentIterator](AsyncFluentIterator.md) into an [E
 
 A `Promise` of the he result of the `collector`
 
-**`Example`**
+#### Example
 
 ```ts
 const collector = new ArrayCollector<string>();
@@ -221,24 +167,27 @@ const data = await iter.collectTo(collector);
 
 ---
 
-### collectToMap
+### collectToMap()
 
-▸ **collectToMap**\<`K`\>(`mapper`, `collisionHandler?`): `Promise`\<`Map`\<`K`, `A`\>\>
+> **collectToMap**\<`K`\>(`mapper`, `collisionHandler`?): `Promise`\<`Map`\<`K`, `A`\>\>
 
 Collects items into a `Map` by mapping values into keys.
 
 #### Type parameters
 
-| Name | Description                       |
-| :--- | :-------------------------------- |
-| `K`  | The type of the keys of the `Map` |
+• **K**
+
+The type of the keys of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                            | Description                                                            |
-| :------------------ | :-------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `K`\>     | Maps the values into keys                                              |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `A`\> | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `K`\>
+
+Maps the values into keys
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `A`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -246,7 +195,7 @@ Collects items into a `Map` by mapping values into keys.
 
 a `Promise` of a `Map` whose keys are the result of applying the `mapper` to the values of this [AsyncFluentIterator](AsyncFluentIterator.md) and the values are iterated items.
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator('foo', 'bar', 'foobar');
@@ -256,25 +205,31 @@ const data = await iter.collectToMap(s => s.length);
 
 ---
 
-### collectToMap2
+### collectToMap2()
 
-▸ **collectToMap2**\<`K`, `V`\>(`mapper`, `collisionHandler?`): `Promise`\<`Map`\<`K`, `V`\>\>
+> **collectToMap2**\<`K`, `V`\>(`mapper`, `collisionHandler`?): `Promise`\<`Map`\<`K`, `V`\>\>
 
 Collects items into a `Map` by mapping values into keys and new value
 
 #### Type parameters
 
-| Name | Description                         |
-| :--- | :---------------------------------- |
-| `K`  | The type of the keys of the `Map`   |
-| `V`  | The type of the values of the `Map` |
+• **K**
+
+The type of the keys of the `Map`
+
+• **V**
+
+The type of the values of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                               | Description                                                            |
-| :------------------ | :----------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`K`, `V`]\> | Maps the values into [key, values] pairs                               |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `V`\>    | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, [`K`, `V`]\>
+
+Maps the values into [key, values] pairs
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `V`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -282,7 +237,7 @@ Collects items into a `Map` by mapping values into keys and new value
 
 a `Promise` of a `Map` whose entries are the result of applying the `mapper` to the values of this [AsyncFluentIterator](AsyncFluentIterator.md).
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator('foo', 'bar', 'foobar');
@@ -292,24 +247,27 @@ const data = await iter.collectToMap2(s => [s, s.length]);
 
 ---
 
-### collectToObject
+### collectToObject()
 
-▸ **collectToObject**\<`V`\>(`mapper`, `collisionHandler?`): `Promise`\<`Record`\<`string`, `V`\>\>
+> **collectToObject**\<`V`\>(`mapper`, `collisionHandler`?): `Promise`\<`Record`\<`string`, `V`\>\>
 
 Collects items into a `Record` by mapping values into keys and new value
 
 #### Type parameters
 
-| Name | Description                         |
-| :--- | :---------------------------------- |
-| `V`  | The type of the values of the `Map` |
+• **V**
+
+The type of the values of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                                    | Description                                                            |
-| :------------------ | :---------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`string`, `V`]\> | Maps the values into [key, values] pairs                               |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`string`, `V`\>    | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, [`string`, `V`]\>
+
+Maps the values into [key, values] pairs
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `V`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -317,7 +275,7 @@ Collects items into a `Record` by mapping values into keys and new value
 
 a `Promise` of a `Record` whose entries are the result of applying the `mapper` to the values of this [AsyncFluentIterator](AsyncFluentIterator.md).
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator('foo', 'bar', 'foobar');
@@ -327,9 +285,9 @@ const data = await iter.collectToObject(s => [s, s.length]);
 
 ---
 
-### collectToSet
+### collectToSet()
 
-▸ **collectToSet**(): `Promise`\<`Set`\<`A`\>\>
+> **collectToSet**(): `Promise`\<`Set`\<`A`\>\>
 
 Collects items into a `Set`.
 
@@ -339,7 +297,7 @@ Collects items into a `Set`.
 
 a `Promise` of a `Set` consisting of the elements of this [AsyncFluentIterator](AsyncFluentIterator.md)
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator([1, 2, 3, 1, 2, 3]);
@@ -349,23 +307,23 @@ const data = await iter.collectToSet();
 
 ---
 
-### concat
+### concat()
 
-▸ **concat**(`...iterables`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **concat**(...`iterables`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that is the result of apepending all its argument to this [AsyncFluentIterator](AsyncFluentIterator.md)
 
 #### Parameters
 
-| Name           | Type                                                                                                                         | Description                                                                                               |
-| :------------- | :--------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `...iterables` | ([`EventualIterator`](../README.md#eventualiterator)\<`A`\> \| [`EventualIterable`](../README.md#eventualiterable)\<`A`\>)[] | An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md). |
+• ...**iterables**: ([`EventualIterator`](../type-aliases/EventualIterator.md)\<`A`\> \| [`EventualIterable`](../type-aliases/EventualIterable.md)\<`A`\>)[]
+
+An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 asyncIterator([1, 2, 3]).concat([4, 5, 6], [7, 8, 9]);
@@ -374,33 +332,33 @@ asyncIterator([1, 2, 3]).concat([4, 5, 6], [7, 8, 9]);
 
 ---
 
-### contains
+### contains()
 
-▸ **contains**(`predicate`): `Promise`\<`boolean`\>
+> **contains**(`predicate`): `Promise`\<`boolean`\>
 
 Returns true if this [AsyncFluentIterator](AsyncFluentIterator.md) yields an
-element for which the [predicate](../README.md#eventualpredicate)
+element for which the [predicate](../type-aliases/EventualPredicate.md)
 evaluates to true.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                |
-| :---------- | :----------------------------------------------------------- | :------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate to evaluate. |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate to evaluate.
 
 #### Returns
 
 `Promise`\<`boolean`\>
 
 true if this [AsyncFluentIterator](AsyncFluentIterator.md) yields an
-element for which the [predicate](../README.md#eventualpredicate)
+element for which the [predicate](../type-aliases/EventualPredicate.md)
 evaluates to true, false otherwise.
 
 ---
 
-### count
+### count()
 
-▸ **count**(): `Promise`\<`number`\>
+> **count**(): `Promise`\<`number`\>
 
 Returns the number of items in this [AsyncFluentIterator](AsyncFluentIterator.md).
 
@@ -408,7 +366,7 @@ Returns the number of items in this [AsyncFluentIterator](AsyncFluentIterator.md
 
 `Promise`\<`number`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1, 2]).count(); // 2
@@ -418,9 +376,9 @@ await AsuyncFluentIterator.empty().count();
 
 ---
 
-### enumerate
+### enumerate()
 
-▸ **enumerate**(`start?`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<[`A`, `number`]\>
+> **enumerate**(`start`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<[`A`, `number`]\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that yields pairs of elements
 consisting of the elements yielded by this
@@ -428,15 +386,15 @@ consisting of the elements yielded by this
 
 #### Parameters
 
-| Name    | Type     | Default value | Description        |
-| :------ | :------- | :------------ | :----------------- |
-| `start` | `number` | `0`           | The starting index |
+• **start**: `number`= `0`
+
+The starting index
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<[`A`, `number`]\>
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator(['a', 'b', 'c']);
@@ -446,17 +404,17 @@ const enumerated = iter.enumerate(10);
 
 ---
 
-### filter
+### filter()
 
-▸ **filter**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **filter**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of elements for which the `predicate` evaluates to true.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                                    |
-| :---------- | :----------------------------------------------------------- | :--------------------------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | the predicate on which the evaluate the items. |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+the predicate on which the evaluate the items.
 
 #### Returns
 
@@ -464,7 +422,7 @@ Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of elemen
 
 a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of elements of this [AsyncFluentIterator](AsyncFluentIterator.md) for which the `predicate` evaluates to true.
 
-**`Example`**
+#### Example
 
 ```ts
 asyncIterator([1, 8, 2, 3, 4, 6]).filter(x => x % 2 === 1);
@@ -473,26 +431,26 @@ asyncIterator([1, 8, 2, 3, 4, 6]).filter(x => x % 2 === 1);
 
 ---
 
-### filterMap
+### filterMap()
 
-▸ **filterMap**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
+> **filterMap**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applying the
-[Mapper](../README.md#mapper) to all elements of this [AsyncFluentIterator](AsyncFluentIterator.md) and
-filtering those for which the [EventualMapper](../README.md#eventualmapper) returned null or
+[Mapper](../type-aliases/Mapper.md) to all elements of this [AsyncFluentIterator](AsyncFluentIterator.md) and
+filtering those for which the [EventualMapper](../type-aliases/EventualMapper.md) returned null or
 undefined
 
 #### Type parameters
 
-| Name | Description                                                                            |
-| :--- | :------------------------------------------------------------------------------------- |
-| `B`  | The type of the elements of the returned [AsyncFluentIterator](AsyncFluentIterator.md) |
+• **B**
+
+The type of the elements of the returned [AsyncFluentIterator](AsyncFluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                                                                 | Description                                                                              |
-| :------- | :----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `undefined` \| `null` \| `B`\> | Transformation applied to elements of this [AsyncFluentIterator](AsyncFluentIterator.md) |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `undefined` \| `null` \| `B`\>
+
+Transformation applied to elements of this [AsyncFluentIterator](AsyncFluentIterator.md)
 
 #### Returns
 
@@ -500,7 +458,7 @@ undefined
 
 A new [AsyncFluentIterator](AsyncFluentIterator.md)
 
-**`Remarks`**
+#### Remarks
 
 ```ts
 iter.filterMap(mapper);
@@ -514,9 +472,9 @@ iter.map(mapper).removeNull();
 
 ---
 
-### first
+### first()
 
-▸ **first**(): `Promise`\<`undefined` \| `A`\>
+> **first**(): `Promise`\<`undefined` \| `A`\>
 
 Returns the first element of this [AsyncFluentIterator](AsyncFluentIterator.md) or `undefined` if this [AsyncFluentIterator](AsyncFluentIterator.md) is empty.
 
@@ -528,11 +486,11 @@ The first element of this [AsyncFluentIterator](AsyncFluentIterator.md) or `unde
 
 ---
 
-### fold
+### fold()
 
-▸ **fold**\<`B`\>(`reducer`, `initialValue`): `Promise`\<`B`\>
+> **fold**\<`B`\>(`reducer`, `initialValue`): `Promise`\<`B`\>
 
-Executes the [reducer](../README.md#eventualreducer) function on each element
+Executes the [reducer](../type-aliases/EventualReducer.md) function on each element
 of this [AsyncFluentIterator](AsyncFluentIterator.md), in order, passing in
 the return value from the calculation on the preceding element. The
 final result of running the reducer across all elements of the array
@@ -540,30 +498,31 @@ is a single value.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+• **B**
 
 #### Parameters
 
-| Name           | Type                                                          | Description                                                            |
-| :------------- | :------------------------------------------------------------ | :--------------------------------------------------------------------- |
-| `reducer`      | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `B`\> | The reducer to be applied at each iteration.                           |
-| `initialValue` | `B`                                                           | The value of the accumulator to be used in the first call to `reducer` |
+• **reducer**: [`EventualReducer`](../type-aliases/EventualReducer.md)\<`A`, `B`\>
+
+The reducer to be applied at each iteration.
+
+• **initialValue**: `B`
+
+The value of the accumulator to be used in the first call to `reducer`
 
 #### Returns
 
 `Promise`\<`B`\>
 
-**`Param Type`**
+#### Param Type
 
 B the type into which the elements are being folded to
 
-**`Remarks`**
+#### Remarks
 
 If the [AsyncFluentIterator](AsyncFluentIterator.md) is empty, `initialValue` is returned.
 
-**`Example`**
+#### Example
 
 ```ts
 To compute the sum of elements of an array:
@@ -574,29 +533,29 @@ const sum = await asyncIterator([1,2,3])
 
 ---
 
-### forEach
+### forEach()
 
-▸ **forEach**(`mapper`): `Promise`\<`void`\>
+> **forEach**(`mapper`): `Promise`\<`void`\>
 
-Applies the [mapper](../README.md#eventualmapper) to each element of this [FluentIterator](FluentIterator.md)
+Applies the [mapper](../type-aliases/EventualMapper.md) to each element of this [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                                          | Description                                  |
-| :------- | :------------------------------------------------------------ | :------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> | the operation to be invoked on each element. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `any`\>
+
+the operation to be invoked on each element.
 
 #### Returns
 
 `Promise`\<`void`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await iter.forEach(console.log);
 ```
 
-**`Remarks`**
+#### Remarks
 
 The results of invoking the `mapper` are ignored unless it throws.
 
@@ -608,31 +567,29 @@ for (await const v of iter) await mapper(v);
 
 ---
 
-### groupBy
+### groupBy()
 
-▸ **groupBy**\<`K`\>(`mapper`): `Promise`\<`Map`\<`K`, `A`[]\>\>
+> **groupBy**\<`K`\>(`mapper`): `Promise`\<`Map`\<`K`, `A`[]\>\>
 
-Returns a `Promise` of a `Map` where keys are the result of applying the parameter [mapper](../README.md#eventualmapper) to the elements of the
+Returns a `Promise` of a `Map` where keys are the result of applying the parameter [mapper](../type-aliases/EventualMapper.md) to the elements of the
 this [AsyncFluentIterator](AsyncFluentIterator.md) and the values are Arrays of
 the elements that are mapped to the same key.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `K`  |
+• **K**
 
 #### Parameters
 
-| Name     | Type                                                        | Description                                                            |
-| :------- | :---------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `K`\> | The [EventualMapper](../README.md#eventualmapper) used to group items. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `K`\>
+
+The [EventualMapper](../type-aliases/EventualMapper.md) used to group items.
 
 #### Returns
 
 `Promise`\<`Map`\<`K`, `A`[]\>\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1, 2, 3]).groupBy(x => x % 2 === 0);
@@ -641,31 +598,30 @@ await asyncIterator([1, 2, 3]).groupBy(x => x % 2 === 0);
 
 ---
 
-### groupBy2
+### groupBy2()
 
-▸ **groupBy2**\<`K`, `V`\>(`mapper`): `Promise`\<`Map`\<`K`, `V`[]\>\>
+> **groupBy2**\<`K`, `V`\>(`mapper`): `Promise`\<`Map`\<`K`, `V`[]\>\>
 
-Returns a `Promise` of a `Map` where entries are the result of applying the parameter [mapper](../README.md#eventualmapper) to the elements of the
+Returns a `Promise` of a `Map` where entries are the result of applying the parameter [mapper](../type-aliases/EventualMapper.md) to the elements of the
 this [AsyncFluentIterator](AsyncFluentIterator.md),
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `K`  |
-| `V`  |
+• **K**
+
+• **V**
 
 #### Parameters
 
-| Name     | Type                                                               | Description                                                            |
-| :------- | :----------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`K`, `V`]\> | The [EventualMapper](../README.md#eventualmapper) used to group items. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, [`K`, `V`]\>
+
+The [EventualMapper](../type-aliases/EventualMapper.md) used to group items.
 
 #### Returns
 
 `Promise`\<`Map`\<`K`, `V`[]\>\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1,2,3]).groupBy2(x => [x % 2 === 0, 2 * x];
@@ -674,17 +630,17 @@ await asyncIterator([1,2,3]).groupBy2(x => [x % 2 === 0, 2 * x];
 
 ---
 
-### includes
+### includes()
 
-▸ **includes**(`target`): `Promise`\<`boolean`\>
+> **includes**(`target`): `Promise`\<`boolean`\>
 
 Returns true if this [AsyncFluentIterator](AsyncFluentIterator.md) yields an element equals to `target`
 
 #### Parameters
 
-| Name     | Type                                           | Description       |
-| :------- | :--------------------------------------------- | :---------------- |
-| `target` | [`Eventually`](../README.md#eventually)\<`A`\> | value to look for |
+• **target**: [`Eventually`](../type-aliases/Eventually.md)\<`A`\>
+
+value to look for
 
 #### Returns
 
@@ -693,7 +649,7 @@ Returns true if this [AsyncFluentIterator](AsyncFluentIterator.md) yields an ele
 A boolean promise resolving to true if this [AsyncFluentIterator](AsyncFluentIterator.md) yields an element equals to `target`, or resolving to false otherwise.
 @
 
-**`Remarks`**
+#### Remarks
 
 ```ts
 iter.includes(target);
@@ -707,40 +663,44 @@ iter.contains(x => x === target);
 
 ---
 
-### join
+### join()
 
-▸ **join**(`separator?`, `prefix?`, `suffix?`): `Promise`\<`string`\>
+> **join**(`separator`?, `prefix`?, `suffix`?): `Promise`\<`string`\>
 
 Joins items of this [AsyncFluentIterator](AsyncFluentIterator.md) into a string.
 
 #### Parameters
 
-| Name         | Type     | Description                                |
-| :----------- | :------- | :----------------------------------------- |
-| `separator?` | `string` | string used to delimite elements           |
-| `prefix?`    | `string` | string used to prefix the resulting string |
-| `suffix?`    | `string` | -                                          |
+• **separator?**: `string`
+
+string used to delimite elements
+
+• **prefix?**: `string`
+
+string used to prefix the resulting string
+
+• **suffix?**: `string`
 
 #### Returns
 
 `Promise`\<`string`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1, 2, 3]).join(',', '[', ']');
 // "[1,2,3]"
 ```
 
-**`Remarks`**
+#### Remarks
 
 The items are converted into a string using string-interpolation.
 
 ---
 
-### last
+### last()
 
-▸ **last**(): `Promise`\<`undefined` \| `A`\>
+> **last**(): `Promise`\<`undefined` \| `A`\>
 
 Returns a Promise of the last element of this [AsyncFluentIterator](AsyncFluentIterator.md)
 
@@ -748,7 +708,7 @@ Returns a Promise of the last element of this [AsyncFluentIterator](AsyncFluentI
 
 `Promise`\<`undefined` \| `A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1, 2]).last();
@@ -760,23 +720,23 @@ await AsyncFluentIterator.empty().last();
 
 ---
 
-### map
+### map()
 
-▸ **map**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
+> **map**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
 
-Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applying the [Mapper](../README.md#mapper) to all elements of this [AsyncFluentIterator](AsyncFluentIterator.md).
+Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [AsyncFluentIterator](AsyncFluentIterator.md).
 
 #### Type parameters
 
-| Name | Description                                                                            |
-| :--- | :------------------------------------------------------------------------------------- |
-| `B`  | The type of the elements of the returned [AsyncFluentIterator](AsyncFluentIterator.md) |
+• **B**
+
+The type of the elements of the returned [AsyncFluentIterator](AsyncFluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                                        | Description                                                                              |
-| :------- | :---------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `B`\> | Transformation applied to elements of this [AsyncFluentIterator](AsyncFluentIterator.md) |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `B`\>
+
+Transformation applied to elements of this [AsyncFluentIterator](AsyncFluentIterator.md)
 
 #### Returns
 
@@ -784,7 +744,7 @@ Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applyi
 
 A new [FluentIterator](FluentIterator.md)
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator(['foo','bar',foobar'])
@@ -794,23 +754,21 @@ iter.map(s => s.length)
 
 ---
 
-### max
+### max()
 
-▸ **max**(`comparator?`): `Promise`\<`undefined` \| `A`\>
+> **max**(`comparator`?): `Promise`\<`undefined` \| `A`\>
 
-Returns the maximum element according to the argument [comparator](../README.md#comparator).
+Returns the maximum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           |
-| :------------ | :--------------------------------------------- |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 #### Returns
 
 `Promise`\<`undefined` \| `A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1, 2]).max();
@@ -824,23 +782,23 @@ await AsyncFluentIterator.empty().max(); // undefined
 
 ---
 
-### min
+### min()
 
-▸ **min**(`comparator?`): `Promise`\<`undefined` \| `A`\>
+> **min**(`comparator`?): `Promise`\<`undefined` \| `A`\>
 
-Returns the minimum element according to the argument [comparator](../README.md#comparator).
+Returns the minimum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           | Description                                       |
-| :------------ | :--------------------------------------------- | :------------------------------------------------ |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> | The {link Comparator} used to order the elements. |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
+
+The {link Comparator} used to order the elements.
 
 #### Returns
 
 `Promise`\<`undefined` \| `A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1,2]).min();
@@ -857,23 +815,21 @@ await asyncFluentIterator.empty().min();
 
 ---
 
-### minmax
+### minmax()
 
-▸ **minmax**(`comparator?`): `Promise`\<`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>\>
+> **minmax**(`comparator`?): `Promise`\<`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>\>
 
-Returns the minimum and maximum element according to the argument [comparator](../README.md#comparator).
+Returns the minimum and maximum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           |
-| :------------ | :--------------------------------------------- |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 #### Returns
 
 `Promise`\<`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1, 2]).minmax();
@@ -888,9 +844,9 @@ await AsyncFluentIterator.empty().minmax();
 
 ---
 
-### next
+### next()
 
-▸ **next**(): `Promise`\<`IteratorResult`\<`A`, `any`\>\>
+> **next**(): `Promise`\<`IteratorResult`\<`A`, `any`\>\>
 
 Used to make this [AsyncFluentIterator](AsyncFluentIterator.md) being seen as an
 `AsyncIterator<A>`. This allows [AsyncFluentIterator](AsyncFluentIterator.md) objects to be
@@ -902,58 +858,58 @@ used in APIs expecting an `AsyncIterator<A>`
 
 #### Implementation of
 
-AsyncIterator.next
+`AsyncIterator.next`
 
 ---
 
-### partition
+### partition()
 
-▸ **partition**(`size`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`[]\>
+> **partition**(`size`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`[]\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consiting of
 partitions (arrays) of at most `size` elements.
 
 #### Parameters
 
-| Name   | Type     | Description                 |
-| :----- | :------- | :-------------------------- |
-| `size` | `number` | The size of the partitions. |
+• **size**: `number`
+
+The size of the partitions.
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`[]\>
 
-**`Example`**
+#### Example
 
 ```ts
 asyncIterator([1, 2, 3, 4, 5]).partition(2);
 // asynchronously yields [1, 2], [3, 4], [5]
 ```
 
-**`Remarks`**
+#### Remarks
 
 The last partition may contain less than `size` elements but is
 never empty.
 
 ---
 
-### prepend
+### prepend()
 
-▸ **prepend**(`items`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **prepend**(`items`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that is the result of prepending its argument to this [AsyncFluentIterator](AsyncFluentIterator.md)
 
 #### Parameters
 
-| Name    | Type                                                                                                                     | Description                                                                                                  |
-| :------ | :----------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
-| `items` | [`EventualIterator`](../README.md#eventualiterator)\<`A`\> \| [`EventualIterable`](../README.md#eventualiterable)\<`A`\> | An `Iterator` or `Iterable` whose items are prepended to this [AsyncFluentIterator](AsyncFluentIterator.md). |
+• **items**: [`EventualIterator`](../type-aliases/EventualIterator.md)\<`A`\> \| [`EventualIterable`](../type-aliases/EventualIterable.md)\<`A`\>
+
+An `Iterator` or `Iterable` whose items are prepended to this [AsyncFluentIterator](AsyncFluentIterator.md).
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 asyncIterator([1, 2, 3]).prepend([4, 5, 6]);
@@ -962,28 +918,31 @@ asyncIterator([1, 2, 3]).prepend([4, 5, 6]);
 
 ---
 
-### reduce
+### reduce()
 
-▸ **reduce**(`reducer`, `initialValue?`): `Promise`\<`undefined` \| `A`\>
+> **reduce**(`reducer`, `initialValue`?): `Promise`\<`undefined` \| `A`\>
 
 Special case of [AsyncFluentIterator.fold](AsyncFluentIterator.md#fold) where items being iteraded on and the accumulator are of the same type.
 
 #### Parameters
 
-| Name            | Type                                                          | Description                                                                                                                                                          |
-| :-------------- | :------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `reducer`       | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `A`\> | The reducer to be applied at each iteration.                                                                                                                         |
-| `initialValue?` | `A`                                                           | The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this [AsyncFluentIterator](AsyncFluentIterator.md) is used. |
+• **reducer**: [`EventualReducer`](../type-aliases/EventualReducer.md)\<`A`, `A`\>
+
+The reducer to be applied at each iteration.
+
+• **initialValue?**: `A`
+
+The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this [AsyncFluentIterator](AsyncFluentIterator.md) is used.
 
 #### Returns
 
 `Promise`\<`undefined` \| `A`\>
 
-**`Remarks`**
+#### Remarks
 
 If the [AsyncFluentIterator](AsyncFluentIterator.md) is empty, `initialValue` is returned.
 
-**`Example`**
+#### Example
 
 ```ts
 To compute the sum of elements of an array:
@@ -994,9 +953,9 @@ const sum = await asyncIterator([1,2,3])
 
 ---
 
-### removeNull
+### removeNull()
 
-▸ **removeNull**(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **removeNull**(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of elements of this [AsyncFluentIterator](AsyncFluentIterator.md) that are not `null` nor `undefined`
 
@@ -1008,17 +967,17 @@ a new [AsyncFluentIterator](AsyncFluentIterator.md) where all the `null` or `und
 
 ---
 
-### skip
+### skip()
 
-▸ **skip**(`n`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **skip**(`n`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a [AsyncFluentIterator](AsyncFluentIterator.md) skipping the first `n` elements of this [AsyncFluentIterator](AsyncFluentIterator.md) and then yielding the subsequent ones.
 
 #### Parameters
 
-| Name | Type     | Description                    |
-| :--- | :------- | :----------------------------- |
-| `n`  | `number` | The number of elements to skip |
+• **n**: `number`
+
+The number of elements to skip
 
 #### Returns
 
@@ -1026,31 +985,31 @@ Returns a [AsyncFluentIterator](AsyncFluentIterator.md) skipping the first `n` e
 
 a [AsyncFluentIterator](AsyncFluentIterator.md) skpping the first `n` elements of this [AsyncFluentIterator](AsyncFluentIterator.md).
 
-**`Remarks`**
+#### Remarks
 
 If there are less than `n` elements in this [AsyncFluentIterator](AsyncFluentIterator.md), then an empty [AsyncFluentIterator](AsyncFluentIterator.md) is returned.
 
 ---
 
-### skipWhile
+### skipWhile()
 
-▸ **skipWhile**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **skipWhile**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that skips elements of this
-[AsyncFluentIterator](AsyncFluentIterator.md) until the [predicate](../README.md#eventualpredicate)
+[AsyncFluentIterator](AsyncFluentIterator.md) until the [predicate](../type-aliases/EventualPredicate.md)
 evaluates to `true` and yields the subsequent ones.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                   |
-| :---------- | :----------------------------------------------------------- | :---------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 asyncIterator([1, 2, 3]).skipWhile(x => x < 2); // asynchronously yields 2, 3
@@ -1059,25 +1018,25 @@ asyncIterator([1, 2, 3]).skipWhile(x => x > 2); // asynchronously yields 1, 2, 3
 
 ---
 
-### some
+### some()
 
-▸ **some**(`predicate`): `Promise`\<`boolean`\>
+> **some**(`predicate`): `Promise`\<`boolean`\>
 
-Returns a `Promise` resolving to `true` if the [predicate](../README.md#eventualpredicate) argument evalatues to true for
+Returns a `Promise` resolving to `true` if the [predicate](../type-aliases/EventualPredicate.md) argument evalatues to true for
 some items of this [AsyncFluentIterator](AsyncFluentIterator.md), or resolving to
 false otherwsie.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                   |
-| :---------- | :----------------------------------------------------------- | :---------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 `Promise`\<`boolean`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([1, 2]).some(x => x > 1); // true
@@ -1087,17 +1046,17 @@ await AsyncFluentIterator.empty().some(_ => true); // false;
 
 ---
 
-### take
+### take()
 
-▸ **take**(`n`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **take**(`n`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a [AsyncFluentIterator](AsyncFluentIterator.md) yielding the first `n` elements of this [AsyncFluentIterator](AsyncFluentIterator.md).
 
 #### Parameters
 
-| Name | Type     | Description                    |
-| :--- | :------- | :----------------------------- |
-| `n`  | `number` | The number of elements to take |
+• **n**: `number`
+
+The number of elements to take
 
 #### Returns
 
@@ -1105,29 +1064,29 @@ Returns a [AsyncFluentIterator](AsyncFluentIterator.md) yielding the first `n` e
 
 a [AsyncFluentIterator](AsyncFluentIterator.md) yielding the first `n` elements of this [AsyncFluentIterator](AsyncFluentIterator.md).
 
-**`Remarks`**
+#### Remarks
 
 If there are less than `n` elements in this [AsyncFluentIterator](AsyncFluentIterator.md), then only the available elements will be yielded.
 
 ---
 
-### takeWhile
+### takeWhile()
 
-▸ **takeWhile**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **takeWhile**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that yields elements of this [FluentIterator](FluentIterator.md) while the [predicate](../README.md#eventualpredicate) evaluates to `true`.
+Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that yields elements of this [FluentIterator](FluentIterator.md) while the [predicate](../type-aliases/EventualPredicate.md) evaluates to `true`.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                   |
-| :---------- | :----------------------------------------------------------- | :---------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 asyncIeterator([1, 2, 3]).takeWhile(x => x < 2); // async yields 1
@@ -1136,9 +1095,9 @@ asyncIterator([1, 2, 3]).takeWhile(x => x > 2); // empty async iterator
 
 ---
 
-### tally
+### tally()
 
-▸ **tally**(): `Promise`\<`Map`\<`A`, `number`\>\>
+> **tally**(): `Promise`\<`Map`\<`A`, `number`\>\>
 
 Returns a `Promise` of a `Map` of the count of the occurences of each items of
 this [AsyncFluentIterator](AsyncFluentIterator.md),
@@ -1147,7 +1106,7 @@ this [AsyncFluentIterator](AsyncFluentIterator.md),
 
 `Promise`\<`Map`\<`A`, `number`\>\>
 
-**`Example`**
+#### Example
 
 ```ts
 await asyncIterator([foo','bar','foo']).tally();
@@ -1156,29 +1115,29 @@ await asyncIterator([foo','bar','foo']).tally();
 
 ---
 
-### tap
+### tap()
 
-▸ **tap**(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **tap**(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that
 yields the same elements as this [AsyncFluentIterator](AsyncFluentIterator.md)
-and executes the [mapper](../README.md#eventualmapper) on each element.
+and executes the [mapper](../type-aliases/EventualMapper.md) on each element.
 
 #### Parameters
 
-| Name     | Type                                                          | Description                                  |
-| :------- | :------------------------------------------------------------ | :------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> | the operation to be invoked on each element. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `any`\>
+
+the operation to be invoked on each element.
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Remarks`**
+#### Remarks
 
 This can be useful to see intermediate steps of complex [AsyncFluentIterator](AsyncFluentIterator.md). The results of invoking the `mapper` are ignored unless it throwws.
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator([1, 2, 3]);
@@ -1197,30 +1156,26 @@ iter
 
 ---
 
-### transform
+### transform()
 
-▸ **transform**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
+> **transform**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
 
 Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
 This method allows to extends the class [FluentIterator](FluentIterator.md) using `Iterator` transformation`
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+• **B**
 
 #### Parameters
 
-| Name     | Type                                                                                                                      |
-| :------- | :------------------------------------------------------------------------------------------------------------------------ |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`AsyncIterator`\<`A`, `any`, `undefined`\>, `AsyncIterator`\<`B`, `any`, `undefined`\>\> |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`AsyncIterator`\<`A`, `any`, `undefined`\>, `AsyncIterator`\<`B`, `any`, `undefined`\>\>
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
 
-**`Example`**
+#### Example
 
 ```ts
 async function *doubleIterator(AsyncIterator<number>: iter) {
@@ -1236,9 +1191,9 @@ await asyncIterator([1,2,3]).transform(doubleiterator).collect()
 
 ---
 
-### zip
+### zip()
 
-▸ **zip**\<`B`\>(`other`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<[`A`, `B`]\>
+> **zip**\<`B`\>(`other`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<[`A`, `B`]\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that yields pairs of elements
 yielded by each Iterators which are navigated in parallel.
@@ -1246,21 +1201,21 @@ The length of the new [AsyncFluentIterator](AsyncFluentIterator.md) is equal to 
 
 #### Type parameters
 
-| Name | Description                                   |
-| :--- | :-------------------------------------------- |
-| `B`  | The type of elements of the `other` iterator. |
+• **B**
+
+The type of elements of the `other` iterator.
 
 #### Parameters
 
-| Name    | Type                                                                 | Description                                  |
-| :------ | :------------------------------------------------------------------- | :------------------------------------------- |
-| `other` | `AsyncIterator`\<`B`, `any`, `undefined`\> \| `AsyncIterable`\<`B`\> | The iterator that is combined with this one. |
+• **other**: `AsyncIterator`\<`B`, `any`, `undefined`\> \| `AsyncIterable`\<`B`\>
+
+The iterator that is combined with this one.
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<[`A`, `B`]\>
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = asyncIterator([1, 2, 3]);
@@ -1270,17 +1225,17 @@ const zipped = iter.zip(asyncIterator(['a', 'b']));
 
 ---
 
-### empty
+### empty()
 
-▸ **empty**\<`A`\>(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> `static` **empty**\<`A`\>(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Creates an empty [AsyncFluentIterator](AsyncFluentIterator.md). The returned iterator will not yield any element.
 
 #### Type parameters
 
-| Name | Type    | Description                                  |
-| :--- | :------ | :------------------------------------------- |
-| `A`  | `never` | the type of elements of the `FluentIterator` |
+• **A** = `never`
+
+the type of elements of the `FluentIterator`
 
 #### Returns
 
@@ -1290,23 +1245,23 @@ An empty [AsyncFluentIterator](AsyncFluentIterator.md)
 
 ---
 
-### from
+### from()
 
-▸ **from**\<`A`\>(`generator`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> `static` **from**\<`A`\>(`generator`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Creates a [AsyncFluentIterator](AsyncFluentIterator.md) from an `AsyncIteratorGenerator`.
 
 #### Type parameters
 
-| Name | Description                                  |
-| :--- | :------------------------------------------- |
-| `A`  | the type of elements of the `FluentIterator` |
+• **A**
+
+the type of elements of the `FluentIterator`
 
 #### Parameters
 
-| Name        | Type                                                                   | Description                                                                           |
-| :---------- | :--------------------------------------------------------------------- | :------------------------------------------------------------------------------------ |
-| `generator` | [`AsyncIteratorGenerator`](../README.md#asynciteratorgenerator)\<`A`\> | Used to generate an `AsyncIterator` that will be wrapped into a `AsyncFluentIterator` |
+• **generator**: [`AsyncIteratorGenerator`](../type-aliases/AsyncIteratorGenerator.md)\<`A`\>
+
+Used to generate an `AsyncIterator` that will be wrapped into a `AsyncFluentIterator`
 
 #### Returns
 
