@@ -40,7 +40,7 @@ The `Iterator` being wrapped into a `FluentIterator`
 #### Example
 
 ```ts
-const iterator = iterator([1, 2, 3][Symbol.iterator]());
+const iterator = new FluentIterator([1, 2, 3][Symbol.iterator]());
 ```
 
 ## Methods

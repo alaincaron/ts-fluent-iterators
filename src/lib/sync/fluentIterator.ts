@@ -29,7 +29,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * Creates a `FluentIterator` by wrapping an `Iterator`
    * @param iter The `Iterator` being wrapped into a `FluentIterator`
    * @example
-   * const iterator = iterator([1,2,3][Symbol.iterator]());
+   * const iterator = new FluentIterator([1,2,3][Symbol.iterator]());
    */
   constructor(iter: Iterator<A>) {
     this.iter = iter;
