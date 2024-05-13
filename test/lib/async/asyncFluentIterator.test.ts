@@ -554,6 +554,21 @@ describe('AsyncFluentIterator', () => {
     });
   });
 
+  describe('distinct', () => {
+    it('should keep only distinct elements', async () => {
+      const actual = await iterator([1, 1, 2, 3, 2, 3, 4, 1, 4]).distinct().collect();
+      const expected = [1, 2, 3, 4];
+      expect(actual).deep.equal(expected);
+    });
+    it('should only keep the first odd and first even numbers', async () => {
+      const actual = await iterator([1, 1, 2, 3, 2, 3, 4, 1, 4])
+        .distinct(x => x % 2)
+        .collect();
+      const expected = [1, 2];
+      expect(actual).deep.equal(expected);
+    });
+  });
+
   describe('Symbol', () => {
     it('should be usable as a native async iterator', async () => {
       const expected = [1, 2];

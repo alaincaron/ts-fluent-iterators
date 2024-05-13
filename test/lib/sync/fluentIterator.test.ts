@@ -528,6 +528,21 @@ describe('SyncFluentIterator', () => {
     });
   });
 
+  describe('distinct', () => {
+    it('should keep only distinct elements', () => {
+      const actual = iterator([1, 1, 2, 3, 2, 3, 4, 1, 4]).distinct().collect();
+      const expected = [1, 2, 3, 4];
+      expect(actual).deep.equal(expected);
+    });
+    it('should only keep the first odd and first even numbers', () => {
+      const actual = iterator([1, 1, 2, 3, 2, 3, 4, 1, 4])
+        .distinct(x => x % 2)
+        .collect();
+      const expected = [1, 2];
+      expect(actual).deep.equal(expected);
+    });
+  });
+
   describe('tally', () => {
     it('should count event and odd numbers', () => {
       const actual = iterator([2, 5, 4, 3, 1])

@@ -641,7 +641,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
-   * Returns a new {@link FluentIterator} consiting of
+   * Returns a new {@link FluentIterator} consisting of
    * partitions (arrays) of at most `size` elements.
    *
    * @param size The size of the partitions.
@@ -655,6 +655,22 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    */
   partition(size: number): FluentIterator<A[]> {
     return new FluentIterator(Iterators.partition(this.iter, size));
+  }
+
+  /**
+   * Returns a new {@link FluentIterator} consisting of distinct elements from this iterator.
+   *
+   * @param mapper Used to determine distinctness of elements. Default to <code>identity</code>
+   *
+   * @example
+   * iterator([1,2,2,3,1,4]).distinct();
+   * yields 1,2,3,4
+   *
+   * iterator ([1,2,2,3,1,4], x => x %2).distinct();
+   * yields 1,2
+   */
+  distinct<K = A>(mapper?: Mapper<A, K>): FluentIterator<A> {
+    return new FluentIterator(Iterators.distinct(this.iter, mapper));
   }
 
   /**

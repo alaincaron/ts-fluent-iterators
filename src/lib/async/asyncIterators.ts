@@ -268,6 +268,23 @@ export async function* partition<A>(iter: AsyncIterator<A>, size: number): Async
   }
 }
 
+export async function* distinct<A, K = A>(
+  iter: AsyncIterator<A>,
+  mapper: EventualMapper<A, K> = (a: A) => a as unknown as K
+) {
+  const seen = new Set<K>();
+  for (;;) {
+    const item = await iter.next();
+    if (item.done) break;
+    const value = item.value;
+    const key = await mapper(value);
+    if (!seen.has(key)) {
+      seen.add(key);
+      yield value;
+    }
+  }
+}
+
 export async function* toAsync<A>(iter: Iterator<A> | Iterable<A>): AsyncIterableIterator<A> {
   const iterator = toIterator(iter);
   for (;;) {

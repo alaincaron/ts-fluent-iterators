@@ -670,6 +670,22 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
   }
 
   /**
+   * Returns a new {@link AsyncFluentIterator} consisting of distinct elements from this iterator.
+   *
+   * @param mapper Used to determine distinctness of elements. Default to <code>identity</code>
+   *
+   * @example
+   * await asyncIterator([1,2,2,3,1,4]).distinct().collect();
+   * [1,2,3,4]
+   *
+   * await asyncIterator ([1,2,2,3,1,4], x => x %2).distinct().collect();
+   * [1,2]
+   */
+  distinct<K = A>(mapper?: EventualMapper<A, K>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.distinct(this.iter, mapper));
+  }
+
+  /**
    * Used to make this {@link AsyncFluentIterator} being seen as an
    * `AsyncIterable<A>`. This allows them to be used in APIs expecting an
    * `AsyncIterable<A>`

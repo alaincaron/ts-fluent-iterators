@@ -187,6 +187,23 @@ export async function collectTo<A, B>(
   }
 }
 
+export async function* distinct<A, K = A>(
+  iter: Iterator<Promise<A>>,
+  mapper: EventualMapper<A, K> = (a: A) => a as unknown as K
+): AsyncIterableIterator<A> {
+  const seen = new Set<K>();
+  for (;;) {
+    const item = iter.next();
+    if (item.done) break;
+    const value = await item.value;
+    const key = await mapper(value);
+    if (!seen.has(key)) {
+      seen.add(key);
+      yield value;
+    }
+  }
+}
+
 export function allSettled<A>(iter: Iterator<Promise<A>>): Promise<PromiseSettledResult<A>[]> {
   const promises = SyncIterators.collectTo(iter, new ArrayCollector());
   return Promise.allSettled(promises);

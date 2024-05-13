@@ -221,6 +221,23 @@ export function* partition<A>(iter: Iterator<A>, size: number): IterableIterator
   }
 }
 
+export function* distinct<A, K = A>(
+  iter: Iterator<A>,
+  mapper: Mapper<A, K> = (a: A) => a as unknown as K
+): IterableIterator<A> {
+  const seen = new Set<K>();
+  for (;;) {
+    const item = iter.next();
+    if (item.done) break;
+    const value = item.value;
+    const key = mapper(value);
+    if (!seen.has(key)) {
+      seen.add(key);
+      yield value;
+    }
+  }
+}
+
 function* seedToIterator<E>(n: number, seed: (i: number) => E) {
   for (let i = 0; i < n; ++i) {
     yield seed(i);

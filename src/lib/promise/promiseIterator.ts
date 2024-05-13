@@ -708,6 +708,22 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
   }
 
   /**
+   * Returns a new {@link AsyncFluentIterator} consisting of distinct elements from this iterator.
+   *
+   * @param mapper Used to determine distinctness of elements. Default to <code>identity</code>
+   *
+   * @example
+   * await promiseIterator(toPromise[1,2,2,3,1,4])).distinct().collect();
+   * [1,2,3,4]
+   *
+   * await promiseIterator (toPromise[1,2,2,3,1,4]), x => x %2).distinct().collect();
+   * [1,2]
+   */
+  distinct<K = A>(mapper?: EventualMapper<A, K>): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(Iterators.distinct(this.iter, mapper));
+  }
+
+  /**
    * Used to make this {@link PromiseIterator} being seen as an
    * `Iterable<Promise<A>>`. This allows them to be used in APIs expecting an
    * `Iterable<Promise<A>>`
