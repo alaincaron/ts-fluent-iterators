@@ -1,5 +1,6 @@
 import { Collector } from '../collectors';
 import { ArrayGenerator, IteratorGenerator, Mapper, Predicate, Reducer } from '../types';
+import { WindowCollector } from '../windows';
 
 export function* empty<A = never>(): IterableIterator<A> {}
 
@@ -234,6 +235,35 @@ export function* distinct<A, K = A>(
     if (!seen.has(key)) {
       seen.add(key);
       yield value;
+    }
+  }
+}
+
+export function* windowIterator<A, B = A>(
+  iter: Iterator<A>,
+  collector: WindowCollector<A, B> | Mapper<void, Collector<A, B>>,
+  windowSize: number,
+  flag = true
+) {
+  const factory = typeof collector === 'function' ? (collector as Mapper<void, Collector<A, B>>) : undefined;
+  const cw = factory ? undefined : (collector as WindowCollector<A, B>);
+
+  const buffer: A[] = [];
+  for (;;) {
+    const item = iter.next();
+    if (item.done) break;
+    buffer.push(item.value);
+    if (buffer.length > windowSize) {
+      const removedItem = buffer.shift();
+      if (cw) cw.leaveWindow(removedItem!);
+    }
+    if (cw) {
+      const result = cw.enterWindow(item.value);
+      if (flag || buffer.length >= windowSize) yield result;
+    } else if (flag || buffer.length >= windowSize) {
+      const c = factory!();
+      buffer.forEach(x => c.collect(x));
+      yield c.result;
     }
   }
 }

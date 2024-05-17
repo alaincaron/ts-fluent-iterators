@@ -3,6 +3,7 @@ import { FlattenCollector } from '../../../src/lib/collectors';
 import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import { defaultComparator } from '../../../src/lib/comparators';
 import { emptyIterator as empty, iterator, map, range, toIterator } from '../../../src/lib/sync';
+import { MovingAverageCollector, SumWindowCollector } from '../../../src/lib/windows';
 
 describe('SyncFluentIterator', () => {
   describe('collect', () => {
@@ -554,6 +555,34 @@ describe('SyncFluentIterator', () => {
     it('should count all words', () => {
       const actual = iterator(['foo', 'bar', 'foobar', 'foo']).tally();
       const expected = new Map().set('foo', 2).set('bar', 1).set('foobar', 1);
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe('window', () => {
+    it('should compute a moving sum from the start', () => {
+      const actual = iterator([1, 2, 3, 4, 5]).window(new SumWindowCollector(), 2).collect();
+      const expected = [1, 3, 5, 7, 9];
+      expect(actual).deep.equal(expected);
+    });
+    it('should compute a moving sum from the 2nd element', () => {
+      const actual = iterator([1, 2, 3, 4, 5]).window(new SumWindowCollector(), 2, false).collect();
+      const expected = [3, 5, 7, 9];
+      expect(actual).deep.equal(expected);
+    });
+    it('should compute a moving average with window of 2', () => {
+      const actual = iterator([1, 2, 3, 4, 5]).window(new MovingAverageCollector(), 2).collect();
+      const expected = [1, 1.5, 2.5, 3.5, 4.5];
+      expect(actual).deep.equal(expected);
+    });
+    it('should compute a moving average from the 2nd element', () => {
+      const actual = iterator([1, 2, 3, 4, 5]).window(new MovingAverageCollector(), 2, false).collect();
+      const expected = [1.5, 2.5, 3.5, 4.5];
+      expect(actual).deep.equal(expected);
+    });
+    it('should compute a moving average with window of 3', () => {
+      const actual = iterator([1, 2, 3, 4, 5]).window(new MovingAverageCollector(), 3).collect();
+      const expected = [1, 1.5, 2, 3.0, 4.0];
       expect(actual).deep.equal(expected);
     });
   });

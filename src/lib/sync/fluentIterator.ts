@@ -17,6 +17,7 @@ import {
 } from '../collectors';
 import { PromiseIterator } from '../promise';
 import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
+import { WindowCollector } from '../windows';
 
 /**
  * Iterator with a Fluent interface.
@@ -148,6 +149,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     collisionHandler?: CollisionHandler<string, V>
   ): Record<string, V> {
     return this.map(mapper).collectTo(new ObjectCollector(collisionHandler));
+  }
+
+  window<B>(collector: WindowCollector<A, B>, windowSize: number, flag = true): FluentIterator<B> {
+    return new FluentIterator(Iterators.windowIterator(this.iter, collector, windowSize, flag));
   }
 
   /**
