@@ -14,5 +14,3 @@ export * from './lib/types';
 export * as Collectors from './lib/collectors';
 export * as Comparators from './lib/comparators';
 export { CollisionHandlers } from './lib/collisionHandlers';
-
-export * as WindowCollectors from './lib/windows';

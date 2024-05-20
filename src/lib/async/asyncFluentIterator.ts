@@ -240,6 +240,25 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
     return new AsyncFluentIterator(mapper(this.iter));
   }
 
+  /** Returns the resulf of applying the {@link Mapper} to the wrapped iterator.
+   * This method allows to use an Iterator function in a fluent way.
+   * @example
+   * function sumOfIterator(Iterator<number>: iter) {
+   *    let sum = 0;
+   *    for (;;) {
+   *       const item = iter.next();
+   *       if (item.done) return sum;
+   *       sum += item.value;
+   *    }
+   * }
+   *
+   * iterator([1,2,3]).apply(sumOfiterator);
+   * // returns 6
+   */
+  apply<B = A>(mapper: EventualMapper<AsyncIterator<A>, B>): Eventually<B> {
+    return mapper(this.iter);
+  }
+
   /**
    * Returns a {@link AsyncFluentIterator} yielding the first `n` elements of this {@link AsyncFluentIterator}.
    *

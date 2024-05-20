@@ -4,6 +4,7 @@ import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import { defaultComparator } from '../../../src/lib/comparators';
 import {
   emptyPromiseIterator as empty,
+  first,
   promiseIterator as iterator,
   map,
   range,
@@ -94,6 +95,12 @@ describe('PromiseIterator', () => {
           .transform(it => map(it, x => 2 * x))
           .collect()
       ).deep.equal([2, 4]);
+    });
+  });
+
+  describe('apply', () => {
+    it('apply should return the first element', async () => {
+      expect(await iterator(range(1, 4)).apply(first)).equal(1);
     });
   });
 

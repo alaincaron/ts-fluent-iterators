@@ -352,6 +352,25 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
     return new PromiseIterator(mapper(this.iter));
   }
 
+  /** Returns the resulf of applying the {@link Mapper} to the wrapped iterator.
+   * This method allows to use an Iterator function in a fluent way.
+   * @example
+   * function sumOfIterator(Iterator<number>: iter) {
+   *    let sum = 0;
+   *    for (;;) {
+   *       const item = iter.next();
+   *       if (item.done) return sum;
+   *       sum += item.value;
+   *    }
+   * }
+   *
+   * iterator([1,2,3]).apply(sumOfiterator);
+   * // returns 6
+   */
+  apply<B = A>(mapper: Mapper<Iterator<Promise<A>>, Eventually<B>>): Eventually<B> {
+    return mapper(this.iter);
+  }
+
   /**
    * Returns the first element of this {@link PromiseIterator} or `undefined` if this {@link PromiseIterator} is empty.
    *

@@ -17,7 +17,6 @@ import {
 } from '../collectors';
 import { PromiseIterator } from '../promise';
 import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
-import { WindowCollector } from '../windows';
 
 /**
  * Iterator with a Fluent interface.
@@ -151,10 +150,6 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return this.map(mapper).collectTo(new ObjectCollector(collisionHandler));
   }
 
-  window<B>(collector: WindowCollector<A, B>, windowSize: number, flag = true): FluentIterator<B> {
-    return new FluentIterator(Iterators.windowIterator(this.iter, collector, windowSize, flag));
-  }
-
   /**
    * Returns a new {@link FluentIterator} consisting of elements for which the `predicate` evaluates to true.
    *
@@ -234,7 +229,9 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
   /**
    * Returns a new {@link FluentIterator} that is the result of transforming this {@link FluentIterator}.
-   * This method allows to extends the class {@link FluentIterator} using `Iterator` transformation`
+   * This method allows to use a an Iterartor transformation in a fluent way.
+   *
+   * @param mapper The mapper to transform the iterator.
    * @example
    * function *doubleIterator(Iterator<number>: iter) {
    *    for (;;) {
@@ -243,11 +240,30 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    *       yield item.value * 2;
    *    }
    * }
-   * iterator([1,2,3]).transform(doubleiterator).collect()
+   * iterator([1,2,3]).transform(doubleIterator).collect()
    * // [2, 4, 6]
    */
   transform<B>(mapper: Mapper<Iterator<A>, Iterator<B>>): FluentIterator<B> {
     return new FluentIterator(mapper(this.iter));
+  }
+
+  /** Returns the resulf of applying the {@link Mapper} to the wrapped iterator.
+   * This method allows to use an Iterator function in a fluent way.
+   * @example
+   * function sumOfIterator(Iterator<number>: iter) {
+   *    let sum = 0;
+   *    for (;;) {
+   *       const item = iter.next();
+   *       if (item.done) return sum;
+   *       sum += item.value;
+   *    }
+   * }
+   *
+   * iterator([1,2,3]).apply(sumOfiterator);
+   * // returns 6
+   */
+  apply<B = A>(mapper: Mapper<Iterator<A>, B>): B {
+    return mapper(this.iter);
   }
 
   /**

@@ -1,5 +1,12 @@
 import { expect } from 'chai';
-import { emptyAsyncIterator as empty, asyncIterator as iterator, map, range, toAsync } from '../../../src/lib/async';
+import {
+  emptyAsyncIterator as empty,
+  first,
+  asyncIterator as iterator,
+  map,
+  range,
+  toAsync,
+} from '../../../src/lib/async';
 import { FlattenCollector } from '../../../src/lib/collectors';
 import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import { defaultComparator } from '../../../src/lib/comparators';
@@ -49,6 +56,12 @@ describe('AsyncFluentIterator', () => {
           .transform(it => map(it, x => 2 * x))
           .collect()
       ).deep.equal([2, 4]);
+    });
+  });
+
+  describe('apply', () => {
+    it('apply should return the first element', async () => {
+      expect(await iterator([1, 2, 3]).apply(first)).equal(1);
     });
   });
 
