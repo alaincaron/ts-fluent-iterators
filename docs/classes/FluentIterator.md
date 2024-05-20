@@ -1,3 +1,7 @@
+[**ts-fluent-iterators**](../README.md) • **Docs**
+
+---
+
 [ts-fluent-iterators](../README.md) / FluentIterator
 
 # Class: FluentIterator\<A\>
@@ -6,96 +10,34 @@ Iterator with a Fluent interface.
 
 ## Type parameters
 
-| Name | Description                          |
-| :--- | :----------------------------------- |
-| `A`  | The type of elements being iterated. |
+• **A**
+
+The type of elements being iterated.
 
 ## Implements
 
 - `Iterator`\<`A`\>
 - `Iterable`\<`A`\>
 
-## Table of contents
-
-### Constructors
-
-- [constructor](FluentIterator.md#constructor)
-
-### Methods
-
-- [[iterator]](FluentIterator.md#[iterator])
-- [all](FluentIterator.md#all)
-- [append](FluentIterator.md#append)
-- [collect](FluentIterator.md#collect)
-- [collectTo](FluentIterator.md#collectto)
-- [collectToMap](FluentIterator.md#collecttomap)
-- [collectToMap2](FluentIterator.md#collecttomap2)
-- [collectToObject](FluentIterator.md#collecttoobject)
-- [collectToSet](FluentIterator.md#collecttoset)
-- [concat](FluentIterator.md#concat)
-- [contains](FluentIterator.md#contains)
-- [count](FluentIterator.md#count)
-- [distinct](FluentIterator.md#distinct)
-- [enumerate](FluentIterator.md#enumerate)
-- [filter](FluentIterator.md#filter)
-- [filterMap](FluentIterator.md#filtermap)
-- [first](FluentIterator.md#first)
-- [fold](FluentIterator.md#fold)
-- [forEach](FluentIterator.md#foreach)
-- [groupBy](FluentIterator.md#groupby)
-- [groupBy2](FluentIterator.md#groupby2)
-- [includes](FluentIterator.md#includes)
-- [join](FluentIterator.md#join)
-- [last](FluentIterator.md#last)
-- [map](FluentIterator.md#map)
-- [mapToPromise](FluentIterator.md#maptopromise)
-- [max](FluentIterator.md#max)
-- [min](FluentIterator.md#min)
-- [minmax](FluentIterator.md#minmax)
-- [next](FluentIterator.md#next)
-- [partition](FluentIterator.md#partition)
-- [prepend](FluentIterator.md#prepend)
-- [reduce](FluentIterator.md#reduce)
-- [removeNull](FluentIterator.md#removenull)
-- [skip](FluentIterator.md#skip)
-- [skipWhile](FluentIterator.md#skipwhile)
-- [some](FluentIterator.md#some)
-- [take](FluentIterator.md#take)
-- [takeWhile](FluentIterator.md#takewhile)
-- [tally](FluentIterator.md#tally)
-- [tap](FluentIterator.md#tap)
-- [toAsync](FluentIterator.md#toasync)
-- [toPromise](FluentIterator.md#topromise)
-- [transform](FluentIterator.md#transform)
-- [zip](FluentIterator.md#zip)
-- [empty](FluentIterator.md#empty)
-- [from](FluentIterator.md#from)
-
 ## Constructors
 
-### constructor
+### new FluentIterator()
 
-• **new FluentIterator**\<`A`\>(`iter`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **new FluentIterator**\<`A`\>(`iter`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Creates a `FluentIterator` by wrapping an `Iterator`
 
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
 #### Parameters
 
-| Name   | Type                                  | Description                                          |
-| :----- | :------------------------------------ | :--------------------------------------------------- |
-| `iter` | `Iterator`\<`A`, `any`, `undefined`\> | The `Iterator` being wrapped into a `FluentIterator` |
+• **iter**: `Iterator`\<`A`, `any`, `undefined`\>
+
+The `Iterator` being wrapped into a `FluentIterator`
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 const iterator = new FluentIterator([1, 2, 3][Symbol.iterator]());
@@ -103,9 +45,9 @@ const iterator = new FluentIterator([1, 2, 3][Symbol.iterator]());
 
 ## Methods
 
-### [iterator]
+### `[iterator]`()
 
-▸ **[iterator]**(): `Iterator`\<`A`, `any`, `undefined`\>
+> **\[iterator\]**(): `Iterator`\<`A`, `any`, `undefined`\>
 
 Used to make this [FluentIterator](FluentIterator.md) being seen as an
 `Iterable<A>`. This allows them to be used in APIs expecting an
@@ -117,27 +59,27 @@ Used to make this [FluentIterator](FluentIterator.md) being seen as an
 
 #### Implementation of
 
-Iterable.[iterator]
+`Iterable.[iterator]`
 
 ---
 
-### all
+### all()
 
-▸ **all**(`predicate`): `boolean`
+> **all**(`predicate`): `boolean`
 
-Returns `true` if the [predicate](../README.md#predicate) argument evalatues to true for all items of this [FluentIterator](FluentIterator.md), false otherwsie.
+Returns `true` if the [predicate](../type-aliases/Predicate.md) argument evalatues to true for all items of this [FluentIterator](FluentIterator.md), false otherwsie.
 
 #### Parameters
 
-| Name        | Type                                         | Description                   |
-| :---------- | :------------------------------------------- | :---------------------------- |
-| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 `boolean`
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2]).all(x => x > 0); // true
@@ -147,23 +89,23 @@ FluentIterator.empty().all(_ => false); // true;
 
 ---
 
-### append
+### append()
 
-▸ **append**(`items`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **append**(`items`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a new [FluentIterator](FluentIterator.md) that is the result of appending its argument to this [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name    | Type                                                       | Description                                                                                       |
-| :------ | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
-| `items` | `Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\> | An `Iterator` or `Iterable` whose items are appended to this [FluentIterator](FluentIterator.md). |
+• **items**: `Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\>
+
+An `Iterator` or `Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2, 3]).append([4, 5, 6]);
@@ -172,9 +114,46 @@ iterator([1, 2, 3]).append([4, 5, 6]);
 
 ---
 
-### collect
+### apply()
 
-▸ **collect**(): `A`[]
+> **apply**\<`B`\>(`mapper`): `B`
+
+Returns the resulf of applying the [Mapper](../type-aliases/Mapper.md) to the wrapped iterator.
+This method allows to use an Iterator function in a fluent way.
+
+#### Type parameters
+
+• **B** = `A`
+
+#### Parameters
+
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `undefined`\>, `B`\>
+
+#### Returns
+
+`B`
+
+#### Example
+
+```ts
+function sumOfIterator(Iterator<number>: iter) {
+   let sum = 0;
+   for (;;) {
+      const item = iter.next();
+      if (item.done) return sum;
+      sum += item.value;
+   }
+}
+
+iterator([1,2,3]).apply(sumOfiterator);
+// returns 6
+```
+
+---
+
+### collect()
+
+> **collect**(): `A`[]
 
 Collects items into an array.
 
@@ -184,7 +163,7 @@ Collects items into an array.
 
 an array consisting of the elements of this `FluentIterator`
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator([1, 2, 3]);
@@ -194,23 +173,23 @@ const data = iter.collect();
 
 ---
 
-### collectTo
+### collectTo()
 
-▸ **collectTo**\<`B`\>(`collector`): `B`
+> **collectTo**\<`B`\>(`collector`): `B`
 
 Collects items from the `FluentIterator` into a `Collector`.
 
 #### Type parameters
 
-| Name | Description                         |
-| :--- | :---------------------------------- |
-| `B`  | The result type of the `Collector`. |
+• **B**
+
+The result type of the `Collector`.
 
 #### Parameters
 
-| Name        | Type                                                             | Description                                     |
-| :---------- | :--------------------------------------------------------------- | :---------------------------------------------- |
-| `collector` | [`Collector`](../interfaces/Collectors.Collector.md)\<`A`, `B`\> | The `Collector` into which to collect the items |
+• **collector**: [`Collector`](../namespaces/Collectors/interfaces/Collector.md)\<`A`, `B`\>
+
+The `Collector` into which to collect the items
 
 #### Returns
 
@@ -218,7 +197,7 @@ Collects items from the `FluentIterator` into a `Collector`.
 
 The result of the `collector`
 
-**`Example`**
+#### Example
 
 ```ts
 const collector = new ArrayCollector<string>();
@@ -229,24 +208,27 @@ const data = iter.collectTo(collector);
 
 ---
 
-### collectToMap
+### collectToMap()
 
-▸ **collectToMap**\<`K`\>(`mapper`, `collisionHandler?`): `Map`\<`K`, `A`\>
+> **collectToMap**\<`K`\>(`mapper`, `collisionHandler`?): `Map`\<`K`, `A`\>
 
 Collects items into a `Map` by mapping values into keys.
 
 #### Type parameters
 
-| Name | Description                       |
-| :--- | :-------------------------------- |
-| `K`  | The type of the keys of the `Map` |
+• **K**
+
+The type of the keys of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                            | Description                                                            |
-| :------------------ | :-------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`Mapper`](../README.md#mapper)\<`A`, `K`\>                     | Maps the values into keys                                              |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `A`\> | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
+
+Maps the values into keys
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `A`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -254,7 +236,7 @@ Collects items into a `Map` by mapping values into keys.
 
 a Map whose keys are the result of applying the `mapper` to the values of this [FluentIterator](FluentIterator.md) and the values are iterated items.
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator('foo', 'bar', 'foobar');
@@ -264,25 +246,31 @@ const data = iter.collectToMap(s => s.length);
 
 ---
 
-### collectToMap2
+### collectToMap2()
 
-▸ **collectToMap2**\<`K`, `V`\>(`mapper`, `collisionHandler?`): `Map`\<`K`, `V`\>
+> **collectToMap2**\<`K`, `V`\>(`mapper`, `collisionHandler`?): `Map`\<`K`, `V`\>
 
 Collects items into a `Map` by mapping values into keys and new value
 
 #### Type parameters
 
-| Name | Description                         |
-| :--- | :---------------------------------- |
-| `K`  | The type of the keys of the `Map`   |
-| `V`  | The type of the values of the `Map` |
+• **K**
+
+The type of the keys of the `Map`
+
+• **V**
+
+The type of the values of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                            | Description                                                            |
-| :------------------ | :-------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`Mapper`](../README.md#mapper)\<`A`, [`K`, `V`]\>              | Maps the values into [key, values] pairs                               |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `V`\> | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, [`K`, `V`]\>
+
+Maps the values into [key, values] pairs
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `V`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -290,7 +278,7 @@ Collects items into a `Map` by mapping values into keys and new value
 
 a Map whose entries are the result of applying the `mapper` to the values of this [FluentIterator](FluentIterator.md).
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator('foo', 'bar', 'foobar');
@@ -300,24 +288,27 @@ const data = iter.collectToMap2(s => [s, s.length]);
 
 ---
 
-### collectToObject
+### collectToObject()
 
-▸ **collectToObject**\<`V`\>(`mapper`, `collisionHandler?`): `Record`\<`string`, `V`\>
+> **collectToObject**\<`V`\>(`mapper`, `collisionHandler`?): `Record`\<`string`, `V`\>
 
 Collects items into a `Record` by mapping values into keys and new value
 
 #### Type parameters
 
-| Name | Description                         |
-| :--- | :---------------------------------- |
-| `V`  | The type of the values of the `Map` |
+• **V**
+
+The type of the values of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                                 | Description                                                            |
-| :------------------ | :------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`Mapper`](../README.md#mapper)\<`A`, [`string`, `V`]\>              | Maps the values into [key, values] pairs                               |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`string`, `V`\> | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, [`string`, `V`]\>
+
+Maps the values into [key, values] pairs
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `V`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -325,7 +316,7 @@ Collects items into a `Record` by mapping values into keys and new value
 
 a `Record` whose entries are the result of applying the `mapper` to the values of this [FluentIterator](FluentIterator.md).
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator('foo', 'bar', 'foobar');
@@ -335,9 +326,9 @@ const data = iter.collectToObject(s => [s, s.length]);
 
 ---
 
-### collectToSet
+### collectToSet()
 
-▸ **collectToSet**(): `Set`\<`A`\>
+> **collectToSet**(): `Set`\<`A`\>
 
 Collects items into a `Set`.
 
@@ -347,7 +338,7 @@ Collects items into a `Set`.
 
 a Set consisting of the elements of this [FluentIterator](FluentIterator.md)
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator([1, 2, 3, 1, 2, 3]);
@@ -357,23 +348,23 @@ const data = iter.collectToSet();
 
 ---
 
-### concat
+### concat()
 
-▸ **concat**(`...iterables`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **concat**(...`iterables`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a new [FluentIterator](FluentIterator.md) that is the result of apepending all its argument to this [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name           | Type                                                           | Description                                                                                               |
-| :------------- | :------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `...iterables` | (`Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\>)[] | An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md). |
+• ...**iterables**: (`Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\>)[]
+
+An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2, 3]).concat([4, 5, 6], [7, 8, 9]);
@@ -382,29 +373,29 @@ iterator([1, 2, 3]).concat([4, 5, 6], [7, 8, 9]);
 
 ---
 
-### contains
+### contains()
 
-▸ **contains**(`predicate`): `boolean`
+> **contains**(`predicate`): `boolean`
 
-Returns true if this [FluentIterator](FluentIterator.md) yields an element for which the [Predicate](../README.md#predicate) evaluates to true.
+Returns true if this [FluentIterator](FluentIterator.md) yields an element for which the [Predicate](../type-aliases/Predicate.md) evaluates to true.
 
 #### Parameters
 
-| Name        | Type                                         | Description                |
-| :---------- | :------------------------------------------- | :------------------------- |
-| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> | The predicate to evaluate. |
+• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+
+The predicate to evaluate.
 
 #### Returns
 
 `boolean`
 
-true if this [FluentIterator](FluentIterator.md) yields an element for which the [Predicate](../README.md#predicate) evaluates to true, false otherwise.
+true if this [FluentIterator](FluentIterator.md) yields an element for which the [Predicate](../type-aliases/Predicate.md) evaluates to true, false otherwise.
 
 ---
 
-### count
+### count()
 
-▸ **count**(): `number`
+> **count**(): `number`
 
 Returns the number of items in this [FluentIterator](FluentIterator.md).
 
@@ -412,7 +403,7 @@ Returns the number of items in this [FluentIterator](FluentIterator.md).
 
 `number`
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2]).count(); // 2
@@ -422,29 +413,27 @@ FluentIterator.empty().count();
 
 ---
 
-### distinct
+### distinct()
 
-▸ **distinct**\<`K`\>(`mapper?`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **distinct**\<`K`\>(`mapper`?): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a new [FluentIterator](FluentIterator.md) consisting of distinct elements from this iterator.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `K`  | `A`  |
+• **K** = `A`
 
 #### Parameters
 
-| Name      | Type                                        | Description                                                                  |
-| :-------- | :------------------------------------------ | :--------------------------------------------------------------------------- |
-| `mapper?` | [`Mapper`](../README.md#mapper)\<`A`, `K`\> | Used to determine distinctness of elements. Default to <code>identity</code> |
+• **mapper?**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
+
+Used to determine distinctness of elements. Default to <code>identity</code>
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1,2,2,3,1,4]).distinct();
@@ -456,9 +445,9 @@ yields 1,2
 
 ---
 
-### enumerate
+### enumerate()
 
-▸ **enumerate**(`start?`): [`FluentIterator`](FluentIterator.md)\<[`A`, `number`]\>
+> **enumerate**(`start`): [`FluentIterator`](FluentIterator.md)\<[`A`, `number`]\>
 
 Returns a new [FluentIterator](FluentIterator.md) that yields pairs of elements
 consisting of the elements yielded by this
@@ -466,15 +455,15 @@ consisting of the elements yielded by this
 
 #### Parameters
 
-| Name    | Type     | Default value | Description        |
-| :------ | :------- | :------------ | :----------------- |
-| `start` | `number` | `0`           | The starting index |
+• **start**: `number`= `0`
+
+The starting index
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<[`A`, `number`]\>
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator(['a', 'b', 'c']);
@@ -484,17 +473,17 @@ const enumerated = iter.enumerate(10);
 
 ---
 
-### filter
+### filter()
 
-▸ **filter**(`predicate`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **filter**(`predicate`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a new [FluentIterator](FluentIterator.md) consisting of elements for which the `predicate` evaluates to true.
 
 #### Parameters
 
-| Name        | Type                                         | Description                                    |
-| :---------- | :------------------------------------------- | :--------------------------------------------- |
-| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> | the predicate on which the evaluate the items. |
+• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+
+the predicate on which the evaluate the items.
 
 #### Returns
 
@@ -502,7 +491,7 @@ Returns a new [FluentIterator](FluentIterator.md) consisting of elements for whi
 
 a new [FluentIterator](FluentIterator.md) consisting of elements of this [FluentIterator](FluentIterator.md) for which the `predicate` evaluates to true.
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 8, 2, 3, 4, 6]).filter(x => x % 2 === 1);
@@ -511,26 +500,26 @@ iterator([1, 8, 2, 3, 4, 6]).filter(x => x % 2 === 1);
 
 ---
 
-### filterMap
+### filterMap()
 
-▸ **filterMap**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
+> **filterMap**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
 
 Returns a new [FluentIterator](FluentIterator.md) consisting of applying the
-[Mapper](../README.md#mapper) to all elements of this [FluentIterator](FluentIterator.md) and
-filtering those for which the [Mapper](../README.md#mapper) returned null or
+[Mapper](../type-aliases/Mapper.md) to all elements of this [FluentIterator](FluentIterator.md) and
+filtering those for which the [Mapper](../type-aliases/Mapper.md) returned null or
 undefined
 
 #### Type parameters
 
-| Name | Description                                                                  |
-| :--- | :--------------------------------------------------------------------------- |
-| `B`  | The type of the elements of the returned [FluentIterator](FluentIterator.md) |
+• **B**
+
+The type of the elements of the returned [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                                                 | Description                                                                    |
-| :------- | :------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `undefined` \| `null` \| `B`\> | Transformation applied to elements of this [FluentIterator](FluentIterator.md) |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `undefined` \| `null` \| `B`\>
+
+Transformation applied to elements of this [FluentIterator](FluentIterator.md)
 
 #### Returns
 
@@ -538,7 +527,7 @@ undefined
 
 A new [FluentIterator](FluentIterator.md)
 
-**`Remarks`**
+#### Remarks
 
 ```ts
 iter.filterMap(mapper);
@@ -552,9 +541,9 @@ iter.map(mapper).removeNull();
 
 ---
 
-### first
+### first()
 
-▸ **first**(): `undefined` \| `A`
+> **first**(): `undefined` \| `A`
 
 Returns the first element of this [FluentIterator](FluentIterator.md) or `undefined` if this [FluentIterator](FluentIterator.md) is empty.
 
@@ -566,11 +555,11 @@ The first element of this [FluentIterator](FluentIterator.md) or `undefined`.
 
 ---
 
-### fold
+### fold()
 
-▸ **fold**\<`B`\>(`reducer`, `initialValue`): `B`
+> **fold**\<`B`\>(`reducer`, `initialValue`): `B`
 
-Executes the [reducer](../README.md#reducer) function on each element
+Executes the [reducer](../type-aliases/Reducer.md) function on each element
 of this [FluentIterator](FluentIterator.md), in order, passing in
 the return value from the calculation on the preceding element. The
 final result of running the reducer across all elements of the array
@@ -578,30 +567,31 @@ is a single value.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+• **B**
 
 #### Parameters
 
-| Name           | Type                                          | Description                                                            |
-| :------------- | :-------------------------------------------- | :--------------------------------------------------------------------- |
-| `reducer`      | [`Reducer`](../README.md#reducer)\<`A`, `B`\> | The reducer to be applied at each iteration.                           |
-| `initialValue` | `B`                                           | The value of the accumulator to be used in the first call to `reducer` |
+• **reducer**: [`Reducer`](../type-aliases/Reducer.md)\<`A`, `B`\>
+
+The reducer to be applied at each iteration.
+
+• **initialValue**: `B`
+
+The value of the accumulator to be used in the first call to `reducer`
 
 #### Returns
 
 `B`
 
-**`Param Type`**
+#### Param Type
 
 B the type into which the elements are being folded to
 
-**`Remarks`**
+#### Remarks
 
 If the [FluentIterator](FluentIterator.md) is empty, `initialValue` is returned.
 
-**`Example`**
+#### Example
 
 ```ts
 To compute the sum of elements of an array:
@@ -612,27 +602,27 @@ const sum = iterator([1,2,3])
 
 ---
 
-### forEach
+### forEach()
 
-▸ **forEach**(`mapper`): `void`
+> **forEach**(`mapper`): `void`
 
-Applies the [mapper](../README.md#mapper) to each element of this [FluentIterator](FluentIterator.md)
+Applies the [mapper](../type-aliases/Mapper.md) to each element of this [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                          | Description                                  |
-| :------- | :-------------------------------------------- | :------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `any`\> | the operation to be invoked on each element. |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `any`\>
+
+the operation to be invoked on each element.
 
 #### Returns
 
 `void`
 
-**`Remarks`**
+#### Remarks
 
 The results of invoking the `mapper` are ignored unless it throws.
 
-**`Example`**
+#### Example
 
 ```ts
 iter.forEach(console.log);
@@ -640,31 +630,29 @@ iter.forEach(console.log);
 
 ---
 
-### groupBy
+### groupBy()
 
-▸ **groupBy**\<`K`\>(`mapper`): `Map`\<`K`, `A`[]\>
+> **groupBy**\<`K`\>(`mapper`): `Map`\<`K`, `A`[]\>
 
-Returns a `Map` where keys are the result of applying the parameter [mapper](../README.md#mapper) to the elements of the
+Returns a `Map` where keys are the result of applying the parameter [mapper](../type-aliases/Mapper.md) to the elements of the
 this [FluentIterator](FluentIterator.md) and the values are Arrays of
 the elements that are mapped to the same key.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `K`  |
+• **K**
 
 #### Parameters
 
-| Name     | Type                                        | Description                                            |
-| :------- | :------------------------------------------ | :----------------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `K`\> | The [Mapper](../README.md#mapper) used to group items. |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
+
+The [Mapper](../type-aliases/Mapper.md) used to group items.
 
 #### Returns
 
 `Map`\<`K`, `A`[]\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2, 3]).groupBy(x => x % 2 === 0);
@@ -673,31 +661,30 @@ iterator([1, 2, 3]).groupBy(x => x % 2 === 0);
 
 ---
 
-### groupBy2
+### groupBy2()
 
-▸ **groupBy2**\<`K`, `V`\>(`mapper`): `Map`\<`K`, `V`[]\>
+> **groupBy2**\<`K`, `V`\>(`mapper`): `Map`\<`K`, `V`[]\>
 
-Returns a `Map` where entries are the result of applying the parameter [mapper](../README.md#mapper) to the elements of the
+Returns a `Map` where entries are the result of applying the parameter [mapper](../type-aliases/Mapper.md) to the elements of the
 this [FluentIterator](FluentIterator.md),
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `K`  |
-| `V`  |
+• **K**
+
+• **V**
 
 #### Parameters
 
-| Name     | Type                                               | Description                                            |
-| :------- | :------------------------------------------------- | :----------------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, [`K`, `V`]\> | The [Mapper](../README.md#mapper) used to group items. |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, [`K`, `V`]\>
+
+The [Mapper](../type-aliases/Mapper.md) used to group items.
 
 #### Returns
 
 `Map`\<`K`, `V`[]\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1,2,3]).groupBy2(x => [x % 2 === 0, 2 * x];
@@ -706,17 +693,17 @@ iterator([1,2,3]).groupBy2(x => [x % 2 === 0, 2 * x];
 
 ---
 
-### includes
+### includes()
 
-▸ **includes**(`target`): `boolean`
+> **includes**(`target`): `boolean`
 
 Returns true if this [FluentIterator](FluentIterator.md) yields an element equals to `target`
 
 #### Parameters
 
-| Name     | Type | Description       |
-| :------- | :--- | :---------------- |
-| `target` | `A`  | value to look for |
+• **target**: `A`
+
+value to look for
 
 #### Returns
 
@@ -725,7 +712,7 @@ Returns true if this [FluentIterator](FluentIterator.md) yields an element equal
 true if this [FluentIterator](FluentIterator.md) yields an element equals to `target`, false otherwise.
 @
 
-**`Remarks`**
+#### Remarks
 
 ```ts
 iter.includes(target);
@@ -739,40 +726,44 @@ iter.contains(x => x === target);
 
 ---
 
-### join
+### join()
 
-▸ **join**(`separator?`, `prefix?`, `suffix?`): `string`
+> **join**(`separator`?, `prefix`?, `suffix`?): `string`
 
 Joins items of this [FluentIterator](FluentIterator.md) into a string.
 
 #### Parameters
 
-| Name         | Type     | Description                                |
-| :----------- | :------- | :----------------------------------------- |
-| `separator?` | `string` | string used to delimite elements           |
-| `prefix?`    | `string` | string used to prefix the resulting string |
-| `suffix?`    | `string` | -                                          |
+• **separator?**: `string`
+
+string used to delimite elements
+
+• **prefix?**: `string`
+
+string used to prefix the resulting string
+
+• **suffix?**: `string`
 
 #### Returns
 
 `string`
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2, 3]).join(',', '[', ']');
 // "[1,2,3]"
 ```
 
-**`Remarks`**
+#### Remarks
 
 The items are converted into a string using string-interpolation.
 
 ---
 
-### last
+### last()
 
-▸ **last**(): `undefined` \| `A`
+> **last**(): `undefined` \| `A`
 
 Returns the last element of this [FluentIterator](FluentIterator.md)
 
@@ -780,7 +771,7 @@ Returns the last element of this [FluentIterator](FluentIterator.md)
 
 `undefined` \| `A`
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2]).last();
@@ -792,23 +783,23 @@ FluentIterator.empty().last();
 
 ---
 
-### map
+### map()
 
-▸ **map**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
+> **map**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
 
-Returns a new [FluentIterator](FluentIterator.md) consisting of applying the [Mapper](../README.md#mapper) to all elements of this [FluentIterator](FluentIterator.md).
+Returns a new [FluentIterator](FluentIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [FluentIterator](FluentIterator.md).
 
 #### Type parameters
 
-| Name | Description                                                                  |
-| :--- | :--------------------------------------------------------------------------- |
-| `B`  | The type of the elements of the returned [FluentIterator](FluentIterator.md) |
+• **B**
+
+The type of the elements of the returned [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                        | Description                                                                    |
-| :------- | :------------------------------------------ | :----------------------------------------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `B`\> | Transformation applied to elements of this [FluentIterator](FluentIterator.md) |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `B`\>
+
+Transformation applied to elements of this [FluentIterator](FluentIterator.md)
 
 #### Returns
 
@@ -816,7 +807,7 @@ Returns a new [FluentIterator](FluentIterator.md) consisting of applying the [Ma
 
 A new [FluentIterator](FluentIterator.md)
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator(['foo','bar',foobar'])
@@ -826,23 +817,23 @@ iter.map(s => s.length)
 
 ---
 
-### mapToPromise
+### mapToPromise()
 
-▸ **mapToPromise**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
+> **mapToPromise**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
-Returns a new [PromiseIterator](PromiseIterator.md) consisting of applying the [Mapper](../README.md#mapper) to all elements of this [FluentIterator](FluentIterator.md).
+Returns a new [PromiseIterator](PromiseIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [FluentIterator](FluentIterator.md).
 
 #### Type parameters
 
-| Name | Description                                                                    |
-| :--- | :----------------------------------------------------------------------------- |
-| `B`  | The type of the elements of the returned [PromiseIterator](PromiseIterator.md) |
+• **B**
+
+The type of the elements of the returned [PromiseIterator](PromiseIterator.md)
 
 #### Parameters
 
-| Name     | Type                                                     | Description                                                                    |
-| :------- | :------------------------------------------------------- | :----------------------------------------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `Promise`\<`B`\>\> | Transformation applied to elements of this [FluentIterator](FluentIterator.md) |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `Promise`\<`B`\>\>
+
+Transformation applied to elements of this [FluentIterator](FluentIterator.md)
 
 #### Returns
 
@@ -852,23 +843,21 @@ A new [PromiseIterator](PromiseIterator.md)
 
 ---
 
-### max
+### max()
 
-▸ **max**(`comparator?`): `undefined` \| `A`
+> **max**(`comparator`?): `undefined` \| `A`
 
-Returns the maximum element according to the argument [comparator](../README.md#comparator).
+Returns the maximum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           |
-| :------------ | :--------------------------------------------- |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 #### Returns
 
 `undefined` \| `A`
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2]).max();
@@ -882,23 +871,23 @@ FluentIterator.empty().max(); // undefined
 
 ---
 
-### min
+### min()
 
-▸ **min**(`comparator?`): `undefined` \| `A`
+> **min**(`comparator`?): `undefined` \| `A`
 
-Returns the minimum element according to the argument [comparator](../README.md#comparator).
+Returns the minimum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           | Description                                       |
-| :------------ | :--------------------------------------------- | :------------------------------------------------ |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> | The {link Comparator} used to order the elements. |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
+
+The {link Comparator} used to order the elements.
 
 #### Returns
 
 `undefined` \| `A`
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1,2]).min();
@@ -915,23 +904,21 @@ FluentIterator.empty().min();
 
 ---
 
-### minmax
+### minmax()
 
-▸ **minmax**(`comparator?`): `undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
+> **minmax**(`comparator`?): `undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
 
-Returns the minimum and maximum element according to the argument [comparator](../README.md#comparator).
+Returns the minimum and maximum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           |
-| :------------ | :--------------------------------------------- |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 #### Returns
 
 `undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2]).minmax();
@@ -946,9 +933,9 @@ FluentIterator.empty().minmax();
 
 ---
 
-### next
+### next()
 
-▸ **next**(): `IteratorResult`\<`A`, `any`\>
+> **next**(): `IteratorResult`\<`A`, `any`\>
 
 Used to make this [FluentIterator](FluentIterator.md) being seen as an
 `Iterator<A>`. This allows [FluentIterator](FluentIterator.md) objects to be
@@ -960,58 +947,58 @@ used in APIs expecting an `Iterator<A>`
 
 #### Implementation of
 
-Iterator.next
+`Iterator.next`
 
 ---
 
-### partition
+### partition()
 
-▸ **partition**(`size`): [`FluentIterator`](FluentIterator.md)\<`A`[]\>
+> **partition**(`size`): [`FluentIterator`](FluentIterator.md)\<`A`[]\>
 
 Returns a new [FluentIterator](FluentIterator.md) consisting of
 partitions (arrays) of at most `size` elements.
 
 #### Parameters
 
-| Name   | Type     | Description                 |
-| :----- | :------- | :-------------------------- |
-| `size` | `number` | The size of the partitions. |
+• **size**: `number`
+
+The size of the partitions.
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`[]\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2, 3, 4, 5]).partition(2);
 // yields [1, 2], [3, 4], [5]
 ```
 
-**`Remarks`**
+#### Remarks
 
 The last partition may contain less than `size` elements but is
 never empty.
 
 ---
 
-### prepend
+### prepend()
 
-▸ **prepend**(`items`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **prepend**(`items`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a new [FluentIterator](FluentIterator.md) that is the result of prepending its argument to this [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name    | Type                                                       | Description                                                                                        |
-| :------ | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------- |
-| `items` | `Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\> | An `Iterator` or `Iterable` whose items are prepended to this [FluentIterator](FluentIterator.md). |
+• **items**: `Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\>
+
+An `Iterator` or `Iterable` whose items are prepended to this [FluentIterator](FluentIterator.md).
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2, 3]).prepend([4, 5, 6]);
@@ -1020,28 +1007,31 @@ iterator([1, 2, 3]).prepend([4, 5, 6]);
 
 ---
 
-### reduce
+### reduce()
 
-▸ **reduce**(`reducer`, `initialValue?`): `undefined` \| `A`
+> **reduce**(`reducer`, `initialValue`?): `undefined` \| `A`
 
 Special case of [FluentIterator.fold](FluentIterator.md#fold) where items being iteraded on and the accumulator are of the same type.
 
 #### Parameters
 
-| Name            | Type                                          | Description                                                                                                                                                |
-| :-------------- | :-------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `reducer`       | [`Reducer`](../README.md#reducer)\<`A`, `A`\> | The reducer to be applied at each iteration.                                                                                                               |
-| `initialValue?` | `A`                                           | The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this [FluentIterator](FluentIterator.md) is used. |
+• **reducer**: [`Reducer`](../type-aliases/Reducer.md)\<`A`, `A`\>
+
+The reducer to be applied at each iteration.
+
+• **initialValue?**: `A`
+
+The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this [FluentIterator](FluentIterator.md) is used.
 
 #### Returns
 
 `undefined` \| `A`
 
-**`Remarks`**
+#### Remarks
 
 If the [FluentIterator](FluentIterator.md) is empty, `initialValue` is returned.
 
-**`Example`**
+#### Example
 
 ```ts
 To compute the sum of elements of an array:
@@ -1052,9 +1042,9 @@ const sum = iterator([1,2,3])
 
 ---
 
-### removeNull
+### removeNull()
 
-▸ **removeNull**(): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **removeNull**(): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a new [FluentIterator](FluentIterator.md) consisting of elements of this [FluentIterator](FluentIterator.md) that are not `null` nor `undefined`
 
@@ -1066,17 +1056,17 @@ a new [FluentIterator](FluentIterator.md) where all the `null` or `undefined` el
 
 ---
 
-### skip
+### skip()
 
-▸ **skip**(`n`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **skip**(`n`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a [FluentIterator](FluentIterator.md) skipping the first `n` elements of this [FluentIterator](FluentIterator.md) and then yielding the subsequent ones.
 
 #### Parameters
 
-| Name | Type     | Description                    |
-| :--- | :------- | :----------------------------- |
-| `n`  | `number` | The number of elements to skip |
+• **n**: `number`
+
+The number of elements to skip
 
 #### Returns
 
@@ -1084,31 +1074,31 @@ Returns a [FluentIterator](FluentIterator.md) skipping the first `n` elements of
 
 a [FluentIterator](FluentIterator.md) skpping the first `n` elements of this [FluentIterator](FluentIterator.md).
 
-**`Remarks`**
+#### Remarks
 
 If there are less than `n` elements in this [FluentIterator](FluentIterator.md), then an empty [FluentIterator](FluentIterator.md) is returned.
 
 ---
 
-### skipWhile
+### skipWhile()
 
-▸ **skipWhile**(`predicate`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **skipWhile**(`predicate`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a new [FluentIterator](FluentIterator.md) that skips elements of this
-[FluentIterator](FluentIterator.md) until the [predicate](../README.md#predicate)
+[FluentIterator](FluentIterator.md) until the [predicate](../type-aliases/Predicate.md)
 evaluates to `true` and yields the subsequent ones.
 
 #### Parameters
 
-| Name        | Type                                         | Description                   |
-| :---------- | :------------------------------------------- | :---------------------------- |
-| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2, 3]).skipWhile(x => x < 2); // yields 2, 3
@@ -1117,23 +1107,23 @@ iterator([1, 2, 3]).skipWhile(x => x > 2); // yields 1, 2, 3
 
 ---
 
-### some
+### some()
 
-▸ **some**(`predicate`): `boolean`
+> **some**(`predicate`): `boolean`
 
-Returns `true` if the [predicate](../README.md#predicate) argument evalatues to true for some items of this [FluentIterator](FluentIterator.md), false otherwsie.
+Returns `true` if the [predicate](../type-aliases/Predicate.md) argument evalatues to true for some items of this [FluentIterator](FluentIterator.md), false otherwsie.
 
 #### Parameters
 
-| Name        | Type                                         | Description                   |
-| :---------- | :------------------------------------------- | :---------------------------- |
-| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 `boolean`
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2]).some(x => x > 1); // true
@@ -1143,17 +1133,17 @@ FluentIterator.empty().some(_ => true); // false;
 
 ---
 
-### take
+### take()
 
-▸ **take**(`n`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **take**(`n`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a [FluentIterator](FluentIterator.md) yielding the first `n` elements of this [FluentIterator](FluentIterator.md).
 
 #### Parameters
 
-| Name | Type     | Description                    |
-| :--- | :------- | :----------------------------- |
-| `n`  | `number` | The number of elements to take |
+• **n**: `number`
+
+The number of elements to take
 
 #### Returns
 
@@ -1161,29 +1151,29 @@ Returns a [FluentIterator](FluentIterator.md) yielding the first `n` elements of
 
 a [FluentIterator](FluentIterator.md) yielding the first `n` elements of this [FluentIterator](FluentIterator.md).
 
-**`Remarks`**
+#### Remarks
 
 If there are less than `n` elements in this [FluentIterator](FluentIterator.md), then only the available elements will be yielded.
 
 ---
 
-### takeWhile
+### takeWhile()
 
-▸ **takeWhile**(`predicate`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **takeWhile**(`predicate`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-Returns a new [FluentIterator](FluentIterator.md) that yields elements of this [FluentIterator](FluentIterator.md) while the [predicate](../README.md#predicate) evaluates to `true`.
+Returns a new [FluentIterator](FluentIterator.md) that yields elements of this [FluentIterator](FluentIterator.md) while the [predicate](../type-aliases/Predicate.md) evaluates to `true`.
 
 #### Parameters
 
-| Name        | Type                                         | Description                   |
-| :---------- | :------------------------------------------- | :---------------------------- |
-| `predicate` | [`Predicate`](../README.md#predicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([1, 2, 3]).takeWhile(x => x < 2); // yields 1
@@ -1192,9 +1182,9 @@ iterator([1, 2, 3]).takeWhile(x => x > 2); // empty iterator
 
 ---
 
-### tally
+### tally()
 
-▸ **tally**(): `Map`\<`A`, `number`\>
+> **tally**(): `Map`\<`A`, `number`\>
 
 Returns a `Map` of the count of the occurences of each items of
 this [FluentIterator](FluentIterator.md),
@@ -1203,7 +1193,7 @@ this [FluentIterator](FluentIterator.md),
 
 `Map`\<`A`, `number`\>
 
-**`Example`**
+#### Example
 
 ```ts
 iterator([foo','bar','foo').tally();
@@ -1212,29 +1202,29 @@ iterator([foo','bar','foo').tally();
 
 ---
 
-### tap
+### tap()
 
-▸ **tap**(`mapper`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> **tap**(`mapper`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns a new [FluentIterator](FluentIterator.md) that
 yields the same elements as this [FluentIterator](FluentIterator.md)
-and executes the [mapper](../README.md#mapper) on each element.
+and executes the [mapper](../type-aliases/Mapper.md) on each element.
 
 #### Parameters
 
-| Name     | Type                                          | Description                                  |
-| :------- | :-------------------------------------------- | :------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`A`, `any`\> | the operation to be invoked on each element. |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `any`\>
+
+the operation to be invoked on each element.
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`A`\>
 
-**`Remarks`**
+#### Remarks
 
 This can be useful to see intermediate steps of complex [FluentIterator](FluentIterator.md). The results of invoking the `mapper` are ignored unless it throwws.
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator([1, 2, 3]);
@@ -1253,9 +1243,9 @@ iter
 
 ---
 
-### toAsync
+### toAsync()
 
-▸ **toAsync**(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **toAsync**(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Converts this [FluentIterator](FluentIterator.md) into an [AsyncFluentIterator](AsyncFluentIterator.md)
 
@@ -1268,9 +1258,9 @@ yielding the same elements as this [FluentIterator](FluentIterator.md)
 
 ---
 
-### toPromise
+### toPromise()
 
-▸ **toPromise**(): [`PromiseIterator`](PromiseIterator.md)\<`Awaited`\<`A`\>\>
+> **toPromise**(): [`PromiseIterator`](PromiseIterator.md)\<`Awaited`\<`A`\>\>
 
 Converts this [FluentIterator](FluentIterator.md) into a [PromiseIterator](PromiseIterator.md)
 
@@ -1283,30 +1273,28 @@ same elements as this [FluentIterator](FluentIterator.md)
 
 ---
 
-### transform
+### transform()
 
-▸ **transform**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
+> **transform**\<`B`\>(`mapper`): [`FluentIterator`](FluentIterator.md)\<`B`\>
 
 Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
-This method allows to extends the class [FluentIterator](FluentIterator.md) using `Iterator` transformation`
+This method allows to use a an Iterartor transformation in a fluent way.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+• **B**
 
 #### Parameters
 
-| Name     | Type                                                                                                            |
-| :------- | :-------------------------------------------------------------------------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`Iterator`\<`A`, `any`, `undefined`\>, `Iterator`\<`B`, `any`, `undefined`\>\> |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `undefined`\>, `Iterator`\<`B`, `any`, `undefined`\>\>
+
+The mapper to transform the iterator.
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`B`\>
 
-**`Example`**
+#### Example
 
 ```ts
 function *doubleIterator(Iterator<number>: iter) {
@@ -1316,15 +1304,15 @@ function *doubleIterator(Iterator<number>: iter) {
       yield item.value * 2;
    }
 }
-iterator([1,2,3]).transform(doubleiterator).collect()
+iterator([1,2,3]).transform(doubleIterator).collect()
 // [2, 4, 6]
 ```
 
 ---
 
-### zip
+### zip()
 
-▸ **zip**\<`B`\>(`other`): [`FluentIterator`](FluentIterator.md)\<[`A`, `B`]\>
+> **zip**\<`B`\>(`other`): [`FluentIterator`](FluentIterator.md)\<[`A`, `B`]\>
 
 Returns a new [FluentIterator](FluentIterator.md) that yields pairs of elements
 yielded by each Iterators which are navigated in parallel.
@@ -1332,21 +1320,21 @@ The length of the new [FluentIterator](FluentIterator.md) is equal to the length
 
 #### Type parameters
 
-| Name | Description                                   |
-| :--- | :-------------------------------------------- |
-| `B`  | The type of elements of the `other` iterator. |
+• **B**
+
+The type of elements of the `other` iterator.
 
 #### Parameters
 
-| Name    | Type                                                       | Description                                  |
-| :------ | :--------------------------------------------------------- | :------------------------------------------- |
-| `other` | `Iterator`\<`B`, `any`, `undefined`\> \| `Iterable`\<`B`\> | The iterator that is combined with this one. |
+• **other**: `Iterator`\<`B`, `any`, `undefined`\> \| `Iterable`\<`B`\>
+
+The iterator that is combined with this one.
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<[`A`, `B`]\>
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = iterator([1, 2, 3]);
@@ -1356,17 +1344,17 @@ const zipped = iter.zip(['a', 'b']);
 
 ---
 
-### empty
+### empty()
 
-▸ **empty**\<`A`\>(): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> `static` **empty**\<`A`\>(): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Creates an empty `FluentIterator`. The returned iterator will not yield any element.
 
 #### Type parameters
 
-| Name | Type    | Description                                  |
-| :--- | :------ | :------------------------------------------- |
-| `A`  | `never` | the type of elements of the `FluentIterator` |
+• **A** = `never`
+
+the type of elements of the `FluentIterator`
 
 #### Returns
 
@@ -1376,23 +1364,23 @@ An empty `FluentIterator`
 
 ---
 
-### from
+### from()
 
-▸ **from**\<`A`\>(`generator`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+> `static` **from**\<`A`\>(`generator`): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Creates a `FluentIterator` from an `IteratorGenerator`.
 
 #### Type parameters
 
-| Name | Description                                  |
-| :--- | :------------------------------------------- |
-| `A`  | the type of elements of the `FluentIterator` |
+• **A**
+
+the type of elements of the `FluentIterator`
 
 #### Parameters
 
-| Name        | Type                                                         | Description                                                                 |
-| :---------- | :----------------------------------------------------------- | :-------------------------------------------------------------------------- |
-| `generator` | [`IteratorGenerator`](../README.md#iteratorgenerator)\<`A`\> | Used to generate an `Iterator` that will be wrapped into a `FluentIterator` |
+• **generator**: [`IteratorGenerator`](../type-aliases/IteratorGenerator.md)\<`A`\>
+
+Used to generate an `Iterator` that will be wrapped into a `FluentIterator`
 
 #### Returns
 
@@ -1400,7 +1388,7 @@ Creates a `FluentIterator` from an `IteratorGenerator`.
 
 A new `FluentIterator`
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = FluentIterator.from([1, 2, 3]);

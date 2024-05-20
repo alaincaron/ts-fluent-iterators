@@ -1,3 +1,7 @@
+[**ts-fluent-iterators**](../README.md) • **Docs**
+
+---
+
 [ts-fluent-iterators](../README.md) / PromiseIterator
 
 # Class: PromiseIterator\<A\>
@@ -6,91 +10,28 @@ Iterator yielding `Promise` objects with a Fluent interface.
 
 ## Type parameters
 
-| Name | Description                          |
-| :--- | :----------------------------------- |
-| `A`  | The type of elements being iterated. |
+• **A**
+
+The type of elements being iterated.
 
 ## Implements
 
 - `Iterator`\<`Promise`\<`A`\>\>
 - `Iterable`\<`Promise`\<`A`\>\>
 
-## Table of contents
-
-### Constructors
-
-- [constructor](PromiseIterator.md#constructor)
-
-### Methods
-
-- [[iterator]](PromiseIterator.md#[iterator])
-- [all](PromiseIterator.md#all)
-- [allSettled](PromiseIterator.md#allsettled)
-- [any](PromiseIterator.md#any)
-- [append](PromiseIterator.md#append)
-- [collect](PromiseIterator.md#collect)
-- [collectTo](PromiseIterator.md#collectto)
-- [collectToMap](PromiseIterator.md#collecttomap)
-- [collectToMap2](PromiseIterator.md#collecttomap2)
-- [collectToObject](PromiseIterator.md#collecttoobject)
-- [collectToSet](PromiseIterator.md#collecttoset)
-- [concat](PromiseIterator.md#concat)
-- [contains](PromiseIterator.md#contains)
-- [count](PromiseIterator.md#count)
-- [distinct](PromiseIterator.md#distinct)
-- [enumerate](PromiseIterator.md#enumerate)
-- [filter](PromiseIterator.md#filter)
-- [filterMap](PromiseIterator.md#filtermap)
-- [first](PromiseIterator.md#first)
-- [flatmap](PromiseIterator.md#flatmap)
-- [fold](PromiseIterator.md#fold)
-- [forEach](PromiseIterator.md#foreach)
-- [groupBy](PromiseIterator.md#groupby)
-- [groupBy2](PromiseIterator.md#groupby2)
-- [includes](PromiseIterator.md#includes)
-- [join](PromiseIterator.md#join)
-- [last](PromiseIterator.md#last)
-- [map](PromiseIterator.md#map)
-- [max](PromiseIterator.md#max)
-- [min](PromiseIterator.md#min)
-- [minmax](PromiseIterator.md#minmax)
-- [next](PromiseIterator.md#next)
-- [partition](PromiseIterator.md#partition)
-- [prepend](PromiseIterator.md#prepend)
-- [race](PromiseIterator.md#race)
-- [reduce](PromiseIterator.md#reduce)
-- [removeNull](PromiseIterator.md#removenull)
-- [skip](PromiseIterator.md#skip)
-- [skipWhile](PromiseIterator.md#skipwhile)
-- [some](PromiseIterator.md#some)
-- [take](PromiseIterator.md#take)
-- [takeWhile](PromiseIterator.md#takewhile)
-- [tally](PromiseIterator.md#tally)
-- [tap](PromiseIterator.md#tap)
-- [transform](PromiseIterator.md#transform)
-- [zip](PromiseIterator.md#zip)
-- [empty](PromiseIterator.md#empty)
-- [from](PromiseIterator.md#from)
-
 ## Constructors
 
-### constructor
+### new PromiseIterator()
 
-• **new PromiseIterator**\<`A`\>(`iter`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> **new PromiseIterator**\<`A`\>(`iter`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Creates an [PromiseIterator](PromiseIterator.md) by wrapping an `Iterator<Promise<A>>`
 
-#### Type parameters
-
-| Name |
-| :--- |
-| `A`  |
-
 #### Parameters
 
-| Name   | Type                                               | Description                                           |
-| :----- | :------------------------------------------------- | :---------------------------------------------------- |
-| `iter` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> | The `Iterator` being wrapped into a `PromiseIterator` |
+• **iter**: `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>
+
+The `Iterator` being wrapped into a `PromiseIterator`
 
 #### Returns
 
@@ -98,9 +39,9 @@ Creates an [PromiseIterator](PromiseIterator.md) by wrapping an `Iterator<Promis
 
 ## Methods
 
-### [iterator]
+### `[iterator]`()
 
-▸ **[iterator]**(): `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>
+> **\[iterator\]**(): `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>
 
 Used to make this [PromiseIterator](PromiseIterator.md) being seen as an
 `Iterable<Promise<A>>`. This allows them to be used in APIs expecting an
@@ -112,29 +53,29 @@ Used to make this [PromiseIterator](PromiseIterator.md) being seen as an
 
 #### Implementation of
 
-Iterable.[iterator]
+`Iterable.[iterator]`
 
 ---
 
-### all
+### all()
 
-▸ **all**(`predicate`): `Promise`\<`boolean`\>
+> **all**(`predicate`): `Promise`\<`boolean`\>
 
-Returns a Promise resolving to `true` if the [predicate](../README.md#eventualpredicate) argument evalatues to true for all
+Returns a Promise resolving to `true` if the [predicate](../type-aliases/EventualPredicate.md) argument evalatues to true for all
 items of this [PromiseIterator](PromiseIterator.md), or resolving to false
 otherwsie.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                   |
-| :---------- | :----------------------------------------------------------- | :---------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 `Promise`\<`boolean`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1, 2]).all(x => x > 0); // true
@@ -144,9 +85,9 @@ await PromiseIterator.empty().all(_ => false); // true;
 
 ---
 
-### allSettled
+### allSettled()
 
-▸ **allSettled**(): `Promise`\<`PromiseSettledResult`\<`A`\>[]\>
+> **allSettled**(): `Promise`\<`PromiseSettledResult`\<`A`\>[]\>
 
 Fluent version of `Promise.allSettled`
 
@@ -156,9 +97,9 @@ Fluent version of `Promise.allSettled`
 
 ---
 
-### any
+### any()
 
-▸ **any**(): `Promise`\<`undefined` \| `A`\>
+> **any**(): `Promise`\<`undefined` \| `A`\>
 
 Fluent version of `Promise.any`
 
@@ -168,23 +109,23 @@ Fluent version of `Promise.any`
 
 ---
 
-### append
+### append()
 
-▸ **append**(`items`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> **append**(`items`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Returns a new [PromiseIterator](PromiseIterator.md) that is the result of appending its argument to this [PromiseIterator](PromiseIterator.md)
 
 #### Parameters
 
-| Name    | Type                                                                                 | Description                                                                                         |
-| :------ | :----------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
-| `items` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\> | An `Iterator` or `Iterable` whose items are appended to this [PromiseIterator](PromiseIterator.md). |
+• **items**: `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\>
+
+An `Iterator` or `Iterable` whose items are appended to this [PromiseIterator](PromiseIterator.md).
 
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 toPromiseIterator([1, 2, 3]).append([4, 5, 6]);
@@ -193,9 +134,46 @@ toPromiseIterator([1, 2, 3]).append([4, 5, 6]);
 
 ---
 
-### collect
+### apply()
 
-▸ **collect**(): `Promise`\<`A`[]\>
+> **apply**\<`B`\>(`mapper`): [`Eventually`](../type-aliases/Eventually.md)\<`B`\>
+
+Returns the resulf of applying the [Mapper](../type-aliases/Mapper.md) to the wrapped iterator.
+This method allows to use an Iterator function in a fluent way.
+
+#### Type parameters
+
+• **B** = `A`
+
+#### Parameters
+
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>, [`Eventually`](../type-aliases/Eventually.md)\<`B`\>\>
+
+#### Returns
+
+[`Eventually`](../type-aliases/Eventually.md)\<`B`\>
+
+#### Example
+
+```ts
+function sumOfIterator(Iterator<number>: iter) {
+   let sum = 0;
+   for (;;) {
+      const item = iter.next();
+      if (item.done) return sum;
+      sum += item.value;
+   }
+}
+
+iterator([1,2,3]).apply(sumOfiterator);
+// returns 6
+```
+
+---
+
+### collect()
+
+> **collect**(): `Promise`\<`A`[]\>
 
 Collects items into an array.
 
@@ -205,7 +183,7 @@ Collects items into an array.
 
 a `Promise` of an `Array` consisting of the elements of this [PromiseIterator](PromiseIterator.md)
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseIterator([1, 2, 3]);
@@ -213,29 +191,29 @@ const data = await iter.collect();
 // data is [1,2,3]
 ```
 
-**`Remarks`**
+#### Remarks
 
 This is equivalent to `Promise.all`
 
 ---
 
-### collectTo
+### collectTo()
 
-▸ **collectTo**\<`B`\>(`collector`): `Promise`\<`B`\>
+> **collectTo**\<`B`\>(`collector`): `Promise`\<`B`\>
 
-Collects items from the [PromiseIterator](PromiseIterator.md) into an [EventualCollector](../interfaces/Collectors.EventualCollector.md).
+Collects items from the [PromiseIterator](PromiseIterator.md) into an [EventualCollector](../namespaces/Collectors/interfaces/EventualCollector.md).
 
 #### Type parameters
 
-| Name | Description                                 |
-| :--- | :------------------------------------------ |
-| `B`  | The result type of the `EventualCollector`. |
+• **B**
+
+The result type of the `EventualCollector`.
 
 #### Parameters
 
-| Name        | Type                                                                             | Description                                             |
-| :---------- | :------------------------------------------------------------------------------- | :------------------------------------------------------ |
-| `collector` | [`EventualCollector`](../interfaces/Collectors.EventualCollector.md)\<`A`, `B`\> | The `EventualCollector` into which to collect the items |
+• **collector**: [`EventualCollector`](../namespaces/Collectors/interfaces/EventualCollector.md)\<`A`, `B`\>
+
+The `EventualCollector` into which to collect the items
 
 #### Returns
 
@@ -243,7 +221,7 @@ Collects items from the [PromiseIterator](PromiseIterator.md) into an [EventualC
 
 A `Promise` of the he result of the `collector`
 
-**`Example`**
+#### Example
 
 ```ts
 const collector = new ArrayCollector<string>();
@@ -254,24 +232,27 @@ const data = await iter.collectTo(collector);
 
 ---
 
-### collectToMap
+### collectToMap()
 
-▸ **collectToMap**\<`K`\>(`mapper`, `collisionHandler?`): `Promise`\<`Map`\<`K`, `A`\>\>
+> **collectToMap**\<`K`\>(`mapper`, `collisionHandler`?): `Promise`\<`Map`\<`K`, `A`\>\>
 
 Collects items into a `Map` by mapping values into keys.
 
 #### Type parameters
 
-| Name | Description                       |
-| :--- | :-------------------------------- |
-| `K`  | The type of the keys of the `Map` |
+• **K**
+
+The type of the keys of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                            | Description                                                            |
-| :------------------ | :-------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `K`\>     | Maps the values into keys                                              |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `A`\> | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `K`\>
+
+Maps the values into keys
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `A`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -279,7 +260,7 @@ Collects items into a `Map` by mapping values into keys.
 
 a `Promise` of a `Map` whose keys are the result of applying the `mapper` to the values of this [PromiseIterator](PromiseIterator.md) and the values are iterated items.
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseIterator('foo', 'bar', 'foobar');
@@ -289,25 +270,31 @@ const data = await iter.collectToMap(s => s.length);
 
 ---
 
-### collectToMap2
+### collectToMap2()
 
-▸ **collectToMap2**\<`K`, `V`\>(`mapper`, `collisionHandler?`): `Promise`\<`Map`\<`K`, `V`\>\>
+> **collectToMap2**\<`K`, `V`\>(`mapper`, `collisionHandler`?): `Promise`\<`Map`\<`K`, `V`\>\>
 
 Collects items into a `Map` by mapping values into keys and new value
 
 #### Type parameters
 
-| Name | Description                         |
-| :--- | :---------------------------------- |
-| `K`  | The type of the keys of the `Map`   |
-| `V`  | The type of the values of the `Map` |
+• **K**
+
+The type of the keys of the `Map`
+
+• **V**
+
+The type of the values of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                               | Description                                                            |
-| :------------------ | :----------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`K`, `V`]\> | Maps the values into [key, values] pairs                               |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`K`, `V`\>    | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, [`K`, `V`]\>
+
+Maps the values into [key, values] pairs
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `V`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -315,7 +302,7 @@ Collects items into a `Map` by mapping values into keys and new value
 
 a `Promise` of a `Map` whose entries are the result of applying the `mapper` to the values of this [PromiseIterator](PromiseIterator.md).
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseIterator(['foo', 'bar', 'foobar']);
@@ -325,24 +312,27 @@ const data = await iter.collectToMap2(s => [s, s.length]);
 
 ---
 
-### collectToObject
+### collectToObject()
 
-▸ **collectToObject**\<`V`\>(`mapper`, `collisionHandler?`): `Promise`\<`Record`\<`string`, `V`\>\>
+> **collectToObject**\<`V`\>(`mapper`, `collisionHandler`?): `Promise`\<`Record`\<`string`, `V`\>\>
 
 Collects items into a `Record` by mapping values into keys and new value
 
 #### Type parameters
 
-| Name | Description                         |
-| :--- | :---------------------------------- |
-| `V`  | The type of the values of the `Map` |
+• **V**
+
+The type of the values of the `Map`
 
 #### Parameters
 
-| Name                | Type                                                                    | Description                                                            |
-| :------------------ | :---------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper`            | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`string`, `V`]\> | Maps the values into [key, values] pairs                               |
-| `collisionHandler?` | [`CollisionHandler`](../README.md#collisionhandler)\<`string`, `V`\>    | Specifies how to handle the collision. Default is to ignore collision. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, [`string`, `V`]\>
+
+Maps the values into [key, values] pairs
+
+• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `V`\>
+
+Specifies how to handle the collision. Default is to ignore collision.
 
 #### Returns
 
@@ -350,7 +340,7 @@ Collects items into a `Record` by mapping values into keys and new value
 
 a `Promise` of a `Record` whose entries are the result of applying the `mapper` to the values of this [PromiseIterator](PromiseIterator.md).
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseIterator(['foo', 'bar', 'foobar']);
@@ -360,9 +350,9 @@ const data = await iter.collectToObject(s => [s, s.length]);
 
 ---
 
-### collectToSet
+### collectToSet()
 
-▸ **collectToSet**(): `Promise`\<`Set`\<`A`\>\>
+> **collectToSet**(): `Promise`\<`Set`\<`A`\>\>
 
 Collects items into a `Set`.
 
@@ -372,7 +362,7 @@ Collects items into a `Set`.
 
 a `Promise` of a `Set` consisting of the elements of this [PromiseIterator](PromiseIterator.md)
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseIterator([1, 2, 3, 1, 2, 3]);
@@ -382,23 +372,23 @@ const data = await iter.collectToSet();
 
 ---
 
-### concat
+### concat()
 
-▸ **concat**(`...iterables`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> **concat**(...`iterables`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Returns a new [PromiseIterator](PromiseIterator.md) that is the result of apepending all its argument to this [PromiseIterator](PromiseIterator.md)
 
 #### Parameters
 
-| Name           | Type                                                                                     | Description                                                                                               |
-| :------------- | :--------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `...iterables` | (`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\>)[] | An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md). |
+• ...**iterables**: (`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\>)[]
+
+An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 toPromiseIterator([1, 2, 3]).concat([4, 5, 6], [7, 8, 9]);
@@ -407,33 +397,33 @@ toPromiseIterator([1, 2, 3]).concat([4, 5, 6], [7, 8, 9]);
 
 ---
 
-### contains
+### contains()
 
-▸ **contains**(`predicate`): `Promise`\<`boolean`\>
+> **contains**(`predicate`): `Promise`\<`boolean`\>
 
 Returns true if this [PromiseIterator](PromiseIterator.md) yields an
-element for which the [predicate](../README.md#eventualpredicate)
+element for which the [predicate](../type-aliases/EventualPredicate.md)
 evaluates to true.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                |
-| :---------- | :----------------------------------------------------------- | :------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate to evaluate. |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate to evaluate.
 
 #### Returns
 
 `Promise`\<`boolean`\>
 
 true if this [PromiseIterator](PromiseIterator.md) yields an
-element for which the [predicate](../README.md#eventualpredicate)
+element for which the [predicate](../type-aliases/EventualPredicate.md)
 evaluates to true, false otherwise.
 
 ---
 
-### count
+### count()
 
-▸ **count**(): `Promise`\<`number`\>
+> **count**(): `Promise`\<`number`\>
 
 Returns the number of items in this [PromiseIterator](PromiseIterator.md).
 
@@ -441,7 +431,7 @@ Returns the number of items in this [PromiseIterator](PromiseIterator.md).
 
 `Promise`\<`number`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1, 2]).count(); // 2
@@ -451,29 +441,27 @@ await PromiseIterator.empty().count();
 
 ---
 
-### distinct
+### distinct()
 
-▸ **distinct**\<`K`\>(`mapper?`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **distinct**\<`K`\>(`mapper`?): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of distinct elements from this iterator.
 
 #### Type parameters
 
-| Name | Type |
-| :--- | :--- |
-| `K`  | `A`  |
+• **K** = `A`
 
 #### Parameters
 
-| Name      | Type                                                        | Description                                                                  |
-| :-------- | :---------------------------------------------------------- | :--------------------------------------------------------------------------- |
-| `mapper?` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `K`\> | Used to determine distinctness of elements. Default to <code>identity</code> |
+• **mapper?**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `K`\>
+
+Used to determine distinctness of elements. Default to <code>identity</code>
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await promiseIterator(toPromise[1,2,2,3,1,4])).distinct().collect();
@@ -485,9 +473,9 @@ await promiseIterator (toPromise[1,2,2,3,1,4]), x => x %2).distinct().collect();
 
 ---
 
-### enumerate
+### enumerate()
 
-▸ **enumerate**(`start?`): [`PromiseIterator`](PromiseIterator.md)\<[`A`, `number`]\>
+> **enumerate**(`start`): [`PromiseIterator`](PromiseIterator.md)\<[`A`, `number`]\>
 
 Returns a new [PromiseIterator](PromiseIterator.md) that yields pairs of elements
 consisting of the elements yielded by this
@@ -495,15 +483,15 @@ consisting of the elements yielded by this
 
 #### Parameters
 
-| Name    | Type     | Default value | Description        |
-| :------ | :------- | :------------ | :----------------- |
-| `start` | `number` | `0`           | The starting index |
+• **start**: `number`= `0`
+
+The starting index
 
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<[`A`, `number`]\>
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseiterator(['a', 'b', 'c']);
@@ -513,17 +501,17 @@ const enumerated = iter.enumerate(10);
 
 ---
 
-### filter
+### filter()
 
-▸ **filter**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **filter**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of elements for which the `predicate` evaluates to true.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                                    |
-| :---------- | :----------------------------------------------------------- | :--------------------------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | the predicate on which the evaluate the items. |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+the predicate on which the evaluate the items.
 
 #### Returns
 
@@ -531,7 +519,7 @@ Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of elemen
 
 a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of elements of this [AsyncFluentIterator](AsyncFluentIterator.md) for which the `predicate` evaluates to true.
 
-**`Example`**
+#### Example
 
 ```ts
 toPromiseiterator([1, 8, 2, 3, 4, 6]).filter(x => x % 2 === 1);
@@ -540,26 +528,26 @@ toPromiseiterator([1, 8, 2, 3, 4, 6]).filter(x => x % 2 === 1);
 
 ---
 
-### filterMap
+### filterMap()
 
-▸ **filterMap**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
+> **filterMap**\<`B`\>(`mapper`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`B`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applying the
-[Mapper](../README.md#mapper) to all elements of this [PromiseIterator](PromiseIterator.md) and
-filtering those for which the [EventualMapper](../README.md#eventualmapper) returned null or
+[Mapper](../type-aliases/Mapper.md) to all elements of this [PromiseIterator](PromiseIterator.md) and
+filtering those for which the [EventualMapper](../type-aliases/EventualMapper.md) returned null or
 undefined
 
 #### Type parameters
 
-| Name | Description                                                                            |
-| :--- | :------------------------------------------------------------------------------------- |
-| `B`  | The type of the elements of the returned [AsyncFluentIterator](AsyncFluentIterator.md) |
+• **B**
+
+The type of the elements of the returned [AsyncFluentIterator](AsyncFluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                                                                 | Description                                                                      |
-| :------- | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `undefined` \| `null` \| `B`\> | Transformation applied to elements of this [PromiseIterator](PromiseIterator.md) |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `undefined` \| `null` \| `B`\>
+
+Transformation applied to elements of this [PromiseIterator](PromiseIterator.md)
 
 #### Returns
 
@@ -567,7 +555,7 @@ undefined
 
 A new [AsyncFluentIterator](AsyncFluentIterator.md)
 
-**`Remarks`**
+#### Remarks
 
 ```ts
 iter.filterMap(mapper);
@@ -581,9 +569,9 @@ iter.map(mapper).removeNull();
 
 ---
 
-### first
+### first()
 
-▸ **first**(): `Promise`\<`undefined` \| `A`\>
+> **first**(): `Promise`\<`undefined` \| `A`\>
 
 Returns the first element of this [PromiseIterator](PromiseIterator.md) or `undefined` if this [PromiseIterator](PromiseIterator.md) is empty.
 
@@ -595,29 +583,27 @@ The first element of this [PromiseIterator](PromiseIterator.md) or `undefined`.
 
 ---
 
-### flatmap
+### flatmap()
 
-▸ **flatmap**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
+> **flatmap**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
-Returns a new [PromiseIterator](PromiseIterator.md) for [EventualMapper](../README.md#eventualmapper) that accept a `Promise` rather than an `Awaited` value.
+Returns a new [PromiseIterator](PromiseIterator.md) for [EventualMapper](../type-aliases/EventualMapper.md) that accept a `Promise` rather than an `Awaited` value.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+• **B**
 
 #### Parameters
 
-| Name     | Type                                                                     | Description                                                            |
-| :------- | :----------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`Promise`\<`A`\>, `B`\> | [EventualMapper](../README.md#eventualmapper) accepting a `Promise<A>` |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`Promise`\<`A`\>, `B`\>
+
+[EventualMapper](../type-aliases/EventualMapper.md) accepting a `Promise<A>`
 
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseIterator([1, 2]);
@@ -627,11 +613,11 @@ yields: Promise(2), Promise(4);
 
 ---
 
-### fold
+### fold()
 
-▸ **fold**\<`B`\>(`reducer`, `initialValue`): `Promise`\<`B`\>
+> **fold**\<`B`\>(`reducer`, `initialValue`): `Promise`\<`B`\>
 
-Executes the [reducer](../README.md#eventualreducer) function on each element
+Executes the [reducer](../type-aliases/EventualReducer.md) function on each element
 of this [PromiseIterator](PromiseIterator.md), in order, passing in
 the return value from the calculation on the preceding element. The
 final result of running the reducer across all elements of the array
@@ -639,30 +625,31 @@ is a single value.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+• **B**
 
 #### Parameters
 
-| Name           | Type                                                          | Description                                                            |
-| :------------- | :------------------------------------------------------------ | :--------------------------------------------------------------------- |
-| `reducer`      | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `B`\> | The reducer to be applied at each iteration.                           |
-| `initialValue` | `B`                                                           | The value of the accumulator to be used in the first call to `reducer` |
+• **reducer**: [`EventualReducer`](../type-aliases/EventualReducer.md)\<`A`, `B`\>
+
+The reducer to be applied at each iteration.
+
+• **initialValue**: `B`
+
+The value of the accumulator to be used in the first call to `reducer`
 
 #### Returns
 
 `Promise`\<`B`\>
 
-**`Param Type`**
+#### Param Type
 
 B the type into which the elements are being folded to
 
-**`Remarks`**
+#### Remarks
 
 If the [PromiseIterator](PromiseIterator.md) is empty, `initialValue` is returned.
 
-**`Example`**
+#### Example
 
 ```ts
 To compute the sum of elements:
@@ -673,29 +660,29 @@ const sum = await toPromiseIterator([1,2,3])
 
 ---
 
-### forEach
+### forEach()
 
-▸ **forEach**(`mapper`): `Promise`\<`void`\>
+> **forEach**(`mapper`): `Promise`\<`void`\>
 
-Applies the [mapper](../README.md#eventualmapper) to each element of this [FluentIterator](FluentIterator.md)
+Applies the [mapper](../type-aliases/EventualMapper.md) to each element of this [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                                          | Description                                  |
-| :------- | :------------------------------------------------------------ | :------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> | the operation to be invoked on each element. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `any`\>
+
+the operation to be invoked on each element.
 
 #### Returns
 
 `Promise`\<`void`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await iter.forEach(console.log);
 ```
 
-**`Remarks`**
+#### Remarks
 
 The results of invoking the `mapper` are ignored unless it throws.
 
@@ -707,31 +694,29 @@ for (const v of iter) await mapper(await v);
 
 ---
 
-### groupBy
+### groupBy()
 
-▸ **groupBy**\<`K`\>(`mapper`): `Promise`\<`Map`\<`K`, `A`[]\>\>
+> **groupBy**\<`K`\>(`mapper`): `Promise`\<`Map`\<`K`, `A`[]\>\>
 
-Returns a `Promise` of a `Map` where keys are the result of applying the parameter [mapper](../README.md#eventualmapper) to the elements of the
+Returns a `Promise` of a `Map` where keys are the result of applying the parameter [mapper](../type-aliases/EventualMapper.md) to the elements of the
 this [PromiseIterator](PromiseIterator.md) and the values are Arrays of
 the elements that are mapped to the same key.
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `K`  |
+• **K**
 
 #### Parameters
 
-| Name     | Type                                                        | Description                                                            |
-| :------- | :---------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `K`\> | The [EventualMapper](../README.md#eventualmapper) used to group items. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `K`\>
+
+The [EventualMapper](../type-aliases/EventualMapper.md) used to group items.
 
 #### Returns
 
 `Promise`\<`Map`\<`K`, `A`[]\>\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1, 2, 3]).groupBy(x => x % 2 === 0);
@@ -740,31 +725,30 @@ await toPromiseIterator([1, 2, 3]).groupBy(x => x % 2 === 0);
 
 ---
 
-### groupBy2
+### groupBy2()
 
-▸ **groupBy2**\<`K`, `V`\>(`mapper`): `Promise`\<`Map`\<`K`, `V`[]\>\>
+> **groupBy2**\<`K`, `V`\>(`mapper`): `Promise`\<`Map`\<`K`, `V`[]\>\>
 
-Returns a `Promise` of a `Map` where entries are the result of applying the parameter [mapper](../README.md#eventualmapper) to the elements of the
+Returns a `Promise` of a `Map` where entries are the result of applying the parameter [mapper](../type-aliases/EventualMapper.md) to the elements of the
 this [PromiseIterator](PromiseIterator.md),
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `K`  |
-| `V`  |
+• **K**
+
+• **V**
 
 #### Parameters
 
-| Name     | Type                                                               | Description                                                            |
-| :------- | :----------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, [`K`, `V`]\> | The [EventualMapper](../README.md#eventualmapper) used to group items. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, [`K`, `V`]\>
+
+The [EventualMapper](../type-aliases/EventualMapper.md) used to group items.
 
 #### Returns
 
 `Promise`\<`Map`\<`K`, `V`[]\>\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1,2,3]).groupBy2(x => [x % 2 === 0, 2 * x];
@@ -773,17 +757,17 @@ await toPromiseIterator([1,2,3]).groupBy2(x => [x % 2 === 0, 2 * x];
 
 ---
 
-### includes
+### includes()
 
-▸ **includes**(`target`): `Promise`\<`boolean`\>
+> **includes**(`target`): `Promise`\<`boolean`\>
 
 Returns true if this [PromiseIterator](PromiseIterator.md) yields an element equals to `target`
 
 #### Parameters
 
-| Name     | Type                                           | Description       |
-| :------- | :--------------------------------------------- | :---------------- |
-| `target` | [`Eventually`](../README.md#eventually)\<`A`\> | value to look for |
+• **target**: [`Eventually`](../type-aliases/Eventually.md)\<`A`\>
+
+value to look for
 
 #### Returns
 
@@ -792,7 +776,7 @@ Returns true if this [PromiseIterator](PromiseIterator.md) yields an element equ
 A boolean promise resolving to true if this [AsyncFluentIterator](AsyncFluentIterator.md) yields an element equals to `target`, or resolving to false otherwise.
 @
 
-**`Remarks`**
+#### Remarks
 
 ```ts
 iter.includes(target);
@@ -806,40 +790,44 @@ iter.contains(x => x === target);
 
 ---
 
-### join
+### join()
 
-▸ **join**(`separator?`, `prefix?`, `suffix?`): `Promise`\<`string`\>
+> **join**(`separator`?, `prefix`?, `suffix`?): `Promise`\<`string`\>
 
 Joins items of this [PromiseIterator](PromiseIterator.md) into a string.
 
 #### Parameters
 
-| Name         | Type     | Description                                |
-| :----------- | :------- | :----------------------------------------- |
-| `separator?` | `string` | string used to delimite elements           |
-| `prefix?`    | `string` | string used to prefix the resulting string |
-| `suffix?`    | `string` | -                                          |
+• **separator?**: `string`
+
+string used to delimite elements
+
+• **prefix?**: `string`
+
+string used to prefix the resulting string
+
+• **suffix?**: `string`
 
 #### Returns
 
 `Promise`\<`string`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1, 2, 3]).join(',', '[', ']');
 // "[1,2,3]"
 ```
 
-**`Remarks`**
+#### Remarks
 
 The items are converted into a string using string-interpolation.
 
 ---
 
-### last
+### last()
 
-▸ **last**(): `Promise`\<`undefined` \| `A`\>
+> **last**(): `Promise`\<`undefined` \| `A`\>
 
 Returns a Promise of the last element of this [PromiseIterator](PromiseIterator.md)
 
@@ -847,7 +835,7 @@ Returns a Promise of the last element of this [PromiseIterator](PromiseIterator.
 
 `Promise`\<`undefined` \| `A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1, 2]).last();
@@ -859,23 +847,23 @@ await PromiseIterator.empty().last();
 
 ---
 
-### map
+### map()
 
-▸ **map**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
+> **map**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
-Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applying the [Mapper](../README.md#mapper) to all elements of this [PromiseIterator](PromiseIterator.md).
+Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [PromiseIterator](PromiseIterator.md).
 
 #### Type parameters
 
-| Name | Description                                                                  |
-| :--- | :--------------------------------------------------------------------------- |
-| `B`  | The type of the elements of the returned [FluentIterator](FluentIterator.md) |
+• **B**
+
+The type of the elements of the returned [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-| Name     | Type                                                        | Description                                                                      |
-| :------- | :---------------------------------------------------------- | :------------------------------------------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `B`\> | Transformation applied to elements of this [PromiseIterator](PromiseIterator.md) |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `B`\>
+
+Transformation applied to elements of this [PromiseIterator](PromiseIterator.md)
 
 #### Returns
 
@@ -883,7 +871,7 @@ Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applyi
 
 A new [AsyncFluentIterator](AsyncFluentIterator.md)
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseIterator(['foo','bar',foobar'])
@@ -893,23 +881,21 @@ iter.map(s => s.length)
 
 ---
 
-### max
+### max()
 
-▸ **max**(`comparator?`): `Promise`\<`undefined` \| `A`\>
+> **max**(`comparator`?): `Promise`\<`undefined` \| `A`\>
 
-Returns the maximum element according to the argument [comparator](../README.md#comparator).
+Returns the maximum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           |
-| :------------ | :--------------------------------------------- |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 #### Returns
 
 `Promise`\<`undefined` \| `A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1, 2]).max();
@@ -923,23 +909,23 @@ await PromiseIterator.empty().max(); // undefined
 
 ---
 
-### min
+### min()
 
-▸ **min**(`comparator?`): `Promise`\<`undefined` \| `A`\>
+> **min**(`comparator`?): `Promise`\<`undefined` \| `A`\>
 
-Returns the minimum element according to the argument [comparator](../README.md#comparator).
+Returns the minimum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           | Description                                       |
-| :------------ | :--------------------------------------------- | :------------------------------------------------ |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> | The {link Comparator} used to order the elements. |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
+
+The {link Comparator} used to order the elements.
 
 #### Returns
 
 `Promise`\<`undefined` \| `A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1,2]).min();
@@ -956,23 +942,21 @@ await PrommiseIterator.empty().min();
 
 ---
 
-### minmax
+### minmax()
 
-▸ **minmax**(`comparator?`): `Promise`\<`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>\>
+> **minmax**(`comparator`?): `Promise`\<`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>\>
 
-Returns the minimum and maximum element according to the argument [comparator](../README.md#comparator).
+Returns the minimum and maximum element according to the argument [comparator](../type-aliases/Comparator.md).
 
 #### Parameters
 
-| Name          | Type                                           |
-| :------------ | :--------------------------------------------- |
-| `comparator?` | [`Comparator`](../README.md#comparator)\<`A`\> |
+• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 #### Returns
 
 `Promise`\<`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1, 2]).minmax();
@@ -987,9 +971,9 @@ await PromiseIterator.empty().minmax();
 
 ---
 
-### next
+### next()
 
-▸ **next**(): `IteratorResult`\<`Promise`\<`A`\>, `any`\>
+> **next**(): `IteratorResult`\<`Promise`\<`A`\>, `any`\>
 
 Used to make this [PromiseIterator](PromiseIterator.md) being seen as an
 `Iterator<Promise<A?>`. This allows [PromiseIterator](PromiseIterator.md) objects to be
@@ -1001,58 +985,58 @@ used in APIs expecting an `Iterator<Promise<A>>`
 
 #### Implementation of
 
-Iterator.next
+`Iterator.next`
 
 ---
 
-### partition
+### partition()
 
-▸ **partition**(`size`): [`FluentIterator`](FluentIterator.md)\<`Promise`\<`A`\>[]\>
+> **partition**(`size`): [`FluentIterator`](FluentIterator.md)\<`Promise`\<`A`\>[]\>
 
 Returns a new [PromiseIterator](PromiseIterator.md) consiting of
 partitions (arrays) of at most `size` elements.
 
 #### Parameters
 
-| Name   | Type     | Description                 |
-| :----- | :------- | :-------------------------- |
-| `size` | `number` | The size of the partitions. |
+• **size**: `number`
+
+The size of the partitions.
 
 #### Returns
 
 [`FluentIterator`](FluentIterator.md)\<`Promise`\<`A`\>[]\>
 
-**`Example`**
+#### Example
 
 ```ts
 toPromiseIterator([1, 2, 3, 4, 5]).partition(2);
 // yields Promise([1, 2](, Promise([3, 4](, Promise([5])
 ```
 
-**`Remarks`**
+#### Remarks
 
 The last partition may contain less than `size` elements but is
 never empty.
 
 ---
 
-### prepend
+### prepend()
 
-▸ **prepend**(`items`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> **prepend**(`items`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Returns a new [PromiseIterator](PromiseIterator.md) that is the result of prepending its argument to this [PromiseIterator](PromiseIterator.md)
 
 #### Parameters
 
-| Name    | Type                                                                                 | Description                                                                                          |
-| :------ | :----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
-| `items` | `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\> | An `Iterator` or `Iterable` whose items are prepended to this [PromiseIterator](PromiseIterator.md). |
+• **items**: `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\>
+
+An `Iterator` or `Iterable` whose items are prepended to this [PromiseIterator](PromiseIterator.md).
 
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 toPromiseIterator([1, 2]).prepend([5, 6]);
@@ -1061,9 +1045,9 @@ toPromiseIterator([1, 2]).prepend([5, 6]);
 
 ---
 
-### race
+### race()
 
-▸ **race**(): `Promise`\<`undefined` \| `A`\>
+> **race**(): `Promise`\<`undefined` \| `A`\>
 
 Fluent version of `Promise.race`
 
@@ -1073,28 +1057,31 @@ Fluent version of `Promise.race`
 
 ---
 
-### reduce
+### reduce()
 
-▸ **reduce**(`reducer`, `initialValue?`): `Promise`\<`undefined` \| `A`\>
+> **reduce**(`reducer`, `initialValue`?): `Promise`\<`undefined` \| `A`\>
 
 Special case of [PromiseIterator.fold](PromiseIterator.md#fold) where items being iteraded on and the accumulator are of the same type.
 
 #### Parameters
 
-| Name            | Type                                                          | Description                                                                                                                                                  |
-| :-------------- | :------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `reducer`       | [`EventualReducer`](../README.md#eventualreducer)\<`A`, `A`\> | The reducer to be applied at each iteration.                                                                                                                 |
-| `initialValue?` | [`Eventually`](../README.md#eventually)\<`A`\>                | The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this [PromiseIterator](PromiseIterator.md) is used. |
+• **reducer**: [`EventualReducer`](../type-aliases/EventualReducer.md)\<`A`, `A`\>
+
+The reducer to be applied at each iteration.
+
+• **initialValue?**: [`Eventually`](../type-aliases/Eventually.md)\<`A`\>
+
+The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this [PromiseIterator](PromiseIterator.md) is used.
 
 #### Returns
 
 `Promise`\<`undefined` \| `A`\>
 
-**`Remarks`**
+#### Remarks
 
 If the [PromiseIterator](PromiseIterator.md) is empty, `initialValue` is returned.
 
-**`Example`**
+#### Example
 
 ```ts
 To compute the sum of elements:
@@ -1105,9 +1092,9 @@ const sum = await toPromiseIterator([1,2,3])
 
 ---
 
-### removeNull
+### removeNull()
 
-▸ **removeNull**(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **removeNull**(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of elements of this [AsyncFluentIterator](AsyncFluentIterator.md) that are not `null` nor `undefined`
 
@@ -1119,17 +1106,17 @@ a new [AsyncFluentIterator](AsyncFluentIterator.md) where all the `null` or `und
 
 ---
 
-### skip
+### skip()
 
-▸ **skip**(`n`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> **skip**(`n`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Returns a [PromiseIterator](PromiseIterator.md) skipping the first `n` elements of this [PromiseIterator](PromiseIterator.md) and then yielding the subsequent ones.
 
 #### Parameters
 
-| Name | Type     | Description                    |
-| :--- | :------- | :----------------------------- |
-| `n`  | `number` | The number of elements to skip |
+• **n**: `number`
+
+The number of elements to skip
 
 #### Returns
 
@@ -1137,31 +1124,31 @@ Returns a [PromiseIterator](PromiseIterator.md) skipping the first `n` elements 
 
 a [PromiseIterator](PromiseIterator.md) skpping the first `n` elements of this [PromiseIterator](PromiseIterator.md).
 
-**`Remarks`**
+#### Remarks
 
 If there are less than `n` elements in this [PromiseIterator](PromiseIterator.md), then an empty [PromiseIterator](PromiseIterator.md) is returned.
 
 ---
 
-### skipWhile
+### skipWhile()
 
-▸ **skipWhile**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **skipWhile**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that skips elements of this
-[PromiseIterator](PromiseIterator.md) until the [predicate](../README.md#eventualpredicate)
+[PromiseIterator](PromiseIterator.md) until the [predicate](../type-aliases/EventualPredicate.md)
 evaluates to `true` and yields the subsequent ones.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                   |
-| :---------- | :----------------------------------------------------------- | :---------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 toPromiseIterator([1, 2, 3]).skipWhile(x => x < 2); // asynchronously yields 2, 3
@@ -1170,25 +1157,25 @@ toPromiseiterator([1, 2, 3]).skipWhile(x => x > 2); // asynchronously yields 1, 
 
 ---
 
-### some
+### some()
 
-▸ **some**(`predicate`): `Promise`\<`boolean`\>
+> **some**(`predicate`): `Promise`\<`boolean`\>
 
-Returns a `Promise` resolving to `true` if the [predicate](../README.md#eventualpredicate) argument evalatues to true for
+Returns a `Promise` resolving to `true` if the [predicate](../type-aliases/EventualPredicate.md) argument evalatues to true for
 some items of this [PromiseIterator](PromiseIterator.md), or resolving to
 false otherwsie.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                   |
-| :---------- | :----------------------------------------------------------- | :---------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 `Promise`\<`boolean`\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([1, 2]).some(x => x > 1); // true
@@ -1198,17 +1185,17 @@ await PromiseIterator.empty().some(_ => true); // false;
 
 ---
 
-### take
+### take()
 
-▸ **take**(`n`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> **take**(`n`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Returns a [PromiseIterator](PromiseIterator.md) yielding the first `n` elements of this [PromiseIterator](PromiseIterator.md).
 
 #### Parameters
 
-| Name | Type     | Description                    |
-| :--- | :------- | :----------------------------- |
-| `n`  | `number` | The number of elements to take |
+• **n**: `number`
+
+The number of elements to take
 
 #### Returns
 
@@ -1216,29 +1203,29 @@ Returns a [PromiseIterator](PromiseIterator.md) yielding the first `n` elements 
 
 a [PromiseIterator](PromiseIterator.md) yielding the first `n` elements of this [PromiseIterator](PromiseIterator.md).
 
-**`Remarks`**
+#### Remarks
 
 If there are less than `n` elements in this [PromiseIterator](PromiseIterator.md), then only the available elements will be yielded.
 
 ---
 
-### takeWhile
+### takeWhile()
 
-▸ **takeWhile**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+> **takeWhile**(`predicate`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that yields elements of this [PromiseIterator](PromiseIterator.md) while the [predicate](../README.md#eventualpredicate) evaluates to `true`.
+Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that yields elements of this [PromiseIterator](PromiseIterator.md) while the [predicate](../type-aliases/EventualPredicate.md) evaluates to `true`.
 
 #### Parameters
 
-| Name        | Type                                                         | Description                   |
-| :---------- | :----------------------------------------------------------- | :---------------------------- |
-| `predicate` | [`EventualPredicate`](../README.md#eventualpredicate)\<`A`\> | The predicate being evaluated |
+• **predicate**: [`EventualPredicate`](../type-aliases/EventualPredicate.md)\<`A`\>
+
+The predicate being evaluated
 
 #### Returns
 
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
-**`Example`**
+#### Example
 
 ```ts
 toPromiseIterator([1, 2, 3]).takeWhile(x => x < 2); // async yields 1
@@ -1247,9 +1234,9 @@ toPromiseIterator([1, 2, 3]).takeWhile(x => x > 2); // empty async iterator
 
 ---
 
-### tally
+### tally()
 
-▸ **tally**(): `Promise`\<`Map`\<`A`, `number`\>\>
+> **tally**(): `Promise`\<`Map`\<`A`, `number`\>\>
 
 Returns a `Promise` of a `Map` of the count of the occurences of each items of
 this [PromiseIterator](PromiseIterator.md),
@@ -1258,7 +1245,7 @@ this [PromiseIterator](PromiseIterator.md),
 
 `Promise`\<`Map`\<`A`, `number`\>\>
 
-**`Example`**
+#### Example
 
 ```ts
 await toPromiseIterator([foo','bar','foo']).tally();
@@ -1267,29 +1254,29 @@ await toPromiseIterator([foo','bar','foo']).tally();
 
 ---
 
-### tap
+### tap()
 
-▸ **tap**(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> **tap**(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Returns a new [PromiseIterator](PromiseIterator.md) that
 yields the same elements as this [PromiseIterator](PromiseIterator.md)
-and executes the [mapper](../README.md#eventualmapper) on each element.
+and executes the [mapper](../type-aliases/EventualMapper.md) on each element.
 
 #### Parameters
 
-| Name     | Type                                                          | Description                                  |
-| :------- | :------------------------------------------------------------ | :------------------------------------------- |
-| `mapper` | [`EventualMapper`](../README.md#eventualmapper)\<`A`, `any`\> | the operation to be invoked on each element. |
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`A`, `any`\>
+
+the operation to be invoked on each element.
 
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
-**`Remarks`**
+#### Remarks
 
 This can be useful to see intermediate steps of complex [PromiseIterator](PromiseIterator.md). The results of invoking the `mapper` are ignored unless it throwws.
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromise([1, 2, 3]);
@@ -1308,30 +1295,26 @@ iter
 
 ---
 
-### transform
+### transform()
 
-▸ **transform**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
+> **transform**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
 Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
 This method allows to extends the class [FluentIterator](FluentIterator.md) using `Iterator` transformation`
 
 #### Type parameters
 
-| Name |
-| :--- |
-| `B`  |
+• **B**
 
 #### Parameters
 
-| Name     | Type                                                                                                                                      |
-| :------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
-| `mapper` | [`Mapper`](../README.md#mapper)\<`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>, `Iterator`\<`Promise`\<`B`\>, `any`, `undefined`\>\> |
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>, `Iterator`\<`Promise`\<`B`\>, `any`, `undefined`\>\>
 
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
-**`Example`**
+#### Example
 
 ```ts
 function doublePromiseIterator(Iterator<Promise<number>>: iter) {
@@ -1347,9 +1330,9 @@ await iterator([1,2,3]).toPromise().transform(doublePromiseIterator).collect()
 
 ---
 
-### zip
+### zip()
 
-▸ **zip**\<`B`\>(`other`): [`PromiseIterator`](PromiseIterator.md)\<[`A`, `B`]\>
+> **zip**\<`B`\>(`other`): [`PromiseIterator`](PromiseIterator.md)\<[`A`, `B`]\>
 
 Returns a new [PromiseIterator](PromiseIterator.md) that yields pairs of elements
 yielded by each Iterators which are navigated in parallel.
@@ -1357,21 +1340,21 @@ The length of the new [PromiseIterator](PromiseIterator.md) is equal to the leng
 
 #### Type parameters
 
-| Name | Description                                   |
-| :--- | :-------------------------------------------- |
-| `B`  | The type of elements of the `other` iterator. |
+• **B**
+
+The type of elements of the `other` iterator.
 
 #### Parameters
 
-| Name    | Type                                                                                 | Description                                  |
-| :------ | :----------------------------------------------------------------------------------- | :------------------------------------------- |
-| `other` | `Iterator`\<`Promise`\<`B`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`B`\>\> | The iterator that is combined with this one. |
+• **other**: `Iterator`\<`Promise`\<`B`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`B`\>\>
+
+The iterator that is combined with this one.
 
 #### Returns
 
 [`PromiseIterator`](PromiseIterator.md)\<[`A`, `B`]\>
 
-**`Example`**
+#### Example
 
 ```ts
 const iter = toPromiseIterator([1, 2, 3]);
@@ -1381,17 +1364,17 @@ const zipped = iter.zip(asyncIterator(['a', 'b']));
 
 ---
 
-### empty
+### empty()
 
-▸ **empty**\<`A`\>(): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> `static` **empty**\<`A`\>(): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Creates an empty [PromiseIterator](PromiseIterator.md). The returned iterator will not yield any element.
 
 #### Type parameters
 
-| Name | Type    | Description                                  |
-| :--- | :------ | :------------------------------------------- |
-| `A`  | `never` | the type of elements of the `FluentIterator` |
+• **A** = `never`
+
+the type of elements of the `FluentIterator`
 
 #### Returns
 
@@ -1401,23 +1384,23 @@ An empty [PromiseIterator](PromiseIterator.md)
 
 ---
 
-### from
+### from()
 
-▸ **from**\<`A`\>(`generator`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+> `static` **from**\<`A`\>(`generator`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 Creates a [PromiseIterator](PromiseIterator.md) from an `IteratorGenerator<Promise<A>>`.
 
 #### Type parameters
 
-| Name | Description          |
-| :--- | :------------------- |
-| `A`  | the type of elements |
+• **A**
+
+the type of elements
 
 #### Parameters
 
-| Name        | Type                                                                      | Description                                                                       |
-| :---------- | :------------------------------------------------------------------------ | :-------------------------------------------------------------------------------- |
-| `generator` | [`IteratorGenerator`](../README.md#iteratorgenerator)\<`Promise`\<`A`\>\> | Used to generate an `AsyncIterator` that will be wrapped into a `PromiseIterator` |
+• **generator**: [`IteratorGenerator`](../type-aliases/IteratorGenerator.md)\<`Promise`\<`A`\>\>
+
+Used to generate an `AsyncIterator` that will be wrapped into a `PromiseIterator`
 
 #### Returns
 

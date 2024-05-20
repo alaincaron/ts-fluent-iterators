@@ -1,0 +1,21 @@
+[**ts-fluent-iterators**](../README.md) • **Docs**
+
+---
+
+[ts-fluent-iterators](../README.md) / EventualMapper
+
+# Type alias: EventualMapper\<A, B\>
+
+> **EventualMapper**\<`A`, `B`\>: [`Mapper`](Mapper.md)\<`A`, [`Eventually`](Eventually.md)\<`B`\>\>
+
+A function mapping a value of type `A` to type `Eventually<B>`
+
+## Type parameters
+
+• **A**
+
+the source type on which the `EventualMapper` is applied.
+
+• **B**
+
+the target type
