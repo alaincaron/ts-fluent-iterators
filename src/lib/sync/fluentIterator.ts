@@ -53,6 +53,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * const iter = FluentIterator.from([1,2,3]);
    */
   static from<A>(generator: IteratorGenerator<A>): FluentIterator<A> {
+    if (generator instanceof FluentIterator) return generator;
     return new FluentIterator(Iterators.toIterator(generator));
   }
 

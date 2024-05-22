@@ -55,6 +55,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
    * @returns A new `AsyncFluentIterator`
    */
   static from<A>(generator: AsyncIteratorGenerator<A>): AsyncFluentIterator<A> {
+    if (generator instanceof AsyncFluentIterator) return generator;
     return new AsyncFluentIterator(Iterators.toAsyncIterator(generator));
   }
 

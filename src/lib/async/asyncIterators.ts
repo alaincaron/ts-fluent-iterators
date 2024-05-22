@@ -11,30 +11,18 @@ import {
 } from '../types';
 
 export function toAsyncIterator<A>(iter: AsyncIteratorGenerator<A>): AsyncIterator<A> {
-  const x: any = iter;
-  if (typeof x?.next === 'function') {
-    return x as AsyncIterator<A>;
-  }
-  if (typeof x?.[Symbol.asyncIterator] === 'function') {
-    return (x as AsyncIterable<A>)[Symbol.asyncIterator]();
-  }
-  if (typeof x?.[Symbol.iterator] === 'function') {
-    return toAsync((x as Iterable<A>)[Symbol.iterator]());
-  }
+  if ('next' in iter && typeof iter.next === 'function') return iter;
+  if (Symbol.asyncIterator in iter && typeof iter[Symbol.asyncIterator] === 'function')
+    return iter[Symbol.asyncIterator]();
+  if (Symbol.iterator in iter && typeof iter[Symbol.iterator] === 'function') return toAsync(iter[Symbol.iterator]());
   throw new Error(`Invalid non-iterable object: ${iter}`);
 }
 
 export function toEventualIterator<A>(iter: EventualIterator<A> | EventualIterable<A>): EventualIterator<A> {
-  const x: any = iter;
-  if (typeof x?.next === 'function') {
-    return x as EventualIterator<A>;
-  }
-  if (typeof x?.[Symbol.iterator] === 'function') {
-    return (x as Iterable<A>)[Symbol.iterator]();
-  }
-  if (typeof x?.[Symbol.asyncIterator] === 'function') {
-    return (x as AsyncIterable<A>)[Symbol.asyncIterator]();
-  }
+  if ('next' in iter && typeof iter.next === 'function') return iter;
+  if (Symbol.iterator in iter && typeof iter[Symbol.iterator] === 'function') return iter[Symbol.iterator]();
+  if (Symbol.asyncIterator in iter && typeof iter[Symbol.asyncIterator] === 'function')
+    return iter[Symbol.asyncIterator]();
   throw new Error(`Invalid non-iterable object: ${iter}`);
 }
 
