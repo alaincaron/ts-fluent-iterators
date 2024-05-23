@@ -245,16 +245,12 @@ function* seedToIterator<E>(n: number, seed: (i: number) => E) {
 }
 
 function arrayLikeToIterator<E>(arrayLike: ArrayGenerator<E>): Iterator<E> | null {
-  const { seed, length }: { seed: any; length: number } = arrayLike;
+  const { seed, length } = arrayLike;
   if (seed == null || length == null) return null;
-  if (typeof seed === 'function') {
-    return seedToIterator(length, seed);
-  }
-  if (typeof seed.next === 'function') {
-    return take(seed as Iterator<E>, length);
-  } else if (typeof seed[Symbol.iterator] === 'function') {
-    return take((seed as Iterable<E>)[Symbol.iterator](), length);
-  }
+  if (typeof seed === 'function') return seedToIterator(length, seed);
+  if ('next' in seed && typeof seed.next === 'function') return take(seed, length);
+  if (Symbol.iterator in seed && typeof seed[Symbol.iterator] === 'function')
+    return take(seed[Symbol.iterator](), length);
   return null;
 }
 
