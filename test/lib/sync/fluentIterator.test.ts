@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
 import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
-import { defaultComparator } from '../../../src/lib/comparators';
+import * as Comparators from '../../../src/lib/comparators';
 import { emptyIterator as empty, first, iterator, map, range, toIterator } from '../../../src/lib/sync';
 
 describe('SyncFluentIterator', () => {
@@ -357,7 +357,7 @@ describe('SyncFluentIterator', () => {
 
   describe('min', () => {
     it('should return the shortest string', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).min((a, b) => defaultComparator(a.length, b.length))).equal('x');
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).min((a, b) => Comparators.natural(a.length, b.length))).equal('x');
     });
     it('should return lexicographically smallest string', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).min()).equal('bar');
@@ -366,7 +366,7 @@ describe('SyncFluentIterator', () => {
 
   describe('max', () => {
     it('should return the longest string', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).max((a, b) => defaultComparator(a.length, b.length))).equal(
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).max((a, b) => Comparators.natural(a.length, b.length))).equal(
         'foobar'
       );
     });
@@ -378,7 +378,7 @@ describe('SyncFluentIterator', () => {
   describe('minmax', () => {
     it('should return the longest and shortest strings', () => {
       expect(
-        iterator(['foo', 'bar', 'x', 'foobar']).minmax((a, b) => defaultComparator(a.length, b.length))
+        iterator(['foo', 'bar', 'x', 'foobar']).minmax((a, b) => Comparators.natural(a.length, b.length))
       ).deep.equal({
         min: 'x',
         max: 'foobar',

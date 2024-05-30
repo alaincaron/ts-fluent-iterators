@@ -2,13 +2,13 @@
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / defaultComparator
+[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / natural
 
-# Function: defaultComparator()
+# Function: natural()
 
-> **defaultComparator**\<`A`\>(`a1`, `a2`): `-1` \| `0` \| `1`
+> **natural**\<`A`\>(`a1`, `a2`): `-1` \| `0` \| `1`
 
-Default comparator.
+Natural comparator.
 
 ## Type parameters
 

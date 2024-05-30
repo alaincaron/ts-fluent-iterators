@@ -34,7 +34,7 @@ c.result : { min: 'bar', max: 'foo' }
 
 #### Parameters
 
-• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>= `defaultComparator`
+• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>= `Comparators.natural`
 
 The comparator used to compare elements. Default is natural ordering.
 

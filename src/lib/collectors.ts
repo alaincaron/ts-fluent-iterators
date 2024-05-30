@@ -1,4 +1,4 @@
-import { defaultComparator } from './comparators';
+import * as Comparators from './comparators';
 import { emptyIterator, FluentIterator } from './sync';
 import { CollisionHandler, Comparator, MinMax } from './types';
 
@@ -335,7 +335,7 @@ export class MinCollector<A> implements Collector<A, A | undefined> {
   /**
    * @param comparator The comparator used to compare elements. Default is natural ordering.
    */
-  constructor(private readonly comparator: Comparator<A> = defaultComparator) {}
+  constructor(private readonly comparator: Comparator<A> = Comparators.natural) {}
 
   collect(a: A) {
     if (this.acc === undefined || this.comparator(a, this.acc) < 0) this.acc = a;
@@ -360,7 +360,7 @@ export class MaxCollector<A> implements Collector<A, A | undefined> {
   /**
    * @param comparator The comparator used to compare elements. Default is natural ordering.
    */
-  constructor(private readonly comparator: Comparator<A> = defaultComparator) {}
+  constructor(private readonly comparator: Comparator<A> = Comparators.natural) {}
 
   collect(a: A) {
     if (this.acc === undefined || this.comparator(a, this.acc) > 0) this.acc = a;
@@ -386,7 +386,7 @@ export class MinMaxCollector<A> implements Collector<A, MinMax<A> | undefined> {
   /**
    * @param comparator The comparator used to compare elements. Default is natural ordering.
    */
-  constructor(private readonly comparator: Comparator<A> = defaultComparator) {}
+  constructor(private readonly comparator: Comparator<A> = Comparators.natural) {}
 
   collect(a: A) {
     if (this.acc === undefined) this.acc = { min: a, max: a };

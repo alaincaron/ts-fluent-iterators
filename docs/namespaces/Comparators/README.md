@@ -10,5 +10,6 @@
 
 ### Functions
 
-- [defaultComparator](functions/defaultComparator.md)
-- [reverseComparator](functions/reverseComparator.md)
+- [natural](functions/natural.md)
+- [reverse](functions/reverse.md)
+- [reversed](functions/reversed.md)
