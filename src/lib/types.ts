@@ -149,7 +149,7 @@ export interface ArrayGenerator<E> {
  * An object that behaves like an iterator.
  * @typeParam E the type of the objects that can be iterated on
  */
-export type IteratorLike<E> = ((i: number) => E) | Iterator<E> | Iterable<E>;
+export type IteratorLike<E> = Mapper<number, E> | Iterator<E> | Iterable<E>;
 
 /**
  * An object that can generate an iterator.
@@ -178,7 +178,7 @@ export interface AsyncArrayGenerator<E> {
  * An object that behaves like an `AsyncIterator`.
  * @typeParam E the type of the objects that can be iterated on
  */
-export type AsyncIteratorLike<E> = ((i: number) => Promise<E>) | AsyncIterator<E> | AsyncIterable<E> | Iterable<E>;
+export type AsyncIteratorLike<E> = EventualMapper<number, E> | AsyncIterator<E> | AsyncIterable<E> | Iterable<E>;
 
 /**
  * An object that can generate an asynchronous iterator.

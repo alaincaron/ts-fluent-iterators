@@ -238,13 +238,13 @@ export function* distinct<A, K = A>(
   }
 }
 
-function* seedToIterator<E>(n: number, seed: (i: number) => E) {
+function* seedToIterator<A>(n: number, seed: (i: number) => A) {
   for (let i = 0; i < n; ++i) {
     yield seed(i);
   }
 }
 
-function arrayLikeToIterator<E>(arrayLike: ArrayGenerator<E>): Iterator<E> | null {
+function arrayLikeToIterator<A>(arrayLike: ArrayGenerator<A>): Iterator<A> | null {
   const { seed, length } = arrayLike;
   if (seed == null || length == null) return null;
   if (typeof seed === 'function') return seedToIterator(length, seed);
@@ -254,10 +254,10 @@ function arrayLikeToIterator<E>(arrayLike: ArrayGenerator<E>): Iterator<E> | nul
   return null;
 }
 
-export function toIteratorMaybe<E>(iter: IteratorGenerator<E>): Iterator<E> | null {
+export function toIteratorMaybe<A>(iter: IteratorGenerator<A>): Iterator<A> | null {
   switch (typeof iter) {
     case 'string':
-      return (iter as string)[Symbol.iterator]() as Iterator<E>;
+      return (iter as string)[Symbol.iterator]() as Iterator<A>;
     case 'object':
       if ('next' in iter && typeof iter.next === 'function') return iter;
       if (Symbol.iterator in iter && typeof iter[Symbol.iterator] === 'function') return iter[Symbol.iterator]();
@@ -266,11 +266,11 @@ export function toIteratorMaybe<E>(iter: IteratorGenerator<E>): Iterator<E> | nu
     case 'function':
       return seedToIterator(Number.MAX_SAFE_INTEGER, iter);
   }
-  return arrayLikeToIterator(iter as unknown as ArrayGenerator<E>);
+  return arrayLikeToIterator(iter as unknown as ArrayGenerator<A>);
 }
 
-export function toIterator<E>(x: IteratorGenerator<E>): Iterator<E> {
+export function toIterator<A>(x: IteratorGenerator<A>): Iterator<A> {
   const iter = toIteratorMaybe(x);
   if (iter) return iter;
-  throw new Error('Unable to convert object into an Iterator');
+  throw new Error(`Invalid non-iterable object: ${x}`);
 }

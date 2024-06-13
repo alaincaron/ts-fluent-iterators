@@ -593,4 +593,12 @@ describe('AsyncFluentIterator', () => {
       expect(actual).to.deep.equal(expected);
     });
   });
+
+  describe('String iterator', () => {
+    it('should create an iterator from a string', async () => {
+      const str = 'foobar';
+      const actual = await iterator(str).join('');
+      expect(actual).to.equal(str);
+    });
+  });
 });
