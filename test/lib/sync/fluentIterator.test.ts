@@ -591,6 +591,11 @@ describe('SyncFluentIterator', () => {
   });
 
   describe('String iterator', () => {
+    it('should create an iterator from a string', () => {
+      const str = 'foobar';
+      const actual = iterator(str).join('');
+      expect(actual).to.equal(str);
+    });
     it('should add iterator to String prototype', () => {
       const str = 'foobar';
       const actual = str.iterator().join('');

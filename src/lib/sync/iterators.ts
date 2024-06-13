@@ -255,10 +255,17 @@ function arrayLikeToIterator<E>(arrayLike: ArrayGenerator<E>): Iterator<E> | nul
 }
 
 export function toIteratorMaybe<E>(iter: IteratorGenerator<E>): Iterator<E> | null {
-  if ('next' in iter && typeof iter.next === 'function') return iter;
-  if (Symbol.iterator in iter && typeof iter[Symbol.iterator] === 'function') return iter[Symbol.iterator]();
-  if ('iterator' in iter && typeof iter.iterator === 'function') return iter.iterator();
-  if (typeof iter === 'function') return seedToIterator(Number.MAX_SAFE_INTEGER, iter);
+  switch (typeof iter) {
+    case 'string':
+      return (iter as string)[Symbol.iterator]() as Iterator<E>;
+    case 'object':
+      if ('next' in iter && typeof iter.next === 'function') return iter;
+      if (Symbol.iterator in iter && typeof iter[Symbol.iterator] === 'function') return iter[Symbol.iterator]();
+      if ('iterator' in iter && typeof iter.iterator === 'function') return iter.iterator();
+      break;
+    case 'function':
+      return seedToIterator(Number.MAX_SAFE_INTEGER, iter);
+  }
   return arrayLikeToIterator(iter as unknown as ArrayGenerator<E>);
 }
 
