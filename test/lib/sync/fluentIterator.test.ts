@@ -357,7 +357,7 @@ describe('SyncFluentIterator', () => {
 
   describe('min', () => {
     it('should return the shortest string', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).min((a, b) => Comparators.natural(a.length, b.length))).equal('x');
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).min(Comparators.orderBy(s => s.length))).equal('x');
     });
     it('should return lexicographically smallest string', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).min()).equal('bar');
@@ -366,9 +366,7 @@ describe('SyncFluentIterator', () => {
 
   describe('max', () => {
     it('should return the longest string', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).max((a, b) => Comparators.natural(a.length, b.length))).equal(
-        'foobar'
-      );
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).max(Comparators.orderBy(s => s.length))).equal('foobar');
     });
     it('should return lexicographically largest string', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).max()).equal('x');
@@ -377,9 +375,7 @@ describe('SyncFluentIterator', () => {
 
   describe('minmax', () => {
     it('should return the longest and shortest strings', () => {
-      expect(
-        iterator(['foo', 'bar', 'x', 'foobar']).minmax((a, b) => Comparators.natural(a.length, b.length))
-      ).deep.equal({
+      expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax(Comparators.orderBy(s => s.length))).deep.equal({
         min: 'x',
         max: 'foobar',
       });

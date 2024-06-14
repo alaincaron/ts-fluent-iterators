@@ -10,6 +10,8 @@
 
 ### Functions
 
+- [compose](functions/compose.md)
 - [natural](functions/natural.md)
+- [orderBy](functions/orderBy.md)
 - [reverse](functions/reverse.md)
 - [reversed](functions/reversed.md)

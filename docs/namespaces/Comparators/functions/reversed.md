@@ -8,7 +8,7 @@
 
 > **reversed**\<`A`\>(`a1`, `a2`): `number`
 
-A `Comparator` that orders elements in the reverser order of the `natural` `Comparator`.
+A `Comparator` that orders elements in the reverse order of the `natural` `Comparator`.
 
 ## Type parameters
 
