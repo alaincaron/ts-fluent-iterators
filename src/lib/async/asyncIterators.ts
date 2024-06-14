@@ -1,6 +1,7 @@
 import { EventualCollector } from '../collectors';
 import { toIterator } from '../sync';
 import {
+  AsyncArrayGenerator,
   AsyncIteratorGenerator,
   EventualIterable,
   EventualIterator,
@@ -10,12 +11,45 @@ import {
   EventualReducer,
 } from '../types';
 
-export function toAsyncIterator<A>(iter: AsyncIteratorGenerator<A>): AsyncIterator<A> {
-  if ('next' in iter && typeof iter.next === 'function') return iter;
-  if (Symbol.asyncIterator in iter && typeof iter[Symbol.asyncIterator] === 'function')
-    return iter[Symbol.asyncIterator]();
-  if (Symbol.iterator in iter && typeof iter[Symbol.iterator] === 'function') return toAsync(iter[Symbol.iterator]());
-  throw new Error(`Invalid non-iterable object: ${iter}`);
+function arrayLikeToAsyncIterator<A>(arrayLike: AsyncArrayGenerator<A>): AsyncIterator<A> | null {
+  const { seed, length } = arrayLike;
+  if (seed == null || length == null) return null;
+  if (typeof seed === 'function') return seedToAsyncIterator(length, seed);
+  if ('next' in seed && typeof seed.next === 'function') return take(seed, length);
+  if (Symbol.iterator in seed && typeof seed[Symbol.iterator] === 'function')
+    return take(toAsync(seed[Symbol.iterator]()), length);
+  if (Symbol.asyncIterator in seed && typeof seed[Symbol.asyncIterator] === 'function')
+    return take(seed[Symbol.asyncIterator](), length);
+  return null;
+}
+
+export function toAsyncIteratorMaybe<A>(iter: AsyncIteratorGenerator<A>): AsyncIterator<A> | null {
+  switch (typeof iter) {
+    case 'string':
+      return toAsync((iter as string)[Symbol.iterator]() as Iterator<A>);
+    case 'object':
+      if ('next' in iter && typeof iter.next === 'function') return iter;
+      if (Symbol.asyncIterator in iter && typeof iter[Symbol.asyncIterator] === 'function')
+        return iter[Symbol.asyncIterator]();
+      if (Symbol.iterator in iter && typeof iter[Symbol.iterator] === 'function')
+        return toAsync(iter[Symbol.iterator]());
+      break;
+    case 'function':
+      return seedToAsyncIterator(Number.MAX_SAFE_INTEGER, iter);
+  }
+  return arrayLikeToAsyncIterator(iter as unknown as AsyncArrayGenerator<A>);
+}
+
+export function toAsyncIterator<A>(x: AsyncIteratorGenerator<A>): AsyncIterator<A> {
+  const iter = toAsyncIteratorMaybe(x);
+  if (iter) return iter;
+  throw new Error(`Invalid non-iterable object: ${x}`);
+}
+
+async function* seedToAsyncIterator<A>(n: number, seed: EventualMapper<number, A>) {
+  for (let i = 0; i < n; ++i) {
+    yield await seed(i);
+  }
 }
 
 export function toEventualIterator<A>(iter: EventualIterator<A> | EventualIterable<A>): EventualIterator<A> {
