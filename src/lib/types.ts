@@ -28,6 +28,24 @@ export type EventualMapper<A, B> = Mapper<A, Eventually<B>>;
 export type Predicate<A> = Mapper<A, boolean>;
 
 /**
+ * A binary operator
+ * @typeParam A the type of the first operand
+ * @typeParam B the type of the second operand
+ * @typeParam the type of the result
+ @example
+ const sum: BinaryOperator<number,number,number> = (a,b) => a + b;
+ */
+export type BinaryOperator<A, B, C> = (a: A, b: B) => C;
+
+/**
+ * An eventual BinarOperator
+ * @typeParam A the type of the first operand
+ * @typeParam B the type of the second operand
+ * @typeParam the type of the result
+ */
+export type EventualBinaryOperator<A, B, C> = (a: A, b: B) => Eventually<C>;
+
+/**
  * A collision handler for collectors. Used by `Collectors` `MapCollector` and `ObjectCollector` to handle collisions.
  * The value returned will be the new mapping for the key. It can also throw to abort the collecting of elements.
  *
@@ -59,7 +77,7 @@ export type EventualPredicate<A> = Mapper<A, Eventually<boolean>>;
  * const sumLenReducer: Reducer<string, number> = (sum, s) => { sum += s.length; return sum; };
  * ```
  */
-export type Reducer<A, B> = (acc: B, a: A) => B;
+export type Reducer<A, B> = BinaryOperator<B, A, B>;
 
 /**
  * An eventual `Reducer`. Used for asynchronous `fold` and `reduce` operations.
@@ -68,7 +86,7 @@ export type Reducer<A, B> = (acc: B, a: A) => B;
  * @param acc The current value of the accumulator
  * @param a The current value to reduce
  */
-export type EventualReducer<A, B> = (acc: B, a: A) => Eventually<B>;
+export type EventualReducer<A, B> = EventualBinaryOperator<B, A, B>;
 
 /**
  * A function used to compare objects for ordering. Its return value should satisfy the following properties:

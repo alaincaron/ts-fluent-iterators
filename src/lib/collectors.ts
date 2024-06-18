@@ -1,6 +1,6 @@
 import * as Comparators from './comparators';
 import { emptyIterator, FluentIterator } from './sync';
-import { CollisionHandler, Comparator, MinMax } from './types';
+import { CollisionHandler, Comparator, MinMax, Reducer } from './types';
 
 /**
  * A `Collector` is an object that collects elements of type `A` and aggregates them into an object of type `B`.
@@ -434,6 +434,44 @@ export class LastCollector<A = unknown> implements Collector<A, A | undefined> {
 
   collect(a: A) {
     this.acc = a;
+  }
+
+  get result() {
+    return this.acc;
+  }
+}
+
+export class FoldCollector<A, B> implements Collector<A, B> {
+  constructor(
+    private readonly reducer: Reducer<A, B>,
+    private acc: B
+  ) {}
+
+  collect(a: A) {
+    this.acc = this.reducer(this.acc, a);
+  }
+
+  get result() {
+    return this.acc;
+  }
+}
+
+export class ReduceCollector<A> implements Collector<A, A | undefined> {
+  private first = true;
+  constructor(
+    private readonly reducer: Reducer<A, A>,
+    private acc?: A
+  ) {}
+
+  collect(a: A) {
+    if (this.first) {
+      this.first = false;
+      if (this.acc == null) {
+        this.acc = a;
+        return;
+      }
+    }
+    this.acc = this.reducer(this.acc!, a);
   }
 
   get result() {
