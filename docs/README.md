@@ -27,8 +27,10 @@
 
 - [AsyncIteratorGenerator](type-aliases/AsyncIteratorGenerator.md)
 - [AsyncIteratorLike](type-aliases/AsyncIteratorLike.md)
+- [BinaryOperator](type-aliases/BinaryOperator.md)
 - [CollisionHandler](type-aliases/CollisionHandler.md)
 - [Comparator](type-aliases/Comparator.md)
+- [EventualBinaryOperator](type-aliases/EventualBinaryOperator.md)
 - [EventualIterable](type-aliases/EventualIterable.md)
 - [EventualIterableIterator](type-aliases/EventualIterableIterator.md)
 - [EventualIterator](type-aliases/EventualIterator.md)

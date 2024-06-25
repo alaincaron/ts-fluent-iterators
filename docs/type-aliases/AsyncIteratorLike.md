@@ -6,7 +6,7 @@
 
 # Type alias: AsyncIteratorLike\<E\>
 
-> **AsyncIteratorLike**\<`E`\>: (`i`) => `Promise`\<`E`\> \| `AsyncIterator`\<`E`\> \| `AsyncIterable`\<`E`\> \| `Iterable`\<`E`\>
+> **AsyncIteratorLike**\<`E`\>: [`EventualMapper`](EventualMapper.md)\<`number`, `E`\> \| `AsyncIterator`\<`E`\> \| `AsyncIterable`\<`E`\> \| `Iterable`\<`E`\>
 
 An object that behaves like an `AsyncIterator`.
 

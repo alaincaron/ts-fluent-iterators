@@ -4,11 +4,19 @@
 
 [ts-fluent-iterators](../README.md) / Reducer
 
-# Type alias: Reducer()\<A, B\>
+# Type alias: Reducer\<A, B\>
 
-> **Reducer**\<`A`, `B`\>: (`acc`, `a`) => `B`
+> **Reducer**\<`A`, `B`\>: [`BinaryOperator`](BinaryOperator.md)\<`B`, `A`, `B`\>
 
 Function used in `reduce` and `fold` operations.
+
+## Param
+
+The current value of the accumulator
+
+## Param
+
+The current value to reduce
 
 ## Example
 
@@ -30,17 +38,3 @@ Type of elements being reduced
 • **B**
 
 Type into which the elements are being reduced to.
-
-## Parameters
-
-• **acc**: `B`
-
-The current value of the accumulator
-
-• **a**: `A`
-
-The current value to reduce
-
-## Returns
-
-`B`

@@ -6,7 +6,7 @@
 
 # Type alias: IteratorLike\<E\>
 
-> **IteratorLike**\<`E`\>: (`i`) => `E` \| `Iterator`\<`E`\> \| `Iterable`\<`E`\>
+> **IteratorLike**\<`E`\>: [`Mapper`](Mapper.md)\<`number`, `E`\> \| `Iterator`\<`E`\> \| `Iterable`\<`E`\>
 
 An object that behaves like an iterator.
 
