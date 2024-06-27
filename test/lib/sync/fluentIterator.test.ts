@@ -451,6 +451,14 @@ describe('SyncFluentIterator', () => {
       const expected = new Map().set(0, 2).set(1, 5);
       expect(actual).deep.equal(expected);
     });
+    it('should throw an Error when there is a collision', () => {
+      expect(() => iterator([2, 4]).collectToMap(x => x % 2, CollisionHandlers.reject)).to.throw(Error);
+    });
+    it('should not throw if no collision', () => {
+      const actual = iterator([2, 5]).collectToMap(x => x % 2, CollisionHandlers.reject);
+      const expected = new Map().set(0, 2).set(1, 5);
+      expect(actual).deep.equal(expected);
+    });
   });
 
   describe('collectToObject', () => {
