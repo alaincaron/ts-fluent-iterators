@@ -2,13 +2,13 @@
 
 ---
 
-[ts-fluent-iterators](../README.md) / EventualBinaryOperator
+[ts-fluent-iterators](../README.md) / EventualBinaryFunction
 
-# Type alias: EventualBinaryOperator()\<A, B, C\>
+# Type alias: EventualBinaryFunction()\<A, B, C\>
 
-> **EventualBinaryOperator**\<`A`, `B`, `C`\>: (`a`, `b`) => [`Eventually`](Eventually.md)\<`C`\>
+> **EventualBinaryFunction**\<`A`, `B`, `C`\>: (`a`, `b`) => [`Eventually`](Eventually.md)\<`C`\>
 
-An eventual BinarOperator
+An eventual Function
 
 ## Type parameters
 

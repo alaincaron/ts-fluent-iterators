@@ -6,7 +6,7 @@
 
 # Type alias: EventualReducer\<A, B\>
 
-> **EventualReducer**\<`A`, `B`\>: [`EventualBinaryOperator`](EventualBinaryOperator.md)\<`B`, `A`, `B`\>
+> **EventualReducer**\<`A`, `B`\>: [`EventualBinaryFunction`](EventualBinaryFunction.md)\<`B`, `A`, `B`\>
 
 An eventual `Reducer`. Used for asynchronous `fold` and `reduce` operations.
 

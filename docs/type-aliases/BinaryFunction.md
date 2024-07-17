@@ -2,18 +2,18 @@
 
 ---
 
-[ts-fluent-iterators](../README.md) / BinaryOperator
+[ts-fluent-iterators](../README.md) / BinaryFunction
 
-# Type alias: BinaryOperator()\<A, B, C\>
+# Type alias: BinaryFunction()\<A, B, C\>
 
-> **BinaryOperator**\<`A`, `B`, `C`\>: (`a`, `b`) => `C`
+> **BinaryFunction**\<`A`, `B`, `C`\>: (`a`, `b`) => `C`
 
 A binary operator
 
 ## Example
 
 ```ts
-const sum: BinaryOperator<number, number, number> = (a, b) => a + b;
+const sum: BinaryFunction<number, number, number> = (a, b) => a + b;
 ```
 
 ## Type parameters
