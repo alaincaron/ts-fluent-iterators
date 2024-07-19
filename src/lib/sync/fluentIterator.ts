@@ -45,6 +45,19 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
+     Creates a singleton operator.  The returned iterator will yield a single or no element.
+     * @typeParam A the type of elements of the `FluentIterator`.
+     * This is useful to use a fluent interface on class that are not fluent.
+     @example
+     const str = FluentIterator.singleton('foobar').map(f).map(g).first();
+     *
+     * @returns A `FluentIterator` yielding at most one element.
+     */
+  static singleton<A>(a: A): FluentIterator<A> {
+    return new FluentIterator(a == null ? Iterators.empty() : [a][Symbol.iterator]());
+  }
+
+  /**
    * Creates a `FluentIterator` from an `IteratorGenerator`.
    * @typeParam A the type of elements of the `FluentIterator`
    * @param generator Used to generate an `Iterator` that will be wrapped into a `FluentIterator`

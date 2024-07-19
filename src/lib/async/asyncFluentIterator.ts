@@ -41,11 +41,24 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
 
   /**
    * Creates an empty {@link AsyncFluentIterator}.  The returned iterator will not yield any element.
-   * @typeParam A the type of elements of the `FluentIterator`
+   * @typeParam A the type of elements of the `AsyncFluentIterator`
    * @returns An empty {@link AsyncFluentIterator}
    */
   static empty<A = never>(): AsyncFluentIterator<A> {
     return new AsyncFluentIterator(Iterators.empty());
+  }
+
+  /**
+     Creates a singleton operator.  The returned iterator will yield a single or no element.
+     * @typeParam A the type of elements of the `AsyncFluentIterator`.
+     * This is useful to use a fluent interface on class that are not fluent.
+     @example
+     const str = await AsyncFluentIterator.singleton('foobar').map(f).map(g).first();
+     *
+     * @returns A `AsyncFluentIterator` yielding at most one element.
+     */
+  static singleton<A>(a: A): AsyncFluentIterator<A> {
+    return new AsyncFluentIterator(a == null ? Iterators.empty() : Iterators.toAsyncIterator([a][Symbol.iterator]()));
   }
 
   /**

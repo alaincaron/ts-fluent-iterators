@@ -43,11 +43,24 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
 
   /**
    * Creates an empty {@link PromiseIterator}.  The returned iterator will not yield any element.
-   * @typeParam A the type of elements of the `FluentIterator`
+   * @typeParam A the type of elements of the `PromiseIterator`
    * @returns An empty {@link PromiseIterator}
    */
   static empty<A = never>(): PromiseIterator<A> {
     return new PromiseIterator(SyncIterators.empty());
+  }
+
+  /**
+     Creates a singleton operator.  The returned iterator will yield a single or no element.
+     * @typeParam A the type of elements of the `PromiseIterator`.
+     * This is useful to use a fluent interface on class that are not fluent.
+     @example
+     const str = await PromiseIterator.singleton('foobar').map(f).map(g).first();
+     *
+     * @returns A `PromiseIterator` yielding at most one element.
+     */
+  static singleton<A>(a: Eventually<A>): PromiseIterator<A> {
+    return new PromiseIterator(a == null ? SyncIterators.empty() : [Promise.resolve(a)][Symbol.iterator]());
   }
 
   /**
