@@ -760,6 +760,13 @@ export function emptyIterator<A = never>() {
 }
 
 /**
+ * Alias for {@link Fluentiterator.singleton}
+ */
+export function singleton<A>(a: A) {
+  return FluentIterator.singleton(a);
+}
+
+/**
  * Global definitions.
  */
 declare global {

@@ -10,7 +10,7 @@
     "clean": "rimraf ./dist",
     "test": "npm run build && mocha -r ts-node/register test/**/*.test.ts",
     "pristine": "rimraf ./dist ./node_modules",
-    "build": "rimraf ./dist && tsc",
+    "build": "rimraf ./dist && tsc --declaration",
     "repl": "npm run build && env NODE_PATH=./dist ts-node -i",
     "htmldoc": "typedoc --plugin typedoc-material-theme src/index.ts --out htmldoc",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
