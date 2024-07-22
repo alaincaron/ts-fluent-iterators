@@ -38,6 +38,13 @@ export type Predicate<A> = Mapper<A, boolean>;
 export type BinaryMapper<A, B, C> = (a: A, b: B) => C;
 
 /**
+ * A function mapping a pair of values of types `A` and `B` to type `boolean`
+ * @typeParam A the type of the first operand
+ * @typeParam B the type of the second operand
+ */
+export type BinaryPredicate<A, B> = BinaryMapper<A, B, boolean>;
+
+/**
  * An eventual BinaryMapper
  * @typeParam A the type of the first operand
  * @typeParam B the type of the second operand
