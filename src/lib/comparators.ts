@@ -1,4 +1,4 @@
-import { Comparator, Mapper } from './types';
+import { BinaryPredicate, Comparator, Mapper } from './types';
 
 /**
  * Natural comparator.
@@ -44,7 +44,7 @@ export function orderBy<A>(mapper: Mapper<A, number>): Comparator<A> {
 }
 
 /**
- *   A comparator that apply a comparto to the elements after they'be mapped by a mapper.
+ *   Returns a  comparator that applies a comparator to the elements after they'be mapped by a mapper.
  *
  *   @example
  *   const orderByLen = compose<string,number>(natural, s => s.length);
@@ -52,4 +52,20 @@ export function orderBy<A>(mapper: Mapper<A, number>): Comparator<A> {
  */
 export function compose<A, B>(comparator: Comparator<B>, mapper: Mapper<A, B>): Comparator<A> {
   return (a1: A, a2: A) => comparator(mapper(a1), mapper(a2));
+}
+
+/**
+ * Returns a comparator base on a `Binarypredicate`
+ *  @typeParam A The type of elements to be compare
+ * @param isLessThan A `BinaryPredicate` used to order the elements.  The predicate must follow ordering rules, i.e isLessThan(a,b) = true implies isLessThan(b,a) is false.
+ *
+ * @example
+ * const orderByLen = fromPredicate<string>((s1,s2) => s1.length < s2.length);
+ */
+export function fromPredicate<A>(isLessThan: BinaryPredicate<A, A>): Comparator<A> {
+  return (a1, a2) => {
+    if (isLessThan(a1, a2)) return -1;
+    if (isLessThan(a2, a1)) return 1;
+    return 0;
+  };
 }

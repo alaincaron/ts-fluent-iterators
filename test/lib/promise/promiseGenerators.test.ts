@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { promiseIterator as iterator, loop, range, repeat } from '../../../src/lib/promise';
+import { loop, range, repeat } from '../../../src/lib/promise/promiseGenerators';
+import { promiseIterator as iterator } from '../../../src/lib/promise/promiseIterator';
 
 describe('PromiseGenerators', () => {
   describe('range', () => {

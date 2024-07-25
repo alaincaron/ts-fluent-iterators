@@ -58,7 +58,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
      * @returns A `AsyncFluentIterator` yielding at most one element.
      */
   static singleton<A>(a: A): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(a == null ? Iterators.empty() : Iterators.toAsyncIterator([a][Symbol.iterator]()));
+    return new AsyncFluentIterator(Iterators.singleton(a));
   }
 
   /**
@@ -740,7 +740,7 @@ export class AsyncFluentIterator<A> implements AsyncIterator<A>, AsyncIterable<A
 /**
  * Alias for {@link AsyncFluentIterator.empty}
  */
-export function emptyAsyncIterator<A = never>(): AsyncFluentIterator<A> {
+export function asyncEmptyIterator<A = never>(): AsyncFluentIterator<A> {
   return AsyncFluentIterator.empty();
 }
 
@@ -749,4 +749,11 @@ export function emptyAsyncIterator<A = never>(): AsyncFluentIterator<A> {
  */
 export function asyncIterator<A>(generator: AsyncIteratorGenerator<A>): AsyncFluentIterator<A> {
   return AsyncFluentIterator.from(generator);
+}
+
+/**
+ * Alias for {@link AsyncFluentiterator.singleton}
+ */
+export function asyncSingletonIterator<A>(a: A): AsyncFluentIterator<A> {
+  return AsyncFluentIterator.singleton(a);
 }

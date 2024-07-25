@@ -1,5 +1,6 @@
 import * as Iterators from './iterators';
-import { AsyncFluentIterator, toAsync } from '../async';
+import { AsyncFluentIterator } from '../async/asyncFluentIterator';
+import { toAsync } from '../async/asyncIterators';
 import {
   ArrayCollector,
   Collector,
@@ -15,7 +16,7 @@ import {
   StringJoiner,
   TallyCollector,
 } from '../collectors';
-import { PromiseIterator } from '../promise';
+import { PromiseIterator } from '../promise/promiseIterator';
 import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
 
 /**
@@ -54,7 +55,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
      * @returns A `FluentIterator` yielding at most one element.
      */
   static singleton<A>(a: A): FluentIterator<A> {
-    return new FluentIterator(a == null ? Iterators.empty() : [a][Symbol.iterator]());
+    return new FluentIterator(Iterators.singleton(a));
   }
 
   /**
@@ -762,7 +763,7 @@ export function emptyIterator<A = never>() {
 /**
  * Alias for {@link Fluentiterator.singleton}
  */
-export function singleton<A>(a: A) {
+export function singletonIterator<A>(a: A) {
   return FluentIterator.singleton(a);
 }
 

@@ -1,5 +1,5 @@
 import { EventualCollector } from '../collectors';
-import { toIterator } from '../sync';
+import { toIterator } from '../sync/iterators';
 import {
   AsyncArrayGenerator,
   AsyncIteratorGenerator,
@@ -61,6 +61,9 @@ export function toEventualIterator<A>(iter: EventualIterator<A> | EventualIterab
 }
 
 export async function* empty<A = never>(): AsyncIterableIterator<A> {}
+export async function* singleton<A>(a: A): AsyncIterableIterator<A> {
+  if (a !== null) yield a;
+}
 
 export async function* map<A, B>(iter: AsyncIterator<A>, mapper: EventualMapper<A, B>): AsyncIterableIterator<B> {
   for (;;) {

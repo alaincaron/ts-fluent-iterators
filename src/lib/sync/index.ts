@@ -1,3 +1,3 @@
-export * from './fluentIterator';
-export * from './generators';
-export * from './iterators';
+export * as Iterators from './iterators';
+export { iterator, FluentIterator, emptyIterator, singletonIterator } from './fluentIterator';
+export * as Generators from './generators';

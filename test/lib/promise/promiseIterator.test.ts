@@ -2,14 +2,13 @@ import { assert, expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
 import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import * as Comparators from '../../../src/lib/comparators';
+import { range } from '../../../src/lib/promise/promiseGenerators';
 import {
-  emptyPromiseIterator as empty,
-  first,
+  promiseEmptyIterator as empty,
   promiseIterator as iterator,
-  map,
-  range,
-  toPromise,
-} from '../../../src/lib/promise';
+  promiseSingletonIterator as singletonIterator,
+} from '../../../src/lib/promise/promiseIterator';
+import { first, map, toPromise } from '../../../src/lib/promise/promiseIterators';
 
 describe('PromiseIterator', () => {
   describe('collect', () => {
@@ -654,6 +653,12 @@ describe('PromiseIterator', () => {
         actual.push(await c);
       }
       expect(actual).to.deep.equal(expected);
+    });
+  });
+
+  describe('promiseSingleton', () => {
+    it('should yield a single element', async () => {
+      expect(await singletonIterator(Promise.resolve(2)).collect()).to.deep.equal([2]);
     });
   });
 });

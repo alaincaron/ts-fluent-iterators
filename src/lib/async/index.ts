@@ -1,3 +1,3 @@
-export * from './asyncFluentIterator';
-export * from './asyncGenerators';
-export * from './asyncIterators';
+export * as AsyncIterators from './asyncIterators';
+export { asyncIterator, AsyncFluentIterator, asyncSingletonIterator } from './asyncFluentIterator';
+export * as AsyncGenerators from './asyncGenerators';

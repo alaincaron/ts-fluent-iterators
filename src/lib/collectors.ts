@@ -1,5 +1,5 @@
 import * as Comparators from './comparators';
-import { emptyIterator, FluentIterator } from './sync';
+import { emptyIterator, FluentIterator } from './sync/fluentIterator';
 import { CollisionHandler, Comparator, MinMax, Reducer } from './types';
 
 /**

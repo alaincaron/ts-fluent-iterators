@@ -1,5 +1,5 @@
 import * as AsyncIterators from './asyncIterators';
-import * as SyncGenerators from '../sync';
+import * as SyncGenerators from '../sync/generators';
 import { EventualMapper } from '../types';
 
 /**

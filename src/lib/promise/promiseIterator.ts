@@ -1,5 +1,5 @@
 import * as Iterators from './promiseIterators';
-import { AsyncFluentIterator } from '../async';
+import { AsyncFluentIterator } from '../async/asyncFluentIterator';
 import {
   ArrayCollector,
   CountCollector,
@@ -15,7 +15,7 @@ import {
   StringJoiner,
   TallyCollector,
 } from '../collectors';
-import { FluentIterator } from '../sync';
+import { FluentIterator } from '../sync/fluentIterator';
 import * as SyncIterators from '../sync/iterators';
 
 import {
@@ -60,7 +60,7 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
      * @returns A `PromiseIterator` yielding at most one element.
      */
   static singleton<A>(a: Eventually<A>): PromiseIterator<A> {
-    return new PromiseIterator(a == null ? SyncIterators.empty() : [Promise.resolve(a)][Symbol.iterator]());
+    return new PromiseIterator(a == null ? SyncIterators.empty() : SyncIterators.singleton(Promise.resolve(a)));
   }
 
   /**
@@ -195,8 +195,8 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
   }
 
   /**
-   * Returns a new {@link AsyncFluentIterator} consisting of applying the {@link Mapper} to all elements of this {@link PromiseIterator}.
-   * @typeParam B The type of the elements of the returned {@link FluentIterator}
+   * Returns a new {@link PromiseIterator} consisting of applying the {@link Mapper} to all elements of this {@link PromiseIterator}.
+   * @typeParam B The type of the elements of the returned {@link PromiseIterator}
    * @param mapper Transformation applied to elements of this {@link PromiseIterator}
    * @returns A new {@link AsyncFluentIterator}
    * @example
@@ -278,7 +278,7 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
   }
 
   /**
-   * Applies the {@link EventualMapper | mapper} to each element of this {@link FluentIterator}
+   * Applies the {@link EventualMapper | mapper} to each element of this {@link PromiseIterator}
    *
    * @param mapper the operation to be invoked on each element.
    * @example
@@ -777,7 +777,7 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
 /**
  * Alias for {@link PromiseIterator.empty}
  */
-export function emptyPromiseIterator<A = never>(): PromiseIterator<A> {
+export function promiseEmptyIterator<A = never>(): PromiseIterator<A> {
   return PromiseIterator.empty();
 }
 
@@ -793,4 +793,11 @@ export function promiseIterator<A>(generator: IteratorGenerator<Promise<A>>): Pr
  */
 export function toPromiseIterator<A>(generator: IteratorGenerator<A>): PromiseIterator<A> {
   return promiseIterator(Iterators.toPromise(generator));
+}
+
+/**
+ * Alias for {@link PromiseIterator.singleton}
+ */
+export function promiseSingletonIterator<A>(a: Eventually<A>): PromiseIterator<A> {
+  return PromiseIterator.singleton(a);
 }

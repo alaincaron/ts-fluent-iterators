@@ -2,7 +2,9 @@ import { expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
 import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import * as Comparators from '../../../src/lib/comparators';
-import { emptyIterator as empty, first, iterator, map, range, toIterator } from '../../../src/lib/sync';
+import { emptyIterator, iterator, singletonIterator } from '../../../src/lib/sync/fluentIterator';
+import { range } from '../../../src/lib/sync/generators';
+import { first, map, toIterator } from '../../../src/lib/sync/iterators';
 
 describe('SyncFluentIterator', () => {
   describe('collect', () => {
@@ -11,7 +13,7 @@ describe('SyncFluentIterator', () => {
     });
 
     it('should return empty array on empty iterator', () => {
-      expect(empty().collect()).deep.equal([]);
+      expect(emptyIterator().collect()).deep.equal([]);
     });
   });
 
@@ -70,7 +72,7 @@ describe('SyncFluentIterator', () => {
     });
 
     it('should return undefined on empty iterator.', () => {
-      expect(empty().first()).to.be.undefined;
+      expect(emptyIterator().first()).to.be.undefined;
     });
     it('should return matching element if exists', () => {
       expect(
@@ -197,7 +199,7 @@ describe('SyncFluentIterator', () => {
       expect(iterator(range(1, 5)).reduce((acc, x) => acc + x)).equal(10);
     });
     it('should return undefined if iterator is empty and no initial value is provided', () => {
-      expect(empty<number>().reduce((acc, x) => acc + x)).to.be.undefined;
+      expect(emptyIterator<number>().reduce((acc, x) => acc + x)).to.be.undefined;
     });
 
     describe('tap', () => {
@@ -229,7 +231,7 @@ describe('SyncFluentIterator', () => {
     });
 
     it('should append to empty iterator', () => {
-      expect(empty<number>().append([1, 2]).collect()).deep.equal([1, 2]);
+      expect(emptyIterator<number>().append([1, 2]).collect()).deep.equal([1, 2]);
     });
     it('should append an empty array', () => {
       expect(iterator([1, 2]).append([]).collect()).deep.equal([1, 2]);
@@ -242,7 +244,7 @@ describe('SyncFluentIterator', () => {
     });
 
     it('should prepend to empty iterator', () => {
-      expect(empty<number>().prepend([1, 2]).collect()).deep.equal([1, 2]);
+      expect(emptyIterator<number>().prepend([1, 2]).collect()).deep.equal([1, 2]);
     });
     it('should prepend an empty array', () => {
       expect(iterator([1, 2]).prepend([]).collect()).deep.equal([1, 2]);
@@ -255,7 +257,7 @@ describe('SyncFluentIterator', () => {
     });
 
     it('should concat to empty iterator', () => {
-      expect(empty<number>().concat([1, 2]).collect()).deep.equal([1, 2]);
+      expect(emptyIterator<number>().concat([1, 2]).collect()).deep.equal([1, 2]);
     });
     it('should concat an empty array', () => {
       expect(iterator([1, 2]).concat([]).collect()).deep.equal([1, 2]);
@@ -289,7 +291,7 @@ describe('SyncFluentIterator', () => {
     });
     it('should work on empty iterator', () => {
       expect(
-        empty()
+        emptyIterator()
           .takeWhile(x => {
             throw new Error(`x = ${x}`);
           })
@@ -322,7 +324,7 @@ describe('SyncFluentIterator', () => {
     });
     it('should work on empty iterator', () => {
       expect(
-        empty()
+        emptyIterator()
           .skipWhile(x => {
             throw new Error(`x = ${x}`);
           })
@@ -384,7 +386,7 @@ describe('SyncFluentIterator', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax()).deep.equal({ min: 'bar', max: 'x' });
     });
     it('should return return undefined on empty iterator', () => {
-      expect(empty().minmax()).to.be.undefined;
+      expect(emptyIterator().minmax()).to.be.undefined;
     });
   });
 
@@ -531,10 +533,10 @@ describe('SyncFluentIterator', () => {
       expect(actual).deep.equal(expected);
     });
     it('should throw on partition size smaller than 1', () => {
-      expect(() => empty().partition(0)).to.throw;
+      expect(() => emptyIterator().partition(0)).to.throw;
     });
     it('should throw on non-integer values', () => {
-      expect(() => empty().partition(0.5)).to.throw;
+      expect(() => emptyIterator().partition(0.5)).to.throw;
     });
   });
 
@@ -641,6 +643,12 @@ describe('SyncFluentIterator', () => {
   describe('toIterator', () => {
     it('should throw non iterable input', () => {
       expect(() => toIterator(2 as unknown as Iterable<unknown>)).to.throw();
+    });
+  });
+
+  describe('singleton', () => {
+    it('should yield a single element', () => {
+      expect(singletonIterator(2).collect()).to.deep.equal([2]);
     });
   });
 });

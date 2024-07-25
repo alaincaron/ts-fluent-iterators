@@ -1,12 +1,11 @@
 import { expect } from 'chai';
 import {
-  emptyAsyncIterator as empty,
-  first,
+  asyncEmptyIterator as empty,
   asyncIterator as iterator,
-  map,
-  range,
-  toAsync,
-} from '../../../src/lib/async';
+  asyncSingletonIterator as singleton,
+} from '../../../src/lib/async/asyncFluentIterator';
+import { range } from '../../../src/lib/async/asyncGenerators';
+import { first, map, toAsync } from '../../../src/lib/async/asyncIterators';
 import { FlattenCollector } from '../../../src/lib/collectors';
 import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import * as Comparators from '../../../src/lib/comparators';
@@ -383,7 +382,7 @@ describe('AsyncFluentIterator', () => {
   describe('min', () => {
     it('should return the shortest string', async () => {
       expect(
-        await iterator(['foo', 'bar', 'x', 'foobar']).min((a, b) => Comparators.natural(a.length, b.length))
+        await iterator(['foo', 'bar', 'x', 'foobar']).min(Comparators.fromPredicate((a, b) => a.length < b.length))
       ).equal('x');
     });
     it('should return lexicographically smallest string', async () => {
@@ -599,6 +598,12 @@ describe('AsyncFluentIterator', () => {
       const str = 'foobar';
       const actual = await iterator(str).join('');
       expect(actual).to.equal(str);
+    });
+  });
+
+  describe('asyncSingleton', () => {
+    it('should yield a single element', async () => {
+      expect(await singleton(2).collect()).to.deep.equal([2]);
     });
   });
 });

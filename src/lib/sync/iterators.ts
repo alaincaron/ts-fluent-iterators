@@ -2,6 +2,9 @@ import { Collector } from '../collectors';
 import { ArrayGenerator, IteratorGenerator, Mapper, Predicate, Reducer } from '../types';
 
 export function* empty<A = never>(): IterableIterator<A> {}
+export function* singleton<A>(a: A): IterableIterator<A> {
+  if (a !== null) yield a;
+}
 
 export function* map<A, B>(iter: Iterator<A>, mapper: Mapper<A, B>): IterableIterator<B> {
   for (;;) {
