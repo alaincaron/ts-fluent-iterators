@@ -61,4 +61,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['test/**/*.test.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-expressions': 'off',
+      },
+    },
+  ],
 };

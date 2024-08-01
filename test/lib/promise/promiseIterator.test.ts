@@ -57,10 +57,8 @@ describe('PromiseIterator', () => {
     it('should throw', async () => {
       try {
         await iterator([Promise.reject(), Promise.resolve(1)]).race();
-      } catch (err) {
-        return;
-      }
-      assert.fail('race should have trown');
+        assert.fail('race should have trown');
+      } catch (_err) {}
     });
     it('should return undefined on empty iterator', async () => {
       expect(await empty().race()).to.be.undefined;
