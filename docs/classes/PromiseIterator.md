@@ -312,9 +312,9 @@ const data = await iter.collectToMap2(s => [s, s.length]);
 
 ---
 
-### collectToObject()
+### collectToObject2()
 
-> **collectToObject**\<`V`\>(`mapper`, `collisionHandler`?): `Promise`\<`Record`\<`string`, `V`\>\>
+> **collectToObject2**\<`V`\>(`mapper`, `collisionHandler`?): `Promise`\<`Record`\<`string`, `V`\>\>
 
 Collects items into a `Record` by mapping values into keys and new value
 
@@ -344,7 +344,7 @@ a `Promise` of a `Record` whose entries are the result of applying the `mapper` 
 
 ```ts
 const iter = toPromiseIterator(['foo', 'bar', 'foobar']);
-const data = await iter.collectToObject(s => [s, s.length]);
+const data = await iter.collectToObject2(s => [s, s.length]);
 // data is { foo: 3, bar: 3, foobar: 6 }
 ```
 
@@ -664,7 +664,7 @@ const sum = await toPromiseIterator([1,2,3])
 
 > **forEach**(`mapper`): `Promise`\<`void`\>
 
-Applies the [mapper](../type-aliases/EventualMapper.md) to each element of this [FluentIterator](FluentIterator.md)
+Applies the [mapper](../type-aliases/EventualMapper.md) to each element of this [PromiseIterator](PromiseIterator.md)
 
 #### Parameters
 
@@ -851,13 +851,13 @@ await PromiseIterator.empty().last();
 
 > **map**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
 
-Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [PromiseIterator](PromiseIterator.md).
+Returns a new [PromiseIterator](PromiseIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [PromiseIterator](PromiseIterator.md).
 
 #### Type parameters
 
 • **B**
 
-The type of the elements of the returned [FluentIterator](FluentIterator.md)
+The type of the elements of the returned [PromiseIterator](PromiseIterator.md)
 
 #### Parameters
 
@@ -1374,7 +1374,7 @@ Creates an empty [PromiseIterator](PromiseIterator.md). The returned iterator wi
 
 • **A** = `never`
 
-the type of elements of the `FluentIterator`
+the type of elements of the `PromiseIterator`
 
 #### Returns
 
@@ -1407,3 +1407,39 @@ Used to generate an `AsyncIterator` that will be wrapped into a `PromiseIterator
 [`PromiseIterator`](PromiseIterator.md)\<`A`\>
 
 A new `PromiseIterator`
+
+---
+
+### singleton()
+
+> `static` **singleton**\<`A`\>(`a`): [`PromiseIterator`](PromiseIterator.md)\<`A`\>
+
+Creates a singleton operator. The returned iterator will yield a single or no element.
+
+-
+
+#### Type parameters
+
+• **A**
+
+the type of elements of the `PromiseIterator`.
+
+- This is useful to use a fluent interface on class that are not fluent.
+
+#### Parameters
+
+• **a**: [`Eventually`](../type-aliases/Eventually.md)\<`A`\>
+
+#### Returns
+
+[`PromiseIterator`](PromiseIterator.md)\<`A`\>
+
+A `PromiseIterator` yielding at most one element.
+
+#### Example
+
+```ts
+const str = await PromiseIterator.singleton('foobar').map(f).map(g).first();
+*
+*
+```

@@ -153,6 +153,25 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
   }
 
   /**
+   * Collects items into a `Record` by mapping values into keys.
+   *
+   * @param mapper Maps the values into keys
+   * @param collisionHandler  Specifies how to handle the collision. Default is to ignore collision.
+   * @returns a `Record` whose keys are the result of applying the `mapper` to the values of this {@link FluentIterator} and the values are iterated items.
+
+   * @example
+   * const iter = iterator("foo","bar","foobar")
+   * const data = iter.collectToObject(s => s.toUpperCase());
+   * // data is { FOO: "foo", BAR: "bar", FOOBAR: "foobar" }
+   */
+  collectToObject(
+    mapper: EventualMapper<A, string>,
+    collisionHander?: CollisionHandler<string, A>
+  ): Promise<Record<string, A>> {
+    return this.collectToObject2(async a => [await mapper(a), a], collisionHander);
+  }
+
+  /**
    * Collects items into a `Record` by mapping values into keys and new value
    * @typeParam V The type of the values of the `Map`
    *
@@ -162,10 +181,10 @@ export class PromiseIterator<A> implements Iterator<Promise<A>>, Iterable<Promis
 
    * @example
    * const iter = toPromiseIterator(["foo","bar","foobar"])
-   * const data = await iter.collectToObject(s => [s, s.length]);
+   * const data = await iter.collectToObject2(s => [s, s.length]);
    * // data is { foo: 3, bar: 3, foobar: 6 }
    */
-  collectToObject<V>(
+  collectToObject2<V>(
     mapper: EventualMapper<A, [string, V]>,
     collisionHandler?: CollisionHandler<string, V>
   ): Promise<Record<string, V>> {

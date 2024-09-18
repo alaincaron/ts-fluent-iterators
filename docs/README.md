@@ -27,10 +27,11 @@
 
 - [AsyncIteratorGenerator](type-aliases/AsyncIteratorGenerator.md)
 - [AsyncIteratorLike](type-aliases/AsyncIteratorLike.md)
-- [BinaryFunction](type-aliases/BinaryFunction.md)
+- [BinaryMapper](type-aliases/BinaryMapper.md)
+- [BinaryPredicate](type-aliases/BinaryPredicate.md)
 - [CollisionHandler](type-aliases/CollisionHandler.md)
 - [Comparator](type-aliases/Comparator.md)
-- [EventualBinaryFunction](type-aliases/EventualBinaryFunction.md)
+- [EventualBinaryMapper](type-aliases/EventualBinaryMapper.md)
 - [EventualIterable](type-aliases/EventualIterable.md)
 - [EventualIterableIterator](type-aliases/EventualIterableIterator.md)
 - [EventualIterator](type-aliases/EventualIterator.md)
@@ -52,7 +53,10 @@
 ## Functions
 
 - [asyncIterator](functions/asyncIterator.md)
+- [asyncSingletonIterator](functions/asyncSingletonIterator.md)
 - [emptyIterator](functions/emptyIterator.md)
 - [iterator](functions/iterator.md)
 - [promiseIterator](functions/promiseIterator.md)
+- [promiseSingletonIterator](functions/promiseSingletonIterator.md)
+- [singletonIterator](functions/singletonIterator.md)
 - [toPromiseIterator](functions/toPromiseIterator.md)

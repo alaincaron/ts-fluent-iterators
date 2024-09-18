@@ -1,0 +1,23 @@
+[**ts-fluent-iterators**](../README.md) • **Docs**
+
+---
+
+[ts-fluent-iterators](../README.md) / singletonIterator
+
+# Function: singletonIterator()
+
+> **singletonIterator**\<`A`\>(`a`): [`FluentIterator`](../classes/FluentIterator.md)\<`A`\>
+
+Alias for Fluentiterator.singleton
+
+## Type parameters
+
+• **A**
+
+## Parameters
+
+• **a**: `A`
+
+## Returns
+
+[`FluentIterator`](../classes/FluentIterator.md)\<`A`\>

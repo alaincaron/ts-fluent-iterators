@@ -8,7 +8,7 @@
 
 > **compose**\<`A`, `B`\>(`comparator`, `mapper`): [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
 
-A comparator that apply a comparto to the elements after they'be mapped by a mapper.
+Returns a comparator that applies a comparator to the elements after they'be mapped by a mapper.
 
 ## Type parameters
 

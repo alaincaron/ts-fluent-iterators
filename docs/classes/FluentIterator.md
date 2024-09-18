@@ -288,9 +288,9 @@ const data = iter.collectToMap2(s => [s, s.length]);
 
 ---
 
-### collectToObject()
+### collectToObject2()
 
-> **collectToObject**\<`V`\>(`mapper`, `collisionHandler`?): `Record`\<`string`, `V`\>
+> **collectToObject2**\<`V`\>(`mapper`, `collisionHandler`?): `Record`\<`string`, `V`\>
 
 Collects items into a `Record` by mapping values into keys and new value
 
@@ -320,7 +320,7 @@ a `Record` whose entries are the result of applying the `mapper` to the values o
 
 ```ts
 const iter = iterator('foo', 'bar', 'foobar');
-const data = iter.collectToObject(s => [s, s.length]);
+const data = iter.collectToObject2(s => [s, s.length]);
 // data is { foo: 3, bar: 3, foobar: 6 }
 ```
 
@@ -1392,4 +1392,40 @@ A new `FluentIterator`
 
 ```ts
 const iter = FluentIterator.from([1, 2, 3]);
+```
+
+---
+
+### singleton()
+
+> `static` **singleton**\<`A`\>(`a`): [`FluentIterator`](FluentIterator.md)\<`A`\>
+
+Creates a singleton operator. The returned iterator will yield a single or no element.
+
+-
+
+#### Type parameters
+
+• **A**
+
+the type of elements of the `FluentIterator`.
+
+- This is useful to use a fluent interface on class that are not fluent.
+
+#### Parameters
+
+• **a**: `A`
+
+#### Returns
+
+[`FluentIterator`](FluentIterator.md)\<`A`\>
+
+A `FluentIterator` yielding at most one element.
+
+#### Example
+
+```ts
+const str = FluentIterator.singleton('foobar').map(f).map(g).first();
+*
+*
 ```

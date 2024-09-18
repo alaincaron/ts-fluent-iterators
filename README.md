@@ -63,7 +63,7 @@ console.log(
   - [collectToSet](docs/classes/FluentIterator.md#collecttoset)
   - [collectTo](docs/classes/FluentIterator.md#collectto)
   - [collectToMap](docs/classes/FluentIterator.md#collecttomap)
-  - [collectToObject](docs/classes/FluentIterator.md#collecttoobject)
+  - [collectToObject2](docs/classes/FluentIterator.md#collecttoobject)
   - [fold](docs/classes/FluentIterator.md#fold)
   - [reduce](docs/classes/FluentIterator.md#reduce)
   - [join](docs/classes/FluentIterator.md#join)

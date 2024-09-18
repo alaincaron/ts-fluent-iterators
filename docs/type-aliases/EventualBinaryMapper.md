@@ -2,13 +2,13 @@
 
 ---
 
-[ts-fluent-iterators](../README.md) / EventualBinaryFunction
+[ts-fluent-iterators](../README.md) / EventualBinaryMapper
 
-# Type alias: EventualBinaryFunction()\<A, B, C\>
+# Type alias: EventualBinaryMapper()\<A, B, C\>
 
-> **EventualBinaryFunction**\<`A`, `B`, `C`\>: (`a`, `b`) => [`Eventually`](Eventually.md)\<`C`\>
+> **EventualBinaryMapper**\<`A`, `B`, `C`\>: (`a`, `b`) => [`Eventually`](Eventually.md)\<`C`\>
 
-An eventual Function
+An eventual BinaryMapper
 
 ## Type parameters
 

@@ -469,9 +469,7 @@ describe('SyncFluentIterator', () => {
       value: number;
     }
 
-    function mapper(data: Data): [string, number] {
-      return [data.key, data.value];
-    }
+    const mapper = (data: Data) => data.key;
 
     it('should return the last occurences of key', () => {
       const actual = iterator([
@@ -480,7 +478,7 @@ describe('SyncFluentIterator', () => {
         { key: 'b', value: 3 },
         { key: 'b', value: 4 },
       ]).collectToObject(mapper);
-      const expected = { a: 2, b: 4 };
+      const expected = { a: { key: 'a', value: 2 }, b: { key: 'b', value: 4 } };
       expect(actual).deep.equal(expected);
     });
     it('should return the first occurences of key', () => {
@@ -490,6 +488,36 @@ describe('SyncFluentIterator', () => {
         { key: 'b', value: 3 },
         { key: 'b', value: 4 },
       ]).collectToObject(mapper, CollisionHandlers.ignore);
+      const expected = { a: { key: 'a', value: 1 }, b: { key: 'b', value: 3 } };
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  describe('collectToObject2', () => {
+    interface Data {
+      key: string;
+      value: number;
+    }
+
+    const mapper = (data: Data): [string, number] => [data.key, data.value];
+
+    it('should return the last occurences of key', () => {
+      const actual = iterator([
+        { key: 'a', value: 1 },
+        { key: 'a', value: 2 },
+        { key: 'b', value: 3 },
+        { key: 'b', value: 4 },
+      ]).collectToObject2(mapper);
+      const expected = { a: 2, b: 4 };
+      expect(actual).deep.equal(expected);
+    });
+    it('should return the first occurences of key', () => {
+      const actual = iterator([
+        { key: 'a', value: 1 },
+        { key: 'a', value: 2 },
+        { key: 'b', value: 3 },
+        { key: 'b', value: 4 },
+      ]).collectToObject2(mapper, CollisionHandlers.ignore);
       const expected = { a: 1, b: 3 };
       expect(actual).deep.equal(expected);
     });

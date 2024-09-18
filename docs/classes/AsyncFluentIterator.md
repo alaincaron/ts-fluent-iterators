@@ -284,9 +284,9 @@ const data = await iter.collectToMap2(s => [s, s.length]);
 
 ---
 
-### collectToObject()
+### collectToObject2()
 
-> **collectToObject**\<`V`\>(`mapper`, `collisionHandler`?): `Promise`\<`Record`\<`string`, `V`\>\>
+> **collectToObject2**\<`V`\>(`mapper`, `collisionHandler`?): `Promise`\<`Record`\<`string`, `V`\>\>
 
 Collects items into a `Record` by mapping values into keys and new value
 
@@ -316,7 +316,7 @@ a `Promise` of a `Record` whose entries are the result of applying the `mapper` 
 
 ```ts
 const iter = asyncIterator('foo', 'bar', 'foobar');
-const data = await iter.collectToObject(s => [s, s.length]);
+const data = await iter.collectToObject2(s => [s, s.length]);
 // data is { foo: 3, bar: 3, foobar: 6 }
 ```
 
@@ -1306,7 +1306,7 @@ Creates an empty [AsyncFluentIterator](AsyncFluentIterator.md). The returned ite
 
 • **A** = `never`
 
-the type of elements of the `FluentIterator`
+the type of elements of the `AsyncFluentIterator`
 
 #### Returns
 
@@ -1339,3 +1339,39 @@ Used to generate an `AsyncIterator` that will be wrapped into a `AsyncFluentIter
 [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
 
 A new `AsyncFluentIterator`
+
+---
+
+### singleton()
+
+> `static` **singleton**\<`A`\>(`a`): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+
+Creates a singleton operator. The returned iterator will yield a single or no element.
+
+-
+
+#### Type parameters
+
+• **A**
+
+the type of elements of the `AsyncFluentIterator`.
+
+- This is useful to use a fluent interface on class that are not fluent.
+
+#### Parameters
+
+• **a**: `A`
+
+#### Returns
+
+[`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
+
+A `AsyncFluentIterator` yielding at most one element.
+
+#### Example
+
+```ts
+const str = await AsyncFluentIterator.singleton('foobar').map(f).map(g).first();
+*
+*
+```

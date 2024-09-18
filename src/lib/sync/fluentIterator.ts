@@ -146,6 +146,22 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
+   * Collects items into a `Record` by mapping values into keys.
+   *
+   * @param mapper Maps the values into keys
+   * @param collisionHandler  Specifies how to handle the collision. Default is to ignore collision.
+   * @returns a `Record` whose keys are the result of applying the `mapper` to the values of this {@link FluentIterator} and the values are iterated items.
+
+   * @example
+   * const iter = iterator("foo","bar","foobar")
+   * const data = iter.collectToObject(s => s.toUpperCase());
+   * // data is { FOO: "foo", BAR: "bar", FOOBAR: "foobar" }
+   */
+  collectToObject(mapper: Mapper<A, string>, collisionHander?: CollisionHandler<string, A>): Record<string, A> {
+    return this.collectToObject2(a => [mapper(a), a], collisionHander);
+  }
+
+  /**
    * Collects items into a `Record` by mapping values into keys and new value
    * @typeParam V The type of the values of the `Map`
    *
@@ -155,10 +171,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
 
    * @example
    * const iter = iterator("foo","bar","foobar")
-   * const data = iter.collectToObject(s => [s, s.length]);
+   * const data = iter.collectToObject2(s => [s, s.length]);
    * // data is { foo: 3, bar: 3, foobar: 6 }
    */
-  collectToObject<V>(
+  collectToObject2<V>(
     mapper: Mapper<A, [string, V]>,
     collisionHandler?: CollisionHandler<string, V>
   ): Record<string, V> {

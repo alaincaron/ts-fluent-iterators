@@ -6,7 +6,7 @@
 
 # Type alias: Reducer\<A, B\>
 
-> **Reducer**\<`A`, `B`\>: [`BinaryFunction`](BinaryFunction.md)\<`B`, `A`, `B`\>
+> **Reducer**\<`A`, `B`\>: [`BinaryMapper`](BinaryMapper.md)\<`B`, `A`, `B`\>
 
 Function used in `reduce` and `fold` operations.
 
