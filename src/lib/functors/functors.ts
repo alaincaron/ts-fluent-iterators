@@ -1,9 +1,10 @@
 import * as Functions from '../functions';
 import * as Predicates from '../predicates';
-import { Mapper, Predicate } from '../types';
+import { BinaryMapper, Mapper, Predicate } from '../types';
 
 export type FunctorLike<T, R> = Functor<T, R> | Mapper<T, R>;
 export type PredicateLike<T> = Predicate<T> | BooleanFunctor<T>;
+export type BinaryFunctorLike<T1, T2, R> = BinaryFunctor<T1, T2, R> | BinaryMapper<T1, T2, R>;
 
 export abstract class Functor<T, R> {
   abstract eval(t: T): R;
@@ -43,6 +44,51 @@ class FunctionalFunctor<T, R = T> extends Functor<T, R> {
 
   eval(t: T): R {
     return this._f(t);
+  }
+
+  get f() {
+    return this._f;
+  }
+}
+
+export abstract class BinaryFunctor<T1, T2, R> {
+  abstract eval(t1: T1, t2: T2): R;
+
+  get f(): BinaryMapper<T1, T2, R> {
+    return this.eval.bind(this);
+  }
+
+  static from<T1, T2, R>(f: BinaryMapper<T1, T2, R>): BinaryFunctor<T1, T2, R> {
+    return new BinaryFunctionalFunctor(f);
+  }
+
+  andThen<V>(after: FunctorLike<R, V>): BinaryFunctor<T1, T2, V> {
+    return new BinaryFunctionalFunctor((t1, t2) => Functor.getFunction(after)(this.eval(t1, t2)));
+  }
+
+  bindFirst(t1: T1): Functor<T2, R> {
+    return new FunctionalFunctor((t2: T2) => this.eval(t1, t2));
+  }
+
+  bindLast(t2: T2): Functor<T1, R> {
+    return new FunctionalFunctor((t1: T1) => this.eval(t1, t2));
+  }
+
+  static getFunction<T1, T2, R>(mapper: BinaryFunctorLike<T1, T2, R>): BinaryMapper<T1, T2, R> {
+    if (typeof mapper === 'function') return mapper;
+    return mapper.f;
+  }
+}
+
+class BinaryFunctionalFunctor<T1, T2, R> extends BinaryFunctor<T1, T2, R> {
+  private readonly _f: BinaryMapper<T1, T2, R>;
+  constructor(f: BinaryMapper<T1, T2, R>) {
+    super();
+    this._f = f;
+  }
+
+  eval(t1: T1, t2: T2): R {
+    return this._f(t1, t2);
   }
 
   get f() {
