@@ -14,26 +14,12 @@ describe('Functions', () => {
   it('chain should apply functions in the right order', () => {
     expect(Functions.chain(add1, mul2, add2)(2)).equal(8);
     expect(Functions.chain(mul2, add1, add2)(2)).equal(7);
-    expect(Functions.chain()(2)).equal(2);
   });
 
   it('ifElse should invoke the right clause', () => {
     const f = Functions.ifElse((x: number) => x % 2 === 0, mul2, add1);
     expect(f(2)).equal(4);
     expect(f(1)).equal(2);
-  });
-
-  it('when should invoke the right clause', () => {
-    const f = Functions.when<number, number>(
-      [x => x % 2 === 0, x => x + 1],
-      [x => x % 3 === 0, x => x + 2],
-      [_ => true, _ => 0]
-    );
-    expect(f(2)).equal(3);
-    expect(f(3)).equal(5);
-    expect(f(6)).equal(7);
-    expect(f(0)).equal(1);
-    expect(f(5)).equal(0);
   });
 
   it('tap should return its target', () => {

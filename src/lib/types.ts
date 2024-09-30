@@ -20,6 +20,18 @@ export type Mapper<A, B> = (a: A) => B;
 export type EventualMapper<A, B> = Mapper<A, Eventually<B>>;
 
 /**
+ * A function that provides a value of type `A`
+ * @typeParam A the type of elements being provided
+ **/
+export type Provider<A> = () => A;
+
+/**
+ * A function that provides an eventual value of type `A`
+ * @typeParam A the type of elements being provided
+ **/
+export type EventualProvider<A> = () => Eventually<A>;
+
+/**
  * A predicate on a value.
  * @typeParam A the type of values on which the predicate is to be evaluated.
  * @example
