@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { match, matcher } from '../../../src/lib/match';
+import { Maybe, None, Some } from '../../../src/lib/monads';
 
 describe('Match', () => {
   it('match should invoke the right clause', () => {
@@ -12,7 +13,7 @@ describe('Match', () => {
         x => x % 3 === 0,
         x => x + 2
       )
-      .is(25, x => x + 2)
+      .eq(25, x => x + 2)
       .default(_ => 0)
       .evaluate();
 
@@ -29,7 +30,7 @@ describe('Match', () => {
         x => x % 3 === 0,
         x => x + 2
       )
-      .is(25, _ => 27)
+      .eq(25, _ => 27)
       .default(_ => 0)
       .build();
 
@@ -41,15 +42,18 @@ describe('Match', () => {
 
   it('matcher should match by classes', () => {
     const XYZ = class {};
-
-    const f = matcher<unknown, number>()
+    const data = { x: 5 };
+    const f = matcher()
       .is(XYZ, _ => 1)
-      .is(null, _ => 2)
-      .is(undefined, _ => 3)
-      .is(false, _ => 4)
-      .is(true, _ => 5)
-      .is('foobar', _ => 6)
-      .default(_ => 7)
+      .eq(null, _ => 2)
+      .eq(undefined, _ => 3)
+      .eq(false, _ => 4)
+      .eq(true, _ => 5)
+      .eq('foobar', _ => 6)
+      .is(Some, _ => 7)
+      .eq(None, _ => 8)
+      .eq(data, _ => 9)
+      .default(_ => 10)
       .build();
 
     expect(f(new XYZ())).equal(1);
@@ -58,7 +62,11 @@ describe('Match', () => {
     expect(f(false)).equal(4);
     expect(f(true)).equal(5);
     expect(f('foobar')).equal(6);
-    expect(f(0)).equal(7);
-    expect(f('bar')).equal(7);
+    expect(f(Maybe.of(12))).equal(7);
+    expect(f(Maybe.ofNullable(null))).equal(8);
+    expect(f(data)).equal(9);
+    expect(f({ ...data })).equal(10);
+    expect(f(0)).equal(10);
+    expect(f('bar')).equal(10);
   });
 });

@@ -53,7 +53,7 @@ export abstract class Maybe<A> implements Monad<never, A> {
   abstract toString(): string;
 }
 
-export class NoneSingleton extends Maybe<never> {
+class NoneSingleton extends Maybe<never> {
   static readonly INSTANCE = new NoneSingleton();
 
   private constructor() {
