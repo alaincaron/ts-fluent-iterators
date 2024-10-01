@@ -5,7 +5,7 @@ import { Mapper, Predicate } from './types';
 type IsCase<T> = { is: Constructor<T> };
 type WhenCase<T> = { when: Predicate<T> };
 type EqCase<T> = { eq: T };
-export type Clause<T, R> = (IsCase<T> | WhenCase<T> | EqCase<T>) & { handler: Mapper<T, R> };
+type Clause<T, R> = (IsCase<T> | WhenCase<T> | EqCase<T>) & { handler: Mapper<T, R> };
 
 abstract class Matcher<T, R, M extends Matcher<T, R, M>> {
   protected readonly clauses: Clause<T, R>[] = [];
