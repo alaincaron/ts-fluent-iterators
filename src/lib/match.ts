@@ -11,22 +11,24 @@ abstract class Matcher<T, R, M extends Matcher<T, R, M>> {
   protected readonly clauses: Clause<T, R>[] = [];
 
   is(target: Constructor<T>, handler: Mapper<T, R>) {
-    this.clauses.push({ is: target, handler });
-    return this as unknown as M;
+    return this.addClause({ is: target, handler });
   }
 
   eq(target: T, handler: Mapper<T, R>) {
-    this.clauses.push({ eq: target, handler });
-    return this as unknown as M;
+    return this.addClause({ eq: target, handler });
   }
 
   when(predicate: Predicate<T>, handler: Mapper<T, R>) {
-    this.clauses.push({ when: predicate, handler });
-    return this as unknown as M;
+    return this.addClause({ when: predicate, handler });
   }
 
   default(handler: Mapper<T, R>) {
     return this.when(alwaysTrue, handler);
+  }
+
+  private addClause(clause: Clause<T, R>) {
+    this.clauses.push(clause);
+    return this as unknown as M;
   }
 
   protected compute(value: T) {
