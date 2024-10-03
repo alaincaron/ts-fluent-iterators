@@ -5,6 +5,7 @@ import * as Comparators from '../../../src/lib/comparators';
 import { emptyIterator, iterator, singletonIterator } from '../../../src/lib/sync/fluentIterator';
 import { range } from '../../../src/lib/sync/generators';
 import { first, map, toIterator } from '../../../src/lib/sync/iterators';
+import { predicateError } from '../helpers';
 
 describe('SyncFluentIterator', () => {
   describe('collect', () => {
@@ -290,13 +291,7 @@ describe('SyncFluentIterator', () => {
       ).deep.equal([]);
     });
     it('should work on empty iterator', () => {
-      expect(
-        emptyIterator()
-          .takeWhile(x => {
-            throw new Error(`x = ${x}`);
-          })
-          .collect()
-      ).deep.equal([]);
+      expect(emptyIterator().takeWhile(predicateError()).collect()).deep.equal([]);
     });
   });
 
@@ -323,13 +318,7 @@ describe('SyncFluentIterator', () => {
       ).deep.equal([1, 2, 3]);
     });
     it('should work on empty iterator', () => {
-      expect(
-        emptyIterator()
-          .skipWhile(x => {
-            throw new Error(`x = ${x}`);
-          })
-          .collect()
-      ).deep.equal([]);
+      expect(emptyIterator().skipWhile(predicateError()).collect()).deep.equal([]);
     });
   });
 

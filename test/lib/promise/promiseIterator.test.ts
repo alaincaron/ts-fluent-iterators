@@ -9,6 +9,7 @@ import {
   promiseSingletonIterator as singletonIterator,
 } from '../../../src/lib/promise/promiseIterator';
 import { first, map, toPromise } from '../../../src/lib/promise/promiseIterators';
+import { predicateError } from '../helpers';
 
 describe('PromiseIterator', () => {
   describe('collect', () => {
@@ -356,13 +357,7 @@ describe('PromiseIterator', () => {
       ).to.deep.equal([]);
     });
     it('should work on empty iterator', async () => {
-      expect(
-        await empty()
-          .takeWhile(x => {
-            throw new Error(`x = ${x}`);
-          })
-          .collect()
-      ).to.deep.equal([]);
+      expect(await empty().takeWhile(predicateError()).collect()).to.deep.equal([]);
     });
   });
 
@@ -389,13 +384,7 @@ describe('PromiseIterator', () => {
       ).to.deep.equal([1, 2, 3]);
     });
     it('should work on empty iterator', async () => {
-      expect(
-        await empty()
-          .skipWhile(x => {
-            throw new Error(`x = ${x}`);
-          })
-          .collect()
-      ).to.deep.equal([]);
+      expect(await empty().skipWhile(predicateError()).collect()).to.deep.equal([]);
     });
   });
 

@@ -1,14 +1,14 @@
 import { Either, Left, NoSuchElementException, Right } from './either';
 import { Monad } from './monad';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
-import { Mapper, Predicate, Provider, Reducer } from '../types';
+import { Mapper, Predicate, Provider } from '../types';
 
 export abstract class Maybe<A> implements Monad<never, A> {
   static of<A>(a: A) {
     return new Some(a);
   }
 
-  static ofNullable<A>(a: A | null) {
+  static ofNullable<A>(a: A | null): Maybe<A> {
     return a == null ? None : new Some(a);
   }
 
@@ -16,14 +16,15 @@ export abstract class Maybe<A> implements Monad<never, A> {
     return None;
   }
 
-  static createIf<A>(condition: boolean, provider: Provider<A | null>) {
+  static createIf<A>(condition: boolean, provider: Provider<A | null>): Maybe<A> {
     return condition ? Maybe.ofNullable(provider()) : None;
   }
 
-  static createUnless<A>(condition: boolean, provider: Provider<A | null>) {
+  static createUnless<A>(condition: boolean, provider: Provider<A | null>): Maybe<A> {
     return condition ? None : Maybe.ofNullable(provider());
   }
 
+  abstract contains(a: A): boolean;
   abstract exists(predicate: Predicate<A>): boolean;
   abstract forEach(f: Mapper<A, any>): void;
   abstract all(predicate: Predicate<A>): boolean;
@@ -32,10 +33,13 @@ export abstract class Maybe<A> implements Monad<never, A> {
   abstract toIterator(): FluentIterator<A>;
   abstract get(): A | undefined;
 
-  abstract isEmpty(): boolean;
+  getOrElse(f: Provider<A>): A {
+    return this.isEmpty() ? f() : this.getOrThrow();
+  }
 
-  isNotEmpty() {
-    return !this.isEmpty();
+  abstract isEmpty(): boolean;
+  orElse(f: Provider<Maybe<A>>): Maybe<A> {
+    return this.isEmpty() ? f() : this;
   }
 
   isDefined() {
@@ -47,7 +51,6 @@ export abstract class Maybe<A> implements Monad<never, A> {
   abstract fold<B>(ifEmpty: Provider<B>, ifSome: Mapper<A, B>): B;
   abstract flatMap<B>(f: Mapper<A, Maybe<B>>): Maybe<B>;
   abstract filter(predicate: Predicate<A>): Maybe<A>;
-  abstract foldLeft<B>(initial: B, f: Reducer<A, B>): B;
   abstract toEither<L>(ifEmpty: Provider<L>): Either<L, A>;
 
   abstract toString(): string;
@@ -60,7 +63,11 @@ class NoneSingleton extends Maybe<never> {
     super();
   }
 
-  exists(_: Predicate<never>) {
+  exists<A>(_: Predicate<A>) {
+    return false;
+  }
+
+  contains<A>(_: A) {
     return false;
   }
 
@@ -111,10 +118,6 @@ class NoneSingleton extends Maybe<never> {
     return this;
   }
 
-  foldLeft<B>(initial: B, _: Reducer<never, B>) {
-    return initial;
-  }
-
   toEither<L>(ifEmpty: Provider<L>) {
     return new Left(ifEmpty());
   }
@@ -133,6 +136,10 @@ export class Some<A> extends Maybe<A> {
 
   exists(predicate: Predicate<A>) {
     return predicate(this.value);
+  }
+
+  contains(a: A) {
+    return this.value === a;
   }
 
   forEach(f: Mapper<A, any>) {
@@ -172,7 +179,7 @@ export class Some<A> extends Maybe<A> {
     return this;
   }
 
-  fold<B>(_: Provider<never>, ifSome: Mapper<A, B>) {
+  fold<B>(_: Provider<B>, ifSome: Mapper<A, B>) {
     return ifSome(this.value);
   }
 
@@ -182,10 +189,6 @@ export class Some<A> extends Maybe<A> {
 
   filter(predicate: Predicate<A>) {
     return predicate(this.value) ? this : None;
-  }
-
-  foldLeft<B>(initial: B, reducer: Reducer<A, B>) {
-    return reducer(initial, this.value);
   }
 
   toEither<L>(_: Provider<L>) {

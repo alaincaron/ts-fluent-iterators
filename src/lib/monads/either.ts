@@ -1,6 +1,5 @@
 import { Maybe, None, Some } from './maybe';
 import { Monad } from './monad';
-import { Failure, Success, Try } from './try';
 import { alwaysFalse } from '../functions';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
 import { BinaryMapper, Mapper, Predicate, Provider } from '../types';
@@ -12,8 +11,16 @@ export class NoSuchElementException extends Error {
 }
 
 export abstract class Either<A, B> implements Monad<A, B> {
-  abstract get isRight(): boolean;
-  get isLeft() {
+  static right<A, B>(b: B): Either<A, B> {
+    return new Right(b);
+  }
+
+  static left<A, B>(a: A): Either<A, B> {
+    return new Left(a);
+  }
+
+  abstract isRight(): boolean;
+  isLeft() {
     return !this.isRight;
   }
   abstract exists(predicate: Predicate<B>): boolean;
@@ -33,7 +40,7 @@ export abstract class Either<A, B> implements Monad<A, B> {
   abstract filter(predicate: Predicate<B>): Maybe<B>;
 
   orElse(f: Provider<Either<A, B>>): Either<A, B> {
-    return this.isRight ? this : f();
+    return this.isRight() ? this : f();
   }
 
   contains(x: B) {
@@ -42,13 +49,6 @@ export abstract class Either<A, B> implements Monad<A, B> {
 
   abstract flatMap<C>(mapper: Mapper<B, Either<A, C>>): Either<A, C>;
   abstract flatMapLeft<C>(mapper: Mapper<A, Either<C, B>>): Either<C, B>;
-
-  toTry(): Try<B> {
-    return this.fold<Try<B>>(
-      it => new Failure(it),
-      it => new Success(it)
-    );
-  }
 
   abstract toMaybe(): Maybe<B>;
 
@@ -64,11 +64,11 @@ export class Left<A> extends Either<A, never> {
   constructor(private readonly value: A) {
     super();
   }
-  get isLeft() {
+  isLeft() {
     return true;
   }
 
-  get isRight() {
+  isRight() {
     return false;
   }
 
@@ -86,7 +86,7 @@ export class Left<A> extends Either<A, never> {
     throw new NoSuchElementException();
   }
 
-  map<B1>(_: Mapper<never, B1>) {
+  map<B1>(_: Mapper<never, B1>): Either<A, B1> {
     return this;
   }
 
@@ -144,11 +144,11 @@ export class Right<B> extends Either<never, B> {
   constructor(private readonly value: B) {
     super();
   }
-  get isLeft() {
+  isLeft() {
     return false;
   }
 
-  get isRight() {
+  isRight() {
     return true;
   }
 
@@ -164,8 +164,8 @@ export class Right<B> extends Either<never, B> {
     return predicate(this.value);
   }
 
-  getOrThrow(): never {
-    throw new NoSuchElementException();
+  getOrThrow() {
+    return this.value;
   }
 
   map<B1>(mapper: Mapper<B, B1>) {

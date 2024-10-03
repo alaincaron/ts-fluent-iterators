@@ -9,6 +9,7 @@ import { first, map, toAsync } from '../../../src/lib/async/asyncIterators';
 import { FlattenCollector } from '../../../src/lib/collectors';
 import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import * as Comparators from '../../../src/lib/comparators';
+import { predicateError } from '../helpers';
 
 describe('AsyncFluentIterator', () => {
   describe('collect', () => {
@@ -312,13 +313,7 @@ describe('AsyncFluentIterator', () => {
       ).to.deep.equal([]);
     });
     it('should work on empty iterator', async () => {
-      expect(
-        await empty()
-          .takeWhile(x => {
-            throw new Error(`x = ${x}`);
-          })
-          .collect()
-      ).to.deep.equal([]);
+      expect(await empty().takeWhile(predicateError()).collect()).to.deep.equal([]);
     });
   });
 
@@ -345,13 +340,7 @@ describe('AsyncFluentIterator', () => {
       ).to.deep.equal([1, 2, 3]);
     });
     it('should work on empty iterator', async () => {
-      expect(
-        await empty()
-          .skipWhile(x => {
-            throw new Error(`x = ${x}`);
-          })
-          .collect()
-      ).to.deep.equal([]);
+      expect(await empty().skipWhile(predicateError()).collect()).to.deep.equal([]);
     });
   });
 
