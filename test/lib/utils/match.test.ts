@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { match, matcher } from '../../../src/lib/match';
 import { Maybe, None, Some } from '../../../src/lib/monads';
+import { match, matcher } from '../../../src/lib/utils/match';
 
 describe('Match', () => {
   it('match should invoke the right clause', () => {

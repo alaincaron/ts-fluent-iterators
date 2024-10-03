@@ -1,5 +1,5 @@
 import { Try } from '../monads';
-import { Mapper, Provider } from '../types';
+import { Mapper, Provider } from '../utils';
 
 /**
  * Represents a lazy-evaluated value that is computed only when needed.

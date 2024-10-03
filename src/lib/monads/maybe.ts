@@ -1,7 +1,7 @@
 import { Either, Left, NoSuchElementException, Right } from './either';
 import { Monad } from './monad';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
-import { Mapper, Predicate, Provider } from '../types';
+import { Mapper, Predicate, Provider } from '../utils';
 
 export abstract class Maybe<A> implements Monad<never, A> {
   static of<A>(a: A) {

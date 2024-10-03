@@ -1,6 +1,6 @@
 import { Maybe } from './maybe';
 import { FluentIterator } from '../sync';
-import { Mapper, Predicate } from '../types';
+import { Mapper, Predicate } from '../utils';
 
 export interface Monad<A, B> {
   exists(predicate: Predicate<B>): boolean;

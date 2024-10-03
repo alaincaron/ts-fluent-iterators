@@ -1,6 +1,6 @@
 import { Constructor } from './constructor';
-import { alwaysTrue } from './functions';
 import { Mapper, Predicate } from './types';
+import { alwaysTrue } from '../functions';
 
 type IsCase<T> = { is: Constructor<T> };
 type WhenCase<T> = { when: Predicate<T> };

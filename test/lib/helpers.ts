@@ -1,5 +1,5 @@
 import { assert, expect } from 'chai';
-import { BinaryMapper, EventualProvider, Mapper, Predicate, Provider, Reducer } from '../../src/lib/types';
+import { BinaryMapper, EventualProvider, Mapper, Predicate, Provider, Reducer } from '../../src/lib/utils';
 
 export async function shouldThrow(f: EventualProvider<unknown>, expectedError?: any) {
   try {

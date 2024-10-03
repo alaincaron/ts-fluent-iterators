@@ -2,7 +2,7 @@ import { Maybe, None, Some } from './maybe';
 import { Monad } from './monad';
 import { alwaysFalse } from '../functions';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
-import { BinaryMapper, Mapper, Predicate, Provider } from '../types';
+import { BinaryMapper, Mapper, Predicate, Provider } from '../utils';
 
 export class NoSuchElementException extends Error {
   constructor(message?: string) {

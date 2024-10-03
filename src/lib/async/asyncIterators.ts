@@ -9,7 +9,7 @@ import {
   EventualMapper,
   EventualPredicate,
   EventualReducer,
-} from '../types';
+} from '../utils';
 
 function arrayLikeToAsyncIterator<A>(arrayLike: AsyncArrayGenerator<A>): AsyncIterator<A> | null {
   const { seed, length } = arrayLike;

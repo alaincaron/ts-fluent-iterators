@@ -1,5 +1,5 @@
 import * as Iterators from './iterators';
-import { Mapper } from '../types';
+import { Mapper } from '../utils';
 
 /**
  *  Returns an `IterableIterator` from `start` (inclusively) to `end` (exclusively) by increment of `step`.

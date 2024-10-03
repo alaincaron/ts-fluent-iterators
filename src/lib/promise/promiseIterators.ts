@@ -1,7 +1,7 @@
 import * as AsyncIterators from '../async/asyncIterators';
 import { ArrayCollector, EventualCollector } from '../collectors';
 import * as SyncIterators from '../sync/iterators';
-import { Eventually, EventualMapper, EventualPredicate, EventualReducer, IteratorGenerator } from '../types';
+import { Eventually, EventualMapper, EventualPredicate, EventualReducer, IteratorGenerator } from '../utils';
 
 export function* map<A, B>(iter: Iterator<Promise<A>>, mapper: EventualMapper<A, B>): IterableIterator<Promise<B>> {
   for (;;) {

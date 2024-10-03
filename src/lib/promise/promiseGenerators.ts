@@ -1,6 +1,6 @@
 import * as PromiseIterators from '../promise/promiseIterators';
 import * as SyncGenerators from '../sync/generators';
-import { EventualMapper } from '../types';
+import { EventualMapper } from '../utils';
 
 export function range(start?: number, end?: number, step?: number): IterableIterator<Promise<number>> {
   return PromiseIterators.toPromise(SyncGenerators.range(start, end, step));

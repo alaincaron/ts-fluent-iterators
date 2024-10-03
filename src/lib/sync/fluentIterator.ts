@@ -17,7 +17,7 @@ import {
   TallyCollector,
 } from '../collectors';
 import { PromiseIterator } from '../promise/promiseIterator';
-import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../types';
+import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../utils';
 
 /**
  * Iterator with a Fluent interface.

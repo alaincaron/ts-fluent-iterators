@@ -26,7 +26,7 @@ import {
   EventualReducer,
   Mapper,
   MinMax,
-} from '../types';
+} from '../utils';
 
 /**
  * AsyncIterator with a Fluent interface.

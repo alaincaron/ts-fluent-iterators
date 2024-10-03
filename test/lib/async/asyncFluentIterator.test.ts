@@ -7,8 +7,8 @@ import {
 import { range } from '../../../src/lib/async/asyncGenerators';
 import { first, map, toAsync } from '../../../src/lib/async/asyncIterators';
 import { FlattenCollector } from '../../../src/lib/collectors';
-import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import * as Comparators from '../../../src/lib/comparators';
+import { CollisionHandlers } from '../../../src/lib/utils';
 import { predicateError } from '../helpers';
 
 describe('AsyncFluentIterator', () => {

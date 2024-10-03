@@ -1,4 +1,4 @@
-import { BinaryMapper, Mapper, Predicate } from '../types';
+import { BinaryMapper, Mapper, Predicate } from '../utils';
 
 export function compose<T, R, V>(f: Mapper<T, R>, g: Mapper<R, V>): Mapper<T, V> {
   return (t: T) => g(f(t));

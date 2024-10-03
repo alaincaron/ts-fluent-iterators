@@ -1,6 +1,6 @@
 import { Try } from '../monads/try';
 import { Lazy } from '../sync';
-import { EventualMapper, EventualProvider, Mapper } from '../types';
+import { EventualMapper, EventualProvider, Mapper } from '../utils';
 
 enum State {
   INITIAL,

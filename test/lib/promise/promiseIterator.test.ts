@@ -1,6 +1,5 @@
 import { assert, expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
-import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import * as Comparators from '../../../src/lib/comparators';
 import { range } from '../../../src/lib/promise/promiseGenerators';
 import {
@@ -9,6 +8,7 @@ import {
   promiseSingletonIterator as singletonIterator,
 } from '../../../src/lib/promise/promiseIterator';
 import { first, map, toPromise } from '../../../src/lib/promise/promiseIterators';
+import { CollisionHandlers } from '../../../src/lib/utils/collisionHandlers';
 import { predicateError } from '../helpers';
 
 describe('PromiseIterator', () => {

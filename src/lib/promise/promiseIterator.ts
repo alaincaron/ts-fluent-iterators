@@ -28,7 +28,7 @@ import {
   IteratorGenerator,
   Mapper,
   MinMax,
-} from '../types';
+} from '../utils';
 
 /**
  * Iterator yielding `Promise` objects with a Fluent interface.

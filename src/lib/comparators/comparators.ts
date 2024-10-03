@@ -1,4 +1,4 @@
-import { BinaryPredicate, Comparator, Mapper } from './types';
+import { BinaryPredicate, Comparator, Mapper } from '../utils';
 
 /**
  * Natural comparator.

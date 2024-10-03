@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import { FlattenCollector } from '../../../src/lib/collectors';
-import { CollisionHandlers } from '../../../src/lib/collisionHandlers';
 import * as Comparators from '../../../src/lib/comparators';
 import { emptyIterator, iterator, singletonIterator } from '../../../src/lib/sync/fluentIterator';
 import { range } from '../../../src/lib/sync/generators';
 import { first, map, toIterator } from '../../../src/lib/sync/iterators';
+import { CollisionHandlers } from '../../../src/lib/utils/collisionHandlers';
 import { predicateError } from '../helpers';
 
 describe('SyncFluentIterator', () => {

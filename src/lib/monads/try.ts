@@ -2,7 +2,7 @@ import { Either, Left, Right } from './either';
 import { Maybe, None, Some } from './maybe';
 import { Monad } from './monad';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
-import { EventualProvider, Mapper, Predicate, Provider } from '../types';
+import { EventualProvider, Mapper, Predicate, Provider } from '../utils';
 
 export abstract class Try<T> implements Monad<never, T> {
   static async createAsync<T>(f: EventualProvider<T | Try<T>>): Promise<Try<T>> {

@@ -1,5 +1,5 @@
 import { Collector } from '../collectors';
-import { ArrayGenerator, IteratorGenerator, Mapper, Predicate, Reducer } from '../types';
+import { ArrayGenerator, IteratorGenerator, Mapper, Predicate, Reducer } from '../utils';
 
 export function* empty<A = never>(): IterableIterator<A> {}
 export function* singleton<A>(a: A): IterableIterator<A> {

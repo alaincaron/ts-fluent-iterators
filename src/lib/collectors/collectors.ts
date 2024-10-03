@@ -1,6 +1,6 @@
-import * as Comparators from './comparators';
-import { emptyIterator, FluentIterator } from './sync/fluentIterator';
-import { CollisionHandler, Comparator, MinMax, Reducer } from './types';
+import * as Comparators from '../comparators';
+import { emptyIterator, FluentIterator } from '../sync/fluentIterator';
+import { CollisionHandler, Comparator, MinMax, Reducer } from '../utils';
 
 /**
  * A `Collector` is an object that collects elements of type `A` and aggregates them into an object of type `B`.

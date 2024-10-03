@@ -1,6 +1,6 @@
 import * as AsyncIterators from './asyncIterators';
 import * as SyncGenerators from '../sync/generators';
-import { EventualMapper } from '../types';
+import { EventualMapper } from '../utils';
 
 /**
  *  Returns an `AsyncIterableiterator` from `start` (inclusively) to `end` (exclusively) by increment of `step`.
