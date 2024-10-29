@@ -288,6 +288,36 @@ const data = iter.collectToMap2(s => [s, s.length]);
 
 ---
 
+### collectToObject()
+
+> **collectToObject**(`mapper`, `collisionHander`?): `Record`\<`string`, `A`\>
+
+Collects items into a `Record` by mapping values into keys.
+
+#### Parameters
+
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `string`\>
+
+Maps the values into keys
+
+• **collisionHander?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `A`\>
+
+#### Returns
+
+`Record`\<`string`, `A`\>
+
+a `Record` whose keys are the result of applying the `mapper` to the values of this [FluentIterator](FluentIterator.md) and the values are iterated items.
+
+#### Example
+
+```ts
+const iter = iterator('foo', 'bar', 'foobar');
+const data = iter.collectToObject(s => s.toUpperCase());
+// data is { FOO: "foo", BAR: "bar", FOOBAR: "foobar" }
+```
+
+---
+
 ### collectToObject2()
 
 > **collectToObject2**\<`V`\>(`mapper`, `collisionHandler`?): `Record`\<`string`, `V`\>

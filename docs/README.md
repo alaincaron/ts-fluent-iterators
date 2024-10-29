@@ -14,7 +14,9 @@
 ## Classes
 
 - [AsyncFluentIterator](classes/AsyncFluentIterator.md)
+- [AsyncLazy](classes/AsyncLazy.md)
 - [FluentIterator](classes/FluentIterator.md)
+- [Lazy](classes/Lazy.md)
 - [PromiseIterator](classes/PromiseIterator.md)
 
 ## Interfaces
@@ -38,12 +40,14 @@
 - [EventualIteratorGenerator](type-aliases/EventualIteratorGenerator.md)
 - [EventualMapper](type-aliases/EventualMapper.md)
 - [EventualPredicate](type-aliases/EventualPredicate.md)
+- [EventualProvider](type-aliases/EventualProvider.md)
 - [EventualReducer](type-aliases/EventualReducer.md)
 - [Eventually](type-aliases/Eventually.md)
 - [IteratorGenerator](type-aliases/IteratorGenerator.md)
 - [IteratorLike](type-aliases/IteratorLike.md)
 - [Mapper](type-aliases/Mapper.md)
 - [Predicate](type-aliases/Predicate.md)
+- [Provider](type-aliases/Provider.md)
 - [Reducer](type-aliases/Reducer.md)
 
 ## Variables
