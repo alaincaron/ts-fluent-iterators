@@ -10,7 +10,7 @@
 
 A `Comparator` that orders elements in the reverse order of the `natural` `Comparator`.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

@@ -4,19 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / Mapper
 
-# Type alias: Mapper()\<A, B\>
+# Type Alias: Mapper()\<A, B\>
 
 > **Mapper**\<`A`, `B`\>: (`a`) => `B`
 
 A function mapping a value of type `A` to type `B`
 
-## Example
-
-```ts
-const strlen: Mapper<string, number> = s => s.length;
-```
-
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -33,3 +27,9 @@ the target type
 ## Returns
 
 `B`
+
+## Example
+
+```ts
+const strlen: Mapper<string, number> = s => s.length;
+```

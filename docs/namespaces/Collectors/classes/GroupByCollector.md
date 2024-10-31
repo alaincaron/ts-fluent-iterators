@@ -18,7 +18,7 @@ c.collect(['foo',2]);
 //c.result : Map(2) { 'foo' => [1, 2], 'bar' => [2] }
 ```
 
-## Type parameters
+## Type Parameters
 
 • **K**
 
@@ -31,3 +31,43 @@ the type of the values in the map.
 ## Implements
 
 - [`Collector`](../interfaces/Collector.md)\<[`K`, `V`], `Map`\<`K`, `V`[]\>\>
+
+## Accessors
+
+### result
+
+> `get` **result**(): `Map`\<`K`, `V`[]\>
+
+Returns the aggregated object.
+
+#### Returns
+
+`Map`\<`K`, `V`[]\>
+
+The aggregated object resulting from collecting all objects
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`result`](../interfaces/Collector.md#result)
+
+## Methods
+
+### collect()
+
+> **collect**(`a`): `void`
+
+Collects an element.
+
+#### Parameters
+
+• **a**: [`K`, `V`]
+
+The element being collected.
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`collect`](../interfaces/Collector.md#collect)

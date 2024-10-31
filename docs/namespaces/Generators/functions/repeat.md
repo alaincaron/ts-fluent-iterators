@@ -10,7 +10,7 @@
 
 Returns an iterator resulting from applying f on all elements of the range [0,`count`]
 
-## Type parameters
+## Type Parameters
 
 • **T**
 

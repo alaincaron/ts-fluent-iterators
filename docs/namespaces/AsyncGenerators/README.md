@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../../README.md) / AsyncGenerators
 
-# Namespace: AsyncGenerators
+# AsyncGenerators
 
 ## Index
 

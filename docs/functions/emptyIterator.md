@@ -10,7 +10,7 @@
 
 Alias for [FluentIterator.empty](../classes/FluentIterator.md#empty)
 
-## Type parameters
+## Type Parameters
 
 • **A** = `never`
 

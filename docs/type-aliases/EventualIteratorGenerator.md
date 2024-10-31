@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / EventualIteratorGenerator
 
-# Type alias: EventualIteratorGenerator\<E\>
+# Type Alias: EventualIteratorGenerator\<E\>
 
 > **EventualIteratorGenerator**\<`E`\>: [`IteratorGenerator`](IteratorGenerator.md)\<`E`\> \| `AsyncGenerator`\<`E`\>
 
 An object that can generate a synchronous or asynchronous iterator.
 
-## Type parameters
+## Type Parameters
 
 • **E**
 

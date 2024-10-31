@@ -10,7 +10,7 @@
 
 Alias for AsyncFluentiterator.singleton
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

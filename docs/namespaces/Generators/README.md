@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../../README.md) / Generators
 
-# Namespace: Generators
+# Generators
 
 ## Index
 

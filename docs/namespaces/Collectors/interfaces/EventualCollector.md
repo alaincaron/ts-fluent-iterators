@@ -8,7 +8,7 @@
 
 A `Collector` or an `AsyncCollector`.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -18,7 +18,7 @@ A `Collector` or an `AsyncCollector`.
 
 ### collect()
 
-> **collect**(`a`): `void` \| `Promise`\<`void`\>
+> **collect**(`a`): `boolean` \| `void` \| `Promise`\<`boolean` \| `void`\>
 
 Collects an element.
 
@@ -30,4 +30,4 @@ The element being collected.
 
 #### Returns
 
-`void` \| `Promise`\<`void`\>
+`boolean` \| `void` \| `Promise`\<`boolean` \| `void`\>

@@ -4,12 +4,12 @@
 
 [ts-fluent-iterators](../README.md) / EventualPredicate
 
-# Type alias: EventualPredicate\<A\>
+# Type Alias: EventualPredicate\<A\>
 
 > **EventualPredicate**\<`A`\>: [`Mapper`](Mapper.md)\<`A`, [`Eventually`](Eventually.md)\<`boolean`\>\>
 
 A predicate that can be synchronous or asynchronous.
 
-## Type parameters
+## Type Parameters
 
 • **A**

@@ -8,7 +8,7 @@
 
 Iterator with a Fluent interface.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -29,7 +29,7 @@ Creates a `FluentIterator` by wrapping an `Iterator`
 
 #### Parameters
 
-• **iter**: `Iterator`\<`A`, `any`, `undefined`\>
+• **iter**: `Iterator`\<`A`, `any`, `any`\>
 
 The `Iterator` being wrapped into a `FluentIterator`
 
@@ -45,9 +45,9 @@ const iterator = new FluentIterator([1, 2, 3][Symbol.iterator]());
 
 ## Methods
 
-### `[iterator]`()
+### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`A`, `any`, `undefined`\>
+> **\[iterator\]**(): `Iterator`\<`A`, `any`, `any`\>
 
 Used to make this [FluentIterator](FluentIterator.md) being seen as an
 `Iterable<A>`. This allows them to be used in APIs expecting an
@@ -55,7 +55,7 @@ Used to make this [FluentIterator](FluentIterator.md) being seen as an
 
 #### Returns
 
-`Iterator`\<`A`, `any`, `undefined`\>
+`Iterator`\<`A`, `any`, `any`\>
 
 #### Implementation of
 
@@ -97,7 +97,7 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of appendin
 
 #### Parameters
 
-• **items**: `Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\>
+• **items**: `Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>
 
 An `Iterator` or `Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
@@ -121,13 +121,13 @@ iterator([1, 2, 3]).append([4, 5, 6]);
 Returns the resulf of applying the [Mapper](../type-aliases/Mapper.md) to the wrapped iterator.
 This method allows to use an Iterator function in a fluent way.
 
-#### Type parameters
+#### Type Parameters
 
 • **B** = `A`
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `undefined`\>, `B`\>
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `any`\>, `B`\>
 
 #### Returns
 
@@ -179,7 +179,7 @@ const data = iter.collect();
 
 Collects items from the `FluentIterator` into a `Collector`.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -214,7 +214,7 @@ const data = iter.collectTo(collector);
 
 Collects items into a `Map` by mapping values into keys.
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -252,7 +252,7 @@ const data = iter.collectToMap(s => s.length);
 
 Collects items into a `Map` by mapping values into keys and new value
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -324,7 +324,7 @@ const data = iter.collectToObject(s => s.toUpperCase());
 
 Collects items into a `Record` by mapping values into keys and new value
 
-#### Type parameters
+#### Type Parameters
 
 • **V**
 
@@ -386,7 +386,7 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of apependi
 
 #### Parameters
 
-• ...**iterables**: (`Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\>)[]
+• ...**iterables**: (`Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>)[]
 
 An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
@@ -449,7 +449,7 @@ FluentIterator.empty().count();
 
 Returns a new [FluentIterator](FluentIterator.md) consisting of distinct elements from this iterator.
 
-#### Type parameters
+#### Type Parameters
 
 • **K** = `A`
 
@@ -485,7 +485,7 @@ consisting of the elements yielded by this
 
 #### Parameters
 
-• **start**: `number`= `0`
+• **start**: `number` = `0`
 
 The starting index
 
@@ -539,7 +539,7 @@ Returns a new [FluentIterator](FluentIterator.md) consisting of applying the
 filtering those for which the [Mapper](../type-aliases/Mapper.md) returned null or
 undefined
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -595,7 +595,7 @@ the return value from the calculation on the preceding element. The
 final result of running the reducer across all elements of the array
 is a single value.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -668,7 +668,7 @@ Returns a `Map` where keys are the result of applying the parameter [mapper](../
 this [FluentIterator](FluentIterator.md) and the values are Arrays of
 the elements that are mapped to the same key.
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -698,7 +698,7 @@ iterator([1, 2, 3]).groupBy(x => x % 2 === 0);
 Returns a `Map` where entries are the result of applying the parameter [mapper](../type-aliases/Mapper.md) to the elements of the
 this [FluentIterator](FluentIterator.md),
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -819,7 +819,7 @@ FluentIterator.empty().last();
 
 Returns a new [FluentIterator](FluentIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [FluentIterator](FluentIterator.md).
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -853,7 +853,7 @@ iter.map(s => s.length)
 
 Returns a new [PromiseIterator](PromiseIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [FluentIterator](FluentIterator.md).
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -1020,7 +1020,7 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of prependi
 
 #### Parameters
 
-• **items**: `Iterator`\<`A`, `any`, `undefined`\> \| `Iterable`\<`A`\>
+• **items**: `Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>
 
 An `Iterator` or `Iterable` whose items are prepended to this [FluentIterator](FluentIterator.md).
 
@@ -1310,13 +1310,13 @@ same elements as this [FluentIterator](FluentIterator.md)
 Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
 This method allows to use a an Iterartor transformation in a fluent way.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `undefined`\>, `Iterator`\<`B`, `any`, `undefined`\>\>
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `any`\>, `Iterator`\<`B`, `any`, `any`\>\>
 
 The mapper to transform the iterator.
 
@@ -1348,7 +1348,7 @@ Returns a new [FluentIterator](FluentIterator.md) that yields pairs of elements
 yielded by each Iterators which are navigated in parallel.
 The length of the new [FluentIterator](FluentIterator.md) is equal to the length the shorter iterator.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -1356,7 +1356,7 @@ The type of elements of the `other` iterator.
 
 #### Parameters
 
-• **other**: `Iterator`\<`B`, `any`, `undefined`\> \| `Iterable`\<`B`\>
+• **other**: `Iterator`\<`B`, `any`, `any`\> \| `Iterable`\<`B`, `any`, `any`\>
 
 The iterator that is combined with this one.
 
@@ -1380,7 +1380,7 @@ const zipped = iter.zip(['a', 'b']);
 
 Creates an empty `FluentIterator`. The returned iterator will not yield any element.
 
-#### Type parameters
+#### Type Parameters
 
 • **A** = `never`
 
@@ -1400,7 +1400,7 @@ An empty `FluentIterator`
 
 Creates a `FluentIterator` from an `IteratorGenerator`.
 
-#### Type parameters
+#### Type Parameters
 
 • **A**
 
@@ -1434,7 +1434,7 @@ Creates a singleton operator. The returned iterator will yield a single or no el
 
 -
 
-#### Type parameters
+#### Type Parameters
 
 • **A**
 

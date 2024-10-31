@@ -8,7 +8,7 @@
 
 Holds result of a `MinMaxCollector`
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

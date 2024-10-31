@@ -22,7 +22,7 @@ Default collision handlers for `MapCollector`
 
 > `readonly` **ignore**: \<`K`, `V`\>(`_k`, `oldValue`, `_newValue`) => `V` = `handleCollisionIgnore`
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -44,7 +44,7 @@ Default collision handlers for `MapCollector`
 
 > `readonly` **overwrite**: \<`K`, `V`\>(`_k`, `_oldValue`, `newValue`) => `V` = `handleCollisionOverwrite`
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -66,7 +66,7 @@ Default collision handlers for `MapCollector`
 
 > `readonly` **reject**: \<`K`, `V`\>(`k`, `oldValue`, `newValue`) => `never` = `handleCollisionThrow`
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 

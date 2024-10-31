@@ -18,7 +18,7 @@ c.collect('baz')
 c.result : { min: 'bar', max: 'foo' }
 ```
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -34,10 +34,50 @@ c.result : { min: 'bar', max: 'foo' }
 
 #### Parameters
 
-• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>= `Comparators.natural`
+• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\> = `Comparators.natural`
 
 The comparator used to compare elements. Default is natural ordering.
 
 #### Returns
 
 [`MinMaxCollector`](MinMaxCollector.md)\<`A`\>
+
+## Accessors
+
+### result
+
+> `get` **result**(): `undefined` \| [`MinMax`](../../../interfaces/MinMax.md)\<`A`\>
+
+Returns the aggregated object.
+
+#### Returns
+
+`undefined` \| [`MinMax`](../../../interfaces/MinMax.md)\<`A`\>
+
+The aggregated object resulting from collecting all objects
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`result`](../interfaces/Collector.md#result)
+
+## Methods
+
+### collect()
+
+> **collect**(`a`): `void`
+
+Collects an element.
+
+#### Parameters
+
+• **a**: `A`
+
+The element being collected.
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`collect`](../interfaces/Collector.md#collect)

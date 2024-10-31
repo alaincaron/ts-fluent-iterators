@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../../README.md) / Collectors
 
-# Namespace: Collectors
+# Collectors
 
 ## Index
 

@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / EventualIterator
 
-# Type alias: EventualIterator\<A\>
+# Type Alias: EventualIterator\<A\>
 
 > **EventualIterator**\<`A`\>: `Iterator`\<`A`\> \| `AsyncIterator`\<`A`\>
 
 An `Iterator` that maybe asynchronous.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

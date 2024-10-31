@@ -10,7 +10,7 @@
 
 A comparator that sorts the elements based on the natural order of an attribute.
 
-## Type parameters
+## Type Parameters
 
 • **A** _extends_ `object`
 

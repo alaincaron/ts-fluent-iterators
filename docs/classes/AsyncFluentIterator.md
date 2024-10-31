@@ -8,7 +8,7 @@
 
 AsyncIterator with a Fluent interface.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -29,7 +29,7 @@ Creates an [AsyncFluentIterator](AsyncFluentIterator.md) by wrapping an `AsyncIt
 
 #### Parameters
 
-• **iter**: `AsyncIterator`\<`A`, `any`, `undefined`\>
+• **iter**: `AsyncIterator`\<`A`, `any`, `any`\>
 
 The `AsyncIterator` being wrapped into a `AsyncFluentIterator`
 
@@ -39,9 +39,9 @@ The `AsyncIterator` being wrapped into a `AsyncFluentIterator`
 
 ## Methods
 
-### `[asyncIterator]`()
+### \[asyncIterator\]()
 
-> **\[asyncIterator\]**(): `AsyncIterator`\<`A`, `any`, `undefined`\>
+> **\[asyncIterator\]**(): `AsyncIterator`\<`A`, `any`, `any`\>
 
 Used to make this [AsyncFluentIterator](AsyncFluentIterator.md) being seen as an
 `AsyncIterable<A>`. This allows them to be used in APIs expecting an
@@ -49,7 +49,7 @@ Used to make this [AsyncFluentIterator](AsyncFluentIterator.md) being seen as an
 
 #### Returns
 
-`AsyncIterator`\<`A`, `any`, `undefined`\>
+`AsyncIterator`\<`A`, `any`, `any`\>
 
 #### Implementation of
 
@@ -117,13 +117,13 @@ asyncIterator([1, 2, 3]).append([4, 5, 6]);
 Returns the resulf of applying the [Mapper](../type-aliases/Mapper.md) to the wrapped iterator.
 This method allows to use an Iterator function in a fluent way.
 
-#### Type parameters
+#### Type Parameters
 
 • **B** = `A`
 
 #### Parameters
 
-• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`AsyncIterator`\<`A`, `any`, `undefined`\>, `B`\>
+• **mapper**: [`EventualMapper`](../type-aliases/EventualMapper.md)\<`AsyncIterator`\<`A`, `any`, `any`\>, `B`\>
 
 #### Returns
 
@@ -175,7 +175,7 @@ const data = await iter.collect();
 
 Collects items from the [AsyncFluentIterator](AsyncFluentIterator.md) into an [EventualCollector](../namespaces/Collectors/interfaces/EventualCollector.md).
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -210,7 +210,7 @@ const data = await iter.collectTo(collector);
 
 Collects items into a `Map` by mapping values into keys.
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -248,7 +248,7 @@ const data = await iter.collectToMap(s => s.length);
 
 Collects items into a `Map` by mapping values into keys and new value
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -320,7 +320,7 @@ const data = iter.collectToObject(s => s.toUpperCase());
 
 Collects items into a `Record` by mapping values into keys and new value
 
-#### Type parameters
+#### Type Parameters
 
 • **V**
 
@@ -449,7 +449,7 @@ await AsuyncFluentIterator.empty().count();
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of distinct elements from this iterator.
 
-#### Type parameters
+#### Type Parameters
 
 • **K** = `A`
 
@@ -487,7 +487,7 @@ consisting of the elements yielded by this
 
 #### Parameters
 
-• **start**: `number`= `0`
+• **start**: `number` = `0`
 
 The starting index
 
@@ -541,7 +541,7 @@ Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applyi
 filtering those for which the [EventualMapper](../type-aliases/EventualMapper.md) returned null or
 undefined
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -597,7 +597,7 @@ the return value from the calculation on the preceding element. The
 final result of running the reducer across all elements of the array
 is a single value.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -676,7 +676,7 @@ Returns a `Promise` of a `Map` where keys are the result of applying the paramet
 this [AsyncFluentIterator](AsyncFluentIterator.md) and the values are Arrays of
 the elements that are mapped to the same key.
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -706,7 +706,7 @@ await asyncIterator([1, 2, 3]).groupBy(x => x % 2 === 0);
 Returns a `Promise` of a `Map` where entries are the result of applying the parameter [mapper](../type-aliases/EventualMapper.md) to the elements of the
 this [AsyncFluentIterator](AsyncFluentIterator.md),
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -827,7 +827,7 @@ await AsyncFluentIterator.empty().last();
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [AsyncFluentIterator](AsyncFluentIterator.md).
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -1264,13 +1264,13 @@ iter
 Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
 This method allows to extends the class [FluentIterator](FluentIterator.md) using `Iterator` transformation`
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`AsyncIterator`\<`A`, `any`, `undefined`\>, `AsyncIterator`\<`B`, `any`, `undefined`\>\>
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`AsyncIterator`\<`A`, `any`, `any`\>, `AsyncIterator`\<`B`, `any`, `any`\>\>
 
 #### Returns
 
@@ -1300,7 +1300,7 @@ Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) that yields pairs of
 yielded by each Iterators which are navigated in parallel.
 The length of the new [AsyncFluentIterator](AsyncFluentIterator.md) is equal to the length the shorter iterator.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -1308,7 +1308,7 @@ The type of elements of the `other` iterator.
 
 #### Parameters
 
-• **other**: `AsyncIterator`\<`B`, `any`, `undefined`\> \| `AsyncIterable`\<`B`\>
+• **other**: `AsyncIterator`\<`B`, `any`, `any`\> \| `AsyncIterable`\<`B`, `any`, `any`\>
 
 The iterator that is combined with this one.
 
@@ -1332,7 +1332,7 @@ const zipped = iter.zip(asyncIterator(['a', 'b']));
 
 Creates an empty [AsyncFluentIterator](AsyncFluentIterator.md). The returned iterator will not yield any element.
 
-#### Type parameters
+#### Type Parameters
 
 • **A** = `never`
 
@@ -1352,7 +1352,7 @@ An empty [AsyncFluentIterator](AsyncFluentIterator.md)
 
 Creates a [AsyncFluentIterator](AsyncFluentIterator.md) from an `AsyncIteratorGenerator`.
 
-#### Type parameters
+#### Type Parameters
 
 • **A**
 
@@ -1380,7 +1380,7 @@ Creates a singleton operator. The returned iterator will yield a single or no el
 
 -
 
-#### Type parameters
+#### Type Parameters
 
 • **A**
 

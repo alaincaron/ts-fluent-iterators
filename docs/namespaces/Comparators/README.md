@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../../README.md) / Comparators
 
-# Namespace: Comparators
+# Comparators
 
 ## Index
 

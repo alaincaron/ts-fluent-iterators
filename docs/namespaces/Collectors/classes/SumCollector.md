@@ -29,10 +29,50 @@ c.result : 3.0
 
 #### Parameters
 
-• **initial**: `number`= `0`
+• **initial**: `number` = `0`
 
 The initial value of the sum.
 
 #### Returns
 
 [`SumCollector`](SumCollector.md)
+
+## Accessors
+
+### result
+
+> `get` **result**(): `number`
+
+Returns the aggregated object.
+
+#### Returns
+
+`number`
+
+The aggregated object resulting from collecting all objects
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`result`](../interfaces/Collector.md#result)
+
+## Methods
+
+### collect()
+
+> **collect**(`a`): `void`
+
+Collects an element.
+
+#### Parameters
+
+• **a**: `number`
+
+The element being collected.
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`collect`](../interfaces/Collector.md#collect)

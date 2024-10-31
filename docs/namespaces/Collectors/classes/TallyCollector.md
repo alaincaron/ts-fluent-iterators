@@ -18,7 +18,7 @@ c.collect('foo');
 // c.result : Map(2) { 'foo' => 2, 'bar' => 1 }
 ```
 
-## Type parameters
+## Type Parameters
 
 • **K**
 
@@ -27,3 +27,41 @@ The type of the keys of the map.
 ## Implements
 
 - [`Collector`](../interfaces/Collector.md)\<`K`, `Map`\<`K`, `number`\>\>
+
+## Accessors
+
+### result
+
+> `get` **result**(): `Map`\<`K`, `number`\>
+
+Returns the aggregated object.
+
+#### Returns
+
+`Map`\<`K`, `number`\>
+
+The aggregated object resulting from collecting all objects
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`result`](../interfaces/Collector.md#result)
+
+## Methods
+
+### collect()
+
+> **collect**(`k`): `void`
+
+Collects an element.
+
+#### Parameters
+
+• **k**: `K`
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`collect`](../interfaces/Collector.md#collect)

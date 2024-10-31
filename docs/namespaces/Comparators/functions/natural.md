@@ -10,7 +10,7 @@
 
 Natural comparator.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

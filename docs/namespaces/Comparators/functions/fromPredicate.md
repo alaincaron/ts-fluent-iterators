@@ -10,7 +10,7 @@
 
 Returns a comparator base on a `Binarypredicate`
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

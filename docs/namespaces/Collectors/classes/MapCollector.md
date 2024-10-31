@@ -18,7 +18,7 @@ c.collect(['foo',3]);
 //c.result : Map.set('foo',3).set('bar',2)
 ```
 
-## Type parameters
+## Type Parameters
 
 • **K**
 
@@ -47,3 +47,43 @@ Specify how to handle collisions. Default is to ignore collisions, i.e. newer el
 #### Returns
 
 [`MapCollector`](MapCollector.md)\<`K`, `V`\>
+
+## Accessors
+
+### result
+
+> `get` **result**(): `Map`\<`K`, `V`\>
+
+Returns the aggregated object.
+
+#### Returns
+
+`Map`\<`K`, `V`\>
+
+The aggregated object resulting from collecting all objects
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`result`](../interfaces/Collector.md#result)
+
+## Methods
+
+### collect()
+
+> **collect**(`a`): `void`
+
+Collects an element.
+
+#### Parameters
+
+• **a**: [`K`, `V`]
+
+The element being collected.
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`collect`](../interfaces/Collector.md#collect)

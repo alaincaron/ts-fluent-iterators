@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / IteratorLike
 
-# Type alias: IteratorLike\<E\>
+# Type Alias: IteratorLike\<E\>
 
 > **IteratorLike**\<`E`\>: [`Mapper`](Mapper.md)\<`number`, `E`\> \| `Iterator`\<`E`\> \| `Iterable`\<`E`\>
 
 An object that behaves like an iterator.
 
-## Type parameters
+## Type Parameters
 
 • **E**
 

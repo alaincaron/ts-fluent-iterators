@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / IteratorGenerator
 
-# Type alias: IteratorGenerator\<E\>
+# Type Alias: IteratorGenerator\<E\>
 
 > **IteratorGenerator**\<`E`\>: [`ArrayGenerator`](../interfaces/ArrayGenerator.md)\<`E`\> \| [`IteratorLike`](IteratorLike.md)\<`E`\>
 
 An object that can generate an iterator.
 
-## Type parameters
+## Type Parameters
 
 • **E**
 

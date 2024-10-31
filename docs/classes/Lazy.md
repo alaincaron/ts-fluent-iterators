@@ -9,7 +9,7 @@
 Represents a lazy-evaluated value that is computed only when needed.
 Lazy
 
-## Type parameters
+## Type Parameters
 
 • **T**
 
@@ -23,7 +23,7 @@ The type of the value.
 
 Maps the computed value to a new value using the provided function.
 
-#### Type parameters
+#### Type Parameters
 
 • **R**
 
@@ -65,7 +65,7 @@ The computed value.
 
 Static method to create an instance of `Lazy`.
 
-#### Type parameters
+#### Type Parameters
 
 • **T**
 

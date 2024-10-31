@@ -8,7 +8,7 @@
 
 Iterator yielding `Promise` objects with a Fluent interface.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -29,7 +29,7 @@ Creates an [PromiseIterator](PromiseIterator.md) by wrapping an `Iterator<Promis
 
 #### Parameters
 
-• **iter**: `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>
+• **iter**: `Iterator`\<`Promise`\<`A`\>, `any`, `any`\>
 
 The `Iterator` being wrapped into a `PromiseIterator`
 
@@ -39,9 +39,9 @@ The `Iterator` being wrapped into a `PromiseIterator`
 
 ## Methods
 
-### `[iterator]`()
+### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>
+> **\[iterator\]**(): `Iterator`\<`Promise`\<`A`\>, `any`, `any`\>
 
 Used to make this [PromiseIterator](PromiseIterator.md) being seen as an
 `Iterable<Promise<A>>`. This allows them to be used in APIs expecting an
@@ -49,7 +49,7 @@ Used to make this [PromiseIterator](PromiseIterator.md) being seen as an
 
 #### Returns
 
-`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>
+`Iterator`\<`Promise`\<`A`\>, `any`, `any`\>
 
 #### Implementation of
 
@@ -117,7 +117,7 @@ Returns a new [PromiseIterator](PromiseIterator.md) that is the result of append
 
 #### Parameters
 
-• **items**: `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\>
+• **items**: `Iterator`\<`Promise`\<`A`\>, `any`, `any`\> \| `Iterable`\<`Promise`\<`A`\>, `any`, `any`\>
 
 An `Iterator` or `Iterable` whose items are appended to this [PromiseIterator](PromiseIterator.md).
 
@@ -141,13 +141,13 @@ toPromiseIterator([1, 2, 3]).append([4, 5, 6]);
 Returns the resulf of applying the [Mapper](../type-aliases/Mapper.md) to the wrapped iterator.
 This method allows to use an Iterator function in a fluent way.
 
-#### Type parameters
+#### Type Parameters
 
 • **B** = `A`
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>, [`Eventually`](../type-aliases/Eventually.md)\<`B`\>\>
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`Promise`\<`A`\>, `any`, `any`\>, [`Eventually`](../type-aliases/Eventually.md)\<`B`\>\>
 
 #### Returns
 
@@ -203,7 +203,7 @@ This is equivalent to `Promise.all`
 
 Collects items from the [PromiseIterator](PromiseIterator.md) into an [EventualCollector](../namespaces/Collectors/interfaces/EventualCollector.md).
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -238,7 +238,7 @@ const data = await iter.collectTo(collector);
 
 Collects items into a `Map` by mapping values into keys.
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -276,7 +276,7 @@ const data = await iter.collectToMap(s => s.length);
 
 Collects items into a `Map` by mapping values into keys and new value
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -348,7 +348,7 @@ const data = iter.collectToObject(s => s.toUpperCase());
 
 Collects items into a `Record` by mapping values into keys and new value
 
-#### Type parameters
+#### Type Parameters
 
 • **V**
 
@@ -410,7 +410,7 @@ Returns a new [PromiseIterator](PromiseIterator.md) that is the result of apepen
 
 #### Parameters
 
-• ...**iterables**: (`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\>)[]
+• ...**iterables**: (`Iterator`\<`Promise`\<`A`\>, `any`, `any`\> \| `Iterable`\<`Promise`\<`A`\>, `any`, `any`\>)[]
 
 An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
@@ -477,7 +477,7 @@ await PromiseIterator.empty().count();
 
 Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of distinct elements from this iterator.
 
-#### Type parameters
+#### Type Parameters
 
 • **K** = `A`
 
@@ -513,7 +513,7 @@ consisting of the elements yielded by this
 
 #### Parameters
 
-• **start**: `number`= `0`
+• **start**: `number` = `0`
 
 The starting index
 
@@ -567,7 +567,7 @@ Returns a new [AsyncFluentIterator](AsyncFluentIterator.md) consisting of applyi
 filtering those for which the [EventualMapper](../type-aliases/EventualMapper.md) returned null or
 undefined
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -619,7 +619,7 @@ The first element of this [PromiseIterator](PromiseIterator.md) or `undefined`.
 
 Returns a new [PromiseIterator](PromiseIterator.md) for [EventualMapper](../type-aliases/EventualMapper.md) that accept a `Promise` rather than an `Awaited` value.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -653,7 +653,7 @@ the return value from the calculation on the preceding element. The
 final result of running the reducer across all elements of the array
 is a single value.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -732,7 +732,7 @@ Returns a `Promise` of a `Map` where keys are the result of applying the paramet
 this [PromiseIterator](PromiseIterator.md) and the values are Arrays of
 the elements that are mapped to the same key.
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -762,7 +762,7 @@ await toPromiseIterator([1, 2, 3]).groupBy(x => x % 2 === 0);
 Returns a `Promise` of a `Map` where entries are the result of applying the parameter [mapper](../type-aliases/EventualMapper.md) to the elements of the
 this [PromiseIterator](PromiseIterator.md),
 
-#### Type parameters
+#### Type Parameters
 
 • **K**
 
@@ -883,7 +883,7 @@ await PromiseIterator.empty().last();
 
 Returns a new [PromiseIterator](PromiseIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [PromiseIterator](PromiseIterator.md).
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -1058,7 +1058,7 @@ Returns a new [PromiseIterator](PromiseIterator.md) that is the result of prepen
 
 #### Parameters
 
-• **items**: `Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`A`\>\>
+• **items**: `Iterator`\<`Promise`\<`A`\>, `any`, `any`\> \| `Iterable`\<`Promise`\<`A`\>, `any`, `any`\>
 
 An `Iterator` or `Iterable` whose items are prepended to this [PromiseIterator](PromiseIterator.md).
 
@@ -1332,13 +1332,13 @@ iter
 Returns a new [FluentIterator](FluentIterator.md) that is the result of transforming this [FluentIterator](FluentIterator.md).
 This method allows to extends the class [FluentIterator](FluentIterator.md) using `Iterator` transformation`
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`Promise`\<`A`\>, `any`, `undefined`\>, `Iterator`\<`Promise`\<`B`\>, `any`, `undefined`\>\>
+• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`Promise`\<`A`\>, `any`, `any`\>, `Iterator`\<`Promise`\<`B`\>, `any`, `any`\>\>
 
 #### Returns
 
@@ -1368,7 +1368,7 @@ Returns a new [PromiseIterator](PromiseIterator.md) that yields pairs of element
 yielded by each Iterators which are navigated in parallel.
 The length of the new [PromiseIterator](PromiseIterator.md) is equal to the length the shorter iterator.
 
-#### Type parameters
+#### Type Parameters
 
 • **B**
 
@@ -1376,7 +1376,7 @@ The type of elements of the `other` iterator.
 
 #### Parameters
 
-• **other**: `Iterator`\<`Promise`\<`B`\>, `any`, `undefined`\> \| `Iterable`\<`Promise`\<`B`\>\>
+• **other**: `Iterator`\<`Promise`\<`B`\>, `any`, `any`\> \| `Iterable`\<`Promise`\<`B`\>, `any`, `any`\>
 
 The iterator that is combined with this one.
 
@@ -1400,7 +1400,7 @@ const zipped = iter.zip(asyncIterator(['a', 'b']));
 
 Creates an empty [PromiseIterator](PromiseIterator.md). The returned iterator will not yield any element.
 
-#### Type parameters
+#### Type Parameters
 
 • **A** = `never`
 
@@ -1420,7 +1420,7 @@ An empty [PromiseIterator](PromiseIterator.md)
 
 Creates a [PromiseIterator](PromiseIterator.md) from an `IteratorGenerator<Promise<A>>`.
 
-#### Type parameters
+#### Type Parameters
 
 • **A**
 
@@ -1448,7 +1448,7 @@ Creates a singleton operator. The returned iterator will yield a single or no el
 
 -
 
-#### Type parameters
+#### Type Parameters
 
 • **A**
 

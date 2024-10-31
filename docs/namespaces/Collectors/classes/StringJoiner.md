@@ -18,7 +18,7 @@ c.collect('baz');
 // c.result : [foo, bar, baz]
 ```
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -36,18 +36,58 @@ The type of the elements being accepted.
 
 #### Parameters
 
-• **separator**: `string`= `','`
+• **separator**: `string` = `','`
 
 separator between elements.
 
-• **prefix**: `string`= `''`
+• **prefix**: `string` = `''`
 
 prefix of the joined string.
 
-• **suffix**: `string`= `''`
+• **suffix**: `string` = `''`
 
 suffix of the joined string.
 
 #### Returns
 
 [`StringJoiner`](StringJoiner.md)\<`A`\>
+
+## Accessors
+
+### result
+
+> `get` **result**(): `string`
+
+Returns the aggregated object.
+
+#### Returns
+
+`string`
+
+The aggregated object resulting from collecting all objects
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`result`](../interfaces/Collector.md#result)
+
+## Methods
+
+### collect()
+
+> **collect**(`a`): `void`
+
+Collects an element.
+
+#### Parameters
+
+• **a**: `A`
+
+The element being collected.
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`collect`](../interfaces/Collector.md#collect)

@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / Provider
 
-# Type alias: Provider()\<A\>
+# Type Alias: Provider()\<A\>
 
 > **Provider**\<`A`\>: () => `A`
 
 A function that provides a value of type `A`
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

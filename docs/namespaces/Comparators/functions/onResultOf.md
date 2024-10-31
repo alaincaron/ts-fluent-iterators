@@ -10,7 +10,7 @@
 
 Returns a comparator that applies a comparator to the result of applying the mapper.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -29,6 +29,6 @@ Returns a comparator that applies a comparator to the result of applying the map
 ## Example
 
 ```ts
-const orderByLen = compose<string, number>(natural, s => s.length);
+const orderByLen = onResultOf<string, number>(natural, s => s.length);
 // comparator to sort string according to their lengths.
 ```

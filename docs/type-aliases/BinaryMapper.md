@@ -4,19 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / BinaryMapper
 
-# Type alias: BinaryMapper()\<A, B, C\>
+# Type Alias: BinaryMapper()\<A, B, C\>
 
 > **BinaryMapper**\<`A`, `B`, `C`\>: (`a`, `b`) => `C`
 
 A function mapping a pair of values of types `A` and `B` to type `C`
 
-## Example
-
-```ts
-const sum: BinaryMapper<number, number, number> = (a, b) => a + b;
-```
-
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -37,3 +31,9 @@ the type of the second operand
 ## Returns
 
 `C`
+
+## Example
+
+```ts
+const sum: BinaryMapper<number, number, number> = (a, b) => a + b;
+```

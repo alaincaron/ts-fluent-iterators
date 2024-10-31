@@ -8,7 +8,7 @@
 
 A `Collector` is an object that collects elements of type `A` and aggregates them into an object of type `B`.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -36,7 +36,7 @@ The aggregated object resulting from collecting all objects
 
 ### collect()
 
-> **collect**(`a`): `void`
+> **collect**(`a`): `boolean` \| `void`
 
 Collects an element.
 
@@ -48,4 +48,4 @@ The element being collected.
 
 #### Returns
 
-`void`
+`boolean` \| `void`

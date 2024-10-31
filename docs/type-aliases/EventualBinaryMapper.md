@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / EventualBinaryMapper
 
-# Type alias: EventualBinaryMapper()\<A, B, C\>
+# Type Alias: EventualBinaryMapper()\<A, B, C\>
 
 > **EventualBinaryMapper**\<`A`, `B`, `C`\>: (`a`, `b`) => [`Eventually`](Eventually.md)\<`C`\>
 
 An eventual BinaryMapper
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

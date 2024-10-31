@@ -10,7 +10,7 @@
 
 Reverse comparator.
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -18,7 +18,7 @@ The type of elements to be compared
 
 ## Parameters
 
-• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>= `natural`
+• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\> = `natural`
 
 The comparator being inversed.
 

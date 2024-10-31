@@ -4,18 +4,14 @@
 
 [ts-fluent-iterators](../README.md) / CollisionHandler
 
-# Type alias: CollisionHandler()\<K, V\>
+# Type Alias: CollisionHandler()\<K, V\>
 
 > **CollisionHandler**\<`K`, `V`\>: (`k`, `oldValue`, `newValue`) => `V`
 
 A collision handler for collectors. Used by `Collectors` `MapCollector` and `ObjectCollector` to handle collisions.
 The value returned will be the new mapping for the key. It can also throw to abort the collecting of elements.
 
-## Throws
-
-It can throw to reject the collision and abort the collecting
-
-## Type parameters
+## Type Parameters
 
 • **K**
 
@@ -42,3 +38,9 @@ The new value to be mapped to the key `k`
 ## Returns
 
 `V`
+
+The value that should be mapped to the key `k`
+
+## Throws
+
+It can throw to reject the collision and abort the collecting

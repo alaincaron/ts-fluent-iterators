@@ -17,7 +17,7 @@ c.collect('bar');
 c.result : 'foo'
 ```
 
-## Type parameters
+## Type Parameters
 
 • **A**
 
@@ -33,10 +33,50 @@ c.result : 'foo'
 
 #### Parameters
 
-• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>= `Comparators.natural`
+• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\> = `Comparators.natural`
 
 The comparator used to compare elements. Default is natural ordering.
 
 #### Returns
 
 [`MaxCollector`](MaxCollector.md)\<`A`\>
+
+## Accessors
+
+### result
+
+> `get` **result**(): `undefined` \| `A`
+
+Returns the aggregated object.
+
+#### Returns
+
+`undefined` \| `A`
+
+The aggregated object resulting from collecting all objects
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`result`](../interfaces/Collector.md#result)
+
+## Methods
+
+### collect()
+
+> **collect**(`a`): `void`
+
+Collects an element.
+
+#### Parameters
+
+• **a**: `A`
+
+The element being collected.
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`collect`](../interfaces/Collector.md#collect)

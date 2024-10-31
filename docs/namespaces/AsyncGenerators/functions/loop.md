@@ -11,7 +11,7 @@
 Returns an `AsyncIterableIterator` resulting from applying f on all elements of the range
 from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
-## Type parameters
+## Type Parameters
 
 • **T**
 

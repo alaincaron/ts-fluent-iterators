@@ -10,7 +10,7 @@
 
 Alias for [PromiseIterator.singleton](../classes/PromiseIterator.md#singleton)
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

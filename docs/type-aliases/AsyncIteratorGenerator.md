@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / AsyncIteratorGenerator
 
-# Type alias: AsyncIteratorGenerator\<E\>
+# Type Alias: AsyncIteratorGenerator\<E\>
 
 > **AsyncIteratorGenerator**\<`E`\>: [`AsyncArrayGenerator`](../interfaces/AsyncArrayGenerator.md)\<`E`\> \| [`AsyncIteratorLike`](AsyncIteratorLike.md)\<`E`\>
 
 An object that can generate an asynchronous iterator.
 
-## Type parameters
+## Type Parameters
 
 • **E**
 

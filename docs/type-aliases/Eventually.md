@@ -4,12 +4,12 @@
 
 [ts-fluent-iterators](../README.md) / Eventually
 
-# Type alias: Eventually\<A\>
+# Type Alias: Eventually\<A\>
 
 > **Eventually**\<`A`\>: `A` \| `Promise`\<`A`\>
 
 Represents a value of type `A` or `Promise<A>`.
 
-## Type parameters
+## Type Parameters
 
 • **A**

@@ -10,7 +10,7 @@
 
 Alias for Fluentiterator.singleton
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

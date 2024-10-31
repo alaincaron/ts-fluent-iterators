@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / EventualProvider
 
-# Type alias: EventualProvider()\<A\>
+# Type Alias: EventualProvider()\<A\>
 
 > **EventualProvider**\<`A`\>: () => [`Eventually`](Eventually.md)\<`A`\>
 
 A function that provides an eventual value of type `A`
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

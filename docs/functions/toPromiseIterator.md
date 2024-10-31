@@ -10,7 +10,7 @@
 
 Helper function to create a [PromiseIterator](../classes/PromiseIterator.md) from synchronous [IteratorGenerator](../type-aliases/IteratorGenerator.md).
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

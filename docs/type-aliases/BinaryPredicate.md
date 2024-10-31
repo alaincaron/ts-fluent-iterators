@@ -4,13 +4,13 @@
 
 [ts-fluent-iterators](../README.md) / BinaryPredicate
 
-# Type alias: BinaryPredicate\<A, B\>
+# Type Alias: BinaryPredicate\<A, B\>
 
 > **BinaryPredicate**\<`A`, `B`\>: [`BinaryMapper`](BinaryMapper.md)\<`A`, `B`, `boolean`\>
 
 A function mapping a pair of values of types `A` and `B` to type `boolean`
 
-## Type parameters
+## Type Parameters
 
 • **A**
 

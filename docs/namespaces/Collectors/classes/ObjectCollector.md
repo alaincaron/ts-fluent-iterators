@@ -18,7 +18,7 @@ c.collect(['foo',3]);
 //c.result : { foo: 3, bar: 2 }
 ```
 
-## Type parameters
+## Type Parameters
 
 • **V**
 
@@ -43,3 +43,43 @@ Specify how to handle collisions. Default is to ignore collisions, i.e. newer el
 #### Returns
 
 [`ObjectCollector`](ObjectCollector.md)\<`V`\>
+
+## Accessors
+
+### result
+
+> `get` **result**(): `Record`\<`string`, `V`\>
+
+Returns the aggregated object.
+
+#### Returns
+
+`Record`\<`string`, `V`\>
+
+The aggregated object resulting from collecting all objects
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`result`](../interfaces/Collector.md#result)
+
+## Methods
+
+### collect()
+
+> **collect**(`a`): `void`
+
+Collects an element.
+
+#### Parameters
+
+• **a**: [`string`, `V`]
+
+The element being collected.
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[`Collector`](../interfaces/Collector.md).[`collect`](../interfaces/Collector.md#collect)
