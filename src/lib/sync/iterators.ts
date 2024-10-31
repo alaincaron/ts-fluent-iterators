@@ -203,9 +203,10 @@ export function some<A>(iter: Iterator<A>, predicate: Predicate<A>): boolean {
 export function collectTo<A, B>(iter: Iterator<A>, collector: Collector<A, B>): B {
   for (;;) {
     const item = iter.next();
-    if (item.done) return collector.result;
-    collector.collect(item.value);
+    if (item.done) break;
+    if (collector.collect(item.value)) break;
   }
+  return collector.result;
 }
 
 export function* partition<A>(iter: Iterator<A>, size: number): IterableIterator<A[]> {

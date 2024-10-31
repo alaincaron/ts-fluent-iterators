@@ -12,7 +12,7 @@ export interface Collector<A, B> {
    * Collects an element.
    * @param a The element being collected.
    */
-  collect(a: A): void;
+  collect(a: A): boolean | void;
 
   /**
    * Returns the aggregated object.
@@ -31,7 +31,7 @@ export interface AsyncCollector<A, B> {
    * Collects an element.
    * @param a The element being collected.
    */
-  collect(a: A): Promise<void>;
+  collect(a: A): Promise<boolean | void>;
 
   /**
    * Returns the aggregated object.

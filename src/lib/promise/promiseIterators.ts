@@ -182,9 +182,10 @@ export async function collectTo<A, B>(
 ): Promise<B> {
   for (;;) {
     const item = iter.next();
-    if (item.done) return collector.result;
-    await collector.collect(await item.value);
+    if (item.done) break;
+    if (await collector.collect(await item.value)) break;
   }
+  return collector.result;
 }
 
 export async function* distinct<A, K = A>(
