@@ -2,13 +2,13 @@
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / compose
+[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / onResultOf
 
-# Function: compose()
+# Function: onResultOf()
 
-> **compose**\<`A`, `B`\>(`comparator`, `mapper`): [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
+> **onResultOf**\<`A`, `B`\>(`comparator`, `mapper`): [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
 
-Returns a comparator that applies a comparator to the elements after they'be mapped by a mapper.
+Returns a comparator that applies a comparator to the result of applying the mapper.
 
 ## Type parameters
 

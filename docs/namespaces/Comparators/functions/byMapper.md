@@ -2,11 +2,11 @@
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / orderBy
+[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / byMapper
 
-# Function: orderBy()
+# Function: byMapper()
 
-> **orderBy**\<`A`\>(`mapper`): [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
+> **byMapper**\<`A`, `B`\>(`mapper`): [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
 
 A comparator that sorts the elements based on the natural order of the mappers.
 
@@ -14,9 +14,11 @@ A comparator that sorts the elements based on the natural order of the mappers.
 
 • **A**
 
+• **B**
+
 ## Parameters
 
-• **mapper**: [`Mapper`](../../../type-aliases/Mapper.md)\<`A`, `number`\>
+• **mapper**: [`Mapper`](../../../type-aliases/Mapper.md)\<`A`, `B`\>
 
 ## Returns
 
@@ -25,6 +27,6 @@ A comparator that sorts the elements based on the natural order of the mappers.
 ## Example
 
 ```ts
-const orderByLen = orderBy<string>(s => s.length);
+const orderByLen = byMapper<string>(s => s.length);
 // comparator to sort string according to their lengths.
 ```

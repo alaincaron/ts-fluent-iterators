@@ -10,9 +10,10 @@
 
 ### Functions
 
-- [compose](functions/compose.md)
+- [byAttr](functions/byAttr.md)
+- [byMapper](functions/byMapper.md)
 - [fromPredicate](functions/fromPredicate.md)
 - [natural](functions/natural.md)
-- [orderBy](functions/orderBy.md)
+- [onResultOf](functions/onResultOf.md)
 - [reverse](functions/reverse.md)
 - [reversed](functions/reversed.md)
