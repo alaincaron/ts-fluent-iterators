@@ -104,6 +104,7 @@ export abstract class Ordering<T> {
         return FunctionalOrdering.from(Comparators.reverse(this.comparator));
     }
   }
+
   static getComparator<T>(c: ComparatorLike<T>): Comparator<T> {
     if (typeof c === 'function') return c;
     return c.comparator;
@@ -118,9 +119,15 @@ export abstract class Ordering<T> {
   }
 
   static from<T>(c: Comparator<T>): Ordering<T> {
-    return new FunctionalOrdering(c);
+    switch (c) {
+      case Comparators.natural:
+        return Ordering.natural();
+      case Comparators.reversed:
+        return Ordering.reversed();
+      default:
+        return new FunctionalOrdering(c);
+    }
   }
-
   static fromMany<T>(...comparators: Comparator<T>[]) {
     return new FunctionalOrdering(Comparators.chain(comparators));
   }
