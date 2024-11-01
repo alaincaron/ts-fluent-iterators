@@ -10,7 +10,7 @@ export abstract class Ordering<T> {
     return this.compare.bind(this);
   }
 
-  compound(secondary: ComparatorLike<T>) {
+  compound<T1 extends T = T>(secondary: ComparatorLike<T1>): Ordering<T1> {
     return Ordering.from(Comparators.compound(this.comparator, Ordering.getComparator(secondary)));
   }
 
@@ -30,44 +30,20 @@ export abstract class Ordering<T> {
     return FunctionalOrdering.from(Comparators.lexicographical(this.comparator));
   }
 
-  max(a: T, b: T, ...rest: T[]): T {
-    let result = this.compare(a, b) >= 0 ? a : b;
-    for (const x of rest) {
-      if (this.compare(result, x) < 0) result = x;
-    }
-    return result;
+  min<T1 extends T = T>(a: T1, b: T1, ...rest: T1[]): T1 {
+    return Comparators.min(this.comparator, a, b, ...rest);
   }
 
-  min(a: T, b: T, ...rest: T[]): T {
-    let result = this.compare(a, b) <= 0 ? a : b;
-    for (const x of rest) {
-      if (this.compare(result, x) > 0) result = x;
-    }
-    return result;
+  max<T1 extends T = T>(a: T1, b: T1, ...rest: T1[]): T1 {
+    return Comparators.max(this.comparator, a, b, ...rest);
   }
 
-  maxIter(items: Iterable<T>) {
-    const iter = items[Symbol.iterator]();
-    let item = iter.next();
-    if (item.done) return undefined;
-    let result = item.value;
-    for (;;) {
-      item = iter.next();
-      if (item.done) return result;
-      if (this.compare(result, item.value) < 0) result = item.value;
-    }
+  minIter<T1 extends T = T>(items: Iterable<T1>) {
+    return Comparators.minIter(this.comparator, items);
   }
 
-  minIter(items: Iterable<T>) {
-    const iter = items[Symbol.iterator]();
-    let item = iter.next();
-    if (item.done) return undefined;
-    let result = item.value;
-    for (;;) {
-      item = iter.next();
-      if (item.done) return result;
-      if (this.compare(result, item.value) > 0) result = item.value;
-    }
+  maxIter<T1 extends T = T>(items: Iterable<T1>) {
+    return Comparators.maxIter(this.comparator, items);
   }
 
   nullsFirst() {

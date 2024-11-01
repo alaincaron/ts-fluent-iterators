@@ -82,7 +82,7 @@ export function fromPredicate<A>(isLessThan: BinaryPredicate<A, A>): Comparator<
   };
 }
 
-export function compound<T>(first: Comparator<T>, second: Comparator<T>): Comparator<T> {
+export function compound<T, T1 extends T = T>(first: Comparator<T>, second: Comparator<T1>): Comparator<T1> {
   return (t1, t2) => first(t1, t2) || second(t1, t2);
 }
 
@@ -153,5 +153,45 @@ export function isStrictlyOrdered<T1, T2 extends T1 = T1>(comparator: Comparator
     if (item.done) return true;
     if (comparator(prev.value, item.value) >= 0) return false;
     prev = item;
+  }
+}
+
+export function min<T1, T2 extends T1 = T1>(comparator: Comparator<T1>, a: T2, b: T2, ...rest: T2[]): T2 {
+  let result = comparator(a, b) <= 0 ? a : b;
+  for (const x of rest) {
+    if (comparator(x, result) < 0) result = x;
+  }
+  return result;
+}
+
+export function max<T1, T2 extends T1 = T1>(comparator: Comparator<T1>, a: T2, b: T2, ...rest: T2[]): T2 {
+  let result = comparator(a, b) >= 0 ? a : b;
+  for (const x of rest) {
+    if (comparator(x, result) > 0) result = x;
+  }
+  return result;
+}
+
+export function minIter<T1, T2 extends T1 = T1>(comparator: Comparator<T1>, items: Iterable<T2>): T2 | undefined {
+  const iter = items[Symbol.iterator]();
+  let item = iter.next();
+  if (item.done) return undefined;
+  let result = item.value;
+  for (;;) {
+    item = iter.next();
+    if (item.done) return result;
+    if (comparator(item.value, result) < 0) result = item.value;
+  }
+}
+
+export function maxIter<T1, T2 extends T1 = T1>(comparator: Comparator<T1>, items: Iterable<T2>): T2 | undefined {
+  const iter = items[Symbol.iterator]();
+  let item = iter.next();
+  if (item.done) return undefined;
+  let result = item.value;
+  for (;;) {
+    item = iter.next();
+    if (item.done) return result;
+    if (comparator(item.value, result) > 0) result = item.value;
   }
 }
