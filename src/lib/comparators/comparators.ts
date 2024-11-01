@@ -23,8 +23,8 @@ export function natural<A>(a1: A, a2: A) {
  *  @returns
  * A new comparator that reverses the order of the operand on the initial `comparator`
  */
-export function reverse<A>(comparator: Comparator<A> = natural) {
-  return (a1: A, a2: A) => comparator(a2, a1);
+export function reverse<A>(comparator: Comparator<A> = natural): Comparator<A> {
+  return (a1, a2) => comparator(a2, a1);
 }
 
 /**
@@ -63,7 +63,7 @@ export function byAttr<A extends object>(attr: keyof A): Comparator<A> {
  *   // comparator to sort string according to their lengths.
  */
 export function onResultOf<A, B>(comparator: Comparator<B>, mapper: Mapper<A, B>): Comparator<A> {
-  return (a1: A, a2: A) => comparator(mapper(a1), mapper(a2));
+  return (a1, a2) => comparator(mapper(a1), mapper(a2));
 }
 
 /**

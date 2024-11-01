@@ -94,17 +94,27 @@ export abstract class Ordering<T> {
     return FunctionalOrdering.from(Comparators.nullsLast(this.comparator));
   }
 
-  reverse() {
-    return FunctionalOrdering.from(Comparators.reverse(this.comparator));
+  reverse(): Ordering<T> {
+    switch (this) {
+      case NATURAL as Ordering<T>:
+        return REVERSED as Ordering<T>;
+      case REVERSED as Ordering<T>:
+        return NATURAL as Ordering<T>;
+      default:
+        return FunctionalOrdering.from(Comparators.reverse(this.comparator));
+    }
   }
-
   static getComparator<T>(c: ComparatorLike<T>): Comparator<T> {
     if (typeof c === 'function') return c;
     return c.comparator;
   }
 
   static natural<T>(): Ordering<T> {
-    return Ordering.from(Comparators.natural);
+    return NATURAL as Ordering<T>;
+  }
+
+  static reversed<T>(): Ordering<T> {
+    return REVERSED as Ordering<T>;
   }
 
   static from<T>(c: Comparator<T>): Ordering<T> {
@@ -139,3 +149,6 @@ class FunctionalOrdering<T> extends Ordering<T> {
     return this.eval(t1, t2);
   }
 }
+
+const NATURAL = new FunctionalOrdering(Comparators.natural);
+const REVERSED = new FunctionalOrdering(Comparators.reversed);
