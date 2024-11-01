@@ -131,3 +131,27 @@ export function nullsLast<T>(comparator: Comparator<T>): Comparator<T | null | u
     return comparator(t1, t2);
   };
 }
+
+export function isOrdered<T1, T2 extends T1 = T1>(comparator: Comparator<T1>, items: Iterable<T2>): boolean {
+  const iterator = items[Symbol.iterator]();
+  let prev = iterator.next();
+  if (prev.done) return true;
+  for (;;) {
+    const item = iterator.next();
+    if (item.done) return true;
+    if (comparator(prev.value, item.value) > 0) return false;
+    prev = item;
+  }
+}
+
+export function isStrictlyOrdered<T1, T2 extends T1 = T1>(comparator: Comparator<T1>, items: Iterable<T2>): boolean {
+  const iterator = items[Symbol.iterator]();
+  let prev = iterator.next();
+  if (prev.done) return true;
+  for (;;) {
+    const item = iterator.next();
+    if (item.done) return true;
+    if (comparator(prev.value, item.value) >= 0) return false;
+    prev = item;
+  }
+}

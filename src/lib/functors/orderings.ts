@@ -19,27 +19,11 @@ export abstract class Ordering<T> {
   }
 
   isOrdered(items: Iterable<T>): boolean {
-    const iterator = items[Symbol.iterator]();
-    let prev = iterator.next();
-    if (prev.done) return true;
-    for (;;) {
-      const item = iterator.next();
-      if (item.done) return true;
-      if (this.compare(prev.value, item.value) > 0) return false;
-      prev = item;
-    }
+    return Comparators.isOrdered(this.comparator, items);
   }
 
   isStrictlyOrdered(items: Iterable<T>): boolean {
-    const iterator = items[Symbol.iterator]();
-    let prev = iterator.next();
-    if (prev.done) return true;
-    for (;;) {
-      const item = iterator.next();
-      if (item.done) return true;
-      if (this.compare(prev.value, item.value) >= 0) return false;
-      prev = item;
-    }
+    return Comparators.isStrictlyOrdered(this.comparator, items);
   }
 
   lexicographical(): Ordering<Iterable<T>> {
