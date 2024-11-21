@@ -1,4 +1,4 @@
-import { Try } from '../monads/try';
+import { AsyncTry, Try } from '../monads/try';
 import { Lazy } from '../sync';
 import { EventualMapper, EventualProvider, Mapper } from '../utils';
 
@@ -87,7 +87,7 @@ export class AsyncLazy<T> {
     switch (this.state) {
       case State.INITIAL: {
         this.state = State.WAITING;
-        this.holder = await Try.createAsync(this.provider);
+        this.holder = await AsyncTry.create(this.provider);
         this.state = State.READY;
 
         for (;;) {
