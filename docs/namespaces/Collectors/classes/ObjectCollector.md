@@ -48,11 +48,13 @@ Specify how to handle collisions. Default is to ignore collisions, i.e. newer el
 
 ### result
 
-> `get` **result**(): `Record`\<`string`, `V`\>
+#### Get Signature
+
+> **get** **result**(): `Record`\<`string`, `V`\>
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `Record`\<`string`, `V`\>
 

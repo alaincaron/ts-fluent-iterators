@@ -31,11 +31,13 @@ the type of elements being iterated on.
 
 ### result
 
-> `get` **result**(): [`FluentIterator`](../../../classes/FluentIterator.md)\<`A`\>
+#### Get Signature
+
+> **get** **result**(): [`FluentIterator`](../../../classes/FluentIterator.md)\<`A`\>
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 [`FluentIterator`](../../../classes/FluentIterator.md)\<`A`\>
 

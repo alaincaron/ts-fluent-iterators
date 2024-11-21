@@ -6,7 +6,7 @@
 
 # Function: reverse()
 
-> **reverse**\<`A`\>(`comparator`): (`a1`, `a2`) => `number`
+> **reverse**\<`A`\>(`comparator`): [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
 
 Reverse comparator.
 
@@ -24,16 +24,6 @@ The comparator being inversed.
 
 ## Returns
 
-`Function`
+[`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
 
 A new comparator that reverses the order of the operand on the initial `comparator`
-
-### Parameters
-
-• **a1**: `A`
-
-• **a2**: `A`
-
-### Returns
-
-`number`

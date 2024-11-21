@@ -52,11 +52,13 @@ Specify how to handle collisions. Default is to ignore collisions, i.e. newer el
 
 ### result
 
-> `get` **result**(): `Map`\<`K`, `V`\>
+#### Get Signature
+
+> **get** **result**(): `Map`\<`K`, `V`\>
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `Map`\<`K`, `V`\>
 

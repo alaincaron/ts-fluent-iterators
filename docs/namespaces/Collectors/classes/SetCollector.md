@@ -22,11 +22,13 @@ the type of elements being collected.
 
 ### result
 
-> `get` **result**(): `Set`\<`A`\>
+#### Get Signature
+
+> **get** **result**(): `Set`\<`A`\>
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `Set`\<`A`\>
 

@@ -30,11 +30,13 @@ c.result : 3
 
 ### result
 
-> `get` **result**(): `number`
+#### Get Signature
+
+> **get** **result**(): `number`
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `number`
 

@@ -46,11 +46,13 @@ The comparator used to compare elements. Default is natural ordering.
 
 ### result
 
-> `get` **result**(): `undefined` \| [`MinMax`](../../../interfaces/MinMax.md)\<`A`\>
+#### Get Signature
+
+> **get** **result**(): `undefined` \| [`MinMax`](../../../interfaces/MinMax.md)\<`A`\>
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `undefined` \| [`MinMax`](../../../interfaces/MinMax.md)\<`A`\>
 

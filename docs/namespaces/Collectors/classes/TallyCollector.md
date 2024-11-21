@@ -32,11 +32,13 @@ The type of the keys of the map.
 
 ### result
 
-> `get` **result**(): `Map`\<`K`, `number`\>
+#### Get Signature
+
+> **get** **result**(): `Map`\<`K`, `number`\>
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `Map`\<`K`, `number`\>
 

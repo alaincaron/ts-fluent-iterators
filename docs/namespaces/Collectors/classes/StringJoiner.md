@@ -56,11 +56,13 @@ suffix of the joined string.
 
 ### result
 
-> `get` **result**(): `string`
+#### Get Signature
+
+> **get** **result**(): `string`
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `string`
 

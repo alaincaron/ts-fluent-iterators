@@ -22,11 +22,13 @@ the type of the aggregated object.
 
 ### result
 
-> `get` **result**(): `B`
+#### Get Signature
+
+> **get** **result**(): `B`
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `B`
 

@@ -45,11 +45,13 @@ The comparator used to compare elements. Default is natural ordering.
 
 ### result
 
-> `get` **result**(): `undefined` \| `A`
+#### Get Signature
+
+> **get** **result**(): `undefined` \| `A`
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `undefined` \| `A`
 

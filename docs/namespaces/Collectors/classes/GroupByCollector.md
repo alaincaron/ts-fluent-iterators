@@ -36,11 +36,13 @@ the type of the values in the map.
 
 ### result
 
-> `get` **result**(): `Map`\<`K`, `V`[]\>
+#### Get Signature
+
+> **get** **result**(): `Map`\<`K`, `V`[]\>
 
 Returns the aggregated object.
 
-#### Returns
+##### Returns
 
 `Map`\<`K`, `V`[]\>
 
