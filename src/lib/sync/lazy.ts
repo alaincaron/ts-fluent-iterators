@@ -25,7 +25,7 @@ export class Lazy<T> {
   /**
    * Static method to create an instance of `Lazy`.
    * @template T - The type of the value.
-   * @param {() => T | Promise<T>} provider - The function representing the lazy provider.
+   * @param {Provider<T | Try<T>>} provider - The function representing the lazy provider.
    * @returns {Lazy<T>} An instance of Lazy.
    */
   static create<T>(provider: Provider<T | Try<T>>): Lazy<T> {

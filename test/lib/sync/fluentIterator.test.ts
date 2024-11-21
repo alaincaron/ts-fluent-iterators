@@ -587,20 +587,6 @@ describe('SyncFluentIterator', () => {
     });
   });
 
-  describe('toPromise', () => {
-    it('should convert to a Promise iterator', async () => {
-      const actual = await [1, 2].iterator().toPromise().collect();
-      expect(actual).to.deep.equal([1, 2]);
-    });
-  });
-
-  describe('toAsync', () => {
-    it('should convert to a AsyncFluentIterator', async () => {
-      const actual = await [1, 2].iterator().toAsync().collect();
-      expect(actual).to.deep.equal([1, 2]);
-    });
-  });
-
   describe('Symbol', () => {
     it('should be usable as a native iterator', () => {
       const expected = [1, 2];

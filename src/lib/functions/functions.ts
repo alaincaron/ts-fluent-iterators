@@ -1,4 +1,4 @@
-import { BinaryMapper, EventualMapper, Mapper, Predicate } from '../utils';
+import { BinaryMapper, Mapper, Predicate } from '../utils';
 
 export function identity<T>(): Mapper<T, T> {
   return t => t;
@@ -49,10 +49,3 @@ export function compose_f_gx_hx<T, R1, R2, R>(
 
 export const alwaysTrue: Mapper<unknown, boolean> = always(true);
 export const alwaysFalse: Mapper<unknown, boolean> = always(false);
-
-export function async_compose<T, R, V>(f: EventualMapper<T, R>, g: EventualMapper<R, V>): EventualMapper<T, V> {
-  return t => {
-    const r = f(t);
-    return r instanceof Promise ? r.then(g) : g(r);
-  };
-}

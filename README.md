@@ -1,12 +1,12 @@
 # Typescript Fluent Iterators
 
 Provides [fluent api](https://en.wikipedia.org/wiki/Fluent_interface)
-operations on iterators, async iterators and promise iterators.
+operations on iterators.
 
 ## Description
 
 The library provides the common transformation, filtering and
-aggregation operations on iterators, async iterators and promise iterators.
+aggregation operations on iterators.
 
 ## Quick start guide
 
@@ -63,7 +63,7 @@ console.log(
   - [collectToSet](docs/classes/FluentIterator.md#collecttoset)
   - [collectTo](docs/classes/FluentIterator.md#collectto)
   - [collectToMap](docs/classes/FluentIterator.md#collecttomap)
-  - [collectToObject2](docs/classes/FluentIterator.md#collecttoobject)
+  - [collectToObject](docs/classes/FluentIterator.md#collecttoobject)
   - [fold](docs/classes/FluentIterator.md#fold)
   - [reduce](docs/classes/FluentIterator.md#reduce)
   - [join](docs/classes/FluentIterator.md#join)
@@ -82,12 +82,6 @@ console.log(
 
   - [tap](docs/classes/FluentIterator.md#tap)
   - [forEach](docs/classes/FluentIterator.md#foreach)
-
-- Promise specific operations:
-  - [flatMap](docs/classes/PromiseIterator.md#flatmap)
-  - [allSettled](docs/classes/PromiseIterator.md#allsettled)
-  - [race](docs/classes/PromiseIterator.md#race)
-  - [any](docs/classes/PromiseIterator.md#any)
 
 ## Usage
 

@@ -28,9 +28,7 @@
     "lazy",
     "iterator",
     "typescript",
-    "fluent",
-    "async",
-    "promise"
+    "fluent"
   ],
   "author": "Alain Caron",
   "license": "MIT",

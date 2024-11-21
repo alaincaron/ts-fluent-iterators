@@ -1,9 +1,4 @@
 /**
- * Represents a value of type `A` or `Promise<A>`.
- */
-export type Eventually<A> = A | Promise<A>;
-
-/**
  * A function mapping a value of type `A` to type `B`
  * @typeParam A the source type on which the `Mapper` is applied.
  * @typeParam B the target type
@@ -13,23 +8,10 @@ export type Eventually<A> = A | Promise<A>;
 export type Mapper<A, B> = (a: A) => B;
 
 /**
- * A function mapping a value of type `A` to type `Eventually<B>`
- * @typeParam A the source type on which the `EventualMapper` is applied.
- * @typeParam B the target type
- */
-export type EventualMapper<A, B> = Mapper<A, Eventually<B>>;
-
-/**
  * A function that provides a value of type `A`
  * @typeParam A the type of elements being provided
  **/
 export type Provider<A> = () => A;
-
-/**
- * A function that provides an eventual value of type `A`
- * @typeParam A the type of elements being provided
- **/
-export type EventualProvider<A> = () => Eventually<A>;
 
 /**
  * A predicate on a value.
@@ -57,14 +39,6 @@ export type BinaryMapper<A, B, C> = (a: A, b: B) => C;
 export type BinaryPredicate<A, B> = BinaryMapper<A, B, boolean>;
 
 /**
- * An eventual BinaryMapper
- * @typeParam A the type of the first operand
- * @typeParam B the type of the second operand
- * @typeParam the type of the result
- */
-export type EventualBinaryMapper<A, B, C> = (a: A, b: B) => Eventually<C>;
-
-/**
  * A collision handler for collectors. Used by `Collectors` `MapCollector` and `ObjectCollector` to handle collisions.
  * The value returned will be the new mapping for the key. It can also throw to abort the collecting of elements.
  *
@@ -80,11 +54,6 @@ export type EventualBinaryMapper<A, B, C> = (a: A, b: B) => Eventually<C>;
 export type CollisionHandler<K, V> = (k: K, oldValue: V, newValue: V) => V;
 
 /**
- * A predicate that can be synchronous or asynchronous.
- */
-export type EventualPredicate<A> = Mapper<A, Eventually<boolean>>;
-
-/**
  * Function used in `reduce` and `fold` operations.
  * @typeParam A Type of elements being reduced
  * @typeParam B Type into which the elements are being reduced to.
@@ -97,15 +66,6 @@ export type EventualPredicate<A> = Mapper<A, Eventually<boolean>>;
  * ```
  */
 export type Reducer<A, B> = BinaryMapper<B, A, B>;
-
-/**
- * An eventual `Reducer`. Used for asynchronous `fold` and `reduce` operations.
- * @typeParam A Type of elements being reduced
- * @typeParam B Type into which the elements are being reduced to.
- * @param acc The current value of the accumulator
- * @param a The current value to reduce
- */
-export type EventualReducer<A, B> = EventualBinaryMapper<B, A, B>;
 
 /**
  * A function used to compare objects for ordering. Its return value should satisfy the following properties:
@@ -130,24 +90,6 @@ export type EventualReducer<A, B> = EventualBinaryMapper<B, A, B>;
  * ```
  */
 export type Comparator<A> = (a1: A, a2: A) => number;
-
-/**
- * An `Iterator` that maybe asynchronous.
- * @typeParam A the type of objects being iterated on.
- */
-export type EventualIterator<A> = Iterator<A> | AsyncIterator<A>;
-
-/**
- * An `Iterable` that maybe asynchronous.
- * @typeParam A the type of objects being iterated on.
- */
-export type EventualIterable<A> = Iterable<A> | AsyncIterable<A>;
-
-/**
- * An `IterableIterator` that maybe asynchronous.
- * @typeParam A the type of objects being iterated on.
- */
-export type EventualIterableIterator<A> = IterableIterator<A> | AsyncIterableIterator<A>;
 
 /**
  * Holds result of a `MinMaxCollector`
@@ -193,38 +135,3 @@ export type IteratorLike<E> = Mapper<number, E> | Iterator<E> | Iterable<E>;
  * @typeParam E the type of the objects that can be iterated on
  */
 export type IteratorGenerator<E> = ArrayGenerator<E> | IteratorLike<E>;
-
-/**
- * An interface used to asynchronously generate arrays from `length` and `seed`
- * @typeParam E the type of the objects in the generated `Array`
- *
- */
-export interface AsyncArrayGenerator<E> {
-  /**
-   * The number of items to generate.
-   */
-  length: number;
-
-  /**
-   * Generates the entry in the array.
-   */
-  seed: AsyncIteratorLike<E>;
-}
-
-/**
- * An object that behaves like an `AsyncIterator`.
- * @typeParam E the type of the objects that can be iterated on
- */
-export type AsyncIteratorLike<E> = EventualMapper<number, E> | AsyncIterator<E> | AsyncIterable<E> | Iterable<E>;
-
-/**
- * An object that can generate an asynchronous iterator.
- * @typeParam E the type of the objects that can be iterated on
- */
-export type AsyncIteratorGenerator<E> = AsyncArrayGenerator<E> | AsyncIteratorLike<E>;
-
-/**
- * An object that can generate a synchronous or asynchronous iterator.
- * @typeParam E the type of the objects that can be iterated on
- */
-export type EventualIteratorGenerator<E> = IteratorGenerator<E> | AsyncGenerator<E>;

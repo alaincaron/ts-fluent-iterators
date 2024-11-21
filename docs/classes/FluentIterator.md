@@ -847,32 +847,6 @@ iter.map(s => s.length)
 
 ---
 
-### mapToPromise()
-
-> **mapToPromise**\<`B`\>(`mapper`): [`PromiseIterator`](PromiseIterator.md)\<`B`\>
-
-Returns a new [PromiseIterator](PromiseIterator.md) consisting of applying the [Mapper](../type-aliases/Mapper.md) to all elements of this [FluentIterator](FluentIterator.md).
-
-#### Type Parameters
-
-• **B**
-
-The type of the elements of the returned [PromiseIterator](PromiseIterator.md)
-
-#### Parameters
-
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `Promise`\<`B`\>\>
-
-Transformation applied to elements of this [FluentIterator](FluentIterator.md)
-
-#### Returns
-
-[`PromiseIterator`](PromiseIterator.md)\<`B`\>
-
-A new [PromiseIterator](PromiseIterator.md)
-
----
-
 ### max()
 
 > **max**(`comparator`?): `undefined` \| `A`
@@ -1270,36 +1244,6 @@ iter
 // before filter 3
 // result : [ 2 ]
 ```
-
----
-
-### toAsync()
-
-> **toAsync**(): [`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
-
-Converts this [FluentIterator](FluentIterator.md) into an [AsyncFluentIterator](AsyncFluentIterator.md)
-
-#### Returns
-
-[`AsyncFluentIterator`](AsyncFluentIterator.md)\<`A`\>
-
-An [AsyncFluentIterator](AsyncFluentIterator.md)
-yielding the same elements as this [FluentIterator](FluentIterator.md)
-
----
-
-### toPromise()
-
-> **toPromise**(): [`PromiseIterator`](PromiseIterator.md)\<`Awaited`\<`A`\>\>
-
-Converts this [FluentIterator](FluentIterator.md) into a [PromiseIterator](PromiseIterator.md)
-
-#### Returns
-
-[`PromiseIterator`](PromiseIterator.md)\<`Awaited`\<`A`\>\>
-
-A [PromiseIterator](PromiseIterator.md) yielding the
-same elements as this [FluentIterator](FluentIterator.md)
 
 ---
 

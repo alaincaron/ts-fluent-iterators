@@ -28,6 +28,4 @@
 
 ### Interfaces
 
-- [AsyncCollector](interfaces/AsyncCollector.md)
 - [Collector](interfaces/Collector.md)
-- [EventualCollector](interfaces/EventualCollector.md)

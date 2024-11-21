@@ -1,6 +1,4 @@
 import * as Iterators from './iterators';
-import { AsyncFluentIterator } from '../async/asyncFluentIterator';
-import { toAsync } from '../async/asyncIterators';
 import {
   ArrayCollector,
   Collector,
@@ -16,7 +14,6 @@ import {
   StringJoiner,
   TallyCollector,
 } from '../collectors';
-import { PromiseIterator } from '../promise/promiseIterator';
 import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../utils';
 
 /**
@@ -215,16 +212,6 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    */
   map<B>(mapper: Mapper<A, B>): FluentIterator<B> {
     return new FluentIterator(Iterators.map(this.iter, mapper));
-  }
-
-  /**
-   * Returns a new {@link PromiseIterator} consisting of applying the {@link Mapper} to all elements of this {@link FluentIterator}.
-   * @typeParam B The type of the elements of the returned {@link PromiseIterator}
-   * @param mapper Transformation applied to elements of this {@link FluentIterator}
-   * @returns A new {@link PromiseIterator}
-   */
-  mapToPromise<B>(mapper: Mapper<A, Promise<B>>): PromiseIterator<B> {
-    return new PromiseIterator(Iterators.map(this.iter, mapper));
   }
 
   /**
@@ -723,24 +710,6 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    */
   distinct<K = A>(mapper?: Mapper<A, K>): FluentIterator<A> {
     return new FluentIterator(Iterators.distinct(this.iter, mapper));
-  }
-
-  /**
-   * Converts this {@link FluentIterator} into a {@link
-   * PromiseIterator} @returns A {@link PromiseIterator} yielding the
-   * same elements as this {@link FluentIterator}
-   */
-  toPromise(): PromiseIterator<Awaited<A>> {
-    return this.mapToPromise(x => Promise.resolve(x));
-  }
-
-  /**
-   * Converts this {@link FluentIterator} into an {@link
-   * AsyncFluentIterator} @returns An {@link AsyncFluentIterator}
-   * yielding the same elements as this {@link FluentIterator}
-   */
-  toAsync(): AsyncFluentIterator<A> {
-    return new AsyncFluentIterator(toAsync(this.iter));
   }
 
   /**

@@ -2,7 +2,7 @@ import { Either, Left, Right } from './either';
 import { Maybe, None, Some } from './maybe';
 import { Monad } from './monad';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
-import { EventualProvider, Mapper, Predicate, Provider } from '../utils';
+import { Mapper, Predicate, Provider } from '../utils';
 
 export abstract class Try<T> implements Monad<never, T> {
   static create<T>(f: Provider<T | Try<T>>): Try<T> {
@@ -191,17 +191,5 @@ export class Failure<T> extends Try<T> {
 
   toMaybe() {
     return None;
-  }
-}
-
-export abstract class AsyncTry {
-  private constructor() {}
-  static async create<T>(f: EventualProvider<T | Try<T>>): Promise<Try<T>> {
-    try {
-      const t = await f();
-      return t instanceof Try ? t : new Success(t);
-    } catch (e) {
-      return new Failure(e) as Try<T>;
-    }
   }
 }
