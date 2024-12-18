@@ -21,7 +21,7 @@ import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predic
  * @typeParam A The type of elements being iterated.
  */
 export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
-  private iter: Iterator<A>;
+  protected readonly iter: Iterator<A>;
 
   /**
    * Creates a `FluentIterator` by wrapping an `Iterator`
