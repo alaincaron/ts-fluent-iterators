@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../README.md)
 
 ---
 
@@ -6,9 +6,7 @@
 
 # Comparators
 
-## Index
-
-### Functions
+## Functions
 
 - [byAttr](functions/byAttr.md)
 - [byMapper](functions/byMapper.md)

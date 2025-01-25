@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -16,7 +16,9 @@ Alias for [FluentIterator.from](../classes/FluentIterator.md#from)
 
 ## Parameters
 
-• **iter**: [`IteratorGenerator`](../type-aliases/IteratorGenerator.md)\<`A`\>
+### iter
+
+[`IteratorGenerator`](../type-aliases/IteratorGenerator.md)\<`A`\>
 
 ## Returns
 

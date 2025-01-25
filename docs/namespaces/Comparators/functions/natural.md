@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -18,11 +18,15 @@ The type of elements to be compared
 
 ## Parameters
 
-• **a1**: `A`
+### a1
+
+`A`
 
 The left-hand size argument
 
-• **a2**: `A`
+### a2
+
+`A`
 
 The right-hand size argument
 

@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -16,7 +16,9 @@ A comparator that sorts the elements based on the natural order of an attribute.
 
 ## Parameters
 
-• **attr**: keyof `A`
+### attr
+
+keyof `A`
 
 ## Returns
 

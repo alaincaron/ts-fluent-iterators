@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / TallyCollector
+[ts-fluent-iterators](../README.md) / TallyCollector
 
 # Class: TallyCollector\<K\>
 
@@ -58,7 +58,9 @@ Collects an element.
 
 #### Parameters
 
-• **k**: `K`
+##### k
+
+`K`
 
 #### Returns
 

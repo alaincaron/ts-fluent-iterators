@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / MapCollector
+[ts-fluent-iterators](../README.md) / MapCollector
 
 # Class: MapCollector\<K, V\>
 
@@ -30,7 +30,7 @@ the type of the values in the map.
 
 ## Implements
 
-- [`Collector`](../interfaces/Collector.md)\<[`K`, `V`], `Map`\<`K`, `V`\>\>
+- [`Collector`](../interfaces/Collector.md)\<\[`K`, `V`\], `Map`\<`K`, `V`\>\>
 
 ## Constructors
 
@@ -40,7 +40,9 @@ the type of the values in the map.
 
 #### Parameters
 
-• **collisionHandler?**: [`CollisionHandler`](../../../type-aliases/CollisionHandler.md)\<`K`, `V`\>
+##### collisionHandler?
+
+[`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `V`\>
 
 Specify how to handle collisions. Default is to ignore collisions, i.e. newer elements override previous ones.
 
@@ -78,7 +80,9 @@ Collects an element.
 
 #### Parameters
 
-• **a**: [`K`, `V`]
+##### a
+
+\[`K`, `V`\]
 
 The element being collected.
 

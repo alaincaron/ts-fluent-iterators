@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / GroupByCollector
+[ts-fluent-iterators](../README.md) / GroupByCollector
 
 # Class: GroupByCollector\<K, V\>
 
@@ -30,7 +30,7 @@ the type of the values in the map.
 
 ## Implements
 
-- [`Collector`](../interfaces/Collector.md)\<[`K`, `V`], `Map`\<`K`, `V`[]\>\>
+- [`Collector`](../interfaces/Collector.md)\<\[`K`, `V`\], `Map`\<`K`, `V`[]\>\>
 
 ## Accessors
 
@@ -62,7 +62,9 @@ Collects an element.
 
 #### Parameters
 
-• **a**: [`K`, `V`]
+##### a
+
+\[`K`, `V`\]
 
 The element being collected.
 

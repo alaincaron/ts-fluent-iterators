@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -17,19 +17,27 @@ from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
 ## Parameters
 
-• **f**: [`Mapper`](../../../type-aliases/Mapper.md)\<`number`, `T`\>
+### f
+
+[`Mapper`](../../../type-aliases/Mapper.md)\<`number`, `T`\>
 
 The function to apply on each element of the range.
 
-• **start?**: `number`
+### start?
+
+`number`
 
 the start of the range. Defaults to 0.
 
-• **end?**: `number`
+### end?
+
+`number`
 
 the end of the range. Defaults to infinity.
 
-• **step?**: `number`
+### step?
+
+`number`
 
 increment in the range. Defaults to 1 if `end` > `start`, -1 otherwise.
 

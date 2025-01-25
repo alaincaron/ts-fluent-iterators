@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -16,11 +16,15 @@ Returns an iterator resulting from applying f on all elements of the range [0,`c
 
 ## Parameters
 
-• **f**: [`Mapper`](../../../type-aliases/Mapper.md)\<`number`, `T`\>
+### f
+
+[`Mapper`](../../../type-aliases/Mapper.md)\<`number`, `T`\>
 
 The function to apply on each element of the range.
 
-• **count?**: `number`
+### count?
+
+`number`
 
 the numbe of times f should be invoked.
 

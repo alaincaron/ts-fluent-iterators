@@ -1,12 +1,12 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / ArrayCollector
+[ts-fluent-iterators](../README.md) / SetCollector
 
-# Class: ArrayCollector\<A\>
+# Class: SetCollector\<A\>
 
-A Collector that collects elements of type `A` into an array of type `A[]`.
+A Collector that collects elements of type `A` into a `Set` of type `Set<A>`.
 
 ## Type Parameters
 
@@ -16,7 +16,7 @@ the type of elements being collected.
 
 ## Implements
 
-- [`Collector`](../interfaces/Collector.md)\<`A`, `A`[]\>
+- [`Collector`](../interfaces/Collector.md)\<`A`, `Set`\<`A`\>\>
 
 ## Accessors
 
@@ -24,13 +24,13 @@ the type of elements being collected.
 
 #### Get Signature
 
-> **get** **result**(): `A`[]
+> **get** **result**(): `Set`\<`A`\>
 
 Returns the aggregated object.
 
 ##### Returns
 
-`A`[]
+`Set`\<`A`\>
 
 The aggregated object resulting from collecting all objects
 
@@ -48,7 +48,9 @@ Collects an element.
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 The element being collected.
 

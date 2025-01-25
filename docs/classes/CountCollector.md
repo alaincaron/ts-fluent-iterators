@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / CountCollector
+[ts-fluent-iterators](../README.md) / CountCollector
 
 # Class: CountCollector\<A\>
 
@@ -56,7 +56,9 @@ Collects an element.
 
 #### Parameters
 
-• **\_a**: `A`
+##### \_a
+
+`A`
 
 #### Returns
 

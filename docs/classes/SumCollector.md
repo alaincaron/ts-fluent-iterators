@@ -1,25 +1,43 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / AvgCollector
+[ts-fluent-iterators](../README.md) / SumCollector
 
-# Class: AvgCollector
+# Class: SumCollector
 
-A `Collector` that accepts numbers and return their average.
+A `Collector` that accepts numbers and return their sum.
 
 ## Example
 
 ```ts
-const c = new AvgCollector();
+const c = new SumCollector();
 c.collect(1);
 c.collect(2);
-c.result : 1.5
+c.result : 3.0
 ```
 
 ## Implements
 
 - [`Collector`](../interfaces/Collector.md)\<`number`, `number`\>
+
+## Constructors
+
+### new SumCollector()
+
+> **new SumCollector**(`initial`): [`SumCollector`](SumCollector.md)
+
+#### Parameters
+
+##### initial
+
+`number` = `0`
+
+The initial value of the sum.
+
+#### Returns
+
+[`SumCollector`](SumCollector.md)
 
 ## Accessors
 
@@ -51,7 +69,9 @@ Collects an element.
 
 #### Parameters
 
-• **a**: `number`
+##### a
+
+`number`
 
 The element being collected.
 

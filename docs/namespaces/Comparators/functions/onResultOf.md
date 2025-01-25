@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -18,9 +18,13 @@ Returns a comparator that applies a comparator to the result of applying the map
 
 ## Parameters
 
-• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`B`\>
+### comparator
 
-• **mapper**: [`Mapper`](../../../type-aliases/Mapper.md)\<`A`, `B`\>
+[`Comparator`](../../../type-aliases/Comparator.md)\<`B`\>
+
+### mapper
+
+[`Mapper`](../../../type-aliases/Mapper.md)\<`A`, `B`\>
 
 ## Returns
 

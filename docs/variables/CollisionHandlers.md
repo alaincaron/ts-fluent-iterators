@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -30,11 +30,17 @@ Default collision handlers for `MapCollector`
 
 #### Parameters
 
-• **\_k**: `K`
+##### \_k
 
-• **oldValue**: `V`
+`K`
 
-• **\_newValue**: `V`
+##### oldValue
+
+`V`
+
+##### \_newValue
+
+`V`
 
 #### Returns
 
@@ -52,11 +58,17 @@ Default collision handlers for `MapCollector`
 
 #### Parameters
 
-• **\_k**: `K`
+##### \_k
 
-• **\_oldValue**: `V`
+`K`
 
-• **newValue**: `V`
+##### \_oldValue
+
+`V`
+
+##### newValue
+
+`V`
 
 #### Returns
 
@@ -74,11 +86,17 @@ Default collision handlers for `MapCollector`
 
 #### Parameters
 
-• **k**: `K`
+##### k
 
-• **oldValue**: `V`
+`K`
 
-• **newValue**: `V`
+##### oldValue
+
+`V`
+
+##### newValue
+
+`V`
 
 #### Returns
 

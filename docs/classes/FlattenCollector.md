@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / FlattenCollector
+[ts-fluent-iterators](../README.md) / FlattenCollector
 
 # Class: FlattenCollector\<A\>
 
@@ -25,7 +25,7 @@ the type of elements being iterated on.
 
 ## Implements
 
-- [`Collector`](../interfaces/Collector.md)\<`Iterable`\<`A`\> \| `Iterator`\<`A`\>, [`FluentIterator`](../../../classes/FluentIterator.md)\<`A`\>\>
+- [`Collector`](../interfaces/Collector.md)\<`Iterable`\<`A`\> \| `Iterator`\<`A`\>, [`FluentIterator`](FluentIterator.md)\<`A`\>\>
 
 ## Accessors
 
@@ -33,13 +33,13 @@ the type of elements being iterated on.
 
 #### Get Signature
 
-> **get** **result**(): [`FluentIterator`](../../../classes/FluentIterator.md)\<`A`\>
+> **get** **result**(): [`FluentIterator`](FluentIterator.md)\<`A`\>
 
 Returns the aggregated object.
 
 ##### Returns
 
-[`FluentIterator`](../../../classes/FluentIterator.md)\<`A`\>
+[`FluentIterator`](FluentIterator.md)\<`A`\>
 
 The aggregated object resulting from collecting all objects
 
@@ -57,9 +57,11 @@ Collects an element.
 
 #### Parameters
 
-• **a**: `Iterable`\<`A`, `any`, `any`\> \| `Iterator`\<`A`, `any`, `any`\>
+##### a
 
 The element being collected.
+
+`Iterable`\<`A`\> | `Iterator`\<`A`\>
 
 #### Returns
 

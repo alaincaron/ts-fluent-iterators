@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -22,7 +22,9 @@ the target type
 
 ## Parameters
 
-• **a**: `A`
+### a
+
+`A`
 
 ## Returns
 

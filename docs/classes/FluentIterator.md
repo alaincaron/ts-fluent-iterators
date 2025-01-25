@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -29,7 +29,9 @@ Creates a `FluentIterator` by wrapping an `Iterator`
 
 #### Parameters
 
-• **iter**: `Iterator`\<`A`, `any`, `any`\>
+##### iter
+
+`Iterator`\<`A`\>
 
 The `Iterator` being wrapped into a `FluentIterator`
 
@@ -47,7 +49,7 @@ const iterator = new FluentIterator([1, 2, 3][Symbol.iterator]());
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`A`, `any`, `any`\>
+> **\[iterator\]**(): `Iterator`\<`A`\>
 
 Used to make this [FluentIterator](FluentIterator.md) being seen as an
 `Iterable<A>`. This allows them to be used in APIs expecting an
@@ -55,7 +57,7 @@ Used to make this [FluentIterator](FluentIterator.md) being seen as an
 
 #### Returns
 
-`Iterator`\<`A`, `any`, `any`\>
+`Iterator`\<`A`\>
 
 #### Implementation of
 
@@ -71,7 +73,9 @@ Returns `true` if the [predicate](../type-aliases/Predicate.md) argument evalatu
 
 #### Parameters
 
-• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+##### predicate
+
+[`Predicate`](../type-aliases/Predicate.md)\<`A`\>
 
 The predicate being evaluated
 
@@ -97,9 +101,11 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of appendin
 
 #### Parameters
 
-• **items**: `Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>
+##### items
 
 An `Iterator` or `Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
+
+`Iterator`\<`A`\> | `Iterable`\<`A`\>
 
 #### Returns
 
@@ -127,7 +133,9 @@ This method allows to use an Iterator function in a fluent way.
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `any`\>, `B`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`\>, `B`\>
 
 #### Returns
 
@@ -187,7 +195,9 @@ The result type of the `Collector`.
 
 #### Parameters
 
-• **collector**: [`Collector`](../namespaces/Collectors/interfaces/Collector.md)\<`A`, `B`\>
+##### collector
+
+[`Collector`](../interfaces/Collector.md)\<`A`, `B`\>
 
 The `Collector` into which to collect the items
 
@@ -222,11 +232,15 @@ The type of the keys of the `Map`
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
 
 Maps the values into keys
 
-• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `A`\>
+##### collisionHandler?
+
+[`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `A`\>
 
 Specifies how to handle the collision. Default is to ignore collision.
 
@@ -264,11 +278,15 @@ The type of the values of the `Map`
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, [`K`, `V`]\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, \[`K`, `V`\]\>
 
 Maps the values into [key, values] pairs
 
-• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `V`\>
+##### collisionHandler?
+
+[`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`K`, `V`\>
 
 Specifies how to handle the collision. Default is to ignore collision.
 
@@ -296,11 +314,15 @@ Collects items into a `Record` by mapping values into keys.
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `string`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `string`\>
 
 Maps the values into keys
 
-• **collisionHander?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `A`\>
+##### collisionHander?
+
+[`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `A`\>
 
 #### Returns
 
@@ -332,11 +354,15 @@ The type of the values of the `Map`
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, [`string`, `V`]\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, \[`string`, `V`\]\>
 
 Maps the values into [key, values] pairs
 
-• **collisionHandler?**: [`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `V`\>
+##### collisionHandler?
+
+[`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `V`\>
 
 Specifies how to handle the collision. Default is to ignore collision.
 
@@ -386,7 +412,9 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of apependi
 
 #### Parameters
 
-• ...**iterables**: (`Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>)[]
+##### iterables
+
+...(`Iterator`\<`A`\> \| `Iterable`\<`A`\>)[]
 
 An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
@@ -411,7 +439,9 @@ Returns true if this [FluentIterator](FluentIterator.md) yields an element for w
 
 #### Parameters
 
-• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+##### predicate
+
+[`Predicate`](../type-aliases/Predicate.md)\<`A`\>
 
 The predicate to evaluate.
 
@@ -455,7 +485,9 @@ Returns a new [FluentIterator](FluentIterator.md) consisting of distinct element
 
 #### Parameters
 
-• **mapper?**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
+##### mapper?
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
 
 Used to determine distinctness of elements. Default to <code>identity</code>
 
@@ -477,7 +509,7 @@ yields 1,2
 
 ### enumerate()
 
-> **enumerate**(`start`): [`FluentIterator`](FluentIterator.md)\<[`A`, `number`]\>
+> **enumerate**(`start`): [`FluentIterator`](FluentIterator.md)\<\[`A`, `number`\]\>
 
 Returns a new [FluentIterator](FluentIterator.md) that yields pairs of elements
 consisting of the elements yielded by this
@@ -485,13 +517,15 @@ consisting of the elements yielded by this
 
 #### Parameters
 
-• **start**: `number` = `0`
+##### start
+
+`number` = `0`
 
 The starting index
 
 #### Returns
 
-[`FluentIterator`](FluentIterator.md)\<[`A`, `number`]\>
+[`FluentIterator`](FluentIterator.md)\<\[`A`, `number`\]\>
 
 #### Example
 
@@ -511,7 +545,9 @@ Returns a new [FluentIterator](FluentIterator.md) consisting of elements for whi
 
 #### Parameters
 
-• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+##### predicate
+
+[`Predicate`](../type-aliases/Predicate.md)\<`A`\>
 
 the predicate on which the evaluate the items.
 
@@ -547,7 +583,9 @@ The type of the elements of the returned [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `undefined` \| `null` \| `B`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `undefined` \| `null` \| `B`\>
 
 Transformation applied to elements of this [FluentIterator](FluentIterator.md)
 
@@ -601,11 +639,15 @@ is a single value.
 
 #### Parameters
 
-• **reducer**: [`Reducer`](../type-aliases/Reducer.md)\<`A`, `B`\>
+##### reducer
+
+[`Reducer`](../type-aliases/Reducer.md)\<`A`, `B`\>
 
 The reducer to be applied at each iteration.
 
-• **initialValue**: `B`
+##### initialValue
+
+`B`
 
 The value of the accumulator to be used in the first call to `reducer`
 
@@ -640,7 +682,9 @@ Applies the [mapper](../type-aliases/Mapper.md) to each element of this [FluentI
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `any`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `any`\>
 
 the operation to be invoked on each element.
 
@@ -674,7 +718,9 @@ the elements that are mapped to the same key.
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `K`\>
 
 The [Mapper](../type-aliases/Mapper.md) used to group items.
 
@@ -706,7 +752,9 @@ this [FluentIterator](FluentIterator.md),
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, [`K`, `V`]\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, \[`K`, `V`\]\>
 
 The [Mapper](../type-aliases/Mapper.md) used to group items.
 
@@ -731,7 +779,9 @@ Returns true if this [FluentIterator](FluentIterator.md) yields an element equal
 
 #### Parameters
 
-• **target**: `A`
+##### target
+
+`A`
 
 value to look for
 
@@ -764,15 +814,21 @@ Joins items of this [FluentIterator](FluentIterator.md) into a string.
 
 #### Parameters
 
-• **separator?**: `string`
+##### separator?
+
+`string`
 
 string used to delimite elements
 
-• **prefix?**: `string`
+##### prefix?
+
+`string`
 
 string used to prefix the resulting string
 
-• **suffix?**: `string`
+##### suffix?
+
+`string`
 
 #### Returns
 
@@ -827,7 +883,9 @@ The type of the elements of the returned [FluentIterator](FluentIterator.md)
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `B`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `B`\>
 
 Transformation applied to elements of this [FluentIterator](FluentIterator.md)
 
@@ -855,7 +913,9 @@ Returns the maximum element according to the argument [comparator](../type-alias
 
 #### Parameters
 
-• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
+##### comparator?
+
+[`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 #### Returns
 
@@ -883,7 +943,9 @@ Returns the minimum element according to the argument [comparator](../type-alias
 
 #### Parameters
 
-• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
+##### comparator?
+
+[`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 The {link Comparator} used to order the elements.
 
@@ -916,7 +978,9 @@ Returns the minimum and maximum element according to the argument [comparator](.
 
 #### Parameters
 
-• **comparator?**: [`Comparator`](../type-aliases/Comparator.md)\<`A`\>
+##### comparator?
+
+[`Comparator`](../type-aliases/Comparator.md)\<`A`\>
 
 #### Returns
 
@@ -964,7 +1028,9 @@ partitions (arrays) of at most `size` elements.
 
 #### Parameters
 
-• **size**: `number`
+##### size
+
+`number`
 
 The size of the partitions.
 
@@ -994,9 +1060,11 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of prependi
 
 #### Parameters
 
-• **items**: `Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>
+##### items
 
 An `Iterator` or `Iterable` whose items are prepended to this [FluentIterator](FluentIterator.md).
+
+`Iterator`\<`A`\> | `Iterable`\<`A`\>
 
 #### Returns
 
@@ -1019,11 +1087,15 @@ Special case of [FluentIterator.fold](FluentIterator.md#fold) where items being 
 
 #### Parameters
 
-• **reducer**: [`Reducer`](../type-aliases/Reducer.md)\<`A`, `A`\>
+##### reducer
+
+[`Reducer`](../type-aliases/Reducer.md)\<`A`, `A`\>
 
 The reducer to be applied at each iteration.
 
-• **initialValue?**: `A`
+##### initialValue?
+
+`A`
 
 The value of the accumulator to be used in the first call to `reducer`. If omitted, the first element of this [FluentIterator](FluentIterator.md) is used.
 
@@ -1068,7 +1140,9 @@ Returns a [FluentIterator](FluentIterator.md) skipping the first `n` elements of
 
 #### Parameters
 
-• **n**: `number`
+##### n
+
+`number`
 
 The number of elements to skip
 
@@ -1094,7 +1168,9 @@ evaluates to `true` and yields the subsequent ones.
 
 #### Parameters
 
-• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+##### predicate
+
+[`Predicate`](../type-aliases/Predicate.md)\<`A`\>
 
 The predicate being evaluated
 
@@ -1119,7 +1195,9 @@ Returns `true` if the [predicate](../type-aliases/Predicate.md) argument evalatu
 
 #### Parameters
 
-• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+##### predicate
+
+[`Predicate`](../type-aliases/Predicate.md)\<`A`\>
 
 The predicate being evaluated
 
@@ -1145,7 +1223,9 @@ Returns a [FluentIterator](FluentIterator.md) yielding the first `n` elements of
 
 #### Parameters
 
-• **n**: `number`
+##### n
+
+`number`
 
 The number of elements to take
 
@@ -1169,7 +1249,9 @@ Returns a new [FluentIterator](FluentIterator.md) that yields elements of this [
 
 #### Parameters
 
-• **predicate**: [`Predicate`](../type-aliases/Predicate.md)\<`A`\>
+##### predicate
+
+[`Predicate`](../type-aliases/Predicate.md)\<`A`\>
 
 The predicate being evaluated
 
@@ -1216,7 +1298,9 @@ and executes the [mapper](../type-aliases/Mapper.md) on each element.
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`A`, `any`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `any`\>
 
 the operation to be invoked on each element.
 
@@ -1260,7 +1344,9 @@ This method allows to use a an Iterartor transformation in a fluent way.
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `any`\>, `Iterator`\<`B`, `any`, `any`\>\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`\>, `Iterator`\<`B`\>\>
 
 The mapper to transform the iterator.
 
@@ -1286,7 +1372,7 @@ iterator([1,2,3]).transform(doubleIterator).collect()
 
 ### zip()
 
-> **zip**\<`B`\>(`other`): [`FluentIterator`](FluentIterator.md)\<[`A`, `B`]\>
+> **zip**\<`B`\>(`other`): [`FluentIterator`](FluentIterator.md)\<\[`A`, `B`\]\>
 
 Returns a new [FluentIterator](FluentIterator.md) that yields pairs of elements
 yielded by each Iterators which are navigated in parallel.
@@ -1300,13 +1386,15 @@ The type of elements of the `other` iterator.
 
 #### Parameters
 
-• **other**: `Iterator`\<`B`, `any`, `any`\> \| `Iterable`\<`B`, `any`, `any`\>
+##### other
 
 The iterator that is combined with this one.
 
+`Iterator`\<`B`\> | `Iterable`\<`B`\>
+
 #### Returns
 
-[`FluentIterator`](FluentIterator.md)\<[`A`, `B`]\>
+[`FluentIterator`](FluentIterator.md)\<\[`A`, `B`\]\>
 
 #### Example
 
@@ -1352,7 +1440,9 @@ the type of elements of the `FluentIterator`
 
 #### Parameters
 
-• **generator**: [`IteratorGenerator`](../type-aliases/IteratorGenerator.md)\<`A`\>
+##### generator
+
+[`IteratorGenerator`](../type-aliases/IteratorGenerator.md)\<`A`\>
 
 Used to generate an `Iterator` that will be wrapped into a `FluentIterator`
 
@@ -1388,7 +1478,9 @@ the type of elements of the `FluentIterator`.
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 #### Returns
 

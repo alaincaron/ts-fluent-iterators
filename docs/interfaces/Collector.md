@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / Collector
+[ts-fluent-iterators](../README.md) / Collector
 
 # Interface: Collector\<A, B\>
 
@@ -44,7 +44,9 @@ Collects an element.
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 The element being collected.
 

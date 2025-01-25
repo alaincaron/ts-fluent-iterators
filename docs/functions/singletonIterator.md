@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -16,7 +16,9 @@ Alias for Fluentiterator.singleton
 
 ## Parameters
 
-• **a**: `A`
+### a
+
+`A`
 
 ## Returns
 

@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -18,7 +18,9 @@ A comparator that sorts the elements based on the natural order of the mappers.
 
 ## Parameters
 
-• **mapper**: [`Mapper`](../../../type-aliases/Mapper.md)\<`A`, `B`\>
+### mapper
+
+[`Mapper`](../../../type-aliases/Mapper.md)\<`A`, `B`\>
 
 ## Returns
 

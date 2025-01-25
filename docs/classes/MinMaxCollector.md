@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / MinMaxCollector
+[ts-fluent-iterators](../README.md) / MinMaxCollector
 
 # Class: MinMaxCollector\<A\>
 
@@ -24,7 +24,7 @@ c.result : { min: 'bar', max: 'foo' }
 
 ## Implements
 
-- [`Collector`](../interfaces/Collector.md)\<`A`, [`MinMax`](../../../interfaces/MinMax.md)\<`A`\> \| `undefined`\>
+- [`Collector`](../interfaces/Collector.md)\<`A`, [`MinMax`](../interfaces/MinMax.md)\<`A`\> \| `undefined`\>
 
 ## Constructors
 
@@ -34,7 +34,9 @@ c.result : { min: 'bar', max: 'foo' }
 
 #### Parameters
 
-• **comparator**: [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\> = `Comparators.natural`
+##### comparator
+
+[`Comparator`](../type-aliases/Comparator.md)\<`A`\> = `Comparators.natural`
 
 The comparator used to compare elements. Default is natural ordering.
 
@@ -48,13 +50,13 @@ The comparator used to compare elements. Default is natural ordering.
 
 #### Get Signature
 
-> **get** **result**(): `undefined` \| [`MinMax`](../../../interfaces/MinMax.md)\<`A`\>
+> **get** **result**(): `undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
 
 Returns the aggregated object.
 
 ##### Returns
 
-`undefined` \| [`MinMax`](../../../interfaces/MinMax.md)\<`A`\>
+`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
 
 The aggregated object resulting from collecting all objects
 
@@ -72,7 +74,9 @@ Collects an element.
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 The element being collected.
 

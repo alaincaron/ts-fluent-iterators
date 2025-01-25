@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / ObjectCollector
+[ts-fluent-iterators](../README.md) / ObjectCollector
 
 # Class: ObjectCollector\<V\>
 
@@ -26,7 +26,7 @@ the type of properties in the returned object.
 
 ## Implements
 
-- [`Collector`](../interfaces/Collector.md)\<[`string`, `V`], `Record`\<`string`, `V`\>\>
+- [`Collector`](../interfaces/Collector.md)\<\[`string`, `V`\], `Record`\<`string`, `V`\>\>
 
 ## Constructors
 
@@ -36,7 +36,9 @@ the type of properties in the returned object.
 
 #### Parameters
 
-• **collisionHandler?**: [`CollisionHandler`](../../../type-aliases/CollisionHandler.md)\<`string`, `V`\>
+##### collisionHandler?
+
+[`CollisionHandler`](../type-aliases/CollisionHandler.md)\<`string`, `V`\>
 
 Specify how to handle collisions. Default is to ignore collisions, i.e. newer elements override previous ones.
 
@@ -74,7 +76,9 @@ Collects an element.
 
 #### Parameters
 
-• **a**: [`string`, `V`]
+##### a
+
+\[`string`, `V`\]
 
 The element being collected.
 

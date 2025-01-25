@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -29,7 +29,9 @@ Maps the computed value to a new value using the provided function.
 
 #### Parameters
 
-• **mapper**: [`Mapper`](../type-aliases/Mapper.md)\<`T`, `R`\>
+##### mapper
+
+[`Mapper`](../type-aliases/Mapper.md)\<`T`, `R`\>
 
 The function to apply to the computed value.
 
@@ -73,7 +75,9 @@ The type of the value.
 
 #### Parameters
 
-• **provider**: [`Provider`](../type-aliases/Provider.md)\<`T` \| `Try`\<`T`\>\>
+##### provider
+
+[`Provider`](../type-aliases/Provider.md)\<`T` \| `Try`\<`T`\>\>
 
 The function representing the lazy provider.
 

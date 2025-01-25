@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -16,9 +16,13 @@ A `Comparator` that orders elements in the reverse order of the `natural` `Compa
 
 ## Parameters
 
-• **a1**: `A`
+### a1
 
-• **a2**: `A`
+`A`
+
+### a2
+
+`A`
 
 ## Returns
 

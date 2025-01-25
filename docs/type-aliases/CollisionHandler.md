@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -23,15 +23,21 @@ the type of the values
 
 ## Parameters
 
-• **k**: `K`
+### k
+
+`K`
 
 The key for which the collision is detected.
 
-• **oldValue**: `V`
+### oldValue
+
+`V`
 
 The current value mapped to the key `k`
 
-• **newValue**: `V`
+### newValue
+
+`V`
 
 The new value to be mapped to the key `k`
 

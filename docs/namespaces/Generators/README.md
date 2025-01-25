@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../README.md)
 
 ---
 
@@ -6,9 +6,7 @@
 
 # Generators
 
-## Index
-
-### Functions
+## Functions
 
 - [loop](functions/loop.md)
 - [range](functions/range.md)

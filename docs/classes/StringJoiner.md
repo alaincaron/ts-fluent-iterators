@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Collectors](../README.md) / StringJoiner
+[ts-fluent-iterators](../README.md) / StringJoiner
 
 # Class: StringJoiner\<A\>
 
@@ -36,15 +36,21 @@ The type of the elements being accepted.
 
 #### Parameters
 
-• **separator**: `string` = `','`
+##### separator
+
+`string` = `','`
 
 separator between elements.
 
-• **prefix**: `string` = `''`
+##### prefix
+
+`string` = `''`
 
 prefix of the joined string.
 
-• **suffix**: `string` = `''`
+##### suffix
+
+`string` = `''`
 
 suffix of the joined string.
 
@@ -82,7 +88,9 @@ Collects an element.
 
 #### Parameters
 
-• **a**: `A`
+##### a
+
+`A`
 
 The element being collected.
 

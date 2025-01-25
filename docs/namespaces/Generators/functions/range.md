@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -12,15 +12,21 @@ Returns an `IterableIterator` from `start` (inclusively) to `end` (exclusively) 
 
 ## Parameters
 
-• **start?**: `number`
+### start?
+
+`number`
 
 the start of the range. Defaults to 0.
 
-• **end?**: `number`
+### end?
+
+`number`
 
 the end of the range. Defaults to infinity.
 
-• **step?**: `number`
+### step?
+
+`number`
 
 increment in the range. Defaults to 1 if `end` > `start`, -1 otherwise.
 

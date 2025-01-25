@@ -1,4 +1,4 @@
-**ts-fluent-iterators** • **Docs**
+**ts-fluent-iterators**
 
 ---
 
@@ -6,18 +6,33 @@
 
 ## Namespaces
 
-- [Collectors](namespaces/Collectors/README.md)
 - [Comparators](namespaces/Comparators/README.md)
 - [Generators](namespaces/Generators/README.md)
 
 ## Classes
 
+- [ArrayCollector](classes/ArrayCollector.md)
+- [AvgCollector](classes/AvgCollector.md)
+- [CountCollector](classes/CountCollector.md)
+- [FlattenCollector](classes/FlattenCollector.md)
 - [FluentIterator](classes/FluentIterator.md)
+- [GroupByCollector](classes/GroupByCollector.md)
+- [LastCollector](classes/LastCollector.md)
 - [Lazy](classes/Lazy.md)
+- [MapCollector](classes/MapCollector.md)
+- [MaxCollector](classes/MaxCollector.md)
+- [MinCollector](classes/MinCollector.md)
+- [MinMaxCollector](classes/MinMaxCollector.md)
+- [ObjectCollector](classes/ObjectCollector.md)
+- [SetCollector](classes/SetCollector.md)
+- [StringJoiner](classes/StringJoiner.md)
+- [SumCollector](classes/SumCollector.md)
+- [TallyCollector](classes/TallyCollector.md)
 
 ## Interfaces
 
 - [ArrayGenerator](interfaces/ArrayGenerator.md)
+- [Collector](interfaces/Collector.md)
 - [MinMax](interfaces/MinMax.md)
 
 ## Type Aliases

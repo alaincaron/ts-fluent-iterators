@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -22,11 +22,15 @@ Type of objects to compare.
 
 ## Parameters
 
-• **a1**: `A`
+### a1
+
+`A`
 
 The first operand
 
-• **a2**: `A`
+### a2
+
+`A`
 
 The second operand
 

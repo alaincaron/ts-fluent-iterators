@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../../../README.md) • **Docs**
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
@@ -18,7 +18,9 @@ The type of elements to be compare
 
 ## Parameters
 
-• **isLessThan**: [`BinaryPredicate`](../../../type-aliases/BinaryPredicate.md)\<`A`, `A`\>
+### isLessThan
+
+[`BinaryPredicate`](../../../type-aliases/BinaryPredicate.md)\<`A`, `A`\>
 
 A `BinaryPredicate` used to order the elements. The predicate must follow ordering rules, i.e isLessThan(a,b) = true implies isLessThan(b,a) is false.
 

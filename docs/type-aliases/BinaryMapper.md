@@ -1,4 +1,4 @@
-[**ts-fluent-iterators**](../README.md) • **Docs**
+[**ts-fluent-iterators**](../README.md)
 
 ---
 
@@ -24,9 +24,13 @@ the type of the second operand
 
 ## Parameters
 
-• **a**: `A`
+### a
 
-• **b**: `B`
+`A`
+
+### b
+
+`B`
 
 ## Returns
 
