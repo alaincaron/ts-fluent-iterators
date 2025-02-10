@@ -61,7 +61,7 @@ Collects an element.
 
 The element being collected.
 
-`Iterable`\<`A`\> | `Iterator`\<`A`\>
+`Iterable`\<`A`, `any`, `any`\> | `Iterator`\<`A`, `any`, `any`\>
 
 #### Returns
 

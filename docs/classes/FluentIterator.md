@@ -105,7 +105,7 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of appendin
 
 An `Iterator` or `Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
-`Iterator`\<`A`\> | `Iterable`\<`A`\>
+`Iterator`\<`A`, `any`, `any`\> | `Iterable`\<`A`, `any`, `any`\>
 
 #### Returns
 
@@ -135,7 +135,7 @@ This method allows to use an Iterator function in a fluent way.
 
 ##### mapper
 
-[`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`\>, `B`\>
+[`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `any`\>, `B`\>
 
 #### Returns
 
@@ -414,7 +414,7 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of apependi
 
 ##### iterables
 
-...(`Iterator`\<`A`\> \| `Iterable`\<`A`\>)[]
+...(`Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>)[]
 
 An `Array of `Iterator`or`Iterable` whose items are appended to this [FluentIterator](FluentIterator.md).
 
@@ -1003,7 +1003,7 @@ FluentIterator.empty().minmax();
 
 ### next()
 
-> **next**(): `IteratorResult`\<`A`, `any`\>
+> **next**(): `IteratorResult`\<`A`\>
 
 Used to make this [FluentIterator](FluentIterator.md) being seen as an
 `Iterator<A>`. This allows [FluentIterator](FluentIterator.md) objects to be
@@ -1011,7 +1011,7 @@ used in APIs expecting an `Iterator<A>`
 
 #### Returns
 
-`IteratorResult`\<`A`, `any`\>
+`IteratorResult`\<`A`\>
 
 #### Implementation of
 
@@ -1064,7 +1064,7 @@ Returns a new [FluentIterator](FluentIterator.md) that is the result of prependi
 
 An `Iterator` or `Iterable` whose items are prepended to this [FluentIterator](FluentIterator.md).
 
-`Iterator`\<`A`\> | `Iterable`\<`A`\>
+`Iterator`\<`A`, `any`, `any`\> | `Iterable`\<`A`, `any`, `any`\>
 
 #### Returns
 
@@ -1346,7 +1346,7 @@ This method allows to use a an Iterartor transformation in a fluent way.
 
 ##### mapper
 
-[`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`\>, `Iterator`\<`B`\>\>
+[`Mapper`](../type-aliases/Mapper.md)\<`Iterator`\<`A`, `any`, `any`\>, `Iterator`\<`B`, `any`, `any`\>\>
 
 The mapper to transform the iterator.
 
@@ -1390,7 +1390,7 @@ The type of elements of the `other` iterator.
 
 The iterator that is combined with this one.
 
-`Iterator`\<`B`\> | `Iterable`\<`B`\>
+`Iterator`\<`B`, `any`, `any`\> | `Iterable`\<`B`, `any`, `any`\>
 
 #### Returns
 
