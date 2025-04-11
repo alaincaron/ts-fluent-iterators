@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../README.md)
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
-[ts-fluent-iterators](../../README.md) / Generators
+[ts-fluent-iterators](../../../README.md) / Generators
 
 # Generators
 

@@ -6,18 +6,22 @@
 
 # Type Alias: CollisionHandler()\<K, V\>
 
-> **CollisionHandler**\<`K`, `V`\>: (`k`, `oldValue`, `newValue`) => `V`
+> **CollisionHandler**\<`K`, `V`\> = (`k`, `oldValue`, `newValue`) => `V`
 
 A collision handler for collectors. Used by `Collectors` `MapCollector` and `ObjectCollector` to handle collisions.
 The value returned will be the new mapping for the key. It can also throw to abort the collecting of elements.
 
 ## Type Parameters
 
-• **K**
+### K
+
+`K`
 
 the keys on which collisions are detected.
 
-• **V**
+### V
+
+`V`
 
 the type of the values
 

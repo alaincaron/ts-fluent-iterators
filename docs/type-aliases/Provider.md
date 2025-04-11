@@ -6,13 +6,15 @@
 
 # Type Alias: Provider()\<A\>
 
-> **Provider**\<`A`\>: () => `A`
+> **Provider**\<`A`\> = () => `A`
 
 A function that provides a value of type `A`
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 the type of elements being provided
 

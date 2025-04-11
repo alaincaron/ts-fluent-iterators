@@ -12,7 +12,9 @@ Alias for Fluentiterator.singleton
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 ## Parameters
 

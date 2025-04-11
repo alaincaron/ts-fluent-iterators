@@ -20,7 +20,9 @@ c.collect('baz');
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 The type of the elements being accepted.
 
@@ -30,9 +32,9 @@ The type of the elements being accepted.
 
 ## Constructors
 
-### new StringJoiner()
+### Constructor
 
-> **new StringJoiner**\<`A`\>(`separator`, `prefix`, `suffix`): [`StringJoiner`](StringJoiner.md)\<`A`\>
+> **new StringJoiner**\<`A`\>(`separator`, `prefix`, `suffix`): `StringJoiner`\<`A`\>
 
 #### Parameters
 
@@ -56,7 +58,7 @@ suffix of the joined string.
 
 #### Returns
 
-[`StringJoiner`](StringJoiner.md)\<`A`\>
+`StringJoiner`\<`A`\>
 
 ## Accessors
 

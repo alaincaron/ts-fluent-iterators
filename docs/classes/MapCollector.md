@@ -20,11 +20,15 @@ c.collect(['foo',3]);
 
 ## Type Parameters
 
-• **K**
+### K
+
+`K`
 
 The type of the keys of the map.
 
-• **V**
+### V
+
+`V`
 
 the type of the values in the map.
 
@@ -34,9 +38,9 @@ the type of the values in the map.
 
 ## Constructors
 
-### new MapCollector()
+### Constructor
 
-> **new MapCollector**\<`K`, `V`\>(`collisionHandler`?): [`MapCollector`](MapCollector.md)\<`K`, `V`\>
+> **new MapCollector**\<`K`, `V`\>(`collisionHandler?`): `MapCollector`\<`K`, `V`\>
 
 #### Parameters
 
@@ -48,7 +52,7 @@ Specify how to handle collisions. Default is to ignore collisions, i.e. newer el
 
 #### Returns
 
-[`MapCollector`](MapCollector.md)\<`K`, `V`\>
+`MapCollector`\<`K`, `V`\>
 
 ## Accessors
 

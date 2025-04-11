@@ -1,10 +1,14 @@
-[**ts-fluent-iterators**](../../README.md)
+[**ts-fluent-iterators**](../../../README.md)
 
 ---
 
-[ts-fluent-iterators](../../README.md) / Comparators
+[ts-fluent-iterators](../../../README.md) / Comparators
 
 # Comparators
+
+## Variables
+
+- [reversed](variables/reversed.md)
 
 ## Functions
 
@@ -14,4 +18,3 @@
 - [natural](functions/natural.md)
 - [onResultOf](functions/onResultOf.md)
 - [reverse](functions/reverse.md)
-- [reversed](functions/reversed.md)

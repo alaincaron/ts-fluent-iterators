@@ -20,7 +20,9 @@ c.result : 3
 
 ## Type Parameters
 
-• **A** = `unknown`
+### A
+
+`A` = `unknown`
 
 ## Implements
 

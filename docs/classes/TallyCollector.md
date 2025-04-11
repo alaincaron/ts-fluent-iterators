@@ -20,7 +20,9 @@ c.collect('foo');
 
 ## Type Parameters
 
-• **K**
+### K
+
+`K`
 
 The type of the keys of the map.
 

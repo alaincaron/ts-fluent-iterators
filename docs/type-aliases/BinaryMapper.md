@@ -6,21 +6,27 @@
 
 # Type Alias: BinaryMapper()\<A, B, C\>
 
-> **BinaryMapper**\<`A`, `B`, `C`\>: (`a`, `b`) => `C`
+> **BinaryMapper**\<`A`, `B`, `C`\> = (`a`, `b`) => `C`
 
 A function mapping a pair of values of types `A` and `B` to type `C`
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 the type of the first operand
 
-• **B**
+### B
+
+`B`
 
 the type of the second operand
 
-• **C**
+### C
+
+`C`
 
 ## Parameters
 

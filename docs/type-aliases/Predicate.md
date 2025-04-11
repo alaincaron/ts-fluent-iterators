@@ -6,13 +6,15 @@
 
 # Type Alias: Predicate\<A\>
 
-> **Predicate**\<`A`\>: [`Mapper`](Mapper.md)\<`A`, `boolean`\>
+> **Predicate**\<`A`\> = [`Mapper`](Mapper.md)\<`A`, `boolean`\>
 
 A predicate on a value.
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 the type of values on which the predicate is to be evaluated.
 

@@ -12,7 +12,9 @@ Alias for [FluentIterator.from](../classes/FluentIterator.md#from)
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 ## Parameters
 

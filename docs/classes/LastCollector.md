@@ -20,7 +20,9 @@ c.result : 'baz'
 
 ## Type Parameters
 
-• **A** = `unknown`
+### A
+
+`A` = `unknown`
 
 ## Implements
 

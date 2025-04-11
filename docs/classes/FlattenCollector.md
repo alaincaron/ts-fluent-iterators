@@ -19,7 +19,9 @@ c.result.collect() : [1,2,3,4]
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 the type of elements being iterated on.
 

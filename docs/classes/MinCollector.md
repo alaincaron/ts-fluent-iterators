@@ -19,7 +19,9 @@ c.result : 'bar'
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 ## Implements
 
@@ -27,9 +29,9 @@ c.result : 'bar'
 
 ## Constructors
 
-### new MinCollector()
+### Constructor
 
-> **new MinCollector**\<`A`\>(`comparator`): [`MinCollector`](MinCollector.md)\<`A`\>
+> **new MinCollector**\<`A`\>(`comparator`): `MinCollector`\<`A`\>
 
 #### Parameters
 
@@ -41,7 +43,7 @@ The comparator used to compare elements. Default is natural ordering.
 
 #### Returns
 
-[`MinCollector`](MinCollector.md)\<`A`\>
+`MinCollector`\<`A`\>
 
 ## Accessors
 

@@ -10,7 +10,9 @@ Holds result of a `MinMaxCollector`
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 the type of the objects in the result.
 

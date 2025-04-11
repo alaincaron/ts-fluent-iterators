@@ -1,24 +1,26 @@
-[**ts-fluent-iterators**](../../../README.md)
+[**ts-fluent-iterators**](../../../../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Generators](../README.md) / repeat
+[ts-fluent-iterators](../../../../README.md) / [Generators](../README.md) / repeat
 
 # Function: repeat()
 
-> **repeat**\<`T`\>(`f`, `count`?): `IterableIterator`\<`T`\>
+> **repeat**\<`T`\>(`f`, `count?`): `IterableIterator`\<`T`\>
 
 Returns an iterator resulting from applying f on all elements of the range [0,`count`]
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Parameters
 
 ### f
 
-[`Mapper`](../../../type-aliases/Mapper.md)\<`number`, `T`\>
+[`Mapper`](../../../../type-aliases/Mapper.md)\<`number`, `T`\>
 
 The function to apply on each element of the range.
 

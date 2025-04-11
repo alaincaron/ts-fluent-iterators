@@ -10,11 +10,15 @@ A `Collector` is an object that collects elements of type `A` and aggregates the
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 the type of elements being collected.
 
-• **B**
+### B
+
+`B`
 
 the type of the aggregated object.
 

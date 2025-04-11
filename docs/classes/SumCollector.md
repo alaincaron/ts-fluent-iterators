@@ -23,9 +23,9 @@ c.result : 3.0
 
 ## Constructors
 
-### new SumCollector()
+### Constructor
 
-> **new SumCollector**(`initial`): [`SumCollector`](SumCollector.md)
+> **new SumCollector**(`initial`): `SumCollector`
 
 #### Parameters
 
@@ -37,7 +37,7 @@ The initial value of the sum.
 
 #### Returns
 
-[`SumCollector`](SumCollector.md)
+`SumCollector`
 
 ## Accessors
 

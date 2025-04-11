@@ -1,18 +1,20 @@
-[**ts-fluent-iterators**](../../../README.md)
+[**ts-fluent-iterators**](../../../../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / fromPredicate
+[ts-fluent-iterators](../../../../README.md) / [Comparators](../README.md) / fromPredicate
 
 # Function: fromPredicate()
 
-> **fromPredicate**\<`A`\>(`isLessThan`): [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
+> **fromPredicate**\<`A`\>(`isLessThan`): [`Comparator`](../../../../type-aliases/Comparator.md)\<`A`\>
 
 Returns a comparator base on a `Binarypredicate`
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 The type of elements to be compare
 
@@ -20,13 +22,13 @@ The type of elements to be compare
 
 ### isLessThan
 
-[`BinaryPredicate`](../../../type-aliases/BinaryPredicate.md)\<`A`, `A`\>
+[`BinaryPredicate`](../../../../type-aliases/BinaryPredicate.md)\<`A`, `A`\>
 
 A `BinaryPredicate` used to order the elements. The predicate must follow ordering rules, i.e isLessThan(a,b) = true implies isLessThan(b,a) is false.
 
 ## Returns
 
-[`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
+[`Comparator`](../../../../type-aliases/Comparator.md)\<`A`\>
 
 ## Example
 

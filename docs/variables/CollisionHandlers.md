@@ -24,9 +24,13 @@ Default collision handlers for `MapCollector`
 
 #### Type Parameters
 
-• **K**
+##### K
 
-• **V**
+`K`
+
+##### V
+
+`V`
 
 #### Parameters
 
@@ -52,9 +56,13 @@ Default collision handlers for `MapCollector`
 
 #### Type Parameters
 
-• **K**
+##### K
 
-• **V**
+`K`
+
+##### V
+
+`V`
 
 #### Parameters
 
@@ -80,9 +88,13 @@ Default collision handlers for `MapCollector`
 
 #### Type Parameters
 
-• **K**
+##### K
 
-• **V**
+`K`
+
+##### V
+
+`V`
 
 #### Parameters
 

@@ -20,7 +20,9 @@ c.collect(['foo',3]);
 
 ## Type Parameters
 
-• **V**
+### V
+
+`V`
 
 the type of properties in the returned object.
 
@@ -30,9 +32,9 @@ the type of properties in the returned object.
 
 ## Constructors
 
-### new ObjectCollector()
+### Constructor
 
-> **new ObjectCollector**\<`V`\>(`collisionHandler`?): [`ObjectCollector`](ObjectCollector.md)\<`V`\>
+> **new ObjectCollector**\<`V`\>(`collisionHandler?`): `ObjectCollector`\<`V`\>
 
 #### Parameters
 
@@ -44,7 +46,7 @@ Specify how to handle collisions. Default is to ignore collisions, i.e. newer el
 
 #### Returns
 
-[`ObjectCollector`](ObjectCollector.md)\<`V`\>
+`ObjectCollector`\<`V`\>
 
 ## Accessors
 

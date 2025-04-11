@@ -6,17 +6,21 @@
 
 # Type Alias: Reducer\<A, B\>
 
-> **Reducer**\<`A`, `B`\>: [`BinaryMapper`](BinaryMapper.md)\<`B`, `A`, `B`\>
+> **Reducer**\<`A`, `B`\> = [`BinaryMapper`](BinaryMapper.md)\<`B`, `A`, `B`\>
 
 Function used in `reduce` and `fold` operations.
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 Type of elements being reduced
 
-• **B**
+### B
+
+`B`
 
 Type into which the elements are being reduced to.
 

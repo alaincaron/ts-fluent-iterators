@@ -1,8 +1,8 @@
-[**ts-fluent-iterators**](../../../README.md)
+[**ts-fluent-iterators**](../../../../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / natural
+[ts-fluent-iterators](../../../../README.md) / [Comparators](../README.md) / natural
 
 # Function: natural()
 
@@ -12,7 +12,9 @@ Natural comparator.
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 The type of elements to be compared
 

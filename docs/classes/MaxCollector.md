@@ -19,7 +19,9 @@ c.result : 'foo'
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 ## Implements
 
@@ -27,9 +29,9 @@ c.result : 'foo'
 
 ## Constructors
 
-### new MaxCollector()
+### Constructor
 
-> **new MaxCollector**\<`A`\>(`comparator`): [`MaxCollector`](MaxCollector.md)\<`A`\>
+> **new MaxCollector**\<`A`\>(`comparator`): `MaxCollector`\<`A`\>
 
 #### Parameters
 
@@ -41,7 +43,7 @@ The comparator used to compare elements. Default is natural ordering.
 
 #### Returns
 
-[`MaxCollector`](MaxCollector.md)\<`A`\>
+`MaxCollector`\<`A`\>
 
 ## Accessors
 

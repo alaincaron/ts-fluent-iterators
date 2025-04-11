@@ -6,7 +6,7 @@
 
 # Type Alias: Comparator()\<A\>
 
-> **Comparator**\<`A`\>: (`a1`, `a2`) => `number`
+> **Comparator**\<`A`\> = (`a1`, `a2`) => `number`
 
 A function used to compare objects for ordering. Its return value should satisfy the following properties:
 
@@ -16,7 +16,9 @@ A function used to compare objects for ordering. Its return value should satisfy
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 Type of objects to compare.
 

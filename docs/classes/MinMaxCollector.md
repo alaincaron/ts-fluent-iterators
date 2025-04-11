@@ -20,7 +20,9 @@ c.result : { min: 'bar', max: 'foo' }
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 ## Implements
 
@@ -28,9 +30,9 @@ c.result : { min: 'bar', max: 'foo' }
 
 ## Constructors
 
-### new MinMaxCollector()
+### Constructor
 
-> **new MinMaxCollector**\<`A`\>(`comparator`): [`MinMaxCollector`](MinMaxCollector.md)\<`A`\>
+> **new MinMaxCollector**\<`A`\>(`comparator`): `MinMaxCollector`\<`A`\>
 
 #### Parameters
 
@@ -42,7 +44,7 @@ The comparator used to compare elements. Default is natural ordering.
 
 #### Returns
 
-[`MinMaxCollector`](MinMaxCollector.md)\<`A`\>
+`MinMaxCollector`\<`A`\>
 
 ## Accessors
 

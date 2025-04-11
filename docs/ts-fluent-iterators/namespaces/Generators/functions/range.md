@@ -1,12 +1,12 @@
-[**ts-fluent-iterators**](../../../README.md)
+[**ts-fluent-iterators**](../../../../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Generators](../README.md) / range
+[ts-fluent-iterators](../../../../README.md) / [Generators](../README.md) / range
 
 # Function: range()
 
-> **range**(`start`?, `end`?, `step`?): `IterableIterator`\<`number`\>
+> **range**(`start?`, `end?`, `step?`): `IterableIterator`\<`number`\>
 
 Returns an `IterableIterator` from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 

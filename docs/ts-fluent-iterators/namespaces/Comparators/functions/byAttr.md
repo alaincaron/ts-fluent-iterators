@@ -1,18 +1,20 @@
-[**ts-fluent-iterators**](../../../README.md)
+[**ts-fluent-iterators**](../../../../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Comparators](../README.md) / byAttr
+[ts-fluent-iterators](../../../../README.md) / [Comparators](../README.md) / byAttr
 
 # Function: byAttr()
 
-> **byAttr**\<`A`\>(`attr`): [`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
+> **byAttr**\<`A`\>(`attr`): [`Comparator`](../../../../type-aliases/Comparator.md)\<`A`\>
 
 A comparator that sorts the elements based on the natural order of an attribute.
 
 ## Type Parameters
 
-• **A** _extends_ `object`
+### A
+
+`A` _extends_ `object`
 
 ## Parameters
 
@@ -22,7 +24,7 @@ keyof `A`
 
 ## Returns
 
-[`Comparator`](../../../type-aliases/Comparator.md)\<`A`\>
+[`Comparator`](../../../../type-aliases/Comparator.md)\<`A`\>
 
 ## Example
 

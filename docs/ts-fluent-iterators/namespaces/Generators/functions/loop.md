@@ -1,25 +1,27 @@
-[**ts-fluent-iterators**](../../../README.md)
+[**ts-fluent-iterators**](../../../../README.md)
 
 ---
 
-[ts-fluent-iterators](../../../README.md) / [Generators](../README.md) / loop
+[ts-fluent-iterators](../../../../README.md) / [Generators](../README.md) / loop
 
 # Function: loop()
 
-> **loop**\<`T`\>(`f`, `start`?, `end`?, `step`?): `IterableIterator`\<`T`\>
+> **loop**\<`T`\>(`f`, `start?`, `end?`, `step?`): `IterableIterator`\<`T`\>
 
 Returns an iterator resulting from applying f on all elements of the range
 from `start` (inclusively) to `end` (exclusively) by increment of `step`.
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Parameters
 
 ### f
 
-[`Mapper`](../../../type-aliases/Mapper.md)\<`number`, `T`\>
+[`Mapper`](../../../../type-aliases/Mapper.md)\<`number`, `T`\>
 
 The function to apply on each element of the range.
 

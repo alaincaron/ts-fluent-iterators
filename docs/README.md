@@ -6,8 +6,8 @@
 
 ## Namespaces
 
-- [Comparators](namespaces/Comparators/README.md)
-- [Generators](namespaces/Generators/README.md)
+- [Comparators](ts-fluent-iterators/namespaces/Comparators/README.md)
+- [Generators](ts-fluent-iterators/namespaces/Generators/README.md)
 
 ## Classes
 

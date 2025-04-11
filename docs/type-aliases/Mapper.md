@@ -6,17 +6,21 @@
 
 # Type Alias: Mapper()\<A, B\>
 
-> **Mapper**\<`A`, `B`\>: (`a`) => `B`
+> **Mapper**\<`A`, `B`\> = (`a`) => `B`
 
 A function mapping a value of type `A` to type `B`
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 the source type on which the `Mapper` is applied.
 
-• **B**
+### B
+
+`B`
 
 the target type
 

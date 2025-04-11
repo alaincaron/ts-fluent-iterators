@@ -10,7 +10,9 @@ A Collector that collects elements of type `A` into an array of type `A[]`.
 
 ## Type Parameters
 
-• **A**
+### A
+
+`A`
 
 the type of elements being collected.
 
