@@ -22,12 +22,12 @@ describe('Functions', () => {
     expect(f(1)).equal(2);
   });
 
-  it('tap should return its target', () => {
+  it('peek should return its target', () => {
     let flag = false;
     const f = (_: number) => {
       flag = true;
     };
-    expect(Functions.tap(f)(5)).eq(5);
+    expect(Functions.peek(f)(5)).eq(5);
     expect(flag).to.be.true;
   });
 

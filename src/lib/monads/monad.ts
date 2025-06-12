@@ -1,11 +1,11 @@
 import { Maybe } from './maybe';
 import { FluentIterator } from '../sync';
-import { Mapper, Predicate } from '../utils';
+import { Mapper, Predicate, Consumer } from '../utils';
 
 export interface Monad<A, B> {
   exists(predicate: Predicate<B>): boolean;
   contains(b: B): boolean;
-  forEach(f: Mapper<B, any>): void;
+  forEach(f: Consumer<B>): void;
   all(predicate: Predicate<B>): boolean;
   filter(predicate: Predicate<B>): Maybe<B>;
   getOrThrow(): B;

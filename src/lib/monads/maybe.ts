@@ -1,7 +1,7 @@
 import { Either, Left, NoSuchElementException, Right } from './either';
 import { Monad } from './monad';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
-import { Mapper, Predicate, Provider } from '../utils';
+import { Mapper, Predicate, Provider, Consumer } from '../utils';
 
 export abstract class Maybe<A> implements Monad<never, A> {
   static of<A>(a: A) {
@@ -26,7 +26,7 @@ export abstract class Maybe<A> implements Monad<never, A> {
 
   abstract contains(a: A): boolean;
   abstract exists(predicate: Predicate<A>): boolean;
-  abstract forEach(f: Mapper<A, any>): void;
+  abstract forEach(f: Consumer<A>): void;
   abstract all(predicate: Predicate<A>): boolean;
   abstract getOrThrow(): A;
   abstract map<B>(f: Mapper<A, B>): Maybe<B>;
@@ -71,7 +71,7 @@ class NoneSingleton extends Maybe<never> {
     return false;
   }
 
-  forEach(_: Mapper<never, any>) {}
+  forEach(_: Consumer<never>) {}
 
   all(_: Predicate<never>) {
     return true;
@@ -142,7 +142,7 @@ export class Some<A> extends Maybe<A> {
     return this.value === a;
   }
 
-  forEach(f: Mapper<A, any>) {
+  forEach(f: Consumer<A>) {
     f(this.value);
   }
 

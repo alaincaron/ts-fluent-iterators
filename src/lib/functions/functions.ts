@@ -1,4 +1,4 @@
-import { BinaryMapper, Mapper, Predicate } from '../utils';
+import { BinaryMapper, Mapper, Predicate, Consumer } from '../utils';
 
 export function identity<T>(): Mapper<T, T> {
   return t => t;
@@ -20,7 +20,7 @@ export function chain<A, B>(firstMapper: Mapper<A, B>, ...mappers: Mapper<B, B>[
   return a => mappers.reduce((b, mapper) => mapper(b), firstMapper(a));
 }
 
-export function tap<T>(f: Mapper<T, any>): Mapper<T, T> {
+export function peek<T>(f: Consumer<T>): Mapper<T, T> {
   return t => {
     f(t);
     return t;

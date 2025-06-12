@@ -42,7 +42,7 @@ The aggregated object resulting from collecting all objects
 
 ### collect()
 
-> **collect**(`a`): `boolean` \| `void`
+> **collect**(`a`): `void`
 
 Collects an element.
 
@@ -56,4 +56,4 @@ The element being collected.
 
 #### Returns
 
-`boolean` \| `void`
+`void`

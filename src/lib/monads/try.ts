@@ -2,7 +2,7 @@ import { Either, Left, Right } from './either';
 import { Maybe, None, Some } from './maybe';
 import { Monad } from './monad';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
-import { Mapper, Predicate, Provider } from '../utils';
+import { Mapper, Predicate, Provider, Consumer } from '../utils';
 
 export abstract class Try<T> implements Monad<never, T> {
   static create<T>(f: Provider<T | Try<T>>): Try<T> {
@@ -21,7 +21,7 @@ export abstract class Try<T> implements Monad<never, T> {
   }
   abstract exists(predicate: Predicate<T>): boolean;
   abstract contains(t: T): boolean;
-  abstract forEach(f: Mapper<T, any>): void;
+  abstract forEach(f: Consumer<T>): void;
   abstract all(predicate: Predicate<T>): boolean;
   abstract getOrThrow(): T;
   abstract toIterator(): FluentIterator<T>;
@@ -82,7 +82,7 @@ export class Success<T> extends Try<T> {
     return this.value === t;
   }
 
-  forEach(f: Mapper<T, any>): void {
+  forEach(f: Consumer<T>): void {
     f(this.value);
   }
 
@@ -155,7 +155,7 @@ export class Failure<T> extends Try<T> {
     return false;
   }
 
-  forEach(_f: Mapper<T, any>): void {}
+  forEach(_f: Consumer<T>): void {}
 
   all(_predicate: Predicate<T>): boolean {
     return true;

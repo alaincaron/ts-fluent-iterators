@@ -216,7 +216,7 @@ The result of the `collector`
 #### Example
 
 ```ts
-const collector = new ArrayCollector<string>();
+const collector = arrayCollector<string>;
 const iter = iterator([1, 2, 3]);
 const data = iter.collectTo(collector);
 // data is [1,2,3]
@@ -694,15 +694,15 @@ const sum = iterator([1,2,3])
 
 ### forEach()
 
-> **forEach**(`mapper`): `void`
+> **forEach**(`f`): `void`
 
 Applies the [mapper](../type-aliases/Mapper.md) to each element of this FluentIterator
 
 #### Parameters
 
-##### mapper
+##### f
 
-[`Mapper`](../type-aliases/Mapper.md)\<`A`, `any`\>
+[`Consumer`](../type-aliases/Consumer.md)\<`A`\>
 
 the operation to be invoked on each element.
 
@@ -996,37 +996,6 @@ FluentIterator.empty().min();
 
 ---
 
-### minmax()
-
-> **minmax**(`comparator?`): `undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
-
-Returns the minimum and maximum element according to the argument [comparator](../type-aliases/Comparator.md).
-
-#### Parameters
-
-##### comparator?
-
-[`Comparator`](../type-aliases/Comparator.md)\<`A`\>
-
-#### Returns
-
-`undefined` \| [`MinMax`](../interfaces/MinMax.md)\<`A`\>
-
-#### Example
-
-```ts
-iterator([1, 2]).minmax();
-// { min: 1, max: 2}
-
-iterator(['foo', 'foobar']).minmax((s1, s2) => s1.length - s2.length);
-// { min: 'foo', max: 'foobar' }
-
-FluentIterator.empty().minmax();
-// undefined
-```
-
----
-
 ### next()
 
 > **next**(): `IteratorResult`\<`A`\>
@@ -1075,6 +1044,49 @@ iterator([1, 2, 3, 4, 5]).partition(2);
 
 The last partition may contain less than `size` elements but is
 never empty.
+
+---
+
+### peek()
+
+> **peek**(`mapper`): `FluentIterator`\<`A`\>
+
+Returns a new FluentIterator that
+yields the same elements as this FluentIterator
+and executes the [mapper](../type-aliases/Mapper.md) on each element.
+
+#### Parameters
+
+##### mapper
+
+[`Consumer`](../type-aliases/Consumer.md)\<`A`\>
+
+the operation to be invoked on each element.
+
+#### Returns
+
+`FluentIterator`\<`A`\>
+
+#### Remarks
+
+This can be useful to see intermediate steps of complex FluentIterator. The results of invoking the `mapper` are ignored unless it throwws.
+
+#### Example
+
+```ts
+const iter = iterator([1, 2, 3]);
+iter
+  .peek(x => console.log(`before filter ${x}`))
+  .filter(x => x % 2 === 0)
+  .peek(x => console.log(`after filter: ${x}`))
+  .collect();
+// ouputs:
+// before filter 1
+// before filter 2
+// after filter: 2
+// before filter 3
+// result : [ 2 ]
+```
 
 ---
 
@@ -1310,49 +1322,6 @@ this FluentIterator,
 ```ts
 iterator([foo','bar','foo').tally();
 // Map { 'foo' => 2, bar => 1 }
-```
-
----
-
-### tap()
-
-> **tap**(`mapper`): `FluentIterator`\<`A`\>
-
-Returns a new FluentIterator that
-yields the same elements as this FluentIterator
-and executes the [mapper](../type-aliases/Mapper.md) on each element.
-
-#### Parameters
-
-##### mapper
-
-[`Mapper`](../type-aliases/Mapper.md)\<`A`, `any`\>
-
-the operation to be invoked on each element.
-
-#### Returns
-
-`FluentIterator`\<`A`\>
-
-#### Remarks
-
-This can be useful to see intermediate steps of complex FluentIterator. The results of invoking the `mapper` are ignored unless it throwws.
-
-#### Example
-
-```ts
-const iter = iterator([1, 2, 3]);
-iter
-  .tap(x => console.log(`before filter ${x}`))
-  .filter(x => x % 2 === 0)
-  .tap(x => console.log(`after filter: ${x}`))
-  .collect();
-// ouputs:
-// before filter 1
-// before filter 2
-// after filter: 2
-// before filter 3
-// result : [ 2 ]
 ```
 
 ---

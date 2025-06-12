@@ -2,7 +2,7 @@ import { Maybe, None, Some } from './maybe';
 import { Monad } from './monad';
 import { alwaysFalse } from '../functions';
 import { emptyIterator, FluentIterator, singletonIterator } from '../sync';
-import { BinaryMapper, Mapper, Predicate, Provider } from '../utils';
+import { BinaryMapper, Mapper, Predicate, Provider, Consumer } from '../utils';
 
 export class NoSuchElementException extends Error {
   constructor(message?: string) {
@@ -76,7 +76,7 @@ export class Left<A> extends Either<A, never> {
     return false;
   }
 
-  forEach(_: Mapper<never, any>) {}
+  forEach(_: Consumer<never>) {}
 
   all(_: Predicate<never>) {
     return true;
@@ -98,12 +98,12 @@ export class Left<A> extends Either<A, never> {
     return new Right(this.value);
   }
 
-  onLeft(f: Mapper<A, any>): Left<A> {
+  onLeft(f: Consumer<A>): Left<A> {
     f(this.value);
     return this;
   }
 
-  onRight(_: Mapper<never, any>): Left<A> {
+  onRight(_: Consumer<never>): Left<A> {
     return this;
   }
 
@@ -156,7 +156,7 @@ export class Right<B> extends Either<never, B> {
     return predicate(this.value);
   }
 
-  forEach(f: Mapper<B, any>) {
+  forEach(f: Consumer<B>) {
     f(this.value);
   }
 
@@ -180,11 +180,11 @@ export class Right<B> extends Either<never, B> {
     return new Left(this.value);
   }
 
-  onLeft(_: Mapper<never, any>): Right<B> {
+  onLeft(_: Consumer<never>): Right<B> {
     return this;
   }
 
-  onRight(f: Mapper<B, any>): Right<B> {
+  onRight(f: Consumer<B>): Right<B> {
     f(this.value);
     return this;
   }

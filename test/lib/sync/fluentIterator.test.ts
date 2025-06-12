@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { FlattenCollector } from '../../../src/lib/collectors';
+import { flattenCollector } from '../../../src/lib/collectors';
 import * as Comparators from '../../../src/lib/comparators';
 import { emptyIterator, iterator, singletonIterator } from '../../../src/lib/sync/fluentIterator';
 import { range } from '../../../src/lib/sync/generators';
@@ -203,13 +203,13 @@ describe('SyncFluentIterator', () => {
       expect(emptyIterator<number>().reduce((acc, x) => acc + x)).to.be.undefined;
     });
 
-    describe('tap', () => {
-      it('should tap all elements', () => {
+    describe('peek', () => {
+      it('should peek all elements', () => {
         let count = 0;
         const f = (x: number) => {
           count += x;
         };
-        expect(iterator(range(1, 5)).tap(f).collect()).deep.equal([1, 2, 3, 4]);
+        expect(iterator(range(1, 5)).peek(f).collect()).deep.equal([1, 2, 3, 4]);
         expect(count).equal(10);
       });
     });
@@ -364,21 +364,6 @@ describe('SyncFluentIterator', () => {
     });
   });
 
-  describe('minmax', () => {
-    it('should return the longest and shortest strings', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax(Comparators.byMapper(s => s.length))).deep.equal({
-        min: 'x',
-        max: 'foobar',
-      });
-    });
-    it('should return lexicographically smallest and largest strings', () => {
-      expect(iterator(['foo', 'bar', 'x', 'foobar']).minmax()).deep.equal({ min: 'bar', max: 'x' });
-    });
-    it('should return return undefined on empty iterator', () => {
-      expect(emptyIterator().minmax()).to.be.undefined;
-    });
-  });
-
   describe('last', () => {
     it('should return the last string', () => {
       expect(iterator(['foo', 'bar', 'x', 'foobar']).last()).equal('foobar');
@@ -518,7 +503,7 @@ describe('SyncFluentIterator', () => {
         [2, 5],
         [4, 2, 5],
       ])
-        .collectTo(new FlattenCollector())
+        .collectTo(flattenCollector())
         .collect();
       const expected = [2, 5, 4, 2, 5];
       expect(actual).deep.equal(expected);
@@ -528,7 +513,7 @@ describe('SyncFluentIterator', () => {
         [2, 5],
         [4, 2, 5],
       ])
-        .collectTo(new FlattenCollector())
+        .collectTo(flattenCollector())
         .collectToSet();
       const expected = new Set([2, 4, 5]);
       expect(actual).deep.equal(expected);

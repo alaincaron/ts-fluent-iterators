@@ -1,5 +1,5 @@
 import { Collector } from '../collectors';
-import { ArrayGenerator, IteratorGenerator, Mapper, Predicate, Reducer } from '../utils';
+import { ArrayGenerator, IteratorGenerator, Mapper, Predicate, Reducer, Consumer } from '../utils';
 
 export function* empty<A = never>(): IterableIterator<A> {}
 export function* singleton<A>(a: A): IterableIterator<A> {
@@ -39,11 +39,11 @@ export function* take<A>(iter: Iterator<A>, n: number): IterableIterator<A> {
   }
 }
 
-export function* tap<A>(iter: Iterator<A>, mapper: Mapper<A, any>): IterableIterator<A> {
+export function* peek<A>(iter: Iterator<A>, f: Consumer<A>): IterableIterator<A> {
   for (;;) {
     const item = iter.next();
     if (item.done) break;
-    mapper(item.value);
+    f(item.value);
     yield item.value;
   }
 }
@@ -118,11 +118,11 @@ export function reduce<A>(iter: Iterator<A>, reducer: Reducer<A, A>, initialValu
   return fold(iter, reducer, acc);
 }
 
-export function forEach<A>(iter: Iterator<A>, mapper: Mapper<A, any>): void {
+export function forEach<A>(iter: Iterator<A>, f: Consumer<A>): void {
   for (;;) {
     const item = iter.next();
     if (item.done) break;
-    mapper(item.value);
+    f(item.value);
   }
 }
 
@@ -204,7 +204,8 @@ export function collectTo<A, B>(iter: Iterator<A>, collector: Collector<A, B>): 
   for (;;) {
     const item = iter.next();
     if (item.done) break;
-    if (collector.collect(item.value)) break;
+    const x: boolean | void = collector.collect(item.value);
+    if (x === undefined || x) continue;
   }
   return collector.result;
 }

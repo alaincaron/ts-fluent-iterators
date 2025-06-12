@@ -17,15 +17,14 @@
 - [FlattenCollector](classes/FlattenCollector.md)
 - [FluentIterator](classes/FluentIterator.md)
 - [GroupByCollector](classes/GroupByCollector.md)
+- [JoinCollector](classes/JoinCollector.md)
 - [LastCollector](classes/LastCollector.md)
 - [Lazy](classes/Lazy.md)
 - [MapCollector](classes/MapCollector.md)
 - [MaxCollector](classes/MaxCollector.md)
 - [MinCollector](classes/MinCollector.md)
-- [MinMaxCollector](classes/MinMaxCollector.md)
 - [ObjectCollector](classes/ObjectCollector.md)
 - [SetCollector](classes/SetCollector.md)
-- [StringJoiner](classes/StringJoiner.md)
 - [SumCollector](classes/SumCollector.md)
 - [TallyCollector](classes/TallyCollector.md)
 
@@ -33,7 +32,6 @@
 
 - [ArrayGenerator](interfaces/ArrayGenerator.md)
 - [Collector](interfaces/Collector.md)
-- [MinMax](interfaces/MinMax.md)
 
 ## Type Aliases
 
@@ -41,6 +39,7 @@
 - [BinaryPredicate](type-aliases/BinaryPredicate.md)
 - [CollisionHandler](type-aliases/CollisionHandler.md)
 - [Comparator](type-aliases/Comparator.md)
+- [Consumer](type-aliases/Consumer.md)
 - [IteratorGenerator](type-aliases/IteratorGenerator.md)
 - [IteratorLike](type-aliases/IteratorLike.md)
 - [Mapper](type-aliases/Mapper.md)

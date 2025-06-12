@@ -2,9 +2,9 @@
 
 ---
 
-[ts-fluent-iterators](../README.md) / StringJoiner
+[ts-fluent-iterators](../README.md) / JoinCollector
 
-# Class: StringJoiner\<A\>
+# Class: JoinCollector\<A\>
 
 A `Collector` that accepts elements of type `A` and returns a `string`
 
@@ -15,7 +15,7 @@ const c = new StringJoiner<string>(', ', '[', ']');
 c.collect('foo');
 c.collect('bar');
 c.collect('baz');
-// c.result : [foo, bar, baz]
+// c.result : "foobarbaz"
 ```
 
 ## Type Parameters
@@ -34,7 +34,7 @@ The type of the elements being accepted.
 
 ### Constructor
 
-> **new StringJoiner**\<`A`\>(`separator`, `prefix`, `suffix`): `StringJoiner`\<`A`\>
+> **new JoinCollector**\<`A`\>(`separator`, `prefix`, `suffix`): `JoinCollector`\<`A`\>
 
 #### Parameters
 
@@ -58,7 +58,7 @@ suffix of the joined string.
 
 #### Returns
 
-`StringJoiner`\<`A`\>
+`JoinCollector`\<`A`\>
 
 ## Accessors
 

@@ -14,6 +14,12 @@ export type Mapper<A, B> = (a: A) => B;
 export type Provider<A> = () => A;
 
 /**
+ * A function that consumes a value of type `A`
+ * @typeParam A the type of elements being consumed
+ **/
+export type Consumer<A> = (a: A) => void;
+
+/**
  * A predicate on a value.
  * @typeParam A the type of values on which the predicate is to be evaluated.
  * @example
@@ -90,22 +96,6 @@ export type Reducer<A, B> = BinaryMapper<B, A, B>;
  * ```
  */
 export type Comparator<A> = (a1: A, a2: A) => number;
-
-/**
- * Holds result of a `MinMaxCollector`
- * @typeParam A the type of the objects in the result.
- */
-export interface MinMax<A> {
-  /**
-   * The min value
-   */
-
-  min: A;
-  /**
-   * The max value
-   */
-  max: A;
-}
 
 /**
  * An interface used to generate arrays from `length` and `seed`

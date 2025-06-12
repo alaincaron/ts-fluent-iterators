@@ -1,20 +1,19 @@
 import * as Iterators from './iterators';
 import {
-  ArrayCollector,
+  arrayCollector,
   Collector,
-  CountCollector,
-  GroupByCollector,
-  LastCollector,
-  MapCollector,
-  MaxCollector,
-  MinCollector,
-  MinMaxCollector,
-  ObjectCollector,
-  SetCollector,
-  StringJoiner,
-  TallyCollector,
+  countCollector,
+  groupByCollector,
+  lastCollector,
+  mapCollector,
+  maxCollector,
+  minCollector,
+  objectCollector,
+  setCollector,
+  joinCollector,
+  tallyCollector,
 } from '../collectors';
-import { CollisionHandler, Comparator, IteratorGenerator, Mapper, MinMax, Predicate, Reducer } from '../utils';
+import { CollisionHandler, Comparator, IteratorGenerator, Mapper, Predicate, Reducer, Consumer } from '../utils';
 
 /**
  * Iterator with a Fluent interface.
@@ -74,7 +73,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * @param collector The `Collector` into which to collect the items
    * @returns The result of the `collector`
    * @example
-   * const collector = new ArrayCollector<string>;
+   * const collector = arrayCollector<string>;
    * const iter = iterator([1,2,3]);
    * const data = iter.collectTo(collector);
    * // data is [1,2,3]
@@ -92,7 +91,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * // data is [1,2,3]
    */
   collect(): A[] {
-    return this.collectTo(new ArrayCollector());
+    return this.collectTo(arrayCollector());
   }
 
   /**
@@ -104,7 +103,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * // data is Set { 1,2,3 }
    */
   collectToSet(): Set<A> {
-    return this.collectTo(new SetCollector());
+    return this.collectTo(setCollector());
   }
 
   /**
@@ -139,7 +138,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * // data is Map { "foo" => 3, "bar" => 3, "foobar" => 6 }
    */
   collectToMap2<K, V>(mapper: Mapper<A, [K, V]>, collisionHandler?: CollisionHandler<K, V>): Map<K, V> {
-    return this.map(mapper).collectTo(new MapCollector(collisionHandler));
+    return this.map(mapper).collectTo(mapCollector(collisionHandler));
   }
 
   /**
@@ -175,7 +174,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     mapper: Mapper<A, [string, V]>,
     collisionHandler?: CollisionHandler<string, V>
   ): Record<string, V> {
-    return this.map(mapper).collectTo(new ObjectCollector(collisionHandler));
+    return this.map(mapper).collectTo(objectCollector(collisionHandler));
   }
 
   /**
@@ -422,9 +421,9 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * @remarks This can be useful to see intermediate steps of complex {@link FluentIterator}.  The results of invoking the `mapper` are ignored unless it throwws.
    * @example
    * const iter = iterator([1,2,3])
-   * iter.tap(x => console.log(`before filter ${x}`))
+   * iter.peek(x => console.log(`before filter ${x}`))
    *      .filter(x => x % 2 === 0)
-   *      .tap(x => console.log(`after filter: ${x}`))
+   *      .peek(x => console.log(`after filter: ${x}`))
    *      .collect();
    * // ouputs:
    * // before filter 1
@@ -433,20 +432,20 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * // before filter 3
    * // result : [ 2 ]
    */
-  tap(mapper: Mapper<A, any>): FluentIterator<A> {
-    return new FluentIterator(Iterators.tap(this.iter, mapper));
+  peek(mapper: Consumer<A>): FluentIterator<A> {
+    return new FluentIterator(Iterators.peek(this.iter, mapper));
   }
 
   /**
    * Applies the {@link Mapper | mapper} to each element of this {@link FluentIterator}
    *
-   * @param mapper the operation to be invoked on each element.
+   * @param f the operation to be invoked on each element.
    * @remarks The results of invoking the `mapper` are ignored unless it throws.
    * @example
    * iter.forEach(console.log)
    */
-  forEach(mapper: Mapper<A, any>): void {
-    Iterators.forEach(this.iter, mapper);
+  forEach(f: Consumer<A>): void {
+    Iterators.forEach(this.iter, f);
   }
 
   /**
@@ -547,7 +546,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * FluentIterator.empty().count(); 0
    */
   count(): number {
-    return this.collectTo(new CountCollector());
+    return this.collectTo(countCollector());
   }
 
   /**
@@ -567,7 +566,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * // undefined
    */
   min(comparator?: Comparator<A>): A | undefined {
-    return this.collectTo(new MinCollector(comparator));
+    return this.collectTo(minCollector(comparator));
   }
 
   /**
@@ -585,26 +584,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * FluentIterator.empty().max(); // undefined
    */
   max(comparator?: Comparator<A>): A | undefined {
-    return this.collectTo(new MaxCollector(comparator));
-  }
-
-  /**
-   * Returns the minimum and maximum element according to the argument {@link Comparator | comparator}.
-   *
-   * @example
-   * iterator([1,2]).minmax();
-   * // { min: 1, max: 2}
-   *
-   * iterator(['foo','foobar']).minmax(
-   *    (s1,s2) => s1.length - s2.length
-   * );
-   * // { min: 'foo', max: 'foobar' }
-
-   * FluentIterator.empty().minmax();
-   // undefined
-   */
-  minmax(comparator?: Comparator<A>): MinMax<A> | undefined {
-    return this.collectTo(new MinMaxCollector(comparator));
+    return this.collectTo(maxCollector(comparator));
   }
 
   /**
@@ -618,7 +598,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * // undefined
    */
   last(): A | undefined {
-    return this.collectTo(new LastCollector());
+    return this.collectTo(lastCollector());
   }
 
   /**
@@ -637,7 +617,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    * The items are converted into a string using string-interpolation.
    */
   join(separator?: string, prefix?: string, suffix?: string): string {
-    return this.collectTo(new StringJoiner(separator, prefix, suffix));
+    return this.collectTo(joinCollector(separator, prefix, suffix));
   }
 
   /**
@@ -664,7 +644,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    // Map { true => [4], false => [2, 6]}
    */
   groupBy2<K, V>(mapper: Mapper<A, [K, V]>): Map<K, V[]> {
-    return this.map(mapper).collectTo(new GroupByCollector());
+    return this.map(mapper).collectTo(groupByCollector());
   }
 
   /**
@@ -676,7 +656,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
    // Map { 'foo' => 2, bar => 1 }
    */
   tally(): Map<A, number> {
-    return this.collectTo(new TallyCollector());
+    return this.collectTo(tallyCollector());
   }
 
   /**
