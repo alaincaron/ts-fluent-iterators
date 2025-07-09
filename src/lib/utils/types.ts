@@ -17,7 +17,7 @@ export type Provider<A> = () => A;
  * A function that consumes a value of type `A`
  * @typeParam A the type of elements being consumed
  **/
-export type Consumer<A> = (a: A) => void;
+export type Consumer<A> = Mapper<A, void>;
 
 /**
  * A predicate on a value.

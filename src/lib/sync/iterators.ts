@@ -118,6 +118,22 @@ export function reduce<A>(iter: Iterator<A>, reducer: Reducer<A, A>, initialValu
   return fold(iter, reducer, acc);
 }
 
+export function* scan<A, B>(
+  iter: Iterator<A>,
+  reducer: Reducer<A, B>,
+  initialValue: B,
+  emitInitial = false
+): IterableIterator<B> {
+  let acc = initialValue;
+  if (emitInitial) yield acc;
+  for (;;) {
+    const item = iter.next();
+    if (item.done) break;
+    acc = reducer(acc, item.value);
+    yield acc;
+  }
+}
+
 export function forEach<A>(iter: Iterator<A>, f: Consumer<A>): void {
   for (;;) {
     const item = iter.next();

@@ -377,6 +377,35 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
+   * Applies a reducer function over this {@link FluentIterator}, returning a {@link FluentIterator} yielding each intermediate reduce result.
+   *
+   * Similar to `fold`, but instead of returning only the final result,
+   * `scan()` emits the accumulated value at each step. This is useful for calculating running
+   * totals, prefix sums, rolling aggregates, and more.
+   *
+   * If this {@link FluentIterator} is empty, no values are emitted unless `emitInitial` is `true`.
+
+   * @template B  The type of the accumulated result.
+   *
+   * @param reducer The reducer function to be applied at each iteration
+   *
+   *
+   * @param initialValue The initial value of the accumulator.
+   *
+   * @param emitInitial
+
+   * @returns {FluentIterator<B>}
+   *   A new {@link FluentIterator} that emits the accumulator at each step.
+   *
+   * @example
+   * FluentIterator.from([1, 2, 3, 4]).scan((acc, x) => acc + x, 0) // yields 1, 3, 6, 10
+   *
+   */
+  scan<B>(reducer: Reducer<A, B>, initialValue: B, emitInitial = false): FluentIterator<B> {
+    return new FluentIterator(Iterators.scan(this.iter, reducer, initialValue, emitInitial));
+  }
+
+  /**
    * Returns a new {@link FluentIterator} that yields pairs of elements
    * yielded by each Iterators which are navigated in parallel.
    * The length of the new {@link FluentIterator} is equal to the length the shorter iterator.

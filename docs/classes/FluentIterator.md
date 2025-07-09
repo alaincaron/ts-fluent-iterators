@@ -1170,6 +1170,58 @@ a new FluentIterator where all the `null` or `undefined` elements are removed.
 
 ---
 
+### scan()
+
+> **scan**\<`B`\>(`reducer`, `initialValue`, `emitInitial`): `FluentIterator`\<`B`\>
+
+Applies a reducer function over this FluentIterator, returning a FluentIterator yielding each intermediate reduce result.
+
+Similar to `fold`, but instead of returning only the final result,
+`scan()` emits the accumulated value at each step. This is useful for calculating running
+totals, prefix sums, rolling aggregates, and more.
+
+If this FluentIterator is empty, no values are emitted unless `emitInitial` is `true`.
+
+#### Type Parameters
+
+##### B
+
+`B`
+
+The type of the accumulated result.
+
+#### Parameters
+
+##### reducer
+
+[`Reducer`](../type-aliases/Reducer.md)\<`A`, `B`\>
+
+The reducer function to be applied at each iteration
+
+##### initialValue
+
+`B`
+
+The initial value of the accumulator.
+
+##### emitInitial
+
+`boolean` = `false`
+
+#### Returns
+
+`FluentIterator`\<`B`\>
+
+A new FluentIterator that emits the accumulator at each step.
+
+#### Example
+
+```ts
+FluentIterator.from([1, 2, 3, 4]).scan((acc, x) => acc + x, 0); // yields 1, 3, 6, 10
+```
+
+---
+
 ### skip()
 
 > **skip**(`n`): `FluentIterator`\<`A`\>

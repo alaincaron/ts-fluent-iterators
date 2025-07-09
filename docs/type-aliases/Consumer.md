@@ -4,9 +4,9 @@
 
 [ts-fluent-iterators](../README.md) / Consumer
 
-# Type Alias: Consumer()\<A\>
+# Type Alias: Consumer\<A\>
 
-> **Consumer**\<`A`\> = (`a`) => `void`
+> **Consumer**\<`A`\> = [`Mapper`](Mapper.md)\<`A`, `void`\>
 
 A function that consumes a value of type `A`
 
@@ -17,13 +17,3 @@ A function that consumes a value of type `A`
 `A`
 
 the type of elements being consumed
-
-## Parameters
-
-### a
-
-`A`
-
-## Returns
-
-`void`
