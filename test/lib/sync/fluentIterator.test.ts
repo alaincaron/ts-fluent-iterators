@@ -224,7 +224,7 @@ describe('SyncFluentIterator', () => {
       ).deep.equal([1, 3, 6, 10]);
     });
 
-    it('computes running total with emitInitial = true', async () => {
+    it('computes running total with emitInitial = true', () => {
       expect(
         iterator([1, 2, 3, 4])
           .scan((acc, x) => acc + x, 0, true)
@@ -232,7 +232,7 @@ describe('SyncFluentIterator', () => {
       ).deep.equal([0, 1, 3, 6, 10]);
     });
 
-    it('returns [] for empty input (emitInitial = false)', async () => {
+    it('returns [] for empty input (emitInitial = false)', () => {
       expect(
         iterator([])
           .scan((acc, x) => acc + x, 100)
@@ -240,7 +240,7 @@ describe('SyncFluentIterator', () => {
       ).deep.equal([]);
     });
 
-    it('returns [initial] for empty input with emitInitial = true', async () => {
+    it('returns [initial] for empty input with emitInitial = true', () => {
       expect(
         iterator([])
           .scan((acc, x) => acc + x, 100, true)
