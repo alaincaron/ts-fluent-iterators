@@ -60,7 +60,9 @@ export class FilteringCollector<A, B> implements Collector<A, B> {
   ) {}
 
   collect(a: A) {
-    if (this.predicate(a)) return this.collector.collect(a);
+    if (this.predicate(a)) {
+      this.collector.collect(a);
+    }
   }
 
   get result() {
