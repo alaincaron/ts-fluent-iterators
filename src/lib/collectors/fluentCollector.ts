@@ -81,7 +81,7 @@ export class AndThenCollector<A, B, C> implements Collector<A, C> {
   ) {}
 
   collect(a: A) {
-    return this.collector.collect(a);
+    this.collector.collect(a);
   }
 
   get result() {
