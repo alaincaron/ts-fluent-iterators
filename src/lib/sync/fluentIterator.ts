@@ -235,6 +235,10 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
     return new FluentIterator(Iterators.filterMap(this.iter, mapper));
   }
 
+  flatMap<B>(mapper: Mapper<A, Iterator<B> | Iterable<B>>): FluentIterator<B> {
+    return new FluentIterator(Iterators.flatMap(this.iter, mapper));
+  }
+
   /**
    * Returns the first element of this {@link FluentIterator} or `undefined` if this {@link FluentIterator} is empty.
    *
@@ -442,7 +446,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   /**
    * Returns a new {@link FluentIterator} that
    * yields the same elements as this {@link FluentIterator}
-   * and executes the {@link Mapper | mapper} on each element.
+   * and executes the {@link Consumer | mapper} on each element.
    *
    *
    * @param mapper the operation to be invoked on each element.
@@ -466,7 +470,7 @@ export class FluentIterator<A> implements Iterator<A>, Iterable<A> {
   }
 
   /**
-   * Applies the {@link Mapper | mapper} to each element of this {@link FluentIterator}
+   * Applies the {@link Consumer | mapper} to each element of this {@link FluentIterator}
    *
    * @param f the operation to be invoked on each element.
    * @remarks The results of invoking the `mapper` are ignored unless it throws.

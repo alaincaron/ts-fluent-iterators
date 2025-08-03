@@ -23,6 +23,19 @@ export function* filterMap<A, B>(iter: Iterator<A>, mapper: Mapper<A, B | null |
   }
 }
 
+export function* flatMap<A, B>(iter: Iterator<A>, mapper: Mapper<A, Iterator<B> | Iterable<B>>): IterableIterator<B> {
+  for (;;) {
+    const item = iter.next();
+    if (item.done) break;
+    const iter2 = toIterator(mapper(item.value));
+    for (;;) {
+      const item2 = iter2.next();
+      if (item2.done) break;
+      yield item2.value;
+    }
+  }
+}
+
 export function first<A>(iter: Iterator<A>): A | undefined {
   for (;;) {
     const item = iter.next();

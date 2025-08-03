@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { flattenCollector } from '../../../src/lib/collectors';
 import * as Comparators from '../../../src/lib/comparators';
 import { emptyIterator, iterator, singletonIterator } from '../../../src/lib/sync/fluentIterator';
 import { range } from '../../../src/lib/sync/generators';
@@ -48,6 +47,29 @@ describe('SyncFluentIterator', () => {
           .filterMap(x => (x % 2 === 0 ? 2 * x : undefined))
           .collect()
       ).deep.equal([4]);
+    });
+  });
+
+  describe('flatMap', () => {
+    it('should return flattened list of numbers', () => {
+      const actual = iterator([
+        [2, 5],
+        [4, 2, 5],
+      ])
+        .flatMap(arr => arr)
+        .collect();
+      const expected = [2, 5, 4, 2, 5];
+      expect(actual).deep.equal(expected);
+    });
+    it('should return set of numbers', () => {
+      const actual = iterator([
+        [2, 5],
+        [4, 2, 5],
+      ])
+        .flatMap(arr => arr)
+        .collectToSet();
+      const expected = new Set([2, 4, 5]);
+      expect(actual).deep.equal(expected);
     });
   });
 
@@ -527,29 +549,6 @@ describe('SyncFluentIterator', () => {
         { key: 'b', value: 4 },
       ]).collectToObject2(mapper, CollisionHandlers.ignore);
       const expected = { a: 1, b: 3 };
-      expect(actual).deep.equal(expected);
-    });
-  });
-
-  describe('collectTo with FlattenCollector', () => {
-    it('should return flattened list of numbers', () => {
-      const actual = iterator([
-        [2, 5],
-        [4, 2, 5],
-      ])
-        .collectTo(flattenCollector())
-        .collect();
-      const expected = [2, 5, 4, 2, 5];
-      expect(actual).deep.equal(expected);
-    });
-    it('should return flattened set of numbers', () => {
-      const actual = iterator([
-        [2, 5],
-        [4, 2, 5],
-      ])
-        .collectTo(flattenCollector())
-        .collectToSet();
-      const expected = new Set([2, 4, 5]);
       expect(actual).deep.equal(expected);
     });
   });
