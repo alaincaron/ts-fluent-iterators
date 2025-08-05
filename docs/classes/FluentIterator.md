@@ -696,7 +696,7 @@ const sum = iterator([1,2,3])
 
 > **forEach**(`f`): `void`
 
-Applies the [mapper](../type-aliases/Mapper.md) to each element of this FluentIterator
+Applies the [mapper](../type-aliases/Consumer.md) to each element of this FluentIterator
 
 #### Parameters
 
@@ -1053,7 +1053,7 @@ never empty.
 
 Returns a new FluentIterator that
 yields the same elements as this FluentIterator
-and executes the [mapper](../type-aliases/Mapper.md) on each element.
+and executes the [mapper](../type-aliases/Consumer.md) on each element.
 
 #### Parameters
 
