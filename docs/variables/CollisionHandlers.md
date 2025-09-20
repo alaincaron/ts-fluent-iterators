@@ -16,7 +16,7 @@ Default collision handlers for `MapCollector`
 - reject: an Error is thrown
 ```
 
-## Type declaration
+## Type Declaration
 
 ### ignore()
 
