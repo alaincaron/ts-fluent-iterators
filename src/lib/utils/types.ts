@@ -45,6 +45,13 @@ export type BinaryMapper<A, B, C> = (a: A, b: B) => C;
 export type BinaryPredicate<A, B> = BinaryMapper<A, B, boolean>;
 
 /**
+ * A function that consumes two values of type `A` and `B`
+ * @typeParam A the type of first elements being consumed
+ * @typeParam B the type of second elements being consumed
+ **/
+export type BinaryConsumer<A, B> = BinaryMapper<A, B, void>;
+
+/**
  * A collision handler for collectors. Used by `Collectors` `MapCollector` and `ObjectCollector` to handle collisions.
  * The value returned will be the new mapping for the key. It can also throw to abort the collecting of elements.
  *
