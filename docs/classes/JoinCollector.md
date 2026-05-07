@@ -34,23 +34,23 @@ The type of the elements being accepted.
 
 ### Constructor
 
-> **new JoinCollector**\<`A`\>(`separator`, `prefix`, `suffix`): `JoinCollector`\<`A`\>
+> **new JoinCollector**\<`A`\>(`separator?`, `prefix?`, `suffix?`): `JoinCollector`\<`A`\>
 
 #### Parameters
 
-##### separator
+##### separator?
 
 `string` = `','`
 
 separator between elements.
 
-##### prefix
+##### prefix?
 
 `string` = `''`
 
 prefix of the joined string.
 
-##### suffix
+##### suffix?
 
 `string` = `''`
 

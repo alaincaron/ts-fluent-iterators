@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../README.md) / Mapper
 
-# Type Alias: Mapper()\<A, B\>
+# Type Alias: Mapper\<A, B\>
 
 > **Mapper**\<`A`, `B`\> = (`a`) => `B`
 

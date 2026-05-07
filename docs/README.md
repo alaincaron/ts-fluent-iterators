@@ -35,6 +35,7 @@
 
 ## Type Aliases
 
+- [BinaryConsumer](type-aliases/BinaryConsumer.md)
 - [BinaryMapper](type-aliases/BinaryMapper.md)
 - [BinaryPredicate](type-aliases/BinaryPredicate.md)
 - [CollisionHandler](type-aliases/CollisionHandler.md)

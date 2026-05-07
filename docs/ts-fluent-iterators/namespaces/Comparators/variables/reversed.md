@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../../../../README.md) / [Comparators](../README.md) / reversed
 
-# Variable: reversed()
+# Variable: reversed
 
 > `const` **reversed**: \<`A`\>(`a1`, `a2`) => `number`
 

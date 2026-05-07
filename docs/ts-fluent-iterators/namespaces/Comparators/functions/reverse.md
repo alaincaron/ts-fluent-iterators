@@ -6,7 +6,7 @@
 
 # Function: reverse()
 
-> **reverse**\<`A`\>(`comparator`): [`Comparator`](../../../../type-aliases/Comparator.md)\<`A`\>
+> **reverse**\<`A`\>(`comparator?`): [`Comparator`](../../../../type-aliases/Comparator.md)\<`A`\>
 
 Reverse comparator.
 
@@ -20,7 +20,7 @@ The type of elements to be compared
 
 ## Parameters
 
-### comparator
+### comparator?
 
 [`Comparator`](../../../../type-aliases/Comparator.md)\<`A`\> = `natural`
 

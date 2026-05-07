@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../README.md) / CollisionHandler
 
-# Type Alias: CollisionHandler()\<K, V\>
+# Type Alias: CollisionHandler\<K, V\>
 
 > **CollisionHandler**\<`K`, `V`\> = (`k`, `oldValue`, `newValue`) => `V`
 

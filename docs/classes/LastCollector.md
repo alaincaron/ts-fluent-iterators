@@ -34,13 +34,13 @@ c.result : 'baz'
 
 #### Get Signature
 
-> **get** **result**(): `undefined` \| `A`
+> **get** **result**(): `A` \| `undefined`
 
 Returns the aggregated object.
 
 ##### Returns
 
-`undefined` \| `A`
+`A` \| `undefined`
 
 The aggregated object resulting from collecting all objects
 

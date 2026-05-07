@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../README.md) / BinaryMapper
 
-# Type Alias: BinaryMapper()\<A, B, C\>
+# Type Alias: BinaryMapper\<A, B, C\>
 
 > **BinaryMapper**\<`A`, `B`, `C`\> = (`a`, `b`) => `C`
 

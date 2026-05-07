@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../README.md) / Provider
 
-# Type Alias: Provider()\<A\>
+# Type Alias: Provider\<A\>
 
 > **Provider**\<`A`\> = () => `A`
 

@@ -4,7 +4,7 @@
 
 [ts-fluent-iterators](../README.md) / Comparator
 
-# Type Alias: Comparator()\<A\>
+# Type Alias: Comparator\<A\>
 
 > **Comparator**\<`A`\> = (`a1`, `a2`) => `number`
 

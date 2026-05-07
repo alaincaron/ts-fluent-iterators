@@ -105,9 +105,9 @@ Returns a new FluentIterator that is the result of appending its argument to thi
 
 ##### items
 
-An `Iterator` or `Iterable` whose items are appended to this FluentIterator.
+`Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>
 
-`Iterator`\<`A`, `any`, `any`\> | `Iterable`\<`A`, `any`, `any`\>
+An `Iterator` or `Iterable` whose items are appended to this FluentIterator.
 
 #### Returns
 
@@ -525,7 +525,7 @@ yields 1,2
 
 ### enumerate()
 
-> **enumerate**(`start`): `FluentIterator`\<\[`A`, `number`\]\>
+> **enumerate**(`start?`): `FluentIterator`\<\[`A`, `number`\]\>
 
 Returns a new FluentIterator that yields pairs of elements
 consisting of the elements yielded by this
@@ -533,7 +533,7 @@ consisting of the elements yielded by this
 
 #### Parameters
 
-##### start
+##### start?
 
 `number` = `0`
 
@@ -603,7 +603,7 @@ The type of the elements of the returned FluentIterator
 
 ##### mapper
 
-[`Mapper`](../type-aliases/Mapper.md)\<`A`, `undefined` \| `null` \| `B`\>
+[`Mapper`](../type-aliases/Mapper.md)\<`A`, `B` \| `null` \| `undefined`\>
 
 Transformation applied to elements of this FluentIterator
 
@@ -629,13 +629,13 @@ iter.map(mapper).removeNull();
 
 ### first()
 
-> **first**(): `undefined` \| `A`
+> **first**(): `A` \| `undefined`
 
 Returns the first element of this FluentIterator or `undefined` if this FluentIterator is empty.
 
 #### Returns
 
-`undefined` \| `A`
+`A` \| `undefined`
 
 The first element of this FluentIterator or `undefined`.
 
@@ -873,13 +873,13 @@ The items are converted into a string using string-interpolation.
 
 ### last()
 
-> **last**(): `undefined` \| `A`
+> **last**(): `A` \| `undefined`
 
 Returns the last element of this FluentIterator
 
 #### Returns
 
-`undefined` \| `A`
+`A` \| `undefined`
 
 #### Example
 
@@ -933,7 +933,7 @@ iter.map(s => s.length)
 
 ### max()
 
-> **max**(`comparator?`): `undefined` \| `A`
+> **max**(`comparator?`): `A` \| `undefined`
 
 Returns the maximum element according to the argument [comparator](../type-aliases/Comparator.md).
 
@@ -945,7 +945,7 @@ Returns the maximum element according to the argument [comparator](../type-alias
 
 #### Returns
 
-`undefined` \| `A`
+`A` \| `undefined`
 
 #### Example
 
@@ -963,7 +963,7 @@ FluentIterator.empty().max(); // undefined
 
 ### min()
 
-> **min**(`comparator?`): `undefined` \| `A`
+> **min**(`comparator?`): `A` \| `undefined`
 
 Returns the minimum element according to the argument [comparator](../type-aliases/Comparator.md).
 
@@ -977,7 +977,7 @@ The {link Comparator} used to order the elements.
 
 #### Returns
 
-`undefined` \| `A`
+`A` \| `undefined`
 
 #### Example
 
@@ -1100,9 +1100,9 @@ Returns a new FluentIterator that is the result of prepending its argument to th
 
 ##### items
 
-An `Iterator` or `Iterable` whose items are prepended to this FluentIterator.
+`Iterator`\<`A`, `any`, `any`\> \| `Iterable`\<`A`, `any`, `any`\>
 
-`Iterator`\<`A`, `any`, `any`\> | `Iterable`\<`A`, `any`, `any`\>
+An `Iterator` or `Iterable` whose items are prepended to this FluentIterator.
 
 #### Returns
 
@@ -1119,7 +1119,7 @@ iterator([1, 2, 3]).prepend([4, 5, 6]);
 
 ### reduce()
 
-> **reduce**(`reducer`, `initialValue?`): `undefined` \| `A`
+> **reduce**(`reducer`, `initialValue?`): `A` \| `undefined`
 
 Special case of [FluentIterator.fold](#fold) where items being iteraded on and the accumulator are of the same type.
 
@@ -1139,7 +1139,7 @@ The value of the accumulator to be used in the first call to `reducer`. If omitt
 
 #### Returns
 
-`undefined` \| `A`
+`A` \| `undefined`
 
 #### Remarks
 
@@ -1172,7 +1172,7 @@ a new FluentIterator where all the `null` or `undefined` elements are removed.
 
 ### scan()
 
-> **scan**\<`B`\>(`reducer`, `initialValue`, `emitInitial`): `FluentIterator`\<`B`\>
+> **scan**\<`B`\>(`reducer`, `initialValue`, `emitInitial?`): `FluentIterator`\<`B`\>
 
 Applies a reducer function over this FluentIterator, returning a FluentIterator yielding each intermediate reduce result.
 
@@ -1204,7 +1204,7 @@ The reducer function to be applied at each iteration
 
 The initial value of the accumulator.
 
-##### emitInitial
+##### emitInitial?
 
 `boolean` = `false`
 
@@ -1439,9 +1439,9 @@ The type of elements of the `other` iterator.
 
 ##### other
 
-The iterator that is combined with this one.
+`Iterator`\<`B`, `any`, `any`\> \| `Iterable`\<`B`, `any`, `any`\>
 
-`Iterator`\<`B`, `any`, `any`\> | `Iterable`\<`B`, `any`, `any`\>
+The iterator that is combined with this one.
 
 #### Returns
 

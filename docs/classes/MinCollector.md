@@ -31,11 +31,11 @@ c.result : 'bar'
 
 ### Constructor
 
-> **new MinCollector**\<`A`\>(`comparator`): `MinCollector`\<`A`\>
+> **new MinCollector**\<`A`\>(`comparator?`): `MinCollector`\<`A`\>
 
 #### Parameters
 
-##### comparator
+##### comparator?
 
 [`Comparator`](../type-aliases/Comparator.md)\<`A`\> = `Comparators.natural`
 
@@ -51,13 +51,13 @@ The comparator used to compare elements. Default is natural ordering.
 
 #### Get Signature
 
-> **get** **result**(): `undefined` \| `A`
+> **get** **result**(): `A` \| `undefined`
 
 Returns the aggregated object.
 
 ##### Returns
 
-`undefined` \| `A`
+`A` \| `undefined`
 
 The aggregated object resulting from collecting all objects
 

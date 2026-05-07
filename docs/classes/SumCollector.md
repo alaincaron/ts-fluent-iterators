@@ -25,11 +25,11 @@ c.result : 3.0
 
 ### Constructor
 
-> **new SumCollector**(`initial`): `SumCollector`
+> **new SumCollector**(`initial?`): `SumCollector`
 
 #### Parameters
 
-##### initial
+##### initial?
 
 `number` = `0`
 
